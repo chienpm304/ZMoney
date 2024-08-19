@@ -14,6 +14,10 @@
 		C30728E12C73269B00C9674B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C30728DF2C73269B00C9674B /* Main.storyboard */; };
 		C30728E32C73269C00C9674B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C30728E22C73269C00C9674B /* Assets.xcassets */; };
 		C30728E62C73269C00C9674B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C30728E42C73269C00C9674B /* LaunchScreen.storyboard */; };
+		C30729262C73914C00C9674B /* AppDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30729252C73914C00C9674B /* AppDIContainer.swift */; };
+		C30729282C73918700C9674B /* AppConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30729272C73918700C9674B /* AppConfiguration.swift */; };
+		C307292A2C7391FE00C9674B /* AppFlowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30729292C7391FE00C9674B /* AppFlowCoordinator.swift */; };
+		C307292C2C7392B000C9674B /* CategorySceneDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C307292B2C7392B000C9674B /* CategorySceneDIContainer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +32,10 @@
 		C30728E22C73269C00C9674B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C30728E52C73269C00C9674B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C30728E72C73269C00C9674B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C30729252C73914C00C9674B /* AppDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDIContainer.swift; sourceTree = "<group>"; };
+		C30729272C73918700C9674B /* AppConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfiguration.swift; sourceTree = "<group>"; };
+		C30729292C7391FE00C9674B /* AppFlowCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFlowCoordinator.swift; sourceTree = "<group>"; };
+		C307292B2C7392B000C9674B /* CategorySceneDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategorySceneDIContainer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,9 +97,12 @@
 		C30728EE2C7330CE00C9674B /* Application */ = {
 			isa = PBXGroup;
 			children = (
+				C30729242C73913B00C9674B /* DIContainer */,
 				C30728D92C73269B00C9674B /* AppDelegate.swift */,
 				C30728DB2C73269B00C9674B /* SceneDelegate.swift */,
 				C30728DD2C73269B00C9674B /* ViewController.swift */,
+				C30729272C73918700C9674B /* AppConfiguration.swift */,
+				C30729292C7391FE00C9674B /* AppFlowCoordinator.swift */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -107,6 +118,15 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		C30729242C73913B00C9674B /* DIContainer */ = {
+			isa = PBXGroup;
+			children = (
+				C30729252C73914C00C9674B /* AppDIContainer.swift */,
+				C307292B2C7392B000C9674B /* CategorySceneDIContainer.swift */,
+			);
+			path = DIContainer;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -119,6 +139,7 @@
 				C30728D32C73269B00C9674B /* Frameworks */,
 				C30728D42C73269B00C9674B /* Resources */,
 				C30728ED2C732EB900C9674B /* Run Script */,
+				B4961BEF3F26E3C1B32DB1BD /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -198,6 +219,23 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		B4961BEF3F26E3C1B32DB1BD /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ZMoney/Pods-ZMoney-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ZMoney/Pods-ZMoney-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ZMoney/Pods-ZMoney-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		C30728ED2C732EB900C9674B /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -223,8 +261,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C30729262C73914C00C9674B /* AppDIContainer.swift in Sources */,
+				C30729282C73918700C9674B /* AppConfiguration.swift in Sources */,
+				C307292C2C7392B000C9674B /* CategorySceneDIContainer.swift in Sources */,
 				C30728DE2C73269B00C9674B /* ViewController.swift in Sources */,
 				C30728DA2C73269B00C9674B /* AppDelegate.swift in Sources */,
+				C307292A2C7391FE00C9674B /* AppFlowCoordinator.swift in Sources */,
 				C30728DC2C73269B00C9674B /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

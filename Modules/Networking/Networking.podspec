@@ -11,7 +11,7 @@ Networking Module
   s.author           = { "Chien Pham" => "https://github.com/chienpm304" }
   s.source           = { :git => "https://github.com/chienpm304/ZMoney.git", :tag => "v#{s.version}" }
 
-  s.ios.deployment_target = '12.0'
+  s.ios.deployment_target = '13.0'
   s.pod_target_xcconfig = { 'SWIFT_VERSION' => '5.0' }
 
   s.source_files = 'Networking/**/*.{m,h,swift}'
