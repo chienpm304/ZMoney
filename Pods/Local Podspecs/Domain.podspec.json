@@ -1,0 +1,33 @@
+{
+  "name": "Domain",
+  "version": "1.0.0",
+  "summary": "Domain Module",
+  "description": "Domain Module",
+  "homepage": "https://github.com/chienpm304/ZMoney",
+  "authors": {
+    "Chien Pham": "https://github.com/chienpm304"
+  },
+  "source": {
+    "git": "https://github.com/chienpm304/ZMoney.git",
+    "tag": "v1.0.0"
+  },
+  "platforms": {
+    "ios": "12.0"
+  },
+  "pod_target_xcconfig": {
+    "SWIFT_VERSION": "5.0"
+  },
+  "source_files": "Domain/**/*.{m,h,swift}",
+  "dependencies": {
+    "Common": [
+
+    ]
+  },
+  "testspecs": [
+    {
+      "name": "Tests",
+      "test_type": "unit",
+      "source_files": "DomainTests/**/*.{m,h,swift}"
+    }
+  ]
+}

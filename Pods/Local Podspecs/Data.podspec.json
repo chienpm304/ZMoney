@@ -1,0 +1,32 @@
+{
+  "name": "Data",
+  "version": "1.0.0",
+  "summary": "Data Module",
+  "description": "Data Module",
+  "homepage": "https://github.com/chienpm304/ZMoney",
+  "authors": {
+    "Chien Pham": "https://github.com/chienpm304"
+  },
+  "source": {
+    "git": "https://github.com/chienpm304/ZMoney.git",
+    "tag": "v1.0.0"
+  },
+  "platforms": {
+    "ios": "12.0"
+  },
+  "pod_target_xcconfig": {
+    "SWIFT_VERSION": "5.0"
+  },
+  "source_files": "Data/**/*.{m,h,swift}",
+  "dependencies": {
+    "Domain": [
+
+    ],
+    "Networking": [
+
+    ],
+    "Common": [
+
+    ]
+  }
+}

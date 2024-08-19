@@ -1,0 +1,21 @@
+{
+  "name": "Common",
+  "version": "1.0.0",
+  "summary": "Common Module",
+  "description": "Common Module",
+  "homepage": "https://github.com/chienpm304/ZMoney",
+  "authors": {
+    "Chien Pham": "https://github.com/chienpm304"
+  },
+  "source": {
+    "git": "https://github.com/kudoleh/iOS-Clean-Architecture-MVVM.git",
+    "tag": "v1.0.0"
+  },
+  "platforms": {
+    "ios": "12.0"
+  },
+  "pod_target_xcconfig": {
+    "SWIFT_VERSION": "5.0"
+  },
+  "source_files": "Common/**/*.{m,h,swift}"
+}
