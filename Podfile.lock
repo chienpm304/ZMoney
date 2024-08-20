@@ -8,9 +8,6 @@ PODS:
     - Common
   - Networking (1.0.0):
     - Common
-  - Presentation (1.0.0):
-    - Common
-    - Domain
   - SwiftLint (0.54.0)
 
 DEPENDENCIES:
@@ -18,7 +15,6 @@ DEPENDENCIES:
   - DataStore (from `Modules/DataStore`)
   - Domain (from `Modules/Domain`)
   - Networking (from `Modules/Networking`)
-  - Presentation (from `Modules/Presentation`)
   - SwiftLint
 
 SPEC REPOS:
@@ -38,19 +34,14 @@ EXTERNAL SOURCES:
     :path: Modules/Networking
     :testspec:
       - Tests
-  Presentation:
-    :path: Modules/Presentation
-    :testspec:
-      - Tests
 
 SPEC CHECKSUMS:
-  Common: ec84addd6f62cb60959e994565e60749abfa4a8e
-  DataStore: 125d460e0d98dd240cf1bb5bd9a53446c5efe27d
-  Domain: b51a643e87cf1ce1b578f1526a9c769a4349a66e
-  Networking: c3425184bf155dfe999f17435bfe6043a3bdbdb8
-  Presentation: 707c7910be49bb4a3eae9a4b8e94d9e49322d845
+  Common: ef5da750126b1bc1e1934dcf9db42cd1e00b55d9
+  DataStore: b6085ea852d903dfd7681eb8167a2f49e4ab95f6
+  Domain: 697fc8b506cd974527d52e885220f0272fe8543c
+  Networking: 820e3dafcbc6a7d0d6750eb6fd11d2939d44c659
   SwiftLint: c1de071d9d08c8aba837545f6254315bc900e211
 
-PODFILE CHECKSUM: a540848bd655b5d191dfaf46c46b188c390344ec
+PODFILE CHECKSUM: 3415eebd942c866c6c114fbfd3ebc8a52d6c10e1
 
 COCOAPODS: 1.10.2

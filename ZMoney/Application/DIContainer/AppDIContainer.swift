@@ -12,8 +12,9 @@ final class AppDIContainer {
     lazy var appConfiguration = AppConfiguration()
 
     // MARK: - DIContainers of scenes
-    func makeCategorySceneDIContainer() -> CategorySceneDIContainer {
-        let dependencies = CategorySceneDIContainer.Dependencies()
-        return CategorySceneDIContainer(dependencies: dependencies)
+
+    func makeMainSceneDIContainer() -> TransCategoriesSceneDIContainer {
+        let dependencies = TransCategoriesSceneDIContainer.Dependencies()
+        return TransCategoriesSceneDIContainer(dependencies: dependencies)
     }
 }

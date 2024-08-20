@@ -6,19 +6,18 @@
 //
 
 import Domain
-import Common
 import CoreData
 
-final class TransCategoryCoreDataStorage {
+public final class TransCategoryCoreDataStorage {
     private let coreData: CoreDataStack
 
-    init(coreData: CoreDataStack = .shared) {
+    public init(coreData: CoreDataStack = .shared) {
         self.coreData = coreData
     }
 }
 
 extension TransCategoryCoreDataStorage: TransCategoryStorage {
-    func fetchAllTransCategories(completion: @escaping (Result<[TransCategory], Error>) -> Void) {
+    public func fetchAllTransCategories(completion: @escaping (Result<[TransCategory], Error>) -> Void) {
         coreData.performBackgroundTask { context in
             do {
                 let request: NSFetchRequest = TransCategoryEntity.fetchRequest()
@@ -33,7 +32,7 @@ extension TransCategoryCoreDataStorage: TransCategoryStorage {
         }
     }
 
-    func addTransCategory(
+    public func addTransCategory(
         _ category: TransCategory,
         completion: @escaping (Result<TransCategory, Error>) -> Void
     ) {
@@ -48,7 +47,7 @@ extension TransCategoryCoreDataStorage: TransCategoryStorage {
         }
     }
 
-    func updateTransCategory(
+    public func updateTransCategory(
         _ category: TransCategory,
         completion: @escaping (Result<TransCategory, Error>) -> Void
     ) {
@@ -73,7 +72,7 @@ extension TransCategoryCoreDataStorage: TransCategoryStorage {
         }
     }
 
-    func deleteTransCategory(
+    public func deleteTransCategory(
         byId id: ID,
         completion: @escaping (Result<TransCategory, Error>) -> Void
     ) {

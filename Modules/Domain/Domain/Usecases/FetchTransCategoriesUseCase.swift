@@ -1,5 +1,5 @@
 //
-//  FetchAllTransCategoriesUseCase.swift
+//  FetchTransCategoriesUseCase.swift
 //  Domain
 //
 //  Created by Chien Pham on 19/08/2024.
@@ -7,13 +7,13 @@
 
 import Combine
 
-final class FetchAllTransCategoriesUseCase: UseCase {
-    typealias ResultValue = (Result<[TransCategory], Error>)
+public final class FetchTransCategoriesUseCase: UseCase {
+    public typealias ResultValue = (Result<[TransCategory], Error>)
 
     private let completion: (ResultValue) -> Void
     private let categoryRepository: TransCategoryRepository
 
-    init(
+    public init(
         completion: @escaping (ResultValue) -> Void,
         categoryRepository: TransCategoryRepository
     ) {
@@ -21,7 +21,7 @@ final class FetchAllTransCategoriesUseCase: UseCase {
         self.categoryRepository = categoryRepository
     }
 
-    func start() -> Cancellable? {
+    public func start() -> Cancellable? {
         categoryRepository.fetchAllTransCategories(completion: completion)
         return nil
     }

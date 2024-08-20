@@ -14,11 +14,10 @@ enum CoreDataError: Error {
     case notFound
 }
 
-final class CoreDataStack {
+public final class CoreDataStack {
 
-    static let shared = CoreDataStack()
+    public static let shared = CoreDataStack()
 
-    // MARK: - Core Data stack
     private lazy var persistentContainer: NSPersistentContainer = {
         //TODO: fix me
         let container = NSPersistentContainer(name: "ZMoneyModel")
@@ -32,6 +31,7 @@ final class CoreDataStack {
     }()
 
     // MARK: - Core Data Saving support
+
     func saveContext() {
         let context = persistentContainer.viewContext
         if context.hasChanges {

@@ -7,35 +7,35 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1A2D0DF975EB33AE55D0E71D /* Pods_ZMoney.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 923AFA37A14B97F3EF8DBCE4 /* Pods_ZMoney.framework */; };
 		C30728DA2C73269B00C9674B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30728D92C73269B00C9674B /* AppDelegate.swift */; };
 		C30728DC2C73269B00C9674B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30728DB2C73269B00C9674B /* SceneDelegate.swift */; };
-		C30728DE2C73269B00C9674B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30728DD2C73269B00C9674B /* ViewController.swift */; };
-		C30728E12C73269B00C9674B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C30728DF2C73269B00C9674B /* Main.storyboard */; };
 		C30728E32C73269C00C9674B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C30728E22C73269C00C9674B /* Assets.xcassets */; };
 		C30728E62C73269C00C9674B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C30728E42C73269C00C9674B /* LaunchScreen.storyboard */; };
 		C30729262C73914C00C9674B /* AppDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30729252C73914C00C9674B /* AppDIContainer.swift */; };
 		C30729282C73918700C9674B /* AppConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30729272C73918700C9674B /* AppConfiguration.swift */; };
 		C307292A2C7391FE00C9674B /* AppFlowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30729292C7391FE00C9674B /* AppFlowCoordinator.swift */; };
-		C307292C2C7392B000C9674B /* CategorySceneDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C307292B2C7392B000C9674B /* CategorySceneDIContainer.swift */; };
+		C307292C2C7392B000C9674B /* TransCategoriesSceneDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C307292B2C7392B000C9674B /* TransCategoriesSceneDIContainer.swift */; };
+		C35AE4872C74ED1E00400DD7 /* TransCategoryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C35AE4862C74ED1E00400DD7 /* TransCategoryListView.swift */; };
+		C35AE48B2C74EDF900400DD7 /* TransCategoriesFlowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C35AE48A2C74EDF900400DD7 /* TransCategoriesFlowCoordinator.swift */; };
+		C51706D8304E868847A947DA /* Pods_ZMoney.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 139DC1D2EB0C97DF21D68110 /* Pods_ZMoney.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		139DC1D2EB0C97DF21D68110 /* Pods_ZMoney.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ZMoney.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		22244C9972D270861ED1F353 /* Pods-ZMoney.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZMoney.debug.xcconfig"; path = "Target Support Files/Pods-ZMoney/Pods-ZMoney.debug.xcconfig"; sourceTree = "<group>"; };
-		923AFA37A14B97F3EF8DBCE4 /* Pods_ZMoney.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ZMoney.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B6B2D6C74AD13202CE314209 /* Pods-ZMoney.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZMoney.release.xcconfig"; path = "Target Support Files/Pods-ZMoney/Pods-ZMoney.release.xcconfig"; sourceTree = "<group>"; };
 		C30728D62C73269B00C9674B /* ZMoney.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZMoney.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C30728D92C73269B00C9674B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C30728DB2C73269B00C9674B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		C30728DD2C73269B00C9674B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		C30728E02C73269B00C9674B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C30728E22C73269C00C9674B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C30728E52C73269C00C9674B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C30728E72C73269C00C9674B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C30729252C73914C00C9674B /* AppDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDIContainer.swift; sourceTree = "<group>"; };
 		C30729272C73918700C9674B /* AppConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfiguration.swift; sourceTree = "<group>"; };
 		C30729292C7391FE00C9674B /* AppFlowCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFlowCoordinator.swift; sourceTree = "<group>"; };
-		C307292B2C7392B000C9674B /* CategorySceneDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategorySceneDIContainer.swift; sourceTree = "<group>"; };
+		C307292B2C7392B000C9674B /* TransCategoriesSceneDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransCategoriesSceneDIContainer.swift; sourceTree = "<group>"; };
+		C35AE4862C74ED1E00400DD7 /* TransCategoryListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransCategoryListView.swift; sourceTree = "<group>"; };
+		C35AE48A2C74EDF900400DD7 /* TransCategoriesFlowCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TransCategoriesFlowCoordinator.swift; path = ZMoney/Application/DIContainer/TransCategoriesFlowCoordinator.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -43,7 +43,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1A2D0DF975EB33AE55D0E71D /* Pods_ZMoney.framework in Frameworks */,
+				C51706D8304E868847A947DA /* Pods_ZMoney.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -53,7 +53,7 @@
 		0B3F27797A40E5C843C487F6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				923AFA37A14B97F3EF8DBCE4 /* Pods_ZMoney.framework */,
+				139DC1D2EB0C97DF21D68110 /* Pods_ZMoney.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -88,8 +88,9 @@
 		C30728D82C73269B00C9674B /* ZMoney */ = {
 			isa = PBXGroup;
 			children = (
-				C30728EF2C7330E500C9674B /* Resources */,
 				C30728EE2C7330CE00C9674B /* Application */,
+				C30728EF2C7330E500C9674B /* Resources */,
+				C391528D2C74AECD008AE1E4 /* Presentation */,
 			);
 			path = ZMoney;
 			sourceTree = "<group>";
@@ -100,7 +101,6 @@
 				C30729242C73913B00C9674B /* DIContainer */,
 				C30728D92C73269B00C9674B /* AppDelegate.swift */,
 				C30728DB2C73269B00C9674B /* SceneDelegate.swift */,
-				C30728DD2C73269B00C9674B /* ViewController.swift */,
 				C30729272C73918700C9674B /* AppConfiguration.swift */,
 				C30729292C7391FE00C9674B /* AppFlowCoordinator.swift */,
 			);
@@ -111,7 +111,6 @@
 			isa = PBXGroup;
 			children = (
 				C30728E72C73269C00C9674B /* Info.plist */,
-				C30728DF2C73269B00C9674B /* Main.storyboard */,
 				C30728E22C73269C00C9674B /* Assets.xcassets */,
 				C30728E42C73269C00C9674B /* LaunchScreen.storyboard */,
 			);
@@ -122,9 +121,26 @@
 			isa = PBXGroup;
 			children = (
 				C30729252C73914C00C9674B /* AppDIContainer.swift */,
-				C307292B2C7392B000C9674B /* CategorySceneDIContainer.swift */,
+				C307292B2C7392B000C9674B /* TransCategoriesSceneDIContainer.swift */,
 			);
 			path = DIContainer;
+			sourceTree = "<group>";
+		};
+		C35AE4852C74ED1E00400DD7 /* TransCategories */ = {
+			isa = PBXGroup;
+			children = (
+				C35AE4862C74ED1E00400DD7 /* TransCategoryListView.swift */,
+				C35AE48A2C74EDF900400DD7 /* TransCategoriesFlowCoordinator.swift */,
+			);
+			path = TransCategories;
+			sourceTree = "<group>";
+		};
+		C391528D2C74AECD008AE1E4 /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				C35AE4852C74ED1E00400DD7 /* TransCategories */,
+			);
+			path = Presentation;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -139,7 +155,7 @@
 				C30728D32C73269B00C9674B /* Frameworks */,
 				C30728D42C73269B00C9674B /* Resources */,
 				C30728ED2C732EB900C9674B /* Run Script */,
-				B4961BEF3F26E3C1B32DB1BD /* [CP] Embed Pods Frameworks */,
+				BA946D5B4A1EA5F906B0954C /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -190,7 +206,6 @@
 			files = (
 				C30728E62C73269C00C9674B /* LaunchScreen.storyboard in Resources */,
 				C30728E32C73269C00C9674B /* Assets.xcassets in Resources */,
-				C30728E12C73269B00C9674B /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -219,7 +234,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		B4961BEF3F26E3C1B32DB1BD /* [CP] Embed Pods Frameworks */ = {
+		BA946D5B4A1EA5F906B0954C /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -261,10 +276,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C35AE48B2C74EDF900400DD7 /* TransCategoriesFlowCoordinator.swift in Sources */,
 				C30729262C73914C00C9674B /* AppDIContainer.swift in Sources */,
 				C30729282C73918700C9674B /* AppConfiguration.swift in Sources */,
-				C307292C2C7392B000C9674B /* CategorySceneDIContainer.swift in Sources */,
-				C30728DE2C73269B00C9674B /* ViewController.swift in Sources */,
+				C35AE4872C74ED1E00400DD7 /* TransCategoryListView.swift in Sources */,
+				C307292C2C7392B000C9674B /* TransCategoriesSceneDIContainer.swift in Sources */,
 				C30728DA2C73269B00C9674B /* AppDelegate.swift in Sources */,
 				C307292A2C7391FE00C9674B /* AppFlowCoordinator.swift in Sources */,
 				C30728DC2C73269B00C9674B /* SceneDelegate.swift in Sources */,
@@ -274,14 +290,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		C30728DF2C73269B00C9674B /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				C30728E02C73269B00C9674B /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		C30728E42C73269C00C9674B /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (

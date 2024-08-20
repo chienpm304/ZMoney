@@ -5,8 +5,6 @@
 //  Created by Chien Pham on 19/08/2024.
 //
 
-import Common
-
 struct Transaction {
     let id: ID
     let inputDate: Int64 /// time interval since 00:00:00 UTC on 1 January 1970, in seconds.

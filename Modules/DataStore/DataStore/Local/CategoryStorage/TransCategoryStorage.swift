@@ -6,9 +6,8 @@
 //
 
 import Domain
-import Common
 
-protocol TransCategoryStorage {
+public protocol TransCategoryStorage {
     func fetchAllTransCategories(
         completion: @escaping (Result<[TransCategory], Error>) -> Void
     )

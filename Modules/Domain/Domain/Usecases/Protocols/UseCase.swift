@@ -7,7 +7,7 @@
 
 import Combine
 
-protocol UseCase {
+public protocol UseCase {
     @discardableResult
     func start() -> Cancellable?
 }

@@ -5,8 +5,6 @@
 //  Created by Chien Pham on 19/08/2024.
 //
 
-import Common
-
 public protocol TransCategoryRepository {
     func fetchAllTransCategories(
         completion: @escaping (Result<[TransCategory], Error>) -> Void

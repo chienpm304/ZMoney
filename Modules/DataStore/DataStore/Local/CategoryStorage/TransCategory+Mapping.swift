@@ -9,6 +9,7 @@ import Foundation
 import CoreData
 import Domain
 
+// If compiler say that not found the entity, try add core data model target membership
 extension TransCategoryEntity {
     var domain: TransCategory {
         .init(

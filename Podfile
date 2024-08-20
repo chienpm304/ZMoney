@@ -7,9 +7,11 @@ target 'ZMoney' do
 
   pod 'Domain', :path => 'Modules/Domain', :testspec => ['Tests']
   pod 'DataStore', :path => 'Modules/DataStore'
-  pod 'Presentation', :path => 'Modules/Presentation', :testspec => ['Tests']
   pod 'Networking', :path => 'Modules/Networking', :testspec => ['Tests']
   pod 'Common', :path => 'Modules/Common'
+
+  # Temporary moved Presentation module to main app because Xcode preview doesnot work 
+  # for static library
 
   pod 'SwiftLint'
 
