@@ -6,8 +6,8 @@
 //
 
 import Foundation
-import DataStore
-import Domain
+import DataModule
+import DomainModule
 import SwiftUI
 
 final class TransCategoriesSceneDIContainer: TransCategoriesFlowCoordinatorDependencies {
@@ -43,7 +43,7 @@ final class TransCategoriesSceneDIContainer: TransCategoriesFlowCoordinatorDepen
     // MARK: TransCategoriesFlowCoordinatorDependencies
 
     func makeTransCategoryListViewController() -> UIViewController {
-        let view = TransCategoryListView()
+        let view = TransCategoryListView(transCategoryStorage: transCategoryStorage)
         return UIHostingController(rootView: view)
     }
 

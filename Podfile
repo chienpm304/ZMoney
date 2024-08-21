@@ -5,10 +5,10 @@ target 'ZMoney' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
 
-  pod 'Domain', :path => 'Modules/Domain', :testspec => ['Tests']
-  pod 'DataStore', :path => 'Modules/DataStore'
-  pod 'Networking', :path => 'Modules/Networking', :testspec => ['Tests']
-  pod 'Common', :path => 'Modules/Common'
+  pod 'DomainModule', :path => 'Modules/DomainModule', :testspec => ['Tests']
+  pod 'DataModule', :path => 'Modules/DataModule'
+  pod 'NetworkingModule', :path => 'Modules/NetworkingModule', :testspec => ['Tests']
+  pod 'CommonModule',  :path => 'Modules/CommonModule'
 
   # Temporary moved Presentation module to main app because Xcode preview doesnot work 
   # for static library

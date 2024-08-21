@@ -1,20 +1,19 @@
 PODS:
-  - Common (1.0.0)
-  - DataStore (1.0.0):
-    - Common
-    - Domain
-    - Networking
-  - Domain (1.0.0):
-    - Common
-  - Networking (1.0.0):
-    - Common
+  - CommonModule (1.0.0)
+  - DataModule (1.0.0):
+    - DomainModule
+    - NetworkingModule
+  - DomainModule (1.0.0):
+    - CommonModule
+  - NetworkingModule (1.0.0):
+    - CommonModule
   - SwiftLint (0.54.0)
 
 DEPENDENCIES:
-  - Common (from `Modules/Common`)
-  - DataStore (from `Modules/DataStore`)
-  - Domain (from `Modules/Domain`)
-  - Networking (from `Modules/Networking`)
+  - CommonModule (from `Modules/CommonModule`)
+  - DataModule (from `Modules/DataModule`)
+  - DomainModule (from `Modules/DomainModule`)
+  - NetworkingModule (from `Modules/NetworkingModule`)
   - SwiftLint
 
 SPEC REPOS:
@@ -22,26 +21,26 @@ SPEC REPOS:
     - SwiftLint
 
 EXTERNAL SOURCES:
-  Common:
-    :path: Modules/Common
-  DataStore:
-    :path: Modules/DataStore
-  Domain:
-    :path: Modules/Domain
+  CommonModule:
+    :path: Modules/CommonModule
+  DataModule:
+    :path: Modules/DataModule
+  DomainModule:
+    :path: Modules/DomainModule
     :testspec:
       - Tests
-  Networking:
-    :path: Modules/Networking
+  NetworkingModule:
+    :path: Modules/NetworkingModule
     :testspec:
       - Tests
 
 SPEC CHECKSUMS:
-  Common: ef5da750126b1bc1e1934dcf9db42cd1e00b55d9
-  DataStore: b6085ea852d903dfd7681eb8167a2f49e4ab95f6
-  Domain: 697fc8b506cd974527d52e885220f0272fe8543c
-  Networking: 820e3dafcbc6a7d0d6750eb6fd11d2939d44c659
+  CommonModule: b43f07412680fa4d300a4e55e4a5665859e6381f
+  DataModule: 0e019914213606b051aeeb979578c6cf1a7a233d
+  DomainModule: cadc53c724e8817330e35e37d97c35527ebbe113
+  NetworkingModule: 0bd6fbd9d6207a6f81f2db48e1f34fe7d35db722
   SwiftLint: c1de071d9d08c8aba837545f6254315bc900e211
 
-PODFILE CHECKSUM: 3415eebd942c866c6c114fbfd3ebc8a52d6c10e1
+PODFILE CHECKSUM: edaf53c4d05049a7d03c43a715e6fb1df6ab6ce1
 
 COCOAPODS: 1.10.2

@@ -6,22 +6,35 @@
 //
 
 import SwiftUI
+import DataModule
 
 struct TransCategoryListView: View {
+    private let transCategoryStorage: TransCategoryStorage
+
+    init(transCategoryStorage: TransCategoryStorage) {
+        self.transCategoryStorage = transCategoryStorage
+    }
 
     public var body: some View {
         List(1...100, id: \.self) { index in
-            Text("Hello \(index)")
-                .background(.green)
+            Button("Item \(index)") {
+                transCategoryStorage.fetchAllTransCategories { result in
+                    switch result {
+                    case .success(let categories):
+                        print(categories)
+                    case .failure(let error):
+                        print("error: \(error)")
+                    }
+                }
+            }
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
 
     }
 }
 
 #Preview {
     NavigationView {
-        TransCategoryListView()
+        TransCategoryListView(transCategoryStorage: TransCategoryCoreDataStorage())
             .navigationTitle("Hello")
     }
 }
