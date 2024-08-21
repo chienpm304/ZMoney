@@ -32,15 +32,15 @@ extension TransCategoryCoreDataStorage: TransCategoryStorage {
         }
     }
 
-    public func addTransCategory(
-        _ category: TransCategory,
-        completion: @escaping (Result<TransCategory, Error>) -> Void
+    public func addTransCategories(
+        _ categories: [TransCategory],
+        completion: @escaping (Result<[TransCategory], Error>) -> Void
     ) {
         coreData.performBackgroundTask { context in
             do {
-                let entity = TransCategoryEntity(category: category, insertInto: context)
+                let entities = categories.map { TransCategoryEntity(category: $0, insertInto: context) }
                 try context.save()
-                completion(.success(entity.domain))
+                completion(.success(entities.map { $0.domain }))
             } catch {
                 completion(.failure(CoreDataError.saveError(error)))
             }

@@ -29,3 +29,26 @@ public struct TransCategory {
         self.type = type
     }
 }
+
+extension TransCategory {
+    static var defaultExpenseCategories: [TransCategory] {
+        [
+            .init(id: 1, name: "Food", icon: "fork.knife.circle", color: "FABC3F", sortIndex: 1, type: .expense),
+            .init(id: 2, name: "Sport", icon: "figure.walk", color: "E85C0D", sortIndex: 2, type: .expense),
+            .init(id: 3, name: "Education", icon: "book", color: "C7253E", sortIndex: 3, type: .expense),
+            .init(id: 4, name: "Rent", icon: "house", color: "821131", sortIndex: 4, type: .expense),
+            .init(id: 5, name: "Give", icon: "fork.knife.circle", color: "800000", sortIndex: 5, type: .expense),
+        ]
+    }
+
+    static var defaultIncomeCategories: [TransCategory] {
+        [
+            .init(id: 50, name: "Salary", icon: "fork.knife.circle", color: "522258", sortIndex: 50, type: .income),
+            .init(id: 51, name: "Pocket money", icon: "externaldrive", color: "8C3061", sortIndex: 51, type: .income),
+            .init(id: 52, name: "Bonus", icon: "gift", color: "C63C51", sortIndex: 52, type: .income),
+            .init(id: 53, name: "Side job", icon: "coloncurrencysign.circle", color: "D95F59", sortIndex: 53, type: .income),
+            .init(id: 54, name: "Investment", icon: "building.columns", color: "FF8A8A", sortIndex: 54, type: .income),
+            .init(id: 55, name: "Extra", icon: "directcurrent", color: "F4DEB3", sortIndex: 55, type: .income),
+        ]
+    }
+}

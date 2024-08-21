@@ -8,7 +8,7 @@
 import UIKit
 
 protocol TransCategoriesFlowCoordinatorDependencies {
-    func makeTransCategoryListViewController() -> UIViewController
+    func makeTransCategoriesListViewController() -> UIViewController
 }
 
 final class TransCategoriesFlowCoordinator {
@@ -24,7 +24,7 @@ final class TransCategoriesFlowCoordinator {
     }
 
     public func start() {
-        let transCategoryViewController = dependencies.makeTransCategoryListViewController()
+        let transCategoryViewController = dependencies.makeTransCategoriesListViewController()
         navigationController?.pushViewController(transCategoryViewController, animated: true)
     }
 }

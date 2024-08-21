@@ -42,8 +42,8 @@ final class TransCategoriesSceneDIContainer: TransCategoriesFlowCoordinatorDepen
 
     // MARK: TransCategoriesFlowCoordinatorDependencies
 
-    func makeTransCategoryListViewController() -> UIViewController {
-        let view = TransCategoryListView(transCategoryStorage: transCategoryStorage)
+    func makeTransCategoriesListViewController() -> UIViewController {
+        let view = TransCategoriesListView(transCategoryStorage: transCategoryStorage)
         return UIHostingController(rootView: view)
     }
 

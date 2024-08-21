@@ -22,7 +22,24 @@ public final class FetchTransCategoriesUseCase: UseCase {
     }
 
     public func start() -> Cancellable? {
-        categoryRepository.fetchAllTransCategories(completion: completion)
+        categoryRepository.fetchAllTransCategories { [weak self] result in
+            guard let self else { return }
+            switch result {
+            case .success(let categories):
+                guard !categories.isEmpty else {
+                    let generatedCategories = self.generateDefaultCategories()
+                    self.categoryRepository.addTransCategories(generatedCategories, completion: completion)
+                    return
+                }
+                self.completion(.success(categories))
+            case .failure(let error):
+                self.completion(.failure(error))
+            }
+        }
         return nil
+    }
+
+    private func generateDefaultCategories() -> [TransCategory] {
+        TransCategory.defaultExpenseCategories + TransCategory.defaultIncomeCategories
     }
 }

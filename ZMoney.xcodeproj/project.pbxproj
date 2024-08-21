@@ -15,8 +15,12 @@
 		C30729282C73918700C9674B /* AppConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30729272C73918700C9674B /* AppConfiguration.swift */; };
 		C307292A2C7391FE00C9674B /* AppFlowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30729292C7391FE00C9674B /* AppFlowCoordinator.swift */; };
 		C307292C2C7392B000C9674B /* TransCategoriesSceneDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C307292B2C7392B000C9674B /* TransCategoriesSceneDIContainer.swift */; };
-		C35AE4872C74ED1E00400DD7 /* TransCategoryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C35AE4862C74ED1E00400DD7 /* TransCategoryListView.swift */; };
+		C35AE4872C74ED1E00400DD7 /* TransCategoriesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C35AE4862C74ED1E00400DD7 /* TransCategoriesListView.swift */; };
 		C35AE48B2C74EDF900400DD7 /* TransCategoriesFlowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C35AE48A2C74EDF900400DD7 /* TransCategoriesFlowCoordinator.swift */; };
+		C3AE5B6E2C76F12600865A54 /* TransCategoriesListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3AE5B6D2C76F12600865A54 /* TransCategoriesListViewModel.swift */; };
+		C3AE5B702C76F3A200865A54 /* TransCategoriesListItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3AE5B6F2C76F3A200865A54 /* TransCategoriesListItemViewModel.swift */; };
+		C3AE5B732C770BC100865A54 /* RightArrowModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3AE5B722C770BC100865A54 /* RightArrowModifier.swift */; };
+		C3AE5B762C770EBB00865A54 /* Color+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3AE5B752C770EBB00865A54 /* Color+Extensions.swift */; };
 		C51706D8304E868847A947DA /* Pods_ZMoney.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 139DC1D2EB0C97DF21D68110 /* Pods_ZMoney.framework */; };
 /* End PBXBuildFile section */
 
@@ -34,8 +38,12 @@
 		C30729272C73918700C9674B /* AppConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfiguration.swift; sourceTree = "<group>"; };
 		C30729292C7391FE00C9674B /* AppFlowCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFlowCoordinator.swift; sourceTree = "<group>"; };
 		C307292B2C7392B000C9674B /* TransCategoriesSceneDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransCategoriesSceneDIContainer.swift; sourceTree = "<group>"; };
-		C35AE4862C74ED1E00400DD7 /* TransCategoryListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransCategoryListView.swift; sourceTree = "<group>"; };
+		C35AE4862C74ED1E00400DD7 /* TransCategoriesListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransCategoriesListView.swift; sourceTree = "<group>"; };
 		C35AE48A2C74EDF900400DD7 /* TransCategoriesFlowCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TransCategoriesFlowCoordinator.swift; path = ZMoney/Application/DIContainer/TransCategoriesFlowCoordinator.swift; sourceTree = SOURCE_ROOT; };
+		C3AE5B6D2C76F12600865A54 /* TransCategoriesListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransCategoriesListViewModel.swift; sourceTree = "<group>"; };
+		C3AE5B6F2C76F3A200865A54 /* TransCategoriesListItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransCategoriesListItemViewModel.swift; sourceTree = "<group>"; };
+		C3AE5B722C770BC100865A54 /* RightArrowModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RightArrowModifier.swift; sourceTree = "<group>"; };
+		C3AE5B752C770EBB00865A54 /* Color+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,21 +134,41 @@
 			path = DIContainer;
 			sourceTree = "<group>";
 		};
-		C35AE4852C74ED1E00400DD7 /* TransCategories */ = {
+		C35AE4852C74ED1E00400DD7 /* TransCategoriesList */ = {
 			isa = PBXGroup;
 			children = (
-				C35AE4862C74ED1E00400DD7 /* TransCategoryListView.swift */,
+				C35AE4862C74ED1E00400DD7 /* TransCategoriesListView.swift */,
 				C35AE48A2C74EDF900400DD7 /* TransCategoriesFlowCoordinator.swift */,
+				C3AE5B6D2C76F12600865A54 /* TransCategoriesListViewModel.swift */,
+				C3AE5B6F2C76F3A200865A54 /* TransCategoriesListItemViewModel.swift */,
 			);
-			path = TransCategories;
+			path = TransCategoriesList;
 			sourceTree = "<group>";
 		};
 		C391528D2C74AECD008AE1E4 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
-				C35AE4852C74ED1E00400DD7 /* TransCategories */,
+				C3AE5B742C770EA600865A54 /* Extensions */,
+				C3AE5B712C770B2A00865A54 /* SharedComponents */,
+				C35AE4852C74ED1E00400DD7 /* TransCategoriesList */,
 			);
 			path = Presentation;
+			sourceTree = "<group>";
+		};
+		C3AE5B712C770B2A00865A54 /* SharedComponents */ = {
+			isa = PBXGroup;
+			children = (
+				C3AE5B722C770BC100865A54 /* RightArrowModifier.swift */,
+			);
+			path = SharedComponents;
+			sourceTree = "<group>";
+		};
+		C3AE5B742C770EA600865A54 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				C3AE5B752C770EBB00865A54 /* Color+Extensions.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -276,14 +304,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C3AE5B732C770BC100865A54 /* RightArrowModifier.swift in Sources */,
 				C35AE48B2C74EDF900400DD7 /* TransCategoriesFlowCoordinator.swift in Sources */,
 				C30729262C73914C00C9674B /* AppDIContainer.swift in Sources */,
 				C30729282C73918700C9674B /* AppConfiguration.swift in Sources */,
-				C35AE4872C74ED1E00400DD7 /* TransCategoryListView.swift in Sources */,
+				C3AE5B6E2C76F12600865A54 /* TransCategoriesListViewModel.swift in Sources */,
+				C3AE5B702C76F3A200865A54 /* TransCategoriesListItemViewModel.swift in Sources */,
+				C35AE4872C74ED1E00400DD7 /* TransCategoriesListView.swift in Sources */,
 				C307292C2C7392B000C9674B /* TransCategoriesSceneDIContainer.swift in Sources */,
 				C30728DA2C73269B00C9674B /* AppDelegate.swift in Sources */,
 				C307292A2C7391FE00C9674B /* AppFlowCoordinator.swift in Sources */,
 				C30728DC2C73269B00C9674B /* SceneDelegate.swift in Sources */,
+				C3AE5B762C770EBB00865A54 /* Color+Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
