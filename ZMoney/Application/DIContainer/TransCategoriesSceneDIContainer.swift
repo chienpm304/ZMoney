@@ -42,9 +42,21 @@ final class TransCategoriesSceneDIContainer: TransCategoriesFlowCoordinatorDepen
 
     // MARK: TransCategoriesFlowCoordinatorDependencies
 
-    func makeTransCategoriesListViewController() -> UIViewController {
-        let view = TransCategoriesListView(transCategoryStorage: transCategoryStorage)
+    func makeTransCategoriesListViewController(
+        actions: TransCategoriesListViewModelActions
+    ) -> UIViewController {
+        let viewModel = makeTransCategoriesListViewModel(actions: actions)
+        let view = TransCategoriesListView(viewModel: viewModel)
         return UIHostingController(rootView: view)
+    }
+
+    func makeTransCategoriesListViewModel(
+        actions: TransCategoriesListViewModelActions
+    ) -> TransCategoriesListViewModel {
+        return TransCategoriesListViewModel(
+            fetchTransCategoriesUseCaseFactory: makeFetchTransCategoriesUseCase,
+            actions: actions
+        )
     }
 
     // MARK: - Flow
@@ -57,5 +69,4 @@ final class TransCategoriesSceneDIContainer: TransCategoriesFlowCoordinatorDepen
             dependencies: self
         )
     }
-
 }

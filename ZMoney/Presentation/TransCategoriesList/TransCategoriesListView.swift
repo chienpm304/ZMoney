@@ -9,26 +9,23 @@ import SwiftUI
 import DataModule
 import DomainModule
 
-struct TransCategoriesListView: View {
-    private let transCategoryStorage: TransCategoryStorage
-    @State private var useCase: FetchTransCategoriesUseCase?
-    @State private var expenseCategories: [TransCategory] = []
-    @State private var incomeCategories: [TransCategory] = []
-    @State private var selectedTab: TransCategoryTab = .expense
-    @State private var isEditing = false
+struct TransCategoriesListView<ViewModel: TransCategoriesListViewModel>: View {
+    @ObservedObject private var viewModel: ViewModel
 
-    private var items: [TransCategory] {
-        selectedTab == .expense ? expenseCategories : incomeCategories
+    public init(viewModel: ViewModel) {
+        self.viewModel = viewModel
     }
 
-    init(transCategoryStorage: TransCategoryStorage) {
-        self.transCategoryStorage = transCategoryStorage
+    private var items: [TransCategoriesListItemViewModel] {
+        viewModel.selectedTab == .expense
+        ? viewModel.expenseItems
+        : viewModel.incomeItems
     }
 
     public var body: some View {
         VStack {
             HStack {
-                Picker("Tab", selection: $selectedTab) {
+                Picker("Tab", selection: $viewModel.selectedTab) {
                     ForEach(TransCategoryTab.allCases) {
                         Text($0.rawValue.capitalized)
                     }
@@ -54,7 +51,7 @@ struct TransCategoriesListView: View {
                             } label: {
                                 HStack {
                                     Image(systemName: category.icon)
-                                        .foregroundColor(Color(hex: category.color))
+                                        .foregroundColor(Color(hex: category.iconColor))
                                         .frame(width: 20, height: 20)
                                     Text(category.name)
                                         .foregroundColor(.primary)
@@ -70,42 +67,30 @@ struct TransCategoriesListView: View {
         .navigationTitle("Categories")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
-            if isEditing {
+            if viewModel.isEditting {
                 Button {
                     print("tap done")
-                    isEditing.toggle()
+                    viewModel.editItemsOrder()
                 } label: {
                     Text("Done")
                 }
             } else {
                 Button {
                     print("tap edit")
-                    isEditing.toggle()
+                    viewModel.editItemsOrder()
                 } label: {
                     Text("Edit")
                 }
             }
         }
         .onAppear {
-            let completion: (Result<[TransCategory], Error>) -> Void = { result in
-                if case .success(let categories) = result {
-                    self.expenseCategories = categories.filter { $0.type == .expense }
-                    self.incomeCategories = categories.filter { $0.type == .income }
-                }
-            }
-            let repository = DefaultTransCategoryRepository(storage: transCategoryStorage)
-            useCase = FetchTransCategoriesUseCase(
-                completion: completion,
-                categoryRepository: repository
-            )
-            _ = useCase?.start()
+            viewModel.onViewAppear()
         }
     }
 }
 
-#Preview {
-    NavigationView {
-        TransCategoriesListView(transCategoryStorage: TransCategoryCoreDataStorage())
-            .navigationTitle("Hello")
-    }
-}
+// #Preview {
+//     NavigationView {
+//         TransCategoriesListView(viewModel: <#TransCategoriesListViewModel#>)
+//     }
+// }

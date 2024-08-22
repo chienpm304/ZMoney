@@ -17,6 +17,7 @@
 		C307292C2C7392B000C9674B /* TransCategoriesSceneDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C307292B2C7392B000C9674B /* TransCategoriesSceneDIContainer.swift */; };
 		C35AE4872C74ED1E00400DD7 /* TransCategoriesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C35AE4862C74ED1E00400DD7 /* TransCategoriesListView.swift */; };
 		C35AE48B2C74EDF900400DD7 /* TransCategoriesFlowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C35AE48A2C74EDF900400DD7 /* TransCategoriesFlowCoordinator.swift */; };
+		C37E6BB42C7788EF003F34D9 /* TransCategoryTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37E6BB32C7788EF003F34D9 /* TransCategoryTab.swift */; };
 		C3AE5B6E2C76F12600865A54 /* TransCategoriesListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3AE5B6D2C76F12600865A54 /* TransCategoriesListViewModel.swift */; };
 		C3AE5B702C76F3A200865A54 /* TransCategoriesListItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3AE5B6F2C76F3A200865A54 /* TransCategoriesListItemViewModel.swift */; };
 		C3AE5B732C770BC100865A54 /* RightArrowModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3AE5B722C770BC100865A54 /* RightArrowModifier.swift */; };
@@ -40,6 +41,7 @@
 		C307292B2C7392B000C9674B /* TransCategoriesSceneDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransCategoriesSceneDIContainer.swift; sourceTree = "<group>"; };
 		C35AE4862C74ED1E00400DD7 /* TransCategoriesListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransCategoriesListView.swift; sourceTree = "<group>"; };
 		C35AE48A2C74EDF900400DD7 /* TransCategoriesFlowCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TransCategoriesFlowCoordinator.swift; path = ZMoney/Application/DIContainer/TransCategoriesFlowCoordinator.swift; sourceTree = SOURCE_ROOT; };
+		C37E6BB32C7788EF003F34D9 /* TransCategoryTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransCategoryTab.swift; sourceTree = "<group>"; };
 		C3AE5B6D2C76F12600865A54 /* TransCategoriesListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransCategoriesListViewModel.swift; sourceTree = "<group>"; };
 		C3AE5B6F2C76F3A200865A54 /* TransCategoriesListItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransCategoriesListItemViewModel.swift; sourceTree = "<group>"; };
 		C3AE5B722C770BC100865A54 /* RightArrowModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RightArrowModifier.swift; sourceTree = "<group>"; };
@@ -141,6 +143,7 @@
 				C35AE48A2C74EDF900400DD7 /* TransCategoriesFlowCoordinator.swift */,
 				C3AE5B6D2C76F12600865A54 /* TransCategoriesListViewModel.swift */,
 				C3AE5B6F2C76F3A200865A54 /* TransCategoriesListItemViewModel.swift */,
+				C37E6BB32C7788EF003F34D9 /* TransCategoryTab.swift */,
 			);
 			path = TransCategoriesList;
 			sourceTree = "<group>";
@@ -316,6 +319,7 @@
 				C307292A2C7391FE00C9674B /* AppFlowCoordinator.swift in Sources */,
 				C30728DC2C73269B00C9674B /* SceneDelegate.swift in Sources */,
 				C3AE5B762C770EBB00865A54 /* Color+Extensions.swift in Sources */,
+				C37E6BB42C7788EF003F34D9 /* TransCategoryTab.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
