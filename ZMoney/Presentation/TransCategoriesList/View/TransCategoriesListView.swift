@@ -16,7 +16,7 @@ struct TransCategoriesListView<ViewModel: TransCategoriesListViewModel>: View {
         self.viewModel = viewModel
     }
 
-    private var items: [TransCategoriesListItemViewModel] {
+    private var items: [TransCategoriesListItemModel] {
         viewModel.selectedTab == .expense
         ? viewModel.expenseItems
         : viewModel.incomeItems
@@ -60,29 +60,17 @@ struct TransCategoriesListView<ViewModel: TransCategoriesListViewModel>: View {
                             }
                         }
                     }
+                    .onMove(perform: { sourceIndexSet, newOffset in
+                        print("move indice: \(sourceIndexSet), newOffset: \(newOffset)")
+                        viewModel.moveItems(from: sourceIndexSet, to: newOffset)
+                    })
                 }
             }
             .listStyle(DefaultListStyle())
         }
         .navigationTitle("Categories")
         .navigationBarTitleDisplayMode(.inline)
-        .toolbar {
-            if viewModel.isEditting {
-                Button {
-                    print("tap done")
-                    viewModel.editItemsOrder()
-                } label: {
-                    Text("Done")
-                }
-            } else {
-                Button {
-                    print("tap edit")
-                    viewModel.editItemsOrder()
-                } label: {
-                    Text("Edit")
-                }
-            }
-        }
+        .navigationBarItems(trailing: EditButton())
         .onAppear {
             viewModel.onViewAppear()
         }

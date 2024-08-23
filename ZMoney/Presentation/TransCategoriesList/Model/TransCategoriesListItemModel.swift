@@ -1,5 +1,5 @@
 //
-//  TransCategoriesListItemViewModel.swift
+//  TransCategoriesListItemModel.swift
 //  ZMoney
 //
 //  Created by Chien Pham on 22/08/2024.
@@ -7,14 +7,14 @@
 
 import DomainModule
 
-struct TransCategoriesListItemViewModel {
+struct TransCategoriesListItemModel {
     let id: ID
     let name: String
     let icon: String
     let iconColor: String
 }
 
-extension TransCategoriesListItemViewModel {
+extension TransCategoriesListItemModel {
     init(category: TransCategory) {
         self.id = category.id
         self.name = category.name

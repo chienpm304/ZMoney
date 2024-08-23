@@ -27,11 +27,11 @@ extension DefaultTransCategoryRepository: TransCategoryRepository {
         storage.addTransCategories(categories, completion: completion)
     }
 
-    public func updateTransCategory(
-        _ category: TransCategory,
-        completion: @escaping (Result<TransCategory, Error>) -> Void
+    public func updateTransCategories(
+        _ categories: [TransCategory],
+        completion: @escaping (Result<[TransCategory], Error>) -> Void
     ) {
-        storage.updateTransCategory(category, completion: completion)
+        storage.updateTransCategories(categories, completion: completion)
     }
 
     public func deleteTransCategory(

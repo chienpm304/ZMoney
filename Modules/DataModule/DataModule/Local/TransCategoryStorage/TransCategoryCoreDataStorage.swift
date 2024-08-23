@@ -47,25 +47,27 @@ extension TransCategoryCoreDataStorage: TransCategoryStorage {
         }
     }
 
-    public func updateTransCategory(
-        _ category: TransCategory,
-        completion: @escaping (Result<TransCategory, Error>) -> Void
+    public func updateTransCategories(
+        _ categories: [TransCategory],
+        completion: @escaping (Result<[TransCategory], Error>) -> Void
     ) {
         coreData.performBackgroundTask { context in
             do {
+                let categoriesIDs = categories.map { $0.id }
+                let categoriesDict = Dictionary(uniqueKeysWithValues: categories.map { ($0.id, $0) })
                 let fetchRequest: NSFetchRequest<TransCategoryEntity> = TransCategoryEntity.fetchRequest()
-                fetchRequest.predicate = NSPredicate(format: "id == %@", category.id as CVarArg)
-
-                guard  let entity = try context.fetch(fetchRequest).first else {
-                    completion(.failure(CoreDataError.notFound))
-                    return
+                fetchRequest.predicate = NSPredicate(format: "id IN %@", categoriesIDs)
+                let entities = try context.fetch(fetchRequest)
+                for entity in entities {
+                    if let category = categoriesDict[entity.id] {
+                        entity.name = category.name
+                        entity.icon = category.icon
+                        entity.color = category.color
+                        entity.sortIndex = category.sortIndex
+                    }
                 }
-                entity.name = category.name
-                entity.icon = category.icon
-                entity.color = category.color
-                entity.sortIndex = category.sortIndex
                 try context.save()
-                completion(.success(entity.domain))
+                completion(.success(entities.map { $0.domain }.sorted(by: { $0.sortIndex < $1.sortIndex })))
             } catch {
                 completion(.failure(CoreDataError.saveError(error)))
             }

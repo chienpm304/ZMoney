@@ -10,15 +10,15 @@ import Combine
 public final class FetchTransCategoriesUseCase: UseCase {
     public typealias ResultValue = (Result<[TransCategory], Error>)
 
-    private let completion: (ResultValue) -> Void
     private let categoryRepository: TransCategoryRepository
+    private let completion: (ResultValue) -> Void
 
     public init(
-        completion: @escaping (ResultValue) -> Void,
-        categoryRepository: TransCategoryRepository
+        categoryRepository: TransCategoryRepository,
+        completion: @escaping (ResultValue) -> Void
     ) {
-        self.completion = completion
         self.categoryRepository = categoryRepository
+        self.completion = completion
     }
 
     public func execute() -> Cancellable? {

@@ -29,8 +29,19 @@ final class TransCategoriesSceneDIContainer: TransCategoriesFlowCoordinatorDepen
         completion: @escaping (FetchTransCategoriesUseCase.ResultValue) -> Void
     ) -> UseCase {
         FetchTransCategoriesUseCase(
-            completion: completion,
-            categoryRepository: makeTransCategoriesRepository()
+            categoryRepository: makeTransCategoriesRepository(),
+            completion: completion
+        )
+    }
+
+    func makeUpdateTransCategoriesUseCase(
+        requestValue: UpdateTransCategoriesUseCase.RequestValue,
+        completion: @escaping (UpdateTransCategoriesUseCase.ResultValue) -> Void
+    ) -> UseCase {
+        UpdateTransCategoriesUseCase(
+            requestValue: requestValue,
+            categoryRepository: makeTransCategoriesRepository(),
+            completion: completion
         )
     }
 
@@ -55,6 +66,7 @@ final class TransCategoriesSceneDIContainer: TransCategoriesFlowCoordinatorDepen
     ) -> TransCategoriesListViewModel {
         return TransCategoriesListViewModel(
             fetchTransCategoriesUseCaseFactory: makeFetchTransCategoriesUseCase,
+            updateTransCategoriesUseCaseFactory: makeUpdateTransCategoriesUseCase,
             actions: actions
         )
     }

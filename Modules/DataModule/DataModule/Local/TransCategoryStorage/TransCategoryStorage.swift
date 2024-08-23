@@ -17,9 +17,9 @@ public protocol TransCategoryStorage {
         completion: @escaping (Result<[TransCategory], Error>) -> Void
     )
 
-    func updateTransCategory(
-        _ category: TransCategory,
-        completion: @escaping (Result<TransCategory, Error>) -> Void
+    func updateTransCategories(
+        _ categories: [TransCategory],
+        completion: @escaping (Result<[TransCategory], Error>) -> Void
     )
 
     func deleteTransCategory(
