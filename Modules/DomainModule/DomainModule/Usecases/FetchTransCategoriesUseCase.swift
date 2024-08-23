@@ -21,7 +21,7 @@ public final class FetchTransCategoriesUseCase: UseCase {
         self.categoryRepository = categoryRepository
     }
 
-    public func start() -> Cancellable? {
+    public func execute() -> Cancellable? {
         categoryRepository.fetchAllTransCategories { [weak self] result in
             guard let self else { return }
             switch result {

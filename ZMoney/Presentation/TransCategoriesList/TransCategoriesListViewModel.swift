@@ -65,7 +65,7 @@ extension TransCategoriesListViewModel {
             }
         }
         useCase = fetchTransCategoriesUseCaseFactory(completion)
-        useCase?.start()
+        useCase?.execute()
     }
 
     func didSelectItem(at index: Int) {
