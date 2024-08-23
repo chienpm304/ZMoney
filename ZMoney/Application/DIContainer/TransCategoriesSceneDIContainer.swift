@@ -11,7 +11,6 @@ import DomainModule
 import SwiftUI
 
 final class TransCategoriesSceneDIContainer: TransCategoriesFlowCoordinatorDependencies {
-
     struct Dependencies {
 
     }
@@ -60,6 +59,13 @@ final class TransCategoriesSceneDIContainer: TransCategoriesFlowCoordinatorDepen
         let view = TransCategoriesListView(viewModel: viewModel)
         return UIHostingController(rootView: view)
     }
+
+    func makeTransCategoryDetailViewController(category: TransCategory) -> UIViewController {
+        let view = TransCategoryDetailView(category: .init(category: category))
+        return UIHostingController(rootView: view)
+    }
+
+    // MARK: ViewModel
 
     func makeTransCategoriesListViewModel(
         actions: TransCategoriesListViewModelActions

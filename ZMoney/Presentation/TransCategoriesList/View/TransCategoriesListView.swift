@@ -37,7 +37,7 @@ struct TransCategoriesListView<ViewModel: TransCategoriesListViewModel>: View {
             List {
                 Section {
                     Button {
-                        print("add new category")
+                        viewModel.addNewCategory()
                     } label: {
                         Text("Add category")
                             .withRightArrow()
@@ -47,7 +47,7 @@ struct TransCategoriesListView<ViewModel: TransCategoriesListViewModel>: View {
                     ForEach(items, id: \.id) { category in
                         HStack {
                             Button {
-                                print("select item \(category.name)")
+                                viewModel.didSelectItem(category)
                             } label: {
                                 HStack {
                                     Image(systemName: category.icon)
@@ -71,6 +71,9 @@ struct TransCategoriesListView<ViewModel: TransCategoriesListViewModel>: View {
         .navigationTitle("Categories")
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarItems(trailing: EditButton())
+        #if DEBUG
+        .navigationBarItems(leading: Button("Refresh", action: viewModel.refresh))
+        #endif
         .onAppear {
             viewModel.onViewAppear()
         }

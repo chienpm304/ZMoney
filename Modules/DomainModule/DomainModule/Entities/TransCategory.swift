@@ -28,6 +28,15 @@ public struct TransCategory {
         self.sortIndex = sortIndex
         self.type = type
     }
+
+    public init(type: TransType, sortIndex: Index) {
+        self.id = IDGenerator.generate()
+        self.name = ""
+        self.icon = ""
+        self.color = ""
+        self.sortIndex = sortIndex
+        self.type = type
+    }
 }
 
 // swiftlint:disable line_length

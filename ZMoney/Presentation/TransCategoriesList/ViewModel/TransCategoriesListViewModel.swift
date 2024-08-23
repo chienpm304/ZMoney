@@ -11,7 +11,8 @@ import Combine
 import DataModule
 
 struct TransCategoriesListViewModelActions {
-    let showTransCategoreDetail: (TransCategory) -> Void
+    let showTransCategoryDetail: (TransCategory) -> Void
+    let addNewTransCategory: (TransType, Int) -> Void
 }
 
 typealias FetchTransCategoriesUseCaseFactory = (
@@ -35,18 +36,18 @@ final class TransCategoriesListViewModel: ObservableObject {
             incomeItems = incomeCategories.map(TransCategoriesListItemModel.init)
         }
     }
-    
+
     // MARK: Dependencies
     private let fetchTransCategoriesUseCaseFactory: FetchTransCategoriesUseCaseFactory
     private let updateTransCategoriesUseCaseFactory: UpdateTransCategoriesUseCaseFactory
     private let actions: TransCategoriesListViewModelActions?
     private var fetchUseCase: UseCase?
-    
+
     // MARK: Output
     @Published var selectedTab: TransCategoryTab = .expense
     @Published var expenseItems: [TransCategoriesListItemModel] = []
     @Published var incomeItems: [TransCategoriesListItemModel] = []
-    
+
     init(
         fetchTransCategoriesUseCaseFactory: @escaping FetchTransCategoriesUseCaseFactory,
         updateTransCategoriesUseCaseFactory: @escaping UpdateTransCategoriesUseCaseFactory,
@@ -73,22 +74,28 @@ extension TransCategoriesListViewModel {
                 }
             }
         }
-        
+
         let useCase = fetchTransCategoriesUseCaseFactory(completion)
         useCase.execute()
         fetchUseCase = useCase // keep reference
     }
-    
-    func didSelectItem(at index: Int) {
+
+    #if DEBUG
+    func refresh() {
+        onViewAppear()
+    }
+    #endif
+
+    func didSelectItem(_ item: TransCategoriesListItemModel) {
         let categories = selectedTab == .expense ? expenseCategories : incomeCategories
-        guard categories.indices.contains(index)
+        guard let category = categories.first(where: { $0.id == item.id })
         else {
             assertionFailure()
             return
         }
-        actions?.showTransCategoreDetail(categories[index])
+        actions?.showTransCategoryDetail(category)
     }
-    
+
     func switchTransCategoryTab() {
         if selectedTab == .expense {
             selectedTab = .income
@@ -96,11 +103,13 @@ extension TransCategoriesListViewModel {
             selectedTab = .expense
         }
     }
-    
+
     func addNewCategory() {
         print(#function)
+        let index = selectedTab == .expense ? expenseItems.count : incomeItems.count
+        actions?.addNewTransCategory(selectedTab.domainType, index)
     }
-    
+
     func moveItems(from source: IndexSet, to newOffset: Int) {
         var updatedCategories: [TransCategory]
         if selectedTab == .expense {
@@ -109,7 +118,7 @@ extension TransCategoriesListViewModel {
             updatedCategories = incomeCategories
         }
         updatedCategories.move(fromOffsets: source, toOffset: newOffset)
-        
+
         let requestValue = UpdateTransCategoriesUseCase.RequestValue(
             categories: updatedCategories,
             needUpdateSortOrder: true

@@ -1,0 +1,26 @@
+//
+//  IDGenerator.swift
+//  DomainModule
+//
+//  Created by Chien Pham on 23/08/2024.
+//
+
+import Foundation
+
+final class IDGenerator {
+    private static let idKey = "Common.IDGenerator"
+
+    private static var currentID: ID {
+        get {
+            return ID(UserDefaults.standard.integer(forKey: idKey))
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: idKey)
+        }
+    }
+
+    static func generate() -> ID {
+        currentID += 1
+        return currentID
+    }
+}

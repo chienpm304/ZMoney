@@ -18,6 +18,8 @@
 		C35AE4872C74ED1E00400DD7 /* TransCategoriesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C35AE4862C74ED1E00400DD7 /* TransCategoriesListView.swift */; };
 		C35AE48B2C74EDF900400DD7 /* TransCategoriesFlowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C35AE48A2C74EDF900400DD7 /* TransCategoriesFlowCoordinator.swift */; };
 		C37E6BB42C7788EF003F34D9 /* TransCategoryTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37E6BB32C7788EF003F34D9 /* TransCategoryTab.swift */; };
+		C37E6BBF2C784CD0003F34D9 /* TransCategoryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37E6BBE2C784CD0003F34D9 /* TransCategoryDetailView.swift */; };
+		C37E6BC22C784CFD003F34D9 /* TransCategoryDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37E6BC12C784CFD003F34D9 /* TransCategoryDetailModel.swift */; };
 		C3AE5B6E2C76F12600865A54 /* TransCategoriesListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3AE5B6D2C76F12600865A54 /* TransCategoriesListViewModel.swift */; };
 		C3AE5B702C76F3A200865A54 /* TransCategoriesListItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3AE5B6F2C76F3A200865A54 /* TransCategoriesListItemModel.swift */; };
 		C3AE5B732C770BC100865A54 /* RightArrowModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3AE5B722C770BC100865A54 /* RightArrowModifier.swift */; };
@@ -42,6 +44,8 @@
 		C35AE4862C74ED1E00400DD7 /* TransCategoriesListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransCategoriesListView.swift; sourceTree = "<group>"; };
 		C35AE48A2C74EDF900400DD7 /* TransCategoriesFlowCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TransCategoriesFlowCoordinator.swift; path = ZMoney/Presentation/TransCategoriesList/Coordinator/TransCategoriesFlowCoordinator.swift; sourceTree = SOURCE_ROOT; };
 		C37E6BB32C7788EF003F34D9 /* TransCategoryTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransCategoryTab.swift; sourceTree = "<group>"; };
+		C37E6BBE2C784CD0003F34D9 /* TransCategoryDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransCategoryDetailView.swift; sourceTree = "<group>"; };
+		C37E6BC12C784CFD003F34D9 /* TransCategoryDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransCategoryDetailModel.swift; sourceTree = "<group>"; };
 		C3AE5B6D2C76F12600865A54 /* TransCategoriesListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransCategoriesListViewModel.swift; sourceTree = "<group>"; };
 		C3AE5B6F2C76F3A200865A54 /* TransCategoriesListItemModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransCategoriesListItemModel.swift; sourceTree = "<group>"; };
 		C3AE5B722C770BC100865A54 /* RightArrowModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RightArrowModifier.swift; sourceTree = "<group>"; };
@@ -180,9 +184,43 @@
 			path = Coordinator;
 			sourceTree = "<group>";
 		};
+		C37E6BBC2C784CB8003F34D9 /* TransCategoryDetail */ = {
+			isa = PBXGroup;
+			children = (
+				C37E6BC02C784CEF003F34D9 /* Model */,
+				C37E6BBD2C784CC8003F34D9 /* View */,
+				C37E6BC32C784D08003F34D9 /* ViewModel */,
+			);
+			path = TransCategoryDetail;
+			sourceTree = "<group>";
+		};
+		C37E6BBD2C784CC8003F34D9 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C37E6BBE2C784CD0003F34D9 /* TransCategoryDetailView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		C37E6BC02C784CEF003F34D9 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				C37E6BC12C784CFD003F34D9 /* TransCategoryDetailModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		C37E6BC32C784D08003F34D9 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		C391528D2C74AECD008AE1E4 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				C37E6BBC2C784CB8003F34D9 /* TransCategoryDetail */,
 				C3AE5B742C770EA600865A54 /* Extensions */,
 				C3AE5B712C770B2A00865A54 /* SharedComponents */,
 				C35AE4852C74ED1E00400DD7 /* TransCategoriesList */,
@@ -341,6 +379,7 @@
 			files = (
 				C3AE5B732C770BC100865A54 /* RightArrowModifier.swift in Sources */,
 				C35AE48B2C74EDF900400DD7 /* TransCategoriesFlowCoordinator.swift in Sources */,
+				C37E6BC22C784CFD003F34D9 /* TransCategoryDetailModel.swift in Sources */,
 				C30729262C73914C00C9674B /* AppDIContainer.swift in Sources */,
 				C30729282C73918700C9674B /* AppConfiguration.swift in Sources */,
 				C3AE5B6E2C76F12600865A54 /* TransCategoriesListViewModel.swift in Sources */,
@@ -350,6 +389,7 @@
 				C30728DA2C73269B00C9674B /* AppDelegate.swift in Sources */,
 				C307292A2C7391FE00C9674B /* AppFlowCoordinator.swift in Sources */,
 				C30728DC2C73269B00C9674B /* SceneDelegate.swift in Sources */,
+				C37E6BBF2C784CD0003F34D9 /* TransCategoryDetailView.swift in Sources */,
 				C3AE5B762C770EBB00865A54 /* Color+Extensions.swift in Sources */,
 				C37E6BB42C7788EF003F34D9 /* TransCategoryTab.swift in Sources */,
 			);
