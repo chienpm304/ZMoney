@@ -34,10 +34,10 @@ extension DefaultTransCategoryRepository: TransCategoryRepository {
         storage.updateTransCategories(categories, completion: completion)
     }
 
-    public func deleteTransCategory(
-        byId id: ID,
-        completion: @escaping (Result<TransCategory, Error>) -> Void
+    public func deleteTransCategories(
+        _ categoryIDs: [ID],
+        completion: @escaping (Result<[TransCategory], Error>) -> Void
     ) {
-        storage.deleteTransCategory(byId: id, completion: completion)
+        storage.deleteTransCategories(categoryIDs, completion: completion)
     }
 }

@@ -44,6 +44,17 @@ final class TransCategoriesSceneDIContainer: TransCategoriesFlowCoordinatorDepen
         )
     }
 
+    func makeDeleteTransCategoriesUseCase(
+        requestValue: DeleteTransCategoriesUseCase.RequestValue,
+        completion: @escaping (DeleteTransCategoriesUseCase.ResultValue) -> Void
+    ) -> UseCase {
+        DeleteTransCategoriesUseCase(
+            requestValue: requestValue,
+            categoryRepository: makeTransCategoriesRepository(),
+            completion: completion
+        )
+    }
+
     // MARK: Repositories
 
     func makeTransCategoriesRepository() -> TransCategoryRepository {
@@ -73,6 +84,7 @@ final class TransCategoriesSceneDIContainer: TransCategoriesFlowCoordinatorDepen
         return TransCategoriesListViewModel(
             fetchTransCategoriesUseCaseFactory: makeFetchTransCategoriesUseCase,
             updateTransCategoriesUseCaseFactory: makeUpdateTransCategoriesUseCase,
+            deleteTransCategoriesUseCaseFactory: makeDeleteTransCategoriesUseCase,
             actions: actions
         )
     }

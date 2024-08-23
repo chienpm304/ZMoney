@@ -22,8 +22,8 @@ public protocol TransCategoryStorage {
         completion: @escaping (Result<[TransCategory], Error>) -> Void
     )
 
-    func deleteTransCategory(
-        byId id: ID,
-        completion: @escaping (Result<TransCategory, Error>) -> Void
+    func deleteTransCategories(
+        _ categoryIDs: [ID],
+        completion: @escaping (Result<[TransCategory], Error>) -> Void
     )
 }

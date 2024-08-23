@@ -74,23 +74,24 @@ extension TransCategoryCoreDataStorage: TransCategoryStorage {
         }
     }
 
-    public func deleteTransCategory(
-        byId id: ID,
-        completion: @escaping (Result<TransCategory, Error>) -> Void
+    public func deleteTransCategories(
+        _ categoryIDs: [ID],
+        completion: @escaping (Result<[TransCategory], Error>) -> Void
     ) {
         coreData.performBackgroundTask { context in
             do {
-                let fetchRequest: NSFetchRequest = TransCategoryEntity.fetchRequest()
-                fetchRequest.predicate = NSPredicate(format: "id == %@", id as CVarArg)
+                let fetchRequest: NSFetchRequest<TransCategoryEntity> = TransCategoryEntity.fetchRequest()
+                fetchRequest.predicate = NSPredicate(format: "id IN %@", categoryIDs)
 
-                guard let entity = try context.fetch(fetchRequest).first else {
+                let entities = try context.fetch(fetchRequest)
+                guard !entities.isEmpty else {
                     completion(.failure(CoreDataError.notFound))
                     return
                 }
-                let deletedCategory = entity.domain
-                context.delete(entity)
+                let deletedCategories = entities.map { $0.domain }
+                entities.forEach { context.delete($0) }
                 try context.save()
-                completion(.success(deletedCategory))
+                completion(.success(deletedCategories))
             } catch {
                 completion(.failure(CoreDataError.deleteError(error)))
             }

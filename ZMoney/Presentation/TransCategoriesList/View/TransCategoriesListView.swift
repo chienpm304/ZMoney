@@ -60,10 +60,13 @@ struct TransCategoriesListView<ViewModel: TransCategoriesListViewModel>: View {
                             }
                         }
                     }
-                    .onMove(perform: { sourceIndexSet, newOffset in
+                    .onMove { sourceIndexSet, newOffset in
                         print("move indice: \(sourceIndexSet), newOffset: \(newOffset)")
                         viewModel.moveItems(from: sourceIndexSet, to: newOffset)
-                    })
+                    }
+                    .onDelete { indexSet in
+                        viewModel.deleteItem(at: indexSet)
+                    }
                 }
             }
             .listStyle(DefaultListStyle())

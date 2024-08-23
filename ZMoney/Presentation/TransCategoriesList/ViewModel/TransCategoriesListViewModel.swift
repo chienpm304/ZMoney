@@ -24,6 +24,11 @@ typealias UpdateTransCategoriesUseCaseFactory = (
     @escaping (UpdateTransCategoriesUseCase.ResultValue) -> Void
 ) -> UseCase
 
+typealias DeleteTransCategoriesUseCaseFactory = (
+    DeleteTransCategoriesUseCase.RequestValue,
+    @escaping (DeleteTransCategoriesUseCase.ResultValue) -> Void
+) -> UseCase
+
 final class TransCategoriesListViewModel: ObservableObject {
     // MARK: Domain
     private var expenseCategories: [TransCategory] = [] {
@@ -40,6 +45,7 @@ final class TransCategoriesListViewModel: ObservableObject {
     // MARK: Dependencies
     private let fetchTransCategoriesUseCaseFactory: FetchTransCategoriesUseCaseFactory
     private let updateTransCategoriesUseCaseFactory: UpdateTransCategoriesUseCaseFactory
+    private let deleteTransCategoriesUseCaseFactory: DeleteTransCategoriesUseCaseFactory
     private let actions: TransCategoriesListViewModelActions?
     private var fetchUseCase: UseCase?
 
@@ -51,10 +57,12 @@ final class TransCategoriesListViewModel: ObservableObject {
     init(
         fetchTransCategoriesUseCaseFactory: @escaping FetchTransCategoriesUseCaseFactory,
         updateTransCategoriesUseCaseFactory: @escaping UpdateTransCategoriesUseCaseFactory,
+        deleteTransCategoriesUseCaseFactory: @escaping DeleteTransCategoriesUseCaseFactory,
         actions: TransCategoriesListViewModelActions?
     ) {
         self.fetchTransCategoriesUseCaseFactory = fetchTransCategoriesUseCaseFactory
         self.updateTransCategoriesUseCaseFactory = updateTransCategoriesUseCaseFactory
+        self.deleteTransCategoriesUseCaseFactory = deleteTransCategoriesUseCaseFactory
         self.actions = actions
     }
 }
@@ -139,5 +147,35 @@ extension TransCategoriesListViewModel {
         }
         let updateUseCase = updateTransCategoriesUseCaseFactory(requestValue, completion)
         updateUseCase.execute()
+    }
+
+    func deleteItem(at index: IndexSet) {
+        let toUpdateCategories: [TransCategory]
+        if selectedTab == .expense {
+            toUpdateCategories = expenseCategories
+        } else {
+            toUpdateCategories = incomeCategories
+        }
+
+        let toDeleteIDs = index.map { toUpdateCategories[$0].id }
+
+        let requestValue = DeleteTransCategoriesUseCase.RequestValue(categoryIDs: toDeleteIDs)
+        let completion: (DeleteTransCategoriesUseCase.ResultValue) -> Void = { result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let deletedCategories):
+                    let deletedIDs = deletedCategories.map { $0.id }
+                    if self.selectedTab == .expense {
+                        self.expenseCategories.removeAll { deletedIDs.contains($0.id) }
+                    } else {
+                        self.incomeCategories.removeAll { deletedIDs.contains($0.id) }
+                    }
+                case .failure(let error):
+                    print("failed to move categories: \(error)")
+                }
+            }
+        }
+        let deteleUseCase = deleteTransCategoriesUseCaseFactory(requestValue, completion)
+        deteleUseCase.execute()
     }
 }
