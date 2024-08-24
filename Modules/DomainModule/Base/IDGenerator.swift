@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class IDGenerator {
+public final class IDGenerator {
     private static let idKey = "Common.IDGenerator"
 
     private static var currentID: ID {
@@ -19,7 +19,7 @@ final class IDGenerator {
         }
     }
 
-    static func generate() -> ID {
+    static public func generate() -> ID {
         currentID += 1
         return currentID
     }

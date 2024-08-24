@@ -32,8 +32,8 @@ public struct TransCategory {
     public init(type: TransType, sortIndex: Index) {
         self.id = IDGenerator.generate()
         self.name = ""
-        self.icon = ""
-        self.color = ""
+        self.icon = "fork.knife.circle"
+        self.color = "FABC3F"
         self.sortIndex = sortIndex
         self.type = type
     }

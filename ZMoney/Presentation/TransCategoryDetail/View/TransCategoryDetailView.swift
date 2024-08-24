@@ -8,43 +8,54 @@
 import SwiftUI
 
 struct TransCategoryDetailView: View {
-    private let viewModel: TransCategoryDetailModel
-    init(category: TransCategoryDetailModel) {
-        self.viewModel = category
-    }
+    @ObservedObject var viewModel: TransCategoryDetailViewModel
 
     var body: some View {
         VStack {
-            Text(viewModel.type == .expense ? "Expense" : "Income")
-            Text(viewModel.name)
-            Image(systemName: viewModel.icon)
-                .foregroundColor(Color(hex: viewModel.iconColor))
-            Text("sort index: \(viewModel.sortIndex)")
-        }
-    }
-}
+            Form {
+                Section(header: Text("Category Details")) {
+                    HStack {
+                        Text("Name")
+                            .fontWeight(.semibold)
+                        TextField("Category name", text: $viewModel.model.name)
+                    }
 
-#Preview {
-    VStack {
-        TransCategoryDetailView(
-            category: .init(
-                category: .init(
-                    id: 1,
-                    name: "Education",
-                    icon: "ball",
-                    color: "ffffff",
-                    sortIndex: 1,
-                    type: .expense
-                )
-            )
-        )
-        Text("-------")
-        TransCategoryDetailView(
-            category: .init(
-                category: .init(
-                    type: .expense, sortIndex: 0
-                )
-            )
-        )
+                    ColorPicker(selection: Binding(
+                        get: { Color(hex: viewModel.model.color) },
+                        set: { newColor in viewModel.model.color = newColor.hexString }
+                    ), label: {
+                        Text("Icon")
+                            .fontWeight(.semibold)
+                    })
+
+                    IconPickerView(
+                        selectedIcon: $viewModel.model.icon,
+                        selectedColor: Binding(
+                            get: { Color(hex: viewModel.model.color) },
+                            set: { newColor in viewModel.model.color = newColor.hexString }
+                        ),
+                        icons: viewModel.iconList,
+                        iconSize: .init(width: 36, height: 20),
+                        numberOfColums: 5,
+                        spacing: 8
+                    )
+                    .padding(.vertical, 8)
+                    .frame(maxHeight: 200)
+                }
+
+                Button {
+                    viewModel.save()
+                } label: {
+                    Text("Save")
+                        .foregroundColor(.white)
+                        .padding(.vertical, 2)
+                        .frame(maxWidth: .infinity)
+                        .cornerRadius(8)
+                }
+                .disabled(!viewModel.isSaveEnabled)
+                .listRowBackground(viewModel.isSaveEnabled ? Color.blue : Color.gray)
+            }
+        }
+        .navigationBarTitle(viewModel.model.name.isEmpty ? "New" : "Edit", displayMode: .inline)
     }
 }

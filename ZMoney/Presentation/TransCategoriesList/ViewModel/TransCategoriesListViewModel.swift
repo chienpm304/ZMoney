@@ -15,20 +15,6 @@ struct TransCategoriesListViewModelActions {
     let addTransCategoryDetail: (TransType) -> Void
 }
 
-typealias FetchTransCategoriesUseCaseFactory = (
-    @escaping (FetchTransCategoriesUseCase.ResultValue) -> Void
-) -> UseCase
-
-typealias UpdateTransCategoriesUseCaseFactory = (
-    UpdateTransCategoriesUseCase.RequestValue,
-    @escaping (UpdateTransCategoriesUseCase.ResultValue) -> Void
-) -> UseCase
-
-typealias DeleteTransCategoriesUseCaseFactory = (
-    DeleteTransCategoriesUseCase.RequestValue,
-    @escaping (DeleteTransCategoriesUseCase.ResultValue) -> Void
-) -> UseCase
-
 final class TransCategoriesListViewModel: ObservableObject {
     struct Dependencies {
         let fetchTransCategoriesUseCaseFactory: FetchTransCategoriesUseCaseFactory

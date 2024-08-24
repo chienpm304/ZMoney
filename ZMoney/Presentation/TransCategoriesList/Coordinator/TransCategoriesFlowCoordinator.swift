@@ -14,8 +14,8 @@ protocol TransCategoriesFlowCoordinatorDependencies {
     ) -> UIViewController
 
     func makeTransCategoryDetailViewController(
-        category: TransCategory?,
-        type: TransType,
+        category: TransCategory,
+        isNewCategory: Bool,
         actions: TransCategoryDetailViewModelActions
     ) -> UIViewController
 }
@@ -23,6 +23,7 @@ protocol TransCategoriesFlowCoordinatorDependencies {
 final class TransCategoriesFlowCoordinator {
     private weak var navigationController: UINavigationController?
     private let dependencies: TransCategoriesFlowCoordinatorDependencies
+    var transCategoriesListViewController: UIViewController?
 
     init(
         navigationController: UINavigationController? = nil,
@@ -38,24 +39,29 @@ final class TransCategoriesFlowCoordinator {
             addTransCategoryDetail: addCategoryDetail
         )
         let tranCategoriesListVC = dependencies.makeTransCategoriesListViewController(actions: actions)
+        transCategoriesListViewController = tranCategoriesListVC
         navigationController?.pushViewController(tranCategoriesListVC, animated: true)
     }
 
     private func editCategoryDetail(category: TransCategory) {
-        addOrEditCategoryDetail(category: category, type: category.type)
+        addOrEditCategoryDetail(category: category, isNewCategory: false)
     }
 
     private func addCategoryDetail(type: TransType) {
-        addOrEditCategoryDetail(type: type)
+        let categoryPlaceholder = TransCategory(type: type, sortIndex: Index.max - 1)
+        addOrEditCategoryDetail(category: categoryPlaceholder, isNewCategory: true)
     }
 
-    private func addOrEditCategoryDetail(category: TransCategory? = nil, type: TransType) {
-        let actions = TransCategoryDetailViewModelActions { category in
+    private func addOrEditCategoryDetail(category: TransCategory, isNewCategory: Bool) {
+        let actions = TransCategoryDetailViewModelActions { [weak self] category in
             print("added or edited category: \(category)")
+            if let listViewController = self?.transCategoriesListViewController {
+                self?.navigationController?.popToViewController(listViewController, animated: true)
+            }
         }
         let detailVC = dependencies.makeTransCategoryDetailViewController(
             category: category,
-            type: type,
+            isNewCategory: isNewCategory,
             actions: actions
         )
         navigationController?.pushViewController(detailVC, animated: true)

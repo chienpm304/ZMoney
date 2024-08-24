@@ -15,6 +15,9 @@
 		C30729282C73918700C9674B /* AppConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30729272C73918700C9674B /* AppConfiguration.swift */; };
 		C307292A2C7391FE00C9674B /* AppFlowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30729292C7391FE00C9674B /* AppFlowCoordinator.swift */; };
 		C307292C2C7392B000C9674B /* TransCategoriesSceneDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C307292B2C7392B000C9674B /* TransCategoriesSceneDIContainer.swift */; };
+		C343F3412C79AD6700224D61 /* IconResourceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C343F3402C79AD6700224D61 /* IconResourceProvider.swift */; };
+		C343F3432C79B21700224D61 /* TransCategoryDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C343F3422C79B21700224D61 /* TransCategoryDetailViewModel.swift */; };
+		C343F3492C79CB3E00224D61 /* IconPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C343F3482C79CB3E00224D61 /* IconPickerView.swift */; };
 		C35AE4872C74ED1E00400DD7 /* TransCategoriesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C35AE4862C74ED1E00400DD7 /* TransCategoriesListView.swift */; };
 		C35AE48B2C74EDF900400DD7 /* TransCategoriesFlowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C35AE48A2C74EDF900400DD7 /* TransCategoriesFlowCoordinator.swift */; };
 		C37E6BB42C7788EF003F34D9 /* TransCategoryTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37E6BB32C7788EF003F34D9 /* TransCategoryTab.swift */; };
@@ -41,6 +44,9 @@
 		C30729272C73918700C9674B /* AppConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfiguration.swift; sourceTree = "<group>"; };
 		C30729292C7391FE00C9674B /* AppFlowCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFlowCoordinator.swift; sourceTree = "<group>"; };
 		C307292B2C7392B000C9674B /* TransCategoriesSceneDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransCategoriesSceneDIContainer.swift; sourceTree = "<group>"; };
+		C343F3402C79AD6700224D61 /* IconResourceProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconResourceProvider.swift; sourceTree = "<group>"; };
+		C343F3422C79B21700224D61 /* TransCategoryDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransCategoryDetailViewModel.swift; sourceTree = "<group>"; };
+		C343F3482C79CB3E00224D61 /* IconPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconPickerView.swift; sourceTree = "<group>"; };
 		C35AE4862C74ED1E00400DD7 /* TransCategoriesListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransCategoriesListView.swift; sourceTree = "<group>"; };
 		C35AE48A2C74EDF900400DD7 /* TransCategoriesFlowCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TransCategoriesFlowCoordinator.swift; path = ZMoney/Presentation/TransCategoriesList/Coordinator/TransCategoriesFlowCoordinator.swift; sourceTree = SOURCE_ROOT; };
 		C37E6BB32C7788EF003F34D9 /* TransCategoryTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransCategoryTab.swift; sourceTree = "<group>"; };
@@ -140,6 +146,15 @@
 			path = DIContainer;
 			sourceTree = "<group>";
 		};
+		C343F33F2C79AD5400224D61 /* Icons */ = {
+			isa = PBXGroup;
+			children = (
+				C343F3402C79AD6700224D61 /* IconResourceProvider.swift */,
+				C343F3482C79CB3E00224D61 /* IconPickerView.swift */,
+			);
+			path = Icons;
+			sourceTree = "<group>";
+		};
 		C35AE4852C74ED1E00400DD7 /* TransCategoriesList */ = {
 			isa = PBXGroup;
 			children = (
@@ -213,6 +228,7 @@
 		C37E6BC32C784D08003F34D9 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				C343F3422C79B21700224D61 /* TransCategoryDetailViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -231,6 +247,7 @@
 		C3AE5B712C770B2A00865A54 /* SharedComponents */ = {
 			isa = PBXGroup;
 			children = (
+				C343F33F2C79AD5400224D61 /* Icons */,
 				C3AE5B722C770BC100865A54 /* RightArrowModifier.swift */,
 			);
 			path = SharedComponents;
@@ -378,13 +395,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				C3AE5B732C770BC100865A54 /* RightArrowModifier.swift in Sources */,
+				C343F3412C79AD6700224D61 /* IconResourceProvider.swift in Sources */,
 				C35AE48B2C74EDF900400DD7 /* TransCategoriesFlowCoordinator.swift in Sources */,
 				C37E6BC22C784CFD003F34D9 /* TransCategoryDetailModel.swift in Sources */,
 				C30729262C73914C00C9674B /* AppDIContainer.swift in Sources */,
+				C343F3492C79CB3E00224D61 /* IconPickerView.swift in Sources */,
 				C30729282C73918700C9674B /* AppConfiguration.swift in Sources */,
 				C3AE5B6E2C76F12600865A54 /* TransCategoriesListViewModel.swift in Sources */,
 				C3AE5B702C76F3A200865A54 /* TransCategoriesListItemModel.swift in Sources */,
 				C35AE4872C74ED1E00400DD7 /* TransCategoriesListView.swift in Sources */,
+				C343F3432C79B21700224D61 /* TransCategoryDetailViewModel.swift in Sources */,
 				C307292C2C7392B000C9674B /* TransCategoriesSceneDIContainer.swift in Sources */,
 				C30728DA2C73269B00C9674B /* AppDelegate.swift in Sources */,
 				C307292A2C7391FE00C9674B /* AppFlowCoordinator.swift in Sources */,

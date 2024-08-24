@@ -23,11 +23,29 @@ final class TransCategoriesSceneDIContainer: TransCategoriesFlowCoordinatorDepen
     }
 
     // MARK: Use Cases
-
+    func makeTransCategoriesUseCaseFactory() -> TransCategoriesUseCaseFactory {
+        TransCategoriesUseCaseFactory(
+            fetchUseCase: makeFetchTransCategoriesUseCase,
+            addUseCase: makeAddTransCategoriesUseCase,
+            updateUseCase: makeUpdateTransCategoriesUseCase,
+            deleteUseCase: makeDeleteTransCategoriesUseCase
+        )
+    }
     func makeFetchTransCategoriesUseCase(
         completion: @escaping (FetchTransCategoriesUseCase.ResultValue) -> Void
     ) -> UseCase {
         FetchTransCategoriesUseCase(
+            categoryRepository: makeTransCategoriesRepository(),
+            completion: completion
+        )
+    }
+
+    func makeAddTransCategoriesUseCase(
+        requestValue: AddTransCategoriesUseCase.RequestValue,
+        completion: @escaping (AddTransCategoriesUseCase.ResultValue) -> Void
+    ) -> UseCase {
+        AddTransCategoriesUseCase(
+            requestValue: requestValue,
             categoryRepository: makeTransCategoriesRepository(),
             completion: completion
         )
@@ -71,8 +89,17 @@ final class TransCategoriesSceneDIContainer: TransCategoriesFlowCoordinatorDepen
         return UIHostingController(rootView: view)
     }
 
-    func makeTransCategoryDetailViewController(category: TransCategory) -> UIViewController {
-        let view = TransCategoryDetailView(category: .init(category: category))
+    func makeTransCategoryDetailViewController(
+        category: TransCategory,
+        isNewCategory: Bool,
+        actions: TransCategoryDetailViewModelActions
+    ) -> UIViewController {
+        let viewModel = makeTransCategoryDetailViewModel(
+            category: category,
+            isNewCategory: isNewCategory,
+            actions: actions
+        )
+        let view = TransCategoryDetailView(viewModel: viewModel)
         return UIHostingController(rootView: view)
     }
 
@@ -81,11 +108,28 @@ final class TransCategoriesSceneDIContainer: TransCategoriesFlowCoordinatorDepen
     func makeTransCategoriesListViewModel(
         actions: TransCategoriesListViewModelActions
     ) -> TransCategoriesListViewModel {
-        return TransCategoriesListViewModel(
+        let dependencies = TransCategoriesListViewModel.Dependencies(
             fetchTransCategoriesUseCaseFactory: makeFetchTransCategoriesUseCase,
             updateTransCategoriesUseCaseFactory: makeUpdateTransCategoriesUseCase,
             deleteTransCategoriesUseCaseFactory: makeDeleteTransCategoriesUseCase,
             actions: actions
+        )
+        return TransCategoriesListViewModel(dependencies: dependencies)
+    }
+
+    func makeTransCategoryDetailViewModel(
+        category: TransCategory,
+        isNewCategory: Bool,
+        actions: TransCategoryDetailViewModelActions
+    ) -> TransCategoryDetailViewModel {
+        let dependencies = TransCategoryDetailViewModel.Dependencies(
+            useCaseFactory: makeTransCategoriesUseCaseFactory(),
+            actions: actions
+        )
+        return TransCategoryDetailViewModel(
+            category: category,
+            isNewCategory: isNewCategory,
+            dependencies: dependencies
         )
     }
 
