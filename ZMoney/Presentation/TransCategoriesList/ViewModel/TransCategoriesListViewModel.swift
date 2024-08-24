@@ -11,8 +11,8 @@ import Combine
 import DataModule
 
 struct TransCategoriesListViewModelActions {
-    let showTransCategoryDetail: (TransCategory) -> Void
-    let addNewTransCategory: (TransType, Int) -> Void
+    let editTransCategoryDetail: (TransCategory) -> Void
+    let addTransCategoryDetail: (TransType) -> Void
 }
 
 typealias FetchTransCategoriesUseCaseFactory = (
@@ -30,6 +30,13 @@ typealias DeleteTransCategoriesUseCaseFactory = (
 ) -> UseCase
 
 final class TransCategoriesListViewModel: ObservableObject {
+    struct Dependencies {
+        let fetchTransCategoriesUseCaseFactory: FetchTransCategoriesUseCaseFactory
+        let updateTransCategoriesUseCaseFactory: UpdateTransCategoriesUseCaseFactory
+        let deleteTransCategoriesUseCaseFactory: DeleteTransCategoriesUseCaseFactory
+        let actions: TransCategoriesListViewModelActions?
+    }
+
     // MARK: Domain
     private var expenseCategories: [TransCategory] = [] {
         didSet {
@@ -43,10 +50,7 @@ final class TransCategoriesListViewModel: ObservableObject {
     }
 
     // MARK: Dependencies
-    private let fetchTransCategoriesUseCaseFactory: FetchTransCategoriesUseCaseFactory
-    private let updateTransCategoriesUseCaseFactory: UpdateTransCategoriesUseCaseFactory
-    private let deleteTransCategoriesUseCaseFactory: DeleteTransCategoriesUseCaseFactory
-    private let actions: TransCategoriesListViewModelActions?
+    private let dependencies: Dependencies
     private var fetchUseCase: UseCase?
 
     // MARK: Output
@@ -55,15 +59,17 @@ final class TransCategoriesListViewModel: ObservableObject {
     @Published var incomeItems: [TransCategoriesListItemModel] = []
 
     init(
-        fetchTransCategoriesUseCaseFactory: @escaping FetchTransCategoriesUseCaseFactory,
-        updateTransCategoriesUseCaseFactory: @escaping UpdateTransCategoriesUseCaseFactory,
-        deleteTransCategoriesUseCaseFactory: @escaping DeleteTransCategoriesUseCaseFactory,
-        actions: TransCategoriesListViewModelActions?
+//        fetchTransCategoriesUseCaseFactory: @escaping FetchTransCategoriesUseCaseFactory,
+//        updateTransCategoriesUseCaseFactory: @escaping UpdateTransCategoriesUseCaseFactory,
+//        deleteTransCategoriesUseCaseFactory: @escaping DeleteTransCategoriesUseCaseFactory,
+//        actions: TransCategoriesListViewModelActions?
+        dependencies: Dependencies
     ) {
-        self.fetchTransCategoriesUseCaseFactory = fetchTransCategoriesUseCaseFactory
-        self.updateTransCategoriesUseCaseFactory = updateTransCategoriesUseCaseFactory
-        self.deleteTransCategoriesUseCaseFactory = deleteTransCategoriesUseCaseFactory
-        self.actions = actions
+//        self.fetchTransCategoriesUseCaseFactory = fetchTransCategoriesUseCaseFactory
+//        self.updateTransCategoriesUseCaseFactory = updateTransCategoriesUseCaseFactory
+//        self.deleteTransCategoriesUseCaseFactory = deleteTransCategoriesUseCaseFactory
+//        self.actions = actions
+        self.dependencies = dependencies
     }
 }
 
@@ -83,7 +89,7 @@ extension TransCategoriesListViewModel {
             }
         }
 
-        let useCase = fetchTransCategoriesUseCaseFactory(completion)
+        let useCase = dependencies.fetchTransCategoriesUseCaseFactory(completion)
         useCase.execute()
         fetchUseCase = useCase // keep reference
     }
@@ -101,7 +107,7 @@ extension TransCategoriesListViewModel {
             assertionFailure()
             return
         }
-        actions?.showTransCategoryDetail(category)
+        dependencies.actions?.editTransCategoryDetail(category)
     }
 
     func switchTransCategoryTab() {
@@ -112,10 +118,8 @@ extension TransCategoriesListViewModel {
         }
     }
 
-    func addNewCategory() {
-        print(#function)
-        let index = selectedTab == .expense ? expenseItems.count : incomeItems.count
-        actions?.addNewTransCategory(selectedTab.domainType, index)
+    func addTransCategory() {
+        dependencies.actions?.addTransCategoryDetail(selectedTab.domainType)
     }
 
     func moveItems(from source: IndexSet, to newOffset: Int) {
@@ -145,7 +149,7 @@ extension TransCategoriesListViewModel {
                 }
             }
         }
-        let updateUseCase = updateTransCategoriesUseCaseFactory(requestValue, completion)
+        let updateUseCase = dependencies.updateTransCategoriesUseCaseFactory(requestValue, completion)
         updateUseCase.execute()
     }
 
@@ -175,7 +179,7 @@ extension TransCategoriesListViewModel {
                 }
             }
         }
-        let deteleUseCase = deleteTransCategoriesUseCaseFactory(requestValue, completion)
+        let deteleUseCase = dependencies.deleteTransCategoriesUseCaseFactory(requestValue, completion)
         deteleUseCase.execute()
     }
 }

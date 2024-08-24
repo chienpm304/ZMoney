@@ -37,7 +37,7 @@ struct TransCategoriesListView<ViewModel: TransCategoriesListViewModel>: View {
             List {
                 Section {
                     Button {
-                        viewModel.addNewCategory()
+                        viewModel.addTransCategory()
                     } label: {
                         Text("Add category")
                             .withRightArrow()
