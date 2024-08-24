@@ -20,9 +20,9 @@ extension CategoryCoreDataStorage: CategoryStorage {
     public func fetchCategories(completion: @escaping (Result<[DMCategory], Error>) -> Void) {
         coreData.performBackgroundTask { context in
             do {
-                let request: NSFetchRequest = TransCategoryEntity.fetchRequest()
+                let request: NSFetchRequest = CDCategory.fetchRequest()
                 request.sortDescriptors = [
-                    NSSortDescriptor(key: #keyPath(TransCategoryEntity.sortIndex), ascending: true)
+                    NSSortDescriptor(key: #keyPath(CDCategory.sortIndex), ascending: true)
                 ]
                 let result = try context.fetch(request).map { $0.domain }
                 completion(.success(result))
@@ -38,7 +38,7 @@ extension CategoryCoreDataStorage: CategoryStorage {
     ) {
         coreData.performBackgroundTask { context in
             do {
-                let entities = categories.map { TransCategoryEntity(category: $0, insertInto: context) }
+                let entities = categories.map { CDCategory(category: $0, insertInto: context) }
                 try context.save()
                 completion(.success(entities.map { $0.domain }))
             } catch {
@@ -55,7 +55,7 @@ extension CategoryCoreDataStorage: CategoryStorage {
             do {
                 let categoriesIDs = categories.map { $0.id }
                 let categoriesDict = Dictionary(uniqueKeysWithValues: categories.map { ($0.id, $0) })
-                let fetchRequest: NSFetchRequest<TransCategoryEntity> = TransCategoryEntity.fetchRequest()
+                let fetchRequest: NSFetchRequest<CDCategory> = CDCategory.fetchRequest()
                 fetchRequest.predicate = NSPredicate(format: "id IN %@", categoriesIDs)
                 let entities = try context.fetch(fetchRequest)
                 for entity in entities {
@@ -80,7 +80,7 @@ extension CategoryCoreDataStorage: CategoryStorage {
     ) {
         coreData.performBackgroundTask { context in
             do {
-                let fetchRequest: NSFetchRequest<TransCategoryEntity> = TransCategoryEntity.fetchRequest()
+                let fetchRequest: NSFetchRequest<CDCategory> = CDCategory.fetchRequest()
                 fetchRequest.predicate = NSPredicate(format: "id IN %@", categoryIDs)
 
                 let entities = try context.fetch(fetchRequest)

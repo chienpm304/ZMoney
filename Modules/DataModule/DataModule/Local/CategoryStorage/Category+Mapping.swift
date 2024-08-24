@@ -10,7 +10,7 @@ import CoreData
 import DomainModule
 
 // If compiler say that not found the entity, try add core data model target membership
-extension TransCategoryEntity {
+extension CDCategory {
     var domain: DMCategory {
         .init(
             id: self.id,
@@ -23,7 +23,7 @@ extension TransCategoryEntity {
     }
 }
 
-extension TransCategoryEntity {
+extension CDCategory {
     convenience init(category: DMCategory, insertInto context: NSManagedObjectContext) {
         self.init(context: context)
         self.id = category.id
