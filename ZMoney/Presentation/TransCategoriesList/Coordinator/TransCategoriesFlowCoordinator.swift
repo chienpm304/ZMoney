@@ -23,7 +23,7 @@ protocol TransCategoriesFlowCoordinatorDependencies {
 final class TransCategoriesFlowCoordinator {
     private weak var navigationController: UINavigationController?
     private let dependencies: TransCategoriesFlowCoordinatorDependencies
-    var transCategoriesListViewController: UIViewController?
+    private var transCategoriesListViewController: UIViewController?
 
     init(
         navigationController: UINavigationController? = nil,
@@ -53,8 +53,7 @@ final class TransCategoriesFlowCoordinator {
     }
 
     private func addOrEditCategoryDetail(category: TransCategory, isNewCategory: Bool) {
-        let actions = TransCategoryDetailViewModelActions { [weak self] category in
-            print("added or edited category: \(category)")
+        let actions = TransCategoryDetailViewModelActions { [weak self] _ in
             if let listViewController = self?.transCategoriesListViewController {
                 self?.navigationController?.popToViewController(listViewController, animated: true)
             }

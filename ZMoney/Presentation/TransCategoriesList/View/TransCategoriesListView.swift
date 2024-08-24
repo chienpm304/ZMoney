@@ -74,9 +74,6 @@ struct TransCategoriesListView<ViewModel: TransCategoriesListViewModel>: View {
         .navigationTitle("Categories")
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarItems(trailing: EditButton())
-        #if DEBUG
-        .navigationBarItems(leading: Button("Refresh", action: viewModel.refresh))
-        #endif
         .onAppear {
             viewModel.onViewAppear()
         }

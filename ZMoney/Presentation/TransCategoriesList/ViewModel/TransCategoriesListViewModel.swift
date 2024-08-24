@@ -17,9 +17,7 @@ struct TransCategoriesListViewModelActions {
 
 final class TransCategoriesListViewModel: ObservableObject {
     struct Dependencies {
-        let fetchTransCategoriesUseCaseFactory: FetchTransCategoriesUseCaseFactory
-        let updateTransCategoriesUseCaseFactory: UpdateTransCategoriesUseCaseFactory
-        let deleteTransCategoriesUseCaseFactory: DeleteTransCategoriesUseCaseFactory
+        let useCaseFactory: TransCategoriesUseCaseFactory
         let actions: TransCategoriesListViewModelActions?
     }
 
@@ -44,17 +42,7 @@ final class TransCategoriesListViewModel: ObservableObject {
     @Published var expenseItems: [TransCategoriesListItemModel] = []
     @Published var incomeItems: [TransCategoriesListItemModel] = []
 
-    init(
-//        fetchTransCategoriesUseCaseFactory: @escaping FetchTransCategoriesUseCaseFactory,
-//        updateTransCategoriesUseCaseFactory: @escaping UpdateTransCategoriesUseCaseFactory,
-//        deleteTransCategoriesUseCaseFactory: @escaping DeleteTransCategoriesUseCaseFactory,
-//        actions: TransCategoriesListViewModelActions?
-        dependencies: Dependencies
-    ) {
-//        self.fetchTransCategoriesUseCaseFactory = fetchTransCategoriesUseCaseFactory
-//        self.updateTransCategoriesUseCaseFactory = updateTransCategoriesUseCaseFactory
-//        self.deleteTransCategoriesUseCaseFactory = deleteTransCategoriesUseCaseFactory
-//        self.actions = actions
+    init(dependencies: Dependencies) {
         self.dependencies = dependencies
     }
 }
@@ -75,16 +63,10 @@ extension TransCategoriesListViewModel {
             }
         }
 
-        let useCase = dependencies.fetchTransCategoriesUseCaseFactory(completion)
+        let useCase = dependencies.useCaseFactory.fetchUseCase(completion)
         useCase.execute()
         fetchUseCase = useCase // keep reference
     }
-
-    #if DEBUG
-    func refresh() {
-        onViewAppear()
-    }
-    #endif
 
     func didSelectItem(_ item: TransCategoriesListItemModel) {
         let categories = selectedTab == .expense ? expenseCategories : incomeCategories
@@ -135,7 +117,7 @@ extension TransCategoriesListViewModel {
                 }
             }
         }
-        let updateUseCase = dependencies.updateTransCategoriesUseCaseFactory(requestValue, completion)
+        let updateUseCase = dependencies.useCaseFactory.updateUseCase(requestValue, completion)
         updateUseCase.execute()
     }
 
@@ -165,7 +147,7 @@ extension TransCategoriesListViewModel {
                 }
             }
         }
-        let deteleUseCase = dependencies.deleteTransCategoriesUseCaseFactory(requestValue, completion)
+        let deteleUseCase = dependencies.useCaseFactory.deleteUseCase(requestValue, completion)
         deteleUseCase.execute()
     }
 }

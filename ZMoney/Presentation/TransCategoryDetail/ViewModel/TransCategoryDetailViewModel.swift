@@ -21,15 +21,17 @@ class TransCategoryDetailViewModel: ObservableObject {
     @Published var model: TransCategoryDetailModel
     private let originalModel: TransCategoryDetailModel
     private let isNewCategory: Bool
+    private let dependencies: Dependencies
 
     var iconList: [String] {
         IconResourceProvider.categoryIcons
     }
 
-    // MARK: Dependencies
-    private let dependencies: Dependencies
-
-    init(category: TransCategory, isNewCategory: Bool, dependencies: Dependencies) {
+    init(
+        category: TransCategory,
+        isNewCategory: Bool,
+        dependencies: Dependencies
+    ) {
         let detailModel = TransCategoryDetailModel(category: category)
         self.originalModel = detailModel
         self.model = detailModel

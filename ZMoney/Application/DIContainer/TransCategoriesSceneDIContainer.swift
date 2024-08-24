@@ -12,11 +12,14 @@ import SwiftUI
 
 final class TransCategoriesSceneDIContainer: TransCategoriesFlowCoordinatorDependencies {
     struct Dependencies {
-
+        let coreDataStack: CoreDataStack
     }
 
     private let dependencies: Dependencies
-    lazy var transCategoryStorage: TransCategoryStorage = TransCategoryCoreDataStorage()
+
+    lazy var transCategoryStorage: TransCategoryStorage = TransCategoryCoreDataStorage(
+        coreData: dependencies.coreDataStack
+    )
 
     init(dependencies: Dependencies) {
         self.dependencies = dependencies
@@ -109,9 +112,7 @@ final class TransCategoriesSceneDIContainer: TransCategoriesFlowCoordinatorDepen
         actions: TransCategoriesListViewModelActions
     ) -> TransCategoriesListViewModel {
         let dependencies = TransCategoriesListViewModel.Dependencies(
-            fetchTransCategoriesUseCaseFactory: makeFetchTransCategoriesUseCase,
-            updateTransCategoriesUseCaseFactory: makeUpdateTransCategoriesUseCase,
-            deleteTransCategoriesUseCaseFactory: makeDeleteTransCategoriesUseCase,
+            useCaseFactory: makeTransCategoriesUseCaseFactory(),
             actions: actions
         )
         return TransCategoriesListViewModel(dependencies: dependencies)

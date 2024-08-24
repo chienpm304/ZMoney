@@ -55,13 +55,3 @@ struct IconItemView: View {
             .foregroundColor(color)
     }
 }
-
-//
-//#Preview {
-//
-//    @State private var selectedIcon: String = "star"
-//
-//    var body: some View {
-//        HorizontalIconPickerView(selectedIcon: $selectedIcon, icons: ["star", "heart", "bolt", "leaf", "cloud", "moon", "sun.max"])
-//    }
-//}
