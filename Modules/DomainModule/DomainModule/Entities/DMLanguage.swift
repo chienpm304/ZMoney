@@ -1,5 +1,5 @@
 //
-//  Language.swift
+//  DMLanguage.swift
 //  Domain
 //
 //  Created by Chien Pham on 19/08/2024.
@@ -7,7 +7,7 @@
 
 // swiftlint:disable identifier_name
 
-enum Language: String {
+enum DMLanguage: String {
     case vi
     case en
 }
