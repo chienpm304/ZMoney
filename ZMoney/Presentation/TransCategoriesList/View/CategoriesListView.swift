@@ -1,5 +1,5 @@
 //
-//  TransCategoriesListView.swift
+//  CategoriesListView.swift
 //  Presentation
 //
 //  Created by Chien Pham on 20/08/2024.
@@ -9,14 +9,14 @@ import SwiftUI
 import DataModule
 import DomainModule
 
-struct TransCategoriesListView<ViewModel: TransCategoriesListViewModel>: View {
+struct CategoriesListView<ViewModel: CategoriesListViewModel>: View {
     @ObservedObject private var viewModel: ViewModel
 
     public init(viewModel: ViewModel) {
         self.viewModel = viewModel
     }
 
-    private var items: [TransCategoriesListItemModel] {
+    private var items: [CategoriesListItemModel] {
         viewModel.selectedTab == .expense
         ? viewModel.expenseItems
         : viewModel.incomeItems
@@ -26,7 +26,7 @@ struct TransCategoriesListView<ViewModel: TransCategoriesListViewModel>: View {
         VStack {
             HStack {
                 Picker("Tab", selection: $viewModel.selectedTab) {
-                    ForEach(TransCategoryTab.allCases) {
+                    ForEach(CategoryTab.allCases) {
                         Text($0.rawValue.capitalized)
                     }
                 }
@@ -37,7 +37,7 @@ struct TransCategoriesListView<ViewModel: TransCategoriesListViewModel>: View {
             List {
                 Section {
                     Button {
-                        viewModel.addTransCategory()
+                        viewModel.addCategory()
                     } label: {
                         Text("Add category")
                             .withRightArrow()
@@ -79,9 +79,3 @@ struct TransCategoriesListView<ViewModel: TransCategoriesListViewModel>: View {
         }
     }
 }
-
-// #Preview {
-//     NavigationView {
-//         TransCategoriesListView(viewModel: <#TransCategoriesListViewModel#>)
-//     }
-// }

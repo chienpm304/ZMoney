@@ -1,11 +1,11 @@
 //
-//  TransCategory.swift
+//  DMCategory.swift
 //  Domain
 //
 //  Created by Chien Pham on 19/08/2024.
 //
 
-public struct TransCategory {
+public struct DMCategory {
     public let id: ID
     public let name: String
     public let icon: String
@@ -40,8 +40,8 @@ public struct TransCategory {
 }
 
 // swiftlint:disable line_length
-extension TransCategory {
-    public static var defaultExpenseCategories: [TransCategory] {
+extension DMCategory {
+    public static var defaultExpenseCategories: [DMCategory] {
         [
             .init(id: 1, name: "Food", icon: "fork.knife.circle", color: "FABC3F", sortIndex: 1, type: .expense),
             .init(id: 2, name: "Sport", icon: "figure.walk", color: "E85C0D", sortIndex: 2, type: .expense),
@@ -51,7 +51,7 @@ extension TransCategory {
         ]
     }
 
-    public static var defaultIncomeCategories: [TransCategory] {
+    public static var defaultIncomeCategories: [DMCategory] {
         [
             .init(id: 50, name: "Salary", icon: "fork.knife.circle", color: "522258", sortIndex: 50, type: .income),
             .init(id: 51, name: "Pocket money", icon: "externaldrive", color: "8C3061", sortIndex: 51, type: .income),

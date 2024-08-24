@@ -1,5 +1,5 @@
 //
-//  TransCategoryDetailModel.swift
+//  CategoryDetailModel.swift
 //  ZMoney
 //
 //  Created by Chien Pham on 23/08/2024.
@@ -7,7 +7,7 @@
 
 import DomainModule
 
-struct TransCategoryDetailModel {
+struct CategoryDetailModel {
     var id: ID
     var name: String
     var icon: String
@@ -16,8 +16,8 @@ struct TransCategoryDetailModel {
     var type: TransType
 }
 
-extension TransCategoryDetailModel {
-    init(category: TransCategory) {
+extension CategoryDetailModel {
+    init(category: DMCategory) {
         self.id = category.id
         self.name = category.name
         self.icon = category.icon
@@ -26,8 +26,8 @@ extension TransCategoryDetailModel {
         self.type = category.type
     }
 
-    var domain: TransCategory {
-        TransCategory(
+    var domain: DMCategory {
+        DMCategory(
             id: id,
             name: name,
             icon: icon,

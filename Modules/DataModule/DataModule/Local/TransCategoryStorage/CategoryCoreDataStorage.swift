@@ -1,5 +1,5 @@
 //
-//  TransCategoryCoreDataStorage.swift
+//  CategoryCoreDataStorage.swift
 //  Domain
 //
 //  Created by Chien Pham on 19/08/2024.
@@ -8,7 +8,7 @@
 import DomainModule
 import CoreData
 
-public final class TransCategoryCoreDataStorage {
+public final class CategoryCoreDataStorage {
     private let coreData: CoreDataStack
 
     public init(coreData: CoreDataStack = .shared) {
@@ -16,8 +16,8 @@ public final class TransCategoryCoreDataStorage {
     }
 }
 
-extension TransCategoryCoreDataStorage: TransCategoryStorage {
-    public func fetchAllTransCategories(completion: @escaping (Result<[TransCategory], Error>) -> Void) {
+extension CategoryCoreDataStorage: CategoryStorage {
+    public func fetchCategories(completion: @escaping (Result<[DMCategory], Error>) -> Void) {
         coreData.performBackgroundTask { context in
             do {
                 let request: NSFetchRequest = TransCategoryEntity.fetchRequest()
@@ -32,9 +32,9 @@ extension TransCategoryCoreDataStorage: TransCategoryStorage {
         }
     }
 
-    public func addTransCategories(
-        _ categories: [TransCategory],
-        completion: @escaping (Result<[TransCategory], Error>) -> Void
+    public func addCategories(
+        _ categories: [DMCategory],
+        completion: @escaping (Result<[DMCategory], Error>) -> Void
     ) {
         coreData.performBackgroundTask { context in
             do {
@@ -47,9 +47,9 @@ extension TransCategoryCoreDataStorage: TransCategoryStorage {
         }
     }
 
-    public func updateTransCategories(
-        _ categories: [TransCategory],
-        completion: @escaping (Result<[TransCategory], Error>) -> Void
+    public func updateCategories(
+        _ categories: [DMCategory],
+        completion: @escaping (Result<[DMCategory], Error>) -> Void
     ) {
         coreData.performBackgroundTask { context in
             do {
@@ -74,9 +74,9 @@ extension TransCategoryCoreDataStorage: TransCategoryStorage {
         }
     }
 
-    public func deleteTransCategories(
+    public func deleteCategories(
         _ categoryIDs: [ID],
-        completion: @escaping (Result<[TransCategory], Error>) -> Void
+        completion: @escaping (Result<[DMCategory], Error>) -> Void
     ) {
         coreData.performBackgroundTask { context in
             do {

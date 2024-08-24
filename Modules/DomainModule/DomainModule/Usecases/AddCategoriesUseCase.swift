@@ -1,29 +1,30 @@
 //
-//  DeleteTransCategoriesUseCase.swift
+//  AddCategoriesUseCase.swift
 //  DomainModule
 //
-//  Created by Chien Pham on 23/08/2024.
+//  Created by Chien Pham on 24/08/2024.
 //
 
 import Combine
 
-public final class DeleteTransCategoriesUseCase: UseCase {
+public final class AddCategoriesUseCase: UseCase {
     public struct RequestValue {
-        let categoryIDs: [ID]
-        public init(categoryIDs: [ID]) {
-            self.categoryIDs = categoryIDs
+        let categories: [DMCategory]
+
+        public init(categories: [DMCategory]) {
+            self.categories = categories
         }
     }
 
-    public typealias ResultValue = (Result<[TransCategory], Error>)
+    public typealias ResultValue = (Result<[DMCategory], Error>)
 
     private let requestValue: RequestValue
-    private let categoryRepository: TransCategoryRepository
+    private let categoryRepository: CategoryRepository
     private let completion: (ResultValue) -> Void
 
     public init(
         requestValue: RequestValue,
-        categoryRepository: TransCategoryRepository,
+        categoryRepository: CategoryRepository,
         completion: @escaping (ResultValue) -> Void
     ) {
         self.requestValue = requestValue
@@ -32,8 +33,8 @@ public final class DeleteTransCategoriesUseCase: UseCase {
     }
 
     public func execute() -> Cancellable? {
-        categoryRepository.deleteTransCategories(
-            requestValue.categoryIDs,
+        categoryRepository.addCategories(
+            requestValue.categories,
             completion: completion
         )
         return nil

@@ -16,10 +16,10 @@ final class AppDIContainer {
 
     // MARK: - DIContainers of scenes
 
-    func makeMainSceneDIContainer() -> TransCategoriesSceneDIContainer {
-        let dependencies = TransCategoriesSceneDIContainer.Dependencies(
+    func makeMainSceneDIContainer() -> CategoriesSceneDIContainer {
+        let dependencies = CategoriesSceneDIContainer.Dependencies(
             coreDataStack: coreDataStack
         )
-        return TransCategoriesSceneDIContainer(dependencies: dependencies)
+        return CategoriesSceneDIContainer(dependencies: dependencies)
     }
 }

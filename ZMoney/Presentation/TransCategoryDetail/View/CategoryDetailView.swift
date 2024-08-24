@@ -1,5 +1,5 @@
 //
-//  TransCategoryDetailView.swift
+//  CategoryDetailView.swift
 //  ZMoney
 //
 //  Created by Chien Pham on 23/08/2024.
@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-struct TransCategoryDetailView: View {
-    @ObservedObject var viewModel: TransCategoryDetailViewModel
+struct CategoryDetailView: View {
+    @ObservedObject var viewModel: CategoryDetailViewModel
 
     var body: some View {
         VStack {

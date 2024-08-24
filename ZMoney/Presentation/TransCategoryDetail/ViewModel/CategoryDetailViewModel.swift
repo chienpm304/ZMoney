@@ -1,5 +1,5 @@
 //
-//  TransCategoryDetailViewModel.swift
+//  CategoryDetailViewModel.swift
 //  ZMoney
 //
 //  Created by Chien Pham on 24/08/2024.
@@ -8,18 +8,18 @@
 import Combine
 import DomainModule
 
-struct TransCategoryDetailViewModelActions {
-    let notifyDidSavedCategory: (TransCategory) -> Void
+struct CategoryDetailViewModelActions {
+    let notifyDidSavedCategory: (DMCategory) -> Void
 }
 
-class TransCategoryDetailViewModel: ObservableObject {
+class CategoryDetailViewModel: ObservableObject {
     struct Dependencies {
-        let useCaseFactory: TransCategoriesUseCaseFactory
-        let actions: TransCategoryDetailViewModelActions
+        let useCaseFactory: CategoriesUseCaseFactory
+        let actions: CategoryDetailViewModelActions
     }
 
-    @Published var model: TransCategoryDetailModel
-    private let originalModel: TransCategoryDetailModel
+    @Published var model: CategoryDetailModel
+    private let originalModel: CategoryDetailModel
     private let isNewCategory: Bool
     private let dependencies: Dependencies
 
@@ -28,11 +28,11 @@ class TransCategoryDetailViewModel: ObservableObject {
     }
 
     init(
-        category: TransCategory,
+        category: DMCategory,
         isNewCategory: Bool,
         dependencies: Dependencies
     ) {
-        let detailModel = TransCategoryDetailModel(category: category)
+        let detailModel = CategoryDetailModel(category: category)
         self.originalModel = detailModel
         self.model = detailModel
         self.dependencies = dependencies
@@ -64,8 +64,8 @@ class TransCategoryDetailViewModel: ObservableObject {
     }
 
     private func addCategory() {
-        let requestValue = AddTransCategoriesUseCase.RequestValue(categories: [model.domain])
-        let completion: (AddTransCategoriesUseCase.ResultValue) -> Void = { [weak self] result in
+        let requestValue = AddCategoriesUseCase.RequestValue(categories: [model.domain])
+        let completion: (AddCategoriesUseCase.ResultValue) -> Void = { [weak self] result in
             guard let self else { return }
             DispatchQueue.main.async {
                 switch result {
@@ -86,11 +86,11 @@ class TransCategoryDetailViewModel: ObservableObject {
     }
 
     private func updateCategory() {
-        let requestValue = UpdateTransCategoriesUseCase.RequestValue(
+        let requestValue = UpdateCategoriesUseCase.RequestValue(
             categories: [model.domain],
             needUpdateSortOrder: false
         )
-        let completion: (UpdateTransCategoriesUseCase.ResultValue) -> Void = { [weak self] result in
+        let completion: (UpdateCategoriesUseCase.ResultValue) -> Void = { [weak self] result in
             guard let self else { return }
             DispatchQueue.main.async {
                 switch result {

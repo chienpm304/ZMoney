@@ -11,7 +11,7 @@ import DomainModule
 
 // If compiler say that not found the entity, try add core data model target membership
 extension TransCategoryEntity {
-    var domain: TransCategory {
+    var domain: DMCategory {
         .init(
             id: self.id,
             name: self.name ?? "",
@@ -24,7 +24,7 @@ extension TransCategoryEntity {
 }
 
 extension TransCategoryEntity {
-    convenience init(category: TransCategory, insertInto context: NSManagedObjectContext) {
+    convenience init(category: DMCategory, insertInto context: NSManagedObjectContext) {
         self.init(context: context)
         self.id = category.id
         self.name = category.name

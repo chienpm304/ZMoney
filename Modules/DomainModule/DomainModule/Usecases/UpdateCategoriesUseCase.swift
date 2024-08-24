@@ -1,5 +1,5 @@
 //
-//  UpdateTransCategoriesUseCase.swift
+//  UpdateCategoriesUseCase.swift
 //  DomainModule
 //
 //  Created by Chien Pham on 23/08/2024.
@@ -7,26 +7,26 @@
 
 import Combine
 
-public final class UpdateTransCategoriesUseCase: UseCase {
+public final class UpdateCategoriesUseCase: UseCase {
     public struct RequestValue {
-        let categories: [TransCategory]
+        let categories: [DMCategory]
         let needUpdateSortOrder: Bool
 
-        public init(categories: [TransCategory], needUpdateSortOrder: Bool = false) {
+        public init(categories: [DMCategory], needUpdateSortOrder: Bool = false) {
             self.categories = categories
             self.needUpdateSortOrder = needUpdateSortOrder
         }
     }
 
-    public typealias ResultValue = (Result<[TransCategory], Error>)
+    public typealias ResultValue = (Result<[DMCategory], Error>)
 
     private let requestValue: RequestValue
-    private let categoryRepository: TransCategoryRepository
+    private let categoryRepository: CategoryRepository
     private let completion: (ResultValue) -> Void
 
     public init(
         requestValue: RequestValue,
-        categoryRepository: TransCategoryRepository,
+        categoryRepository: CategoryRepository,
         completion: @escaping (ResultValue) -> Void
     ) {
         self.requestValue = requestValue
@@ -35,10 +35,10 @@ public final class UpdateTransCategoriesUseCase: UseCase {
     }
 
     public func execute() -> Cancellable? {
-        let toUpdateCategories: [TransCategory]
+        let toUpdateCategories: [DMCategory]
         if requestValue.needUpdateSortOrder {
             toUpdateCategories = requestValue.categories.enumerated().map { index, category in
-                TransCategory(
+                DMCategory(
                     id: category.id,
                     name: category.name,
                     icon: category.icon,
@@ -50,7 +50,7 @@ public final class UpdateTransCategoriesUseCase: UseCase {
         } else {
             toUpdateCategories = requestValue.categories
         }
-        categoryRepository.updateTransCategories(
+        categoryRepository.updateCategories(
             toUpdateCategories,
             completion: completion
         )

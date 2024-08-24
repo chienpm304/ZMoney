@@ -1,5 +1,5 @@
 //
-//  TransCategoryTab.swift
+//  CategoryTab.swift
 //  ZMoney
 //
 //  Created by Chien Pham on 22/08/2024.
@@ -7,13 +7,13 @@
 
 import DomainModule
 
-enum TransCategoryTab: String, CaseIterable, Identifiable {
+enum CategoryTab: String, CaseIterable, Identifiable {
     case expense
     case income
     var id: Self { self }
 }
 
-extension TransCategoryTab {
+extension CategoryTab {
     var domainType: TransType {
         switch self {
         case .expense:

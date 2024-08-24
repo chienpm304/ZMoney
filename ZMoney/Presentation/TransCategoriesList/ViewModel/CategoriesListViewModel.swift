@@ -1,5 +1,5 @@
 //
-//  TransCategoriesListViewModel.swift
+//  CategoriesListViewModel.swift
 //  ZMoney
 //
 //  Created by Chien Pham on 22/08/2024.
@@ -10,26 +10,26 @@ import DomainModule
 import Combine
 import DataModule
 
-struct TransCategoriesListViewModelActions {
-    let editTransCategoryDetail: (TransCategory) -> Void
-    let addTransCategoryDetail: (TransType) -> Void
+struct CategoriesListViewModelActions {
+    let editCategoryDetail: (DMCategory) -> Void
+    let addCategoryDetail: (TransType) -> Void
 }
 
-final class TransCategoriesListViewModel: ObservableObject {
+final class CategoriesListViewModel: ObservableObject {
     struct Dependencies {
-        let useCaseFactory: TransCategoriesUseCaseFactory
-        let actions: TransCategoriesListViewModelActions?
+        let useCaseFactory: CategoriesUseCaseFactory
+        let actions: CategoriesListViewModelActions?
     }
 
     // MARK: Domain
-    private var expenseCategories: [TransCategory] = [] {
+    private var expenseCategories: [DMCategory] = [] {
         didSet {
-            expenseItems = expenseCategories.map(TransCategoriesListItemModel.init)
+            expenseItems = expenseCategories.map(CategoriesListItemModel.init)
         }
     }
-    private var incomeCategories: [TransCategory] = [] {
+    private var incomeCategories: [DMCategory] = [] {
         didSet {
-            incomeItems = incomeCategories.map(TransCategoriesListItemModel.init)
+            incomeItems = incomeCategories.map(CategoriesListItemModel.init)
         }
     }
 
@@ -38,9 +38,9 @@ final class TransCategoriesListViewModel: ObservableObject {
     private var fetchUseCase: UseCase?
 
     // MARK: Output
-    @Published var selectedTab: TransCategoryTab = .expense
-    @Published var expenseItems: [TransCategoriesListItemModel] = []
-    @Published var incomeItems: [TransCategoriesListItemModel] = []
+    @Published var selectedTab: CategoryTab = .expense
+    @Published var expenseItems: [CategoriesListItemModel] = []
+    @Published var incomeItems: [CategoriesListItemModel] = []
 
     init(dependencies: Dependencies) {
         self.dependencies = dependencies
@@ -48,9 +48,9 @@ final class TransCategoriesListViewModel: ObservableObject {
 }
 
 // MARK: Input
-extension TransCategoriesListViewModel {
+extension CategoriesListViewModel {
     func onViewAppear() {
-        let completion: (Result<[TransCategory], Error>) -> Void = { [weak self] result in
+        let completion: (Result<[DMCategory], Error>) -> Void = { [weak self] result in
             guard let self else { return }
             DispatchQueue.main.async {
                 switch result {
@@ -68,30 +68,22 @@ extension TransCategoriesListViewModel {
         fetchUseCase = useCase // keep reference
     }
 
-    func didSelectItem(_ item: TransCategoriesListItemModel) {
+    func didSelectItem(_ item: CategoriesListItemModel) {
         let categories = selectedTab == .expense ? expenseCategories : incomeCategories
         guard let category = categories.first(where: { $0.id == item.id })
         else {
             assertionFailure()
             return
         }
-        dependencies.actions?.editTransCategoryDetail(category)
+        dependencies.actions?.editCategoryDetail(category)
     }
 
-    func switchTransCategoryTab() {
-        if selectedTab == .expense {
-            selectedTab = .income
-        } else {
-            selectedTab = .expense
-        }
-    }
-
-    func addTransCategory() {
-        dependencies.actions?.addTransCategoryDetail(selectedTab.domainType)
+    func addCategory() {
+        dependencies.actions?.addCategoryDetail(selectedTab.domainType)
     }
 
     func moveItems(from source: IndexSet, to newOffset: Int) {
-        var updatedCategories: [TransCategory]
+        var updatedCategories: [DMCategory]
         if selectedTab == .expense {
             updatedCategories = expenseCategories
         } else {
@@ -99,11 +91,11 @@ extension TransCategoriesListViewModel {
         }
         updatedCategories.move(fromOffsets: source, toOffset: newOffset)
 
-        let requestValue = UpdateTransCategoriesUseCase.RequestValue(
+        let requestValue = UpdateCategoriesUseCase.RequestValue(
             categories: updatedCategories,
             needUpdateSortOrder: true
         )
-        let completion: (UpdateTransCategoriesUseCase.ResultValue) -> Void = { result in
+        let completion: (UpdateCategoriesUseCase.ResultValue) -> Void = { result in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let categories):
@@ -122,7 +114,7 @@ extension TransCategoriesListViewModel {
     }
 
     func deleteItem(at index: IndexSet) {
-        let toUpdateCategories: [TransCategory]
+        let toUpdateCategories: [DMCategory]
         if selectedTab == .expense {
             toUpdateCategories = expenseCategories
         } else {
@@ -131,8 +123,8 @@ extension TransCategoriesListViewModel {
 
         let toDeleteIDs = index.map { toUpdateCategories[$0].id }
 
-        let requestValue = DeleteTransCategoriesUseCase.RequestValue(categoryIDs: toDeleteIDs)
-        let completion: (DeleteTransCategoriesUseCase.ResultValue) -> Void = { result in
+        let requestValue = DeleteCategoriesUseCase.RequestValue(categoryIDs: toDeleteIDs)
+        let completion: (DeleteCategoriesUseCase.ResultValue) -> Void = { result in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let deletedCategories):
