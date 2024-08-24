@@ -14,7 +14,7 @@ enum CategoryTab: String, CaseIterable, Identifiable {
 }
 
 extension CategoryTab {
-    var domainType: TransType {
+    var domainType: DMTransactionType {
         switch self {
         case .expense:
             return .expense

@@ -18,7 +18,7 @@ extension TransCategoryEntity {
             icon: self.icon ?? "",
             color: self.color ?? "",
             sortIndex: self.sortIndex,
-            type: TransType(rawValue: self.type) ?? .expense
+            type: DMTransactionType(rawValue: self.type) ?? .expense
         )
     }
 }

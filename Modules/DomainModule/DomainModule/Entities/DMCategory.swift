@@ -11,7 +11,7 @@ public struct DMCategory {
     public let icon: String
     public let color: String
     public let sortIndex: Index
-    public let type: TransType
+    public let type: DMTransactionType
 
     public init(
         id: ID,
@@ -19,7 +19,7 @@ public struct DMCategory {
         icon: String,
         color: String,
         sortIndex: Index,
-        type: TransType
+        type: DMTransactionType
     ) {
         self.id = id
         self.name = name
@@ -29,7 +29,7 @@ public struct DMCategory {
         self.type = type
     }
 
-    public init(type: TransType, sortIndex: Index) {
+    public init(type: DMTransactionType, sortIndex: Index) {
         self.id = IDGenerator.generate()
         self.name = ""
         self.icon = "fork.knife.circle"

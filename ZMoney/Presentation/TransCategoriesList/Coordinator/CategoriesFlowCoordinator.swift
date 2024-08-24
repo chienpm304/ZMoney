@@ -47,7 +47,7 @@ final class CategoriesFlowCoordinator {
         addOrEditCategoryDetail(category: category, isNewCategory: false)
     }
 
-    private func addCategoryDetail(type: TransType) {
+    private func addCategoryDetail(type: DMTransactionType) {
         let categoryPlaceholder = DMCategory(type: type, sortIndex: Index.max - 1)
         addOrEditCategoryDetail(category: categoryPlaceholder, isNewCategory: true)
     }

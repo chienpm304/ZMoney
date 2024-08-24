@@ -13,7 +13,7 @@ struct CategoryDetailModel {
     var icon: String
     var color: String
     var sortIndex: Index
-    var type: TransType
+    var type: DMTransactionType
 }
 
 extension CategoryDetailModel {

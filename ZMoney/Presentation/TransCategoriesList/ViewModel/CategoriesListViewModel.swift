@@ -12,7 +12,7 @@ import DataModule
 
 struct CategoriesListViewModelActions {
     let editCategoryDetail: (DMCategory) -> Void
-    let addCategoryDetail: (TransType) -> Void
+    let addCategoryDetail: (DMTransactionType) -> Void
 }
 
 final class CategoriesListViewModel: ObservableObject {
