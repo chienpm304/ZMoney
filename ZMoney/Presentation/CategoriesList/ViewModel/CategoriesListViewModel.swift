@@ -8,7 +8,6 @@
 import Foundation
 import DomainModule
 import Combine
-import DataModule
 
 struct CategoriesListViewModelActions {
     let editCategoryDetail: (DMCategory) -> Void
@@ -143,3 +142,49 @@ extension CategoriesListViewModel {
         deteleUseCase.execute()
     }
 }
+
+// MARK: Previews
+
+#if targetEnvironment(simulator)
+
+import DataModule
+
+extension CategoriesListViewModel {
+    static func makePreviewViewModel() -> CategoriesListViewModel {
+        let categoriesStorage: CategoryStorage = CategoryCoreDataStorage(coreData: .testInstance)
+        let categoriesRepository: CategoryRepository = DefaultCategoryRepository(storage: categoriesStorage)
+
+        let factory = CategoriesUseCaseFactory { fetchCompletion in
+            FetchCategoriesUseCase(categoryRepository: categoriesRepository, completion: fetchCompletion)
+        } addUseCase: { addRequest, addCompletion in
+            AddCategoriesUseCase(
+                requestValue: addRequest,
+                categoryRepository: categoriesRepository,
+                completion: addCompletion
+            )
+        } updateUseCase: { updateRequest, updateCompletion in
+            UpdateCategoriesUseCase(
+                requestValue: updateRequest,
+                categoryRepository: categoriesRepository,
+                completion: updateCompletion
+            )
+        } deleteUseCase: { deleteRequest, deleteCompletion in
+            DeleteCategoriesUseCase(
+                requestValue: deleteRequest,
+                categoryRepository: categoriesRepository,
+                completion: deleteCompletion
+            )
+        }
+
+        let actions = CategoriesListViewModelActions { editCategory in
+            print("[Preview] Edit category \(editCategory.name)")
+        } addCategoryDetail: { addCategoryType in
+            print("[Preview] Add \(addCategoryType)")
+        }
+
+        let dependencies = Dependencies(useCaseFactory: factory, actions: actions)
+        return CategoriesListViewModel(dependencies: dependencies)
+    }
+}
+
+#endif

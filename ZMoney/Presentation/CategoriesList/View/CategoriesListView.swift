@@ -79,3 +79,7 @@ struct CategoriesListView<ViewModel: CategoriesListViewModel>: View {
         }
     }
 }
+
+#Preview {
+    CategoriesListView(viewModel: .makePreviewViewModel())
+}
