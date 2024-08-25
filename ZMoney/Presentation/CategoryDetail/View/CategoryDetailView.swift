@@ -26,15 +26,14 @@ struct CategoryDetailView: View {
                     }
 
                     IconPickerView(
-                        selectedIcon: $viewModel.model.icon,
-                        selectedColor: $viewModel.model.color,
+                        axis: .horizontal,
+                        axisCount: 4,
+                        spacing: 8,
                         icons: viewModel.iconList,
-                        iconSize: .init(width: 36, height: 20),
-                        numberOfColums: 5,
-                        spacing: 8
+                        iconSize: .init(width: 40, height: 30),
+                        selectedIcon: $viewModel.model.icon,
+                        selectedColor: $viewModel.model.color
                     )
-                    .padding(.vertical, 8)
-                    .frame(maxHeight: 200)
                 }
 
                 Button {
