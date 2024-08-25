@@ -38,7 +38,7 @@ public final class CoreDataStack {
         }
 
         let container = NSPersistentContainer(name: modelName, managedObjectModel: managedObjectModel)
-        
+
         if inMemory {
             let description = NSPersistentStoreDescription()
             description.type = NSInMemoryStoreType
