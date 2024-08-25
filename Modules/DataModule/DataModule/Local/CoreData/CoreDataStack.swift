@@ -17,11 +17,17 @@ enum CoreDataError: Error {
 public final class CoreDataStack {
 
     public static let shared = CoreDataStack()
+    public static let testInstance = CoreDataStack()
 
+    private let inMemory: Bool
     private let modelName = "ZMoneyModel"
 
     private var coreDataBundle: Bundle {
         Bundle(for: CoreDataStack.self)
+    }
+
+    private init(inMemory: Bool = false) {
+        self.inMemory = inMemory
     }
 
     private lazy var persistentContainer: NSPersistentContainer = {
@@ -32,6 +38,13 @@ public final class CoreDataStack {
         }
 
         let container = NSPersistentContainer(name: modelName, managedObjectModel: managedObjectModel)
+        
+        if inMemory {
+            let description = NSPersistentStoreDescription()
+            description.type = NSInMemoryStoreType
+            container.persistentStoreDescriptions = [description]
+        }
+
         container.loadPersistentStores { _, error in
             if let error = error as NSError? {
                 assertionFailure("[CoreData] loadPersistentStores error: \(error), \(error.userInfo)")
