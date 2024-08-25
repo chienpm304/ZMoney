@@ -53,6 +53,7 @@ struct CategoryDetailView: View {
     }
 }
 
+#if targetEnvironment(simulator)
 #Preview {
     NavigationView {
         TabView {
@@ -77,3 +78,4 @@ struct CategoryDetailView: View {
         }
     }
 }
+#endif

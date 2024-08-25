@@ -28,7 +28,13 @@ public final class FetchCategoriesUseCase: UseCase {
             case .success(let categories):
                 guard !categories.isEmpty else {
                     let generatedCategories = self.generateDefaultCategories()
-                    self.categoryRepository.addCategories(generatedCategories, completion: completion)
+                    self.categoryRepository.addCategories(generatedCategories) { result in
+                        if case let .success(savedCategories) = result,
+                           let maxID = savedCategories.map({ $0.id }).max() {
+                               IDGenerator.updateCurrentID(maxID)
+                        }
+                        self.completion(result)
+                    }
                     return
                 }
                 self.completion(.success(categories))

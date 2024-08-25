@@ -23,4 +23,8 @@ public final class IDGenerator {
         currentID += 1
         return currentID
     }
+
+    static public func updateCurrentID(_ currentID: ID) {
+        IDGenerator.currentID = currentID
+    }
 }
