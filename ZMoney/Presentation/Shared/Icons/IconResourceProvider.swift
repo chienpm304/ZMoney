@@ -12,6 +12,7 @@ struct IconResourceProvider {
         "book",
         "house",
         "externaldrive",
+        "dollarsign.circle",
         "gift",
         "coloncurrencysign.circle",
         "building.columns",

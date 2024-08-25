@@ -55,7 +55,32 @@ struct CategoryDetailView: View {
                 .disabled(!viewModel.isSaveEnabled)
                 .listRowBackground(viewModel.isSaveEnabled ? Color.blue : Color.gray)
             }
+            .navigationBarTitle(viewModel.navigationTitle, displayMode: .inline)
         }
-        .navigationBarTitle(viewModel.model.name.isEmpty ? "New" : "Edit", displayMode: .inline)
+    }
+}
+
+#Preview {
+    NavigationView {
+        TabView {
+            CategoryDetailView(viewModel: .makePreviewViewModel(isNewCategory: true, isExpense: true))
+                .tabItem {
+                    Label("Add expense", systemImage: "doc.fill.badge.plus")
+                }
+
+            CategoryDetailView(viewModel: .makePreviewViewModel(isNewCategory: true, isExpense: false))
+                .tabItem {
+                    Label("Add income", systemImage: "doc.fill.badge.plus")
+                }
+
+            CategoryDetailView(viewModel: .makePreviewViewModel(isNewCategory: false, isExpense: true))
+                .tabItem {
+                    Label("Edit expense", systemImage: "pencil")
+                }
+            CategoryDetailView(viewModel: .makePreviewViewModel(isNewCategory: false, isExpense: false))
+                .tabItem {
+                    Label("Edit incom", systemImage: "pencil")
+                }
+        }
     }
 }

@@ -32,8 +32,8 @@ public struct DMCategory {
     public init(type: DMTransactionType, sortIndex: Index) {
         self.id = IDGenerator.generate()
         self.name = ""
-        self.icon = "fork.knife.circle"
-        self.color = "FABC3F"
+        self.icon = type == .expense ? "fork.knife.circle" : "dollarsign.circle"
+        self.color = type == .expense ? "FABC3F" : "522258"
         self.sortIndex = sortIndex
         self.type = type
     }
@@ -53,7 +53,7 @@ extension DMCategory {
 
     public static var defaultIncomeCategories: [DMCategory] {
         [
-            .init(id: 50, name: "Salary", icon: "fork.knife.circle", color: "522258", sortIndex: 50, type: .income),
+            .init(id: 50, name: "Salary", icon: "dollarsign.circle", color: "522258", sortIndex: 50, type: .income),
             .init(id: 51, name: "Pocket money", icon: "externaldrive", color: "8C3061", sortIndex: 51, type: .income),
             .init(id: 52, name: "Bonus", icon: "gift", color: "C63C51", sortIndex: 52, type: .income),
             .init(id: 53, name: "Side job", icon: "coloncurrencysign.circle", color: "D95F59", sortIndex: 53, type: .income),

@@ -12,7 +12,7 @@ struct CategoryDetailViewModelActions {
     let notifyDidSavedCategory: (DMCategory) -> Void
 }
 
-class CategoryDetailViewModel: ObservableObject {
+final class CategoryDetailViewModel: ObservableObject {
     struct Dependencies {
         let useCaseFactory: CategoriesUseCaseFactory
         let actions: CategoryDetailViewModelActions
@@ -37,6 +37,10 @@ class CategoryDetailViewModel: ObservableObject {
         self.model = detailModel
         self.dependencies = dependencies
         self.isNewCategory = isNewCategory
+    }
+
+    var navigationTitle: String {
+        isNewCategory ? "New category" : "Edit category"
     }
 
     var isSaveEnabled: Bool {
@@ -111,3 +115,61 @@ class CategoryDetailViewModel: ObservableObject {
         updateUseCase.execute()
     }
 }
+
+// MARK: Previews
+
+#if targetEnvironment(simulator)
+
+import DataModule
+
+extension CategoryDetailViewModel {
+    static private func makePreviewCategory(isNewCategory: Bool, isExpense: Bool) -> DMCategory {
+        if (isNewCategory) {
+            return DMCategory(type: isExpense ? .expense : .income, sortIndex: .max - 1)
+        } else {
+            return isExpense
+            ? .defaultExpenseCategories.randomElement()!
+            : .defaultIncomeCategories.randomElement()!
+        }
+    }
+
+    static func makePreviewViewModel(isNewCategory: Bool, isExpense: Bool) -> CategoryDetailViewModel {
+        let actions = CategoryDetailViewModelActions { category in
+            print("[Preview] Finished add/update category: \(category)")
+        }
+        let categoriesStorage: CategoryStorage = CategoryCoreDataStorage(coreData: .testInstance)
+        let categoriesRepository: CategoryRepository = DefaultCategoryRepository(storage: categoriesStorage)
+
+        let factory = CategoriesUseCaseFactory { fetchCompletion in
+            FetchCategoriesUseCase(categoryRepository: categoriesRepository, completion: fetchCompletion)
+        } addUseCase: { addRequest, addCompletion in
+            AddCategoriesUseCase(
+                requestValue: addRequest,
+                categoryRepository: categoriesRepository,
+                completion: addCompletion
+            )
+        } updateUseCase: { updateRequest, updateCompletion in
+            UpdateCategoriesUseCase(
+                requestValue: updateRequest,
+                categoryRepository: categoriesRepository,
+                completion: updateCompletion
+            )
+        } deleteUseCase: { deleteRequest, deleteCompletion in
+            DeleteCategoriesUseCase(
+                requestValue: deleteRequest,
+                categoryRepository: categoriesRepository,
+                completion: deleteCompletion
+            )
+        }
+
+        let category = makePreviewCategory(isNewCategory: isNewCategory, isExpense: isExpense)
+        let dependencies = Dependencies(useCaseFactory: factory, actions: actions)
+        return CategoryDetailViewModel(
+            category: category,
+            isNewCategory: isNewCategory,
+            dependencies: dependencies
+        )
+    }
+}
+
+#endif
