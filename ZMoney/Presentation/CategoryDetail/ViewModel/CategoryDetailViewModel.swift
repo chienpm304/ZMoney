@@ -49,8 +49,7 @@ final class CategoryDetailViewModel: ObservableObject {
 
     private var isValidData: Bool {
         !model.name.isEmpty &&
-        !model.icon.isEmpty &&
-        !model.color.isEmpty
+        !model.icon.isEmpty
     }
 
     private var hasDataChanged: Bool {

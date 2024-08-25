@@ -20,20 +20,14 @@ struct CategoryDetailView: View {
                         TextField("Category name", text: $viewModel.model.name)
                     }
 
-                    ColorPicker(selection: Binding(
-                        get: { Color(hex: viewModel.model.color) },
-                        set: { newColor in viewModel.model.color = newColor.hexString }
-                    ), label: {
+                    ColorPicker(selection: $viewModel.model.color, supportsOpacity: false) {
                         Text("Icon")
                             .fontWeight(.semibold)
-                    })
+                    }
 
                     IconPickerView(
                         selectedIcon: $viewModel.model.icon,
-                        selectedColor: Binding(
-                            get: { Color(hex: viewModel.model.color) },
-                            set: { newColor in viewModel.model.color = newColor.hexString }
-                        ),
+                        selectedColor: $viewModel.model.color,
                         icons: viewModel.iconList,
                         iconSize: .init(width: 36, height: 20),
                         numberOfColums: 5,

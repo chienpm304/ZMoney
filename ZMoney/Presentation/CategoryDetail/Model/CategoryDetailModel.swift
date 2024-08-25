@@ -6,12 +6,13 @@
 //
 
 import DomainModule
+import SwiftUI
 
 struct CategoryDetailModel {
     var id: ID
     var name: String
     var icon: String
-    var color: String
+    var color: Color
     var sortIndex: Index
     var type: DMTransactionType
 }
@@ -21,7 +22,7 @@ extension CategoryDetailModel {
         self.id = category.id
         self.name = category.name
         self.icon = category.icon
-        self.color = category.color
+        self.color = Color(hex: category.color)
         self.sortIndex = category.sortIndex
         self.type = category.type
     }
@@ -31,7 +32,7 @@ extension CategoryDetailModel {
             id: id,
             name: name,
             icon: icon,
-            color: color,
+            color: color.hexString,
             sortIndex: sortIndex,
             type: type
         )
