@@ -7,7 +7,6 @@
 
 import SwiftUI
 import DataModule
-import DomainModule
 
 struct CategoriesListView<ViewModel: CategoriesListViewModel>: View {
     @ObservedObject private var viewModel: ViewModel

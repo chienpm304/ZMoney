@@ -14,6 +14,7 @@ target 'ZMoney' do
   # for static library
 
   pod 'SwiftLint'
+  pod 'HorizonCalendar'
 
   # POST_INSTALL
   post_install do |installer|
