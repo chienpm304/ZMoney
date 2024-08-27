@@ -10,6 +10,7 @@ import Combine
 public final class DeleteCategoriesUseCase: UseCase {
     public struct RequestValue {
         let categoryIDs: [ID]
+
         public init(categoryIDs: [ID]) {
             self.categoryIDs = categoryIDs
         }
