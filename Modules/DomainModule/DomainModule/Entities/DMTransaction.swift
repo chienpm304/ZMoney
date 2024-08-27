@@ -5,10 +5,24 @@
 //  Created by Chien Pham on 19/08/2024.
 //
 
-struct DMTransaction {
+public struct DMTransaction {
     let id: ID
-    let inputDate: TimeValue
+    let inputTime: TimeValue
     let amount: MoneyValue
     let memo: String?
     let category: DMCategory
+
+    public init(
+        id: ID = .generate(),
+        inputTime: TimeValue,
+        amount: MoneyValue,
+        memo: String?,
+        category: DMCategory
+    ) {
+        self.id = id
+        self.inputTime = inputTime
+        self.amount = amount
+        self.memo = memo
+        self.category = category
+    }
 }

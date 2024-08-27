@@ -1,0 +1,25 @@
+//
+//  TimeValue.swift
+//  DomainModule
+//
+//  Created by Chien Pham on 27/08/2024.
+//
+
+/// Time interval since 00:00:00 UTC on 1 January 1970, in seconds.
+public typealias TimeValue = Int64
+
+extension TimeValue {
+    var distantFuture: TimeValue {
+        Date.distantFuture.timeValue
+    }
+
+    var distantPast: TimeValue {
+        Date.distantPast.timeValue
+    }
+}
+
+extension Date {
+    var timeValue: TimeValue {
+        TimeValue(timeIntervalSince1970)
+    }
+}
