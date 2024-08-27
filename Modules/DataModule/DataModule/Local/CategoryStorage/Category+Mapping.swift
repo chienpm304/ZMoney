@@ -12,8 +12,15 @@ import DomainModule
 // If compiler say that not found the entity, try add core data model target membership
 extension CDCategory {
     var domain: DMCategory {
-        .init(
-            id: self.id,
+        let categoryID: ID
+        if let id = self.id {
+            categoryID = id
+        } else {
+            assertionFailure("CDCategory.id should not be nil")
+            categoryID = .generate()
+        }
+        return DMCategory(
+            id: categoryID,
             name: self.name ?? "",
             icon: self.icon ?? "",
             color: self.color ?? "",

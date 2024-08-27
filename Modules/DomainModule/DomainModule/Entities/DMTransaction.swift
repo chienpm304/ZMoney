@@ -7,8 +7,8 @@
 
 struct DMTransaction {
     let id: ID
-    let inputDate: Int64 /// time interval since 00:00:00 UTC on 1 January 1970, in seconds.
-    let amount: Int64
+    let inputDate: TimeValue
+    let amount: MoneyValue
     let memo: String?
     let category: DMCategory
 }

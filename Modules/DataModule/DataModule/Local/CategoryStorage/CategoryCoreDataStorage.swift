@@ -59,7 +59,7 @@ extension CategoryCoreDataStorage: CategoryStorage {
                 fetchRequest.predicate = NSPredicate(format: "id IN %@", categoriesIDs)
                 let entities = try context.fetch(fetchRequest)
                 for entity in entities {
-                    if let category = categoriesDict[entity.id] {
+                    if let entityID = entity.id, let category = categoriesDict[entityID] {
                         entity.name = category.name
                         entity.icon = category.icon
                         entity.color = category.color
