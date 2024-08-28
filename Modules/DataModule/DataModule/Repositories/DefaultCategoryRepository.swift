@@ -36,7 +36,7 @@ extension DefaultCategoryRepository: CategoryRepository {
 
     public func deleteCategories(
         _ categoryIDs: [ID],
-        completion: @escaping (Result<[DMCategory], Error>) -> Void
+        completion: @escaping (Result<[DMCategory], CategoryDeleteError>) -> Void
     ) {
         storage.deleteCategories(categoryIDs, completion: completion)
     }

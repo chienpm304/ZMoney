@@ -24,6 +24,6 @@ public protocol CategoryStorage {
 
     func deleteCategories(
         _ categoryIDs: [ID],
-        completion: @escaping (Result<[DMCategory], Error>) -> Void
+        completion: @escaping (Result<[DMCategory], CategoryDeleteError>) -> Void
     )
 }

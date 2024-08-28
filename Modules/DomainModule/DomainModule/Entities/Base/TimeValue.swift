@@ -9,17 +9,17 @@
 public typealias TimeValue = Int64
 
 extension TimeValue {
-    var distantFuture: TimeValue {
+    public var distantFuture: TimeValue {
         Date.distantFuture.timeValue
     }
 
-    var distantPast: TimeValue {
+    public var distantPast: TimeValue {
         Date.distantPast.timeValue
     }
 }
 
 extension Date {
-    var timeValue: TimeValue {
+    public var timeValue: TimeValue {
         TimeValue(timeIntervalSince1970)
     }
 }

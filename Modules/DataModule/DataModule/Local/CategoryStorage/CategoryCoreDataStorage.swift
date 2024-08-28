@@ -76,7 +76,7 @@ extension CategoryCoreDataStorage: CategoryStorage {
 
     public func deleteCategories(
         _ categoryIDs: [ID],
-        completion: @escaping (Result<[DMCategory], Error>) -> Void
+        completion: @escaping (Result<[DMCategory], CategoryDeleteError>) -> Void
     ) {
         coreData.performBackgroundTask { context in
             do {
@@ -85,7 +85,7 @@ extension CategoryCoreDataStorage: CategoryStorage {
 
                 let entities = try context.fetch(fetchRequest)
                 guard !entities.isEmpty else {
-                    completion(.failure(CoreDataError.notFound))
+                    completion(.failure(.categoryNotFound))
                     return
                 }
                 let deletedCategories = entities.map { $0.domain }
@@ -93,7 +93,11 @@ extension CategoryCoreDataStorage: CategoryStorage {
                 try context.save()
                 completion(.success(deletedCategories))
             } catch {
-                completion(.failure(CoreDataError.deleteError(error)))
+                if (error as NSError).code == NSValidationRelationshipDeniedDeleteError {
+                    completion(.failure(.violateRelationshipConstraintError))
+                } else {
+                    completion(.failure(.error(error)))
+                }
             }
         }
     }

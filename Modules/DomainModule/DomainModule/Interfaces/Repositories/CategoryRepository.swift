@@ -5,6 +5,12 @@
 //  Created by Chien Pham on 19/08/2024.
 //
 
+public enum CategoryDeleteError: Error {
+    case categoryNotFound
+    case violateRelationshipConstraintError
+    case error(Error)
+}
+
 public protocol CategoryRepository {
     func fetchCategories(
         completion: @escaping (Result<[DMCategory], Error>) -> Void
@@ -22,6 +28,6 @@ public protocol CategoryRepository {
 
     func deleteCategories(
         _ categoryIDs: [ID],
-        completion: @escaping (Result<[DMCategory], Error>) -> Void
+        completion: @escaping (Result<[DMCategory], CategoryDeleteError>) -> Void
     )
 }

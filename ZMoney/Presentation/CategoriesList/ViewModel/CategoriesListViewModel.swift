@@ -134,7 +134,14 @@ extension CategoriesListViewModel {
                         self.incomeCategories.removeAll { deletedIDs.contains($0.id) }
                     }
                 case .failure(let error):
-                    print("failed to move categories: \(error)")
+                    switch error {
+                    case .categoryNotFound:
+                        print("delete category error: NOT FOUND")
+                    case .violateRelationshipConstraintError:
+                        print("delete category denied: \(error.localizedDescription)")
+                    case .error(let error):
+                        print("delete category error: \(error)")
+                    }
                 }
             }
         }

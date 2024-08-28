@@ -29,7 +29,7 @@ public struct DMCategory {
         self.type = type
     }
 
-    public init(type: DMTransactionType, sortIndex: Index) {
+    public init(type: DMTransactionType, sortIndex: Index = .max - 1) {
         self.id = .generate()
         self.name = ""
         self.icon = type == .expense ? "fork.knife.circle" : "dollarsign.circle"

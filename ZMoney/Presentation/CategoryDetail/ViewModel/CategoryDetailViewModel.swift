@@ -124,7 +124,7 @@ import DataModule
 extension CategoryDetailViewModel {
     static private func makePreviewCategory(isNewCategory: Bool, isExpense: Bool) -> DMCategory {
         if (isNewCategory) {
-            return DMCategory(type: isExpense ? .expense : .income, sortIndex: .max - 1)
+            return DMCategory(type: isExpense ? .expense : .income)
         } else {
             return isExpense
             ? .defaultExpenseCategories.randomElement()!
