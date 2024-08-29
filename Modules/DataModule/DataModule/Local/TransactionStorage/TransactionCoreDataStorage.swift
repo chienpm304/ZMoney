@@ -105,8 +105,8 @@ extension TransactionCoreDataStorage: TransactionStorage {
         }
     }
 
-    public func deleteTransactions(
-        transactionIDs: [ID],
+    public func deleteTransactionsByIDs(
+        _ transactionIDs: [ID],
         completion: @escaping (Result<[DMTransaction], Error>) -> Void
     ) {
         coreData.performBackgroundTask { context in

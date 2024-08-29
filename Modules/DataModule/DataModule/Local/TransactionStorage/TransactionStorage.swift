@@ -29,8 +29,8 @@ public protocol TransactionStorage {
         completion: @escaping (Result<[DMTransaction], Error>) -> Void
     )
 
-    func deleteTransactions(
-        transactionIDs: [ID],
+    func deleteTransactionsByIDs(
+        _ transactionIDs: [ID],
         completion: @escaping (Result<[DMTransaction], Error>) -> Void
     )
 }

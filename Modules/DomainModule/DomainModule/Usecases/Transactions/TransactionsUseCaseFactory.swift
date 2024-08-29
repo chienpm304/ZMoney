@@ -28,8 +28,8 @@ public typealias UpdateTransactionsUseCaseFactory = (
 ) -> UseCase
 
 public typealias DeleteTransactionsUseCaseFactory = (
-    DeleteTransactionsUseCase.RequestValue,
-    @escaping (DeleteTransactionsUseCase.ResultValue) -> Void
+    DeleteTransactionsByIDsUseCase.RequestValue,
+    @escaping (DeleteTransactionsByIDsUseCase.ResultValue) -> Void
 ) -> UseCase
 
 public struct TransactionsUseCaseFactory {

@@ -1,5 +1,5 @@
 //
-//  DeleteTransactionsUseCase.swift
+//  DeleteTransactionsByIDsUseCase.swift
 //  DomainModule
 //
 //  Created by Chien Pham on 27/08/2024.
@@ -7,7 +7,7 @@
 
 import Combine
 
-public final class DeleteTransactionsUseCase: UseCase {
+public final class DeleteTransactionsByIDsUseCase: UseCase {
     public struct RequestValue {
         let transactionIDs: [ID]
 
@@ -33,8 +33,8 @@ public final class DeleteTransactionsUseCase: UseCase {
     }
 
     public func execute() -> Cancellable? {
-        transactionRepository.deleteTransactions(
-            transactionIDs: requestValue.transactionIDs,
+        transactionRepository.deleteTransactionsByIDs(
+            requestValue.transactionIDs,
             completion: completion
         )
         return nil
