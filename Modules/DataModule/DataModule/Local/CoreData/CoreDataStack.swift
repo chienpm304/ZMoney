@@ -8,7 +8,7 @@
 import CoreData
 
 enum CoreDataError: Error {
-    case readError(Error)
+    case fetchError(Error)
     case saveError(Error)
     case deleteError(Error)
     case notFound

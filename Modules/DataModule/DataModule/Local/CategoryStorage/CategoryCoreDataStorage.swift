@@ -27,7 +27,7 @@ extension CategoryCoreDataStorage: CategoryStorage {
                 let result = try context.fetch(request).map { $0.domain }
                 completion(.success(result))
             } catch {
-                completion(.failure(CoreDataError.readError(error)))
+                completion(.failure(CoreDataError.fetchError(error)))
             }
         }
     }
@@ -57,6 +57,9 @@ extension CategoryCoreDataStorage: CategoryStorage {
                 let categoriesDict = Dictionary(uniqueKeysWithValues: categories.map { ($0.id, $0) })
                 let fetchRequest: NSFetchRequest<CDCategory> = CDCategory.fetchRequest()
                 fetchRequest.predicate = NSPredicate(format: "id IN %@", categoriesIDs)
+                fetchRequest.sortDescriptors = [
+                    NSSortDescriptor(key: #keyPath(CDCategory.sortIndex), ascending: true)
+                ]
                 let entities = try context.fetch(fetchRequest)
                 for entity in entities {
                     if let entityID = entity.id, let category = categoriesDict[entityID] {
@@ -67,7 +70,7 @@ extension CategoryCoreDataStorage: CategoryStorage {
                     }
                 }
                 try context.save()
-                completion(.success(entities.map { $0.domain }.sorted(by: { $0.sortIndex < $1.sortIndex })))
+                completion(.success(entities.map { $0.domain }))
             } catch {
                 completion(.failure(CoreDataError.saveError(error)))
             }
