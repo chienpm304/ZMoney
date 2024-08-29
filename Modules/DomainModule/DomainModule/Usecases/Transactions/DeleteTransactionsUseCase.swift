@@ -10,7 +10,7 @@ import Combine
 public final class DeleteTransactionsUseCase: UseCase {
     public struct RequestValue {
         let transactionIDs: [ID]
-        
+
         public init(transactionIDs: [ID]) {
             self.transactionIDs = transactionIDs
         }

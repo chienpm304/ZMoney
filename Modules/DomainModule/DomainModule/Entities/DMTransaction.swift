@@ -6,11 +6,11 @@
 //
 
 public struct DMTransaction {
-    let id: ID
-    let inputTime: TimeValue
-    let amount: MoneyValue
-    let memo: String?
-    let category: DMCategory
+    public let id: ID
+    public let inputTime: TimeValue
+    public let amount: MoneyValue
+    public let memo: String?
+    public let category: DMCategory
 
     public init(
         id: ID = .generate(),

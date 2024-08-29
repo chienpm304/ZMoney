@@ -10,7 +10,7 @@ import Combine
 public final class FetchTransactionByIDUseCase: UseCase {
     public struct RequestValue {
         let transactionID: ID
-        
+
         public init(transactionID: ID) {
             self.transactionID = transactionID
         }

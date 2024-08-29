@@ -38,7 +38,7 @@ public struct TransactionsUseCaseFactory {
     public let addUseCase: AddTransactionsUseCaseFactory
     public let updateUseCase: UpdateTransactionsUseCaseFactory
     public let deleteUseCase: DeleteTransactionsUseCaseFactory
-    
+
     public init(
         fetchByIDUseCase: @escaping FetchTransactionByIDUseCaseFactory,
         fetchByTimeUseCase: @escaping FetchTransactionsByTimeUseCaseFactory,

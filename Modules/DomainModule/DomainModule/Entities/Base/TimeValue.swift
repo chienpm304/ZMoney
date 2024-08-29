@@ -9,6 +9,10 @@
 public typealias TimeValue = Int64
 
 extension TimeValue {
+    public var dateValue: Date {
+        Date(timeIntervalSince1970: TimeInterval(self))
+    }
+
     public var distantFuture: TimeValue {
         Date.distantFuture.timeValue
     }
