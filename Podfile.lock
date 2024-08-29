@@ -8,6 +8,7 @@ PODS:
   - HorizonCalendar (2.0.0)
   - NetworkingModule (1.0.0):
     - CommonModule
+  - SwiftDate (7.0.0)
   - SwiftLint (0.54.0)
 
 DEPENDENCIES:
@@ -16,11 +17,13 @@ DEPENDENCIES:
   - DomainModule (from `Modules/DomainModule`)
   - HorizonCalendar
   - NetworkingModule (from `Modules/NetworkingModule`)
+  - SwiftDate
   - SwiftLint
 
 SPEC REPOS:
   trunk:
     - HorizonCalendar
+    - SwiftDate
     - SwiftLint
 
 EXTERNAL SOURCES:
@@ -43,8 +46,9 @@ SPEC CHECKSUMS:
   DomainModule: cadc53c724e8817330e35e37d97c35527ebbe113
   HorizonCalendar: 21e600058a8f4d407c79ef7848beda692c53a484
   NetworkingModule: 0bd6fbd9d6207a6f81f2db48e1f34fe7d35db722
+  SwiftDate: bbc26e26fc8c0c33fbee8c140c5e8a68293a148a
   SwiftLint: c1de071d9d08c8aba837545f6254315bc900e211
 
-PODFILE CHECKSUM: c7a78f7a33eef09453aeecbb2435e133258dafce
+PODFILE CHECKSUM: 05cb02dcef25556e18abb4b478d46203e124316d
 
 COCOAPODS: 1.10.2

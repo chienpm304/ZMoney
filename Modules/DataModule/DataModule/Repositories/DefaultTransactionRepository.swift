@@ -51,6 +51,4 @@ extension DefaultTransactionRepository: TransactionRepository {
     ) {
         storage.deleteTransactionsByIDs(transactionIDs, completion: completion)
     }
-    
-
 }

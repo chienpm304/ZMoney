@@ -15,6 +15,7 @@ target 'ZMoney' do
 
   pod 'SwiftLint'
   pod 'HorizonCalendar'
+  pod 'SwiftDate'
 
   # POST_INSTALL
   post_install do |installer|
