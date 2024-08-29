@@ -15,6 +15,10 @@
 		C30729282C73918700C9674B /* AppConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30729272C73918700C9674B /* AppConfiguration.swift */; };
 		C307292A2C7391FE00C9674B /* AppFlowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30729292C7391FE00C9674B /* AppFlowCoordinator.swift */; };
 		C307292C2C7392B000C9674B /* CategoriesSceneDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C307292B2C7392B000C9674B /* CategoriesSceneDIContainer.swift */; };
+		C316268C2C806B5800E55BFB /* TransactionsListFlowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C316268B2C806B5700E55BFB /* TransactionsListFlowCoordinator.swift */; };
+		C316268E2C806C5600E55BFB /* TransactionsListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C316268D2C806C5600E55BFB /* TransactionsListViewModel.swift */; };
+		C31626902C806ED900E55BFB /* TransactionsListSceneDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C316268F2C806ED900E55BFB /* TransactionsListSceneDIContainer.swift */; };
+		C31626942C808F1200E55BFB /* TransactionsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31626932C808F1200E55BFB /* TransactionsListView.swift */; };
 		C343F3432C79B21700224D61 /* CategoryDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C343F3422C79B21700224D61 /* CategoryDetailViewModel.swift */; };
 		C35AE4872C74ED1E00400DD7 /* CategoriesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C35AE4862C74ED1E00400DD7 /* CategoriesListView.swift */; };
 		C36F6AC82C7E1A7E006E1A86 /* ZCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36F6AC72C7E1A7E006E1A86 /* ZCalendarView.swift */; };
@@ -45,6 +49,10 @@
 		C30729272C73918700C9674B /* AppConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfiguration.swift; sourceTree = "<group>"; };
 		C30729292C7391FE00C9674B /* AppFlowCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFlowCoordinator.swift; sourceTree = "<group>"; };
 		C307292B2C7392B000C9674B /* CategoriesSceneDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesSceneDIContainer.swift; sourceTree = "<group>"; };
+		C316268B2C806B5700E55BFB /* TransactionsListFlowCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsListFlowCoordinator.swift; sourceTree = "<group>"; };
+		C316268D2C806C5600E55BFB /* TransactionsListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsListViewModel.swift; sourceTree = "<group>"; };
+		C316268F2C806ED900E55BFB /* TransactionsListSceneDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsListSceneDIContainer.swift; sourceTree = "<group>"; };
+		C31626932C808F1200E55BFB /* TransactionsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsListView.swift; sourceTree = "<group>"; };
 		C343F3422C79B21700224D61 /* CategoryDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDetailViewModel.swift; sourceTree = "<group>"; };
 		C35AE4862C74ED1E00400DD7 /* CategoriesListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoriesListView.swift; sourceTree = "<group>"; };
 		C36F6AC72C7E1A7E006E1A86 /* ZCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZCalendarView.swift; sourceTree = "<group>"; };
@@ -144,8 +152,51 @@
 			children = (
 				C30729252C73914C00C9674B /* AppDIContainer.swift */,
 				C307292B2C7392B000C9674B /* CategoriesSceneDIContainer.swift */,
+				C316268F2C806ED900E55BFB /* TransactionsListSceneDIContainer.swift */,
 			);
 			path = DIContainer;
+			sourceTree = "<group>";
+		};
+		C31626862C806AC400E55BFB /* TransactionsList */ = {
+			isa = PBXGroup;
+			children = (
+				C31626872C806AD600E55BFB /* Model */,
+				C31626882C806ADB00E55BFB /* View */,
+				C31626892C806AE200E55BFB /* ViewModel */,
+				C316268A2C806AE900E55BFB /* Coordinator */,
+			);
+			path = TransactionsList;
+			sourceTree = "<group>";
+		};
+		C31626872C806AD600E55BFB /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		C31626882C806ADB00E55BFB /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C31626932C808F1200E55BFB /* TransactionsListView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		C31626892C806AE200E55BFB /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				C316268D2C806C5600E55BFB /* TransactionsListViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		C316268A2C806AE900E55BFB /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				C316268B2C806B5700E55BFB /* TransactionsListFlowCoordinator.swift */,
+			);
+			path = Coordinator;
 			sourceTree = "<group>";
 		};
 		C35AE4852C74ED1E00400DD7 /* CategoriesList */ = {
@@ -237,6 +288,7 @@
 		C391528D2C74AECD008AE1E4 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				C31626862C806AC400E55BFB /* TransactionsList */,
 				C36F6AC62C7E1A68006E1A86 /* Calendar */,
 				C3AE5B742C770EA600865A54 /* Extensions */,
 				C3E79D5C2C7A2DDE002DED34 /* Shared */,
@@ -414,12 +466,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				C37E6BC22C784CFD003F34D9 /* CategoryDetailModel.swift in Sources */,
+				C316268C2C806B5800E55BFB /* TransactionsListFlowCoordinator.swift in Sources */,
 				C30729262C73914C00C9674B /* AppDIContainer.swift in Sources */,
+				C31626942C808F1200E55BFB /* TransactionsListView.swift in Sources */,
 				C30729282C73918700C9674B /* AppConfiguration.swift in Sources */,
 				C3AE5B6E2C76F12600865A54 /* CategoriesListViewModel.swift in Sources */,
 				C3AE5B702C76F3A200865A54 /* CategoriesListItemModel.swift in Sources */,
 				C3E79D632C7A2DDE002DED34 /* IconPickerView.swift in Sources */,
 				C3E79D5B2C7A2DD1002DED34 /* CategoriesFlowCoordinator.swift in Sources */,
+				C31626902C806ED900E55BFB /* TransactionsListSceneDIContainer.swift in Sources */,
+				C316268E2C806C5600E55BFB /* TransactionsListViewModel.swift in Sources */,
 				C35AE4872C74ED1E00400DD7 /* CategoriesListView.swift in Sources */,
 				C3E79D622C7A2DDE002DED34 /* IconResourceProvider.swift in Sources */,
 				C36F6AC82C7E1A7E006E1A86 /* ZCalendarView.swift in Sources */,

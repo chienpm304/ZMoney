@@ -18,7 +18,7 @@ final class AppFlowCoordinator {
 
     func start() {
         let mainSceneDIContainer = appDIContainer.makeMainSceneDIContainer()
-        let mainFlow = mainSceneDIContainer.makeCategoriesFlowCoordinator(
+        let mainFlow = mainSceneDIContainer.makeTransactionsFlowCoordinator(
             navigationController: navigationController
         )
         mainFlow.start()
