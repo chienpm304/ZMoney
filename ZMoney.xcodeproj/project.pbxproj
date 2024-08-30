@@ -21,12 +21,11 @@
 		C31626942C808F1200E55BFB /* TransactionsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31626932C808F1200E55BFB /* TransactionsListView.swift */; };
 		C31626962C80BC9400E55BFB /* TransactionsListItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31626952C80BC9400E55BFB /* TransactionsListItemModel.swift */; };
 		C316269A2C80C7CC00E55BFB /* TransactionDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31626992C80C7CC00E55BFB /* TransactionDetail.swift */; };
-		C316269D2C80CE2100E55BFB /* Collections in Frameworks */ = {isa = PBXBuildFile; productRef = C316269C2C80CE2100E55BFB /* Collections */; };
-		C316269F2C80CE2100E55BFB /* OrderedCollections in Frameworks */ = {isa = PBXBuildFile; productRef = C316269E2C80CE2100E55BFB /* OrderedCollections */; };
 		C31626A12C80D20000E55BFB /* DateRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31626A02C80D20000E55BFB /* DateRange.swift */; };
 		C343F3432C79B21700224D61 /* CategoryDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C343F3422C79B21700224D61 /* CategoryDetailViewModel.swift */; };
 		C35AE4872C74ED1E00400DD7 /* CategoriesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C35AE4862C74ED1E00400DD7 /* CategoriesListView.swift */; };
 		C36F6AC82C7E1A7E006E1A86 /* ZCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36F6AC72C7E1A7E006E1A86 /* ZCalendarView.swift */; };
+		C379AFCB2C82F0A300C181B2 /* MoneyColorModifer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C379AFCA2C82F0A300C181B2 /* MoneyColorModifer.swift */; };
 		C37E6BB42C7788EF003F34D9 /* CategoryTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37E6BB32C7788EF003F34D9 /* CategoryTab.swift */; };
 		C37E6BBF2C784CD0003F34D9 /* CategoryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37E6BBE2C784CD0003F34D9 /* CategoryDetailView.swift */; };
 		C37E6BC22C784CFD003F34D9 /* CategoryDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37E6BC12C784CFD003F34D9 /* CategoryDetailModel.swift */; };
@@ -37,6 +36,7 @@
 		C3E79D612C7A2DDE002DED34 /* RightArrowModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E79D5D2C7A2DDE002DED34 /* RightArrowModifier.swift */; };
 		C3E79D622C7A2DDE002DED34 /* IconResourceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E79D5F2C7A2DDE002DED34 /* IconResourceProvider.swift */; };
 		C3E79D632C7A2DDE002DED34 /* IconPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E79D602C7A2DDE002DED34 /* IconPickerView.swift */; };
+		C3EB8A642C82201D001FEA1D /* AppAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3EB8A632C82201D001FEA1D /* AppAppearance.swift */; };
 		C51706D8304E868847A947DA /* Pods_ZMoney.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 139DC1D2EB0C97DF21D68110 /* Pods_ZMoney.framework */; };
 /* End PBXBuildFile section */
 
@@ -64,6 +64,7 @@
 		C343F3422C79B21700224D61 /* CategoryDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDetailViewModel.swift; sourceTree = "<group>"; };
 		C35AE4862C74ED1E00400DD7 /* CategoriesListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoriesListView.swift; sourceTree = "<group>"; };
 		C36F6AC72C7E1A7E006E1A86 /* ZCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZCalendarView.swift; sourceTree = "<group>"; };
+		C379AFCA2C82F0A300C181B2 /* MoneyColorModifer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyColorModifer.swift; sourceTree = "<group>"; };
 		C37E6BB32C7788EF003F34D9 /* CategoryTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryTab.swift; sourceTree = "<group>"; };
 		C37E6BBE2C784CD0003F34D9 /* CategoryDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDetailView.swift; sourceTree = "<group>"; };
 		C37E6BC12C784CFD003F34D9 /* CategoryDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDetailModel.swift; sourceTree = "<group>"; };
@@ -74,6 +75,7 @@
 		C3E79D5D2C7A2DDE002DED34 /* RightArrowModifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RightArrowModifier.swift; sourceTree = "<group>"; };
 		C3E79D5F2C7A2DDE002DED34 /* IconResourceProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconResourceProvider.swift; sourceTree = "<group>"; };
 		C3E79D602C7A2DDE002DED34 /* IconPickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconPickerView.swift; sourceTree = "<group>"; };
+		C3EB8A632C82201D001FEA1D /* AppAppearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppAppearance.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,9 +83,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C316269D2C80CE2100E55BFB /* Collections in Frameworks */,
 				C51706D8304E868847A947DA /* Pods_ZMoney.framework in Frameworks */,
-				C316269F2C80CE2100E55BFB /* OrderedCollections in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -140,6 +140,7 @@
 			children = (
 				C30729242C73913B00C9674B /* DIContainer */,
 				C30728D92C73269B00C9674B /* AppDelegate.swift */,
+				C3EB8A632C82201D001FEA1D /* AppAppearance.swift */,
 				C30728DB2C73269B00C9674B /* SceneDelegate.swift */,
 				C30729272C73918700C9674B /* AppConfiguration.swift */,
 				C30729292C7391FE00C9674B /* AppFlowCoordinator.swift */,
@@ -349,6 +350,7 @@
 			isa = PBXGroup;
 			children = (
 				C3E79D5D2C7A2DDE002DED34 /* RightArrowModifier.swift */,
+				C379AFCA2C82F0A300C181B2 /* MoneyColorModifer.swift */,
 			);
 			path = Modifiers;
 			sourceTree = "<group>";
@@ -373,8 +375,6 @@
 			);
 			name = ZMoney;
 			packageProductDependencies = (
-				C316269C2C80CE2100E55BFB /* Collections */,
-				C316269E2C80CE2100E55BFB /* OrderedCollections */,
 			);
 			productName = ZMoney;
 			productReference = C30728D62C73269B00C9674B /* ZMoney.app */;
@@ -405,7 +405,6 @@
 			);
 			mainGroup = C30728CD2C73269B00C9674B;
 			packageReferences = (
-				C316269B2C80CE2100E55BFB /* XCRemoteSwiftPackageReference "swift-collections" */,
 			);
 			productRefGroup = C30728D72C73269B00C9674B /* Products */;
 			projectDirPath = "";
@@ -496,6 +495,7 @@
 				C37E6BC22C784CFD003F34D9 /* CategoryDetailModel.swift in Sources */,
 				C316268C2C806B5800E55BFB /* TransactionsListFlowCoordinator.swift in Sources */,
 				C30729262C73914C00C9674B /* AppDIContainer.swift in Sources */,
+				C3EB8A642C82201D001FEA1D /* AppAppearance.swift in Sources */,
 				C31626942C808F1200E55BFB /* TransactionsListView.swift in Sources */,
 				C30729282C73918700C9674B /* AppConfiguration.swift in Sources */,
 				C3AE5B6E2C76F12600865A54 /* CategoriesListViewModel.swift in Sources */,
@@ -503,6 +503,7 @@
 				C3E79D632C7A2DDE002DED34 /* IconPickerView.swift in Sources */,
 				C3E79D5B2C7A2DD1002DED34 /* CategoriesFlowCoordinator.swift in Sources */,
 				C31626902C806ED900E55BFB /* TransactionsListSceneDIContainer.swift in Sources */,
+				C379AFCB2C82F0A300C181B2 /* MoneyColorModifer.swift in Sources */,
 				C316268E2C806C5600E55BFB /* TransactionsListViewModel.swift in Sources */,
 				C35AE4872C74ED1E00400DD7 /* CategoriesListView.swift in Sources */,
 				C3E79D622C7A2DDE002DED34 /* IconResourceProvider.swift in Sources */,
@@ -739,30 +740,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		C316269B2C80CE2100E55BFB /* XCRemoteSwiftPackageReference "swift-collections" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/apple/swift-collections.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.1.3;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		C316269C2C80CE2100E55BFB /* Collections */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = C316269B2C80CE2100E55BFB /* XCRemoteSwiftPackageReference "swift-collections" */;
-			productName = Collections;
-		};
-		C316269E2C80CE2100E55BFB /* OrderedCollections */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = C316269B2C80CE2100E55BFB /* XCRemoteSwiftPackageReference "swift-collections" */;
-			productName = OrderedCollections;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = C30728CE2C73269B00C9674B /* Project object */;
 }

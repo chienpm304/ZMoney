@@ -27,8 +27,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         guard let windowScene = scene as? UIWindowScene else { return }
 
+        AppAppearance.setupAppearance()
+
         window = UIWindow(windowScene: windowScene)
         let navigationController = UINavigationController()
+
         window?.rootViewController = navigationController
         appFlowCoordinator = AppFlowCoordinator(
             navigationController: navigationController,

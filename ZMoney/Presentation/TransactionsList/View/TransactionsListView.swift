@@ -15,13 +15,56 @@ struct TransactionsListView: View {
     }
 
     var body: some View {
-        List {
-            // Break down the complex ForEach into smaller components
-            ForEach(viewModel.itemsMap.keys.sorted(), id: \.self) { date in
-                Section(header: Text(formattedDate(date))) {
-                    let transactions = viewModel.itemsMap[date] ?? []
-                    ForEach(transactions) { transaction in
-                        transactionRow(transaction: transaction)
+        VStack {
+            HStack {
+                Button {
+                    viewModel.didTapPreviousDateRange()
+                } label: {
+                    Image(systemName: "chevron.left")
+                }
+                Spacer()
+                Text("\(formattedDate(viewModel.startDate)) - \(formattedDate(viewModel.endDate))")
+                Spacer()
+                Button {
+                    viewModel.didTapNextDateRange()
+                } label: {
+                    Image(systemName: "chevron.right")
+                }
+            }
+            .padding(.horizontal, 24)
+
+            ZCalendarView(
+                startDate: viewModel.startDate,
+                endDate: viewModel.dateRange.endDate,
+                selectedDate: viewModel.selectedDate,
+                incomeValue: viewModel.totalIncome(in:),
+                expenseValue: viewModel.totalExpense(in:),
+                onTapDate: { date, tapCount in
+                    viewModel.didTapDate(date, tapCount: tapCount)
+                }
+            )
+            .padding(.horizontal, 12)
+
+            ScrollViewReader { scrollViewProxy in
+                List {
+                    ForEach(viewModel.itemsMap.keys.sorted(), id: \.self) { date in
+                        Section {
+                            let transactions = viewModel.itemsMap[date] ?? []
+                            ForEach(transactions) { transaction in
+                                transactionRow(transaction: transaction)
+                            }
+                        } header: {
+                            Text(formattedDate(date))
+                                .id(date)
+                        }
+                    }
+                }
+                .listRowInsets(.init(top: 20, leading: 20, bottom: 20, trailing: 20))
+                .onChange(of: viewModel.scrollToDate) { newDate in
+                    if let date = newDate {
+                        withAnimation {
+                            scrollViewProxy.scrollTo(date, anchor: .top)
+                        }
                     }
                 }
             }
@@ -29,11 +72,11 @@ struct TransactionsListView: View {
         .onAppear {
             viewModel.onViewAppear()
         }
-        .navigationTitle("<\(formattedDate(viewModel.startDate))) - \(formattedDate(viewModel.endDate))>")
+        .navigationTitle("Transactions")
         .toolbar {
-            Button(action: {
+            Button {
                 viewModel.didTapDate(.now, tapCount: 2)
-            }) {
+            } label: {
                 Image(systemName: "plus")
             }
         }
@@ -50,14 +93,13 @@ struct TransactionsListView: View {
                 )
             if let memo = transaction.memo {
                 Text(memo)
-                    .font(.subheadline)
                     .foregroundColor(.secondary)
             }
             Spacer()
             Text("\(transaction.amount) VND")
-                .font(.body)
+                .moneyColor(type: transaction.transactionType)
         }
-        .contentShape(Rectangle())
+        .withRightArrow()
         .onTapGesture {
             viewModel.didTapTransactionItem(transaction)
         }

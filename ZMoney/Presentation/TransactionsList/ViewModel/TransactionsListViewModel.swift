@@ -9,7 +9,6 @@ import Foundation
 import DomainModule
 import Combine
 import SwiftDate
-import Collections
 
 struct TransactionsListViewModelActions {
     let createTransaction: (Date) -> Void
@@ -26,7 +25,8 @@ final class TransactionsListViewModel: ObservableObject {
     private var transactions: [DMTransaction] = [] {
         didSet {
             let items = transactions.map(TransactionsListItemModel.init)
-            itemsMap = OrderedDictionary(grouping: items, by: { $0.inputDate })
+            itemsMap = Dictionary(grouping: items, by: { $0.inputDate.dateAtStartOf(.day).date })
+            scrollToDate = itemsMap.keys.sorted().first
         }
     }
 
@@ -36,8 +36,10 @@ final class TransactionsListViewModel: ObservableObject {
     private let dateRangeType: DateRangeType
 
     // MARK: Output
-    @Published var itemsMap: OrderedDictionary<Date, [TransactionsListItemModel]> = [:]
+    @Published var itemsMap: [Date: [TransactionsListItemModel]] = [:]
     @Published var dateRange: DateRange
+    @Published var selectedDate: Date
+    @Published var scrollToDate: Date?
     var startDate: Date { dateRange.startDate }
     var endDate: Date { dateRange.endDate }
 
@@ -48,19 +50,43 @@ final class TransactionsListViewModel: ObservableObject {
         self.dependencies = dependencies
         self.dateRangeType = dateRangeType
         self.dateRange = dateRangeType.dateRange(of: .now)
+        self.selectedDate = .now
+    }
+
+    // TODO: move to usecase
+    func totalExpense(in date: Date) -> MoneyValue {
+        totalAmount(of: .expense, in: date)
+    }
+
+    func totalIncome(in date: Date) -> MoneyValue {
+        totalAmount(of: .income, in: date)
+    }
+
+    private func totalAmount(of type: DMTransactionType, in date: Date) -> MoneyValue {
+        transactions
+            .filter {
+                Calendar.current.isDate($0.inputTime.dateValue, inSameDayAs: date)
+            }
+            .filter { $0.category.type == type }
+            .map { $0.amount }
+            .reduce(0, +)
     }
 }
 
 // MARK: Input
 extension TransactionsListViewModel {
     func onViewAppear() {
-        fetchTransactions()
+        refreshTransactions()
     }
 
     func didTapDate(_ date: Date, tapCount: Int) {
         if tapCount == 1 {
-            // TODO: set scroll offset to selected date
+            selectedDate = date
             print("should scroll to section: \(date)")
+            guard let section = itemsMap.keys.first(where: { Calendar.current.isDate($0, inSameDayAs: date) })
+            else { return }
+            scrollToDate = section
+            print(itemsMap[section, default: []].map {$0.memo})
         } else if tapCount == 2 {
             dependencies.actions.createTransaction(date)
         }
@@ -75,18 +101,21 @@ extension TransactionsListViewModel {
     }
 
     func didTapNextDateRange() {
-
+        dateRange = dateRangeType.next(of: dateRange)
+        refreshTransactions()
     }
 
     func didTapPreviousDateRange() {
-
+        dateRange = dateRangeType.previous(of: dateRange)
+        refreshTransactions()
     }
 
     func didSelectDateRange(_ dateRange: DateRange) {
         self.dateRange = dateRange
+        refreshTransactions()
     }
 
-    private func fetchTransactions() {
+    private func refreshTransactions() {
         let request = FetchTransactionsByTimeUseCase.RequestValue(
             startTime: dateRange.startDate.timeValue,
             endTime: dateRange.endDate.timeValue
@@ -96,14 +125,19 @@ extension TransactionsListViewModel {
             DispatchQueue.main.async {
                 switch result {
                 case .success(let transactions):
-//                    self.transactions = transactions
+                    self.transactions = transactions
                     // TODO: remove test
                     self.transactions = (0...50).map({
-                        .init(
-                            inputTime: (Date().dateAt(.startOfMonth) + Int.random(in: 1...29).days).timeValue,
-                            amount: MoneyValue.random(in: 1...10) * 10000,
+                        let date = DateInRegion.randomDate(
+                            between: self.startDate.inDefaultRegion(),
+                            and: self.endDate.inDefaultRegion()
+                        ).date
+                        let categories = DMCategory.defaultIncomeCategories + DMCategory.defaultExpenseCategories
+                        return .init(
+                            inputTime: date.timeValue,
+                            amount: MoneyValue.random(in: 1...100) * 10_000_00,
                             memo: "Note \($0)",
-                            category: .defaultExpenseCategories[Int.random(in: 0...4)]
+                            category: categories[Int.random(in: 0...10)]
                         )
                     })
                     // end test
