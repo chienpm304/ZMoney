@@ -48,14 +48,20 @@ struct ZCalendarView: View {
         .dayAspectRatio(0.7)
         .dayOfWeekAspectRatio(0.5)
         .monthHeaders({ _ in EmptyView() })
-        .dayOfWeekHeaders({ _, weekdayIndex in
-            Text("T\(weekdayIndex + 1)")
+        .dayOfWeekHeaders { _, weekdayIndex in
+            Text(Date().sharedFormatter.shortWeekdaySymbols[weekdayIndex])
+                .fontWeight(.medium)
+                .foregroundStyle(Color.white)
                 .font(.system(size: 12))
-        })
+                .frame(maxWidth: .infinity, maxHeight: 24)
+                .background(.blue)
+        }
         .days { [selectedDate] day in
             let date = calendar.date(from: day.components)
-            let isToday = date?.isToday
-            let isSelected = calendar.isDate(date ?? .distantFuture, inSameDayAs: selectedDate ?? .distantPast)
+            let isSelected = calendar.isDate(
+                date ?? .distantFuture,
+                inSameDayAs: selectedDate ?? .distantPast
+            )
 
             VStack(alignment: .leading) {
                 HStack {
@@ -97,6 +103,11 @@ struct ZCalendarView: View {
                 Rectangle()
                     .stroke(.gray, lineWidth: 0.5)
             }
+            .onTapGesture(count: 2, perform: {
+                if let date = calendar.date(from: day.components) {
+                    onTapDate?(date, 2)
+                }
+            })
         }
         .onDaySelection { day in
             if let date = calendar.date(from: day.components) {

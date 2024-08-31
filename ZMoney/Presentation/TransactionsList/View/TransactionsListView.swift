@@ -23,7 +23,7 @@ struct TransactionsListView: View {
                     Image(systemName: "chevron.left")
                 }
                 Spacer()
-                Text("\(formattedDate(viewModel.startDate)) - \(formattedDate(viewModel.endDate))")
+                HeaderDateView(startDate: viewModel.startDate, endDate: viewModel.endDate)
                 Spacer()
                 Button {
                     viewModel.didTapNextDateRange()
@@ -43,23 +43,61 @@ struct TransactionsListView: View {
                     viewModel.didTapDate(date, tapCount: tapCount)
                 }
             )
+            .padding(.top, 8)
             .padding(.horizontal, 12)
 
             ScrollViewReader { scrollViewProxy in
                 List {
+                    Section {
+                        HStack {
+                            VStack {
+                                Text("Income")
+                                    .fontWeight(.medium)
+                                Text("\(viewModel.totalIncome)")
+                                    .fontWeight(.medium)
+                                    .moneyColor(type: .income)
+                            }
+                            Spacer()
+                            VStack {
+                                Text("Expense")
+                                    .fontWeight(.medium)
+                                Text("\(viewModel.totalExpense)")
+                                    .fontWeight(.medium)
+                                    .moneyColor(type: .expense)
+                            }
+                            Spacer()
+                            VStack {
+                                Text("Total")
+                                    .fontWeight(.medium)
+                                Text("\(viewModel.total)")
+                                    .fontWeight(.medium)
+                                    .moneyColor(type: viewModel.total > 0 ? .income : .expense)
+                            }
+                        }
+                        .listRowInsets(EdgeInsets(top: 0, leading: 12, bottom: 0, trailing: 12))
+                        .listRowSeparator(.hidden)
+                        .font(.caption)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .id(Date.distantPast)
+                    }
+
                     ForEach(viewModel.itemsMap.keys.sorted(), id: \.self) { date in
                         Section {
                             let transactions = viewModel.itemsMap[date] ?? []
                             ForEach(transactions) { transaction in
-                                transactionRow(transaction: transaction)
+                                TransactionsListItemView(viewModel: viewModel, transaction: transaction)
+                                    .font(.body)
                             }
                         } header: {
-                            Text(formattedDate(date))
+                            Text(sectionHeaderDate(date))
+                                .fontWeight(.semibold)
                                 .id(date)
                         }
+                        .listRowInsets(EdgeInsets(top: 4, leading: 20, bottom: 0, trailing: 12))
+                        .listRowSeparator(.visible)
                     }
                 }
-                .listRowInsets(.init(top: 20, leading: 20, bottom: 20, trailing: 20))
+                .listStyle(PlainListStyle())
                 .onChange(of: viewModel.scrollToDate) { newDate in
                     if let date = newDate {
                         withAnimation {
@@ -82,7 +120,61 @@ struct TransactionsListView: View {
         }
     }
 
-    private func transactionRow(transaction: TransactionsListItemModel) -> some View {
+    private func sectionHeaderDate(_ date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .medium
+        return dateFormatter.string(from: date) + " (\(date.weekdayName(.short)))"
+    }
+}
+
+#Preview {
+    NavigationView {
+        TransactionsListView(viewModel: .makePreviewViewModel())
+    }
+}
+
+struct HeaderDateView: View {
+    let startDate: Date
+    let endDate: Date
+
+    var body: some View {
+        HStack(alignment: .center, spacing: 4) {
+            Text(monthYearString)
+                .font(.body)
+                .bold()
+            Text(dayRangeString)
+                .font(.caption)
+                .foregroundColor(.gray)
+        }
+        .padding(.vertical, 2)
+        .frame(maxWidth: .infinity)
+        .background(
+            RoundedRectangle(cornerRadius: 4)
+                .fill(.black.opacity(0.05))
+        )
+    }
+
+    private var monthYearString: String {
+        startDate.toFormat("MMM yyyy")
+    }
+
+    private var dayRangeString: String {
+        let startDayString = startDate.toFormat("MMM dd")
+        let endDayString = endDate.toFormat("MMM dd")
+        return "(\(startDayString) - \(endDayString))"
+    }
+}
+
+struct TransactionsListItemView: View {
+    @ObservedObject private var viewModel: TransactionsListViewModel
+    private let transaction: TransactionsListItemModel
+
+    init(viewModel: TransactionsListViewModel, transaction: TransactionsListItemModel) {
+        self.viewModel = viewModel
+        self.transaction = transaction
+    }
+
+    var body: some View {
         HStack {
             Circle()
                 .fill(Color(hex: transaction.categoryColor))
@@ -94,9 +186,11 @@ struct TransactionsListView: View {
             if let memo = transaction.memo {
                 Text(memo)
                     .foregroundColor(.secondary)
+                    .fontWeight(.medium)
             }
             Spacer()
-            Text("\(transaction.amount) VND")
+            Text("\(transaction.amount)")
+                .fontWeight(.medium)
                 .moneyColor(type: transaction.transactionType)
         }
         .withRightArrow()
@@ -104,14 +198,4 @@ struct TransactionsListView: View {
             viewModel.didTapTransactionItem(transaction)
         }
     }
-
-    private func formattedDate(_ date: Date) -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .medium
-        return dateFormatter.string(from: date)
-    }
 }
-
-// #Preview {
-//     TransactionsListView(viewModel: )
-// }
