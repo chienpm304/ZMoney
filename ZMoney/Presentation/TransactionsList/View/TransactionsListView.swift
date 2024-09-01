@@ -113,13 +113,6 @@ struct TransactionsListView: View {
             viewModel.onViewAppear()
         }
         .navigationTitle("Transactions")
-        .toolbar {
-            Button {
-                viewModel.didTapDate(.now, tapCount: 2)
-            } label: {
-                Image(systemName: "plus")
-            }
-        }
     }
 
     // Workaround to archieve Horizon Calendar auto height

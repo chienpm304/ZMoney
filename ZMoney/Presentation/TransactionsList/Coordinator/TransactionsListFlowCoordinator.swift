@@ -47,13 +47,11 @@ final class TransactionsListFlowCoordinator {
 
     private func openCreateTransactionView(inputDate: Date) {
         let transactionDetailVC = dependencies.makeCreateTransactionViewController(inputDate: inputDate)
-        navigationController?.pushViewController(transactionDetailVC, animated: true)
-
+        navigationController?.present(transactionDetailVC, animated: true)
     }
 
     private func openEditTransactionView(transaction: DMTransaction) {
         let transactionDetailVC = dependencies.makeEditTransactionViewController(transaction: transaction)
-        navigationController?.pushViewController(transactionDetailVC, animated: true)
-
+        navigationController?.present(transactionDetailVC, animated: true)
     }
 }
