@@ -202,6 +202,7 @@ struct TransactionsListItemView: View {
                 .moneyColor(type: transaction.transactionType)
         }
         .withRightArrow()
+        .contentShape(Rectangle())
         .onTapGesture {
             viewModel.didTapTransactionItem(transaction)
         }
