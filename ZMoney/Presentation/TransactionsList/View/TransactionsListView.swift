@@ -78,7 +78,7 @@ struct TransactionsListView: View {
                         .listRowSeparator(.hidden)
                         .font(.caption)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        .id(Date.distantPast)
+                        .id(viewModel.topScrollDate)
                     }
 
                     ForEach(viewModel.itemsMap.keys.sorted(), id: \.self) { date in
@@ -106,6 +106,8 @@ struct TransactionsListView: View {
                     }
                 }
             }
+            .offset(y: calendarViewYOffset)
+            .padding(.top, 8)
         }
         .onAppear {
             viewModel.onViewAppear()
@@ -118,6 +120,19 @@ struct TransactionsListView: View {
                 Image(systemName: "plus")
             }
         }
+    }
+
+    // Workaround to archieve Horizon Calendar auto height
+    private var calendarViewYOffset: CGFloat {
+        // The caldendar view height's is for 6 weeks
+        CGFloat(40 * (numberOfWeeks - 6))
+    }
+
+    private var numberOfWeeks: Int {
+        Date.numberOfWeeksBetween(
+            startDate: viewModel.startDate,
+            endDate: viewModel.endDate
+        )
     }
 
     private func sectionHeaderDate(_ date: Date) -> String {

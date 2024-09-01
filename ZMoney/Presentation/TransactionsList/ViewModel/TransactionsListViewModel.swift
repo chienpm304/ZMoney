@@ -26,8 +26,12 @@ final class TransactionsListViewModel: ObservableObject {
         didSet {
             let items = transactions.map(TransactionsListItemModel.init)
             itemsMap = Dictionary(grouping: items, by: { $0.inputDate.dateAtStartOf(.day).date })
-            scrollToDate = Date.distantPast
+            scrollToDate = topScrollDate
         }
+    }
+
+    var topScrollDate: Date? {
+        itemsMap.keys.sorted().first?.dateByAdding(-1, .day).date
     }
 
     // MARK: Dependencies

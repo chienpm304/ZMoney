@@ -39,6 +39,8 @@ struct ZCalendarView: View {
 
     private var calendar: Calendar { .current }
 
+    private var dayOfWeekHeaderHeight: CGFloat { 25 }
+
     var body: some View {
         CalendarViewRepresentable(
             visibleDateRange: visibleDateRange,
@@ -53,7 +55,7 @@ struct ZCalendarView: View {
                 .fontWeight(.medium)
                 .foregroundStyle(Color.white)
                 .font(.system(size: 12))
-                .frame(maxWidth: .infinity, maxHeight: 24)
+                .frame(maxWidth: .infinity, maxHeight: dayOfWeekHeaderHeight)
                 .background(.blue)
         }
         .days { [selectedDate] day in
