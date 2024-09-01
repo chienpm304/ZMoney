@@ -106,7 +106,6 @@ struct TransactionsListView: View {
                     }
                 }
             }
-//            .offset(y: calendarViewYOffset)
             .padding(.top, 8)
         }
         .onAppear {
