@@ -134,12 +134,13 @@ struct TransactionsListView: View {
         return dateFormatter.string(from: date) + " (\(date.weekdayName(.short)))"
     }
 }
-
+#if targetEnvironment(simulator)
 #Preview {
     NavigationView {
         TransactionsListView(viewModel: .makePreviewViewModel())
     }
 }
+#endif
 
 struct HeaderDateView: View {
     let startDate: Date
@@ -152,13 +153,13 @@ struct HeaderDateView: View {
                 .bold()
             Text(dayRangeString)
                 .font(.caption)
-                .foregroundColor(.gray)
+                .foregroundColor(.secondary)
         }
         .padding(.vertical, 2)
         .frame(maxWidth: .infinity)
         .background(
             RoundedRectangle(cornerRadius: 4)
-                .fill(.black.opacity(0.05))
+                .fill(Color.secondary.opacity(0.5))
         )
     }
 

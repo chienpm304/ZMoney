@@ -76,7 +76,6 @@ final class TabViewFlowCoordinator: NSObject {
         tabBarController.selectedIndex = TabViewType.primaryTab.index
         tabBarController.tabBar.isTranslucent = false
         tabBarController.tabBar.barStyle = .default
-        tabBarController.tabBar.backgroundColor = .white
 
         window.rootViewController = tabBarController
         window.makeKeyAndVisible()
