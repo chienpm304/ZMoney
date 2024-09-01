@@ -8,18 +8,21 @@
 import UIKit
 
 final class AppFlowCoordinator {
-    var navigationController: UINavigationController
+    var window: UIWindow
     private let appDIContainer: AppDIContainer
 
-    init(navigationController: UINavigationController, appDIContainer: AppDIContainer) {
-        self.navigationController = navigationController
+    init(
+        window: UIWindow,
+        appDIContainer: AppDIContainer
+    ) {
+        self.window = window
         self.appDIContainer = appDIContainer
     }
 
     func start() {
         let mainSceneDIContainer = appDIContainer.makeMainSceneDIContainer()
-        let mainFlow = mainSceneDIContainer.makeTransactionsFlowCoordinator(
-            navigationController: navigationController
+        let mainFlow = mainSceneDIContainer.makeTabViewSceneFlowCoodinator(
+            window: window
         )
         mainFlow.start()
     }

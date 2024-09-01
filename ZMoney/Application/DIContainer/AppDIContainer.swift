@@ -16,7 +16,14 @@ final class AppDIContainer {
 
     // MARK: - DIContainers of scenes
 
-    func makeMainSceneDIContainer() -> TransactionsListSceneDIContainer {
+    func makeMainSceneDIContainer() -> TabViewSceneDIContainer {
+        let dependencies = TabViewSceneDIContainer.Dependencies(
+            appDIContainer: self
+        )
+        return TabViewSceneDIContainer(dependencies: dependencies)
+    }
+
+    func makeTransactionsSceneDIContainer() -> TransactionsListSceneDIContainer {
         let dependencies = TransactionsListSceneDIContainer.Dependencies(
             coreDataStack: coreDataStack
         )
