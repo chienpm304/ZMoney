@@ -36,7 +36,7 @@ struct TransactionDetail: View {
         TransactionDetail(isNew: true)
         Divider()
         TransactionDetail(
-            transaction: .init(
+            transaction: DMTransaction(
                 inputTime: Date().timeValue,
                 amount: 123423,
                 memo: "Com ga",

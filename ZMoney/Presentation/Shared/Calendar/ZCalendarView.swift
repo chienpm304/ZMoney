@@ -10,6 +10,7 @@ import HorizonCalendar
 import DomainModule
 
 struct ZCalendarView: View {
+    @EnvironmentObject var appSettings: AppSettings
     var startDate: Date
     var endDate: Date
     var selectedDate: Date?
@@ -81,14 +82,14 @@ struct ZCalendarView: View {
                         if let income = incomeValue?(date), income > 0 {
                             HStack {
                                 Spacer(minLength: 2)
-                                MoneyText(value: income, type: .income)
+                                MoneyText(value: income, type: .income, hideCurrencySymbol: true)
                                     .lineLimit(1)
                             }
                         }
                         if let expense = expenseValue?(date), expense > 0 {
                             HStack {
                                 Spacer(minLength: 2)
-                                MoneyText(value: expense, type: .expense)
+                                MoneyText(value: expense, type: .expense, hideCurrencySymbol: true)
                                     .lineLimit(1)
                             }
                         }
@@ -108,6 +109,8 @@ struct ZCalendarView: View {
                     onTapDate?(date, 2)
                 }
             })
+            // SwiftUI limitation: must manually passthough environment object to UIViewRepresentable
+            .environmentObject(appSettings)
         }
         .onDaySelection { day in
             if let date = calendar.date(from: day.components) {

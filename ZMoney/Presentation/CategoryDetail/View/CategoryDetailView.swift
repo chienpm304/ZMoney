@@ -16,13 +16,13 @@ struct CategoryDetailView: View {
                 Section(header: Text("Category Details")) {
                     HStack {
                         Text("Name")
-                            .fontWeight(.semibold)
+                            .fontWeight(.medium)
                         TextField("Category name", text: $viewModel.model.name)
                     }
 
                     ColorPicker(selection: $viewModel.model.color, supportsOpacity: false) {
                         Text("Icon")
-                            .fontWeight(.semibold)
+                            .fontWeight(.medium)
                     }
 
                     IconPickerView(

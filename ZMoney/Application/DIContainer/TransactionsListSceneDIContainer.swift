@@ -13,6 +13,7 @@ import SwiftUI
 final class TransactionsListSceneDIContainer {
     struct Dependencies {
         let coreDataStack: CoreDataStack
+        let appConfiguration: AppConfiguration
     }
 
     private let dependencies: Dependencies
@@ -42,16 +43,19 @@ extension TransactionsListSceneDIContainer: TransactionsListFlowCoordinatorDepen
         )
         let viewModel = TransactionsListViewModel(dependencies: dependencies)
         let view = TransactionsListView(viewModel: viewModel)
+            .environmentObject(self.dependencies.appConfiguration.settings)
         return UIHostingController(rootView: view)
     }
 
     func makeCreateTransactionViewController(inputDate: Date) -> UIViewController {
         let view = TransactionDetail(isNew: true)
+            .environmentObject(dependencies.appConfiguration.settings)
         return UIHostingController(rootView: view)
     }
 
     func makeEditTransactionViewController(transaction: DomainModule.DMTransaction) -> UIViewController {
         let view = TransactionDetail(transaction: transaction, isNew: false)
+            .environmentObject(dependencies.appConfiguration.settings)
         return UIHostingController(rootView: view)
     }
 
@@ -61,7 +65,7 @@ extension TransactionsListSceneDIContainer: TransactionsListFlowCoordinatorDepen
         requestValue: FetchTransactionByIDUseCase.RequestValue,
         completion: @escaping (FetchTransactionByIDUseCase.ResultValue) -> Void
     ) -> FetchTransactionByIDUseCase {
-        .init(
+        FetchTransactionByIDUseCase(
             requestValue: requestValue,
             transactionRepository: makeTransactionRepository(),
             completion: completion
@@ -72,7 +76,7 @@ extension TransactionsListSceneDIContainer: TransactionsListFlowCoordinatorDepen
         requestValue: FetchTransactionsByTimeUseCase.RequestValue,
         completion: @escaping (FetchTransactionsByTimeUseCase.ResultValue) -> Void
     ) -> FetchTransactionsByTimeUseCase {
-        .init(
+        FetchTransactionsByTimeUseCase(
             requestValue: requestValue,
             transactionRepository: makeTransactionRepository(),
             completion: completion
@@ -83,7 +87,7 @@ extension TransactionsListSceneDIContainer: TransactionsListFlowCoordinatorDepen
         requestValue: AddTransactionsUseCase.RequestValue,
         completion: @escaping (AddTransactionsUseCase.ResultValue) -> Void
     ) -> AddTransactionsUseCase {
-        .init(
+        AddTransactionsUseCase(
             requestValue: requestValue,
             transactionRepository: makeTransactionRepository(),
             completion: completion
@@ -94,7 +98,7 @@ extension TransactionsListSceneDIContainer: TransactionsListFlowCoordinatorDepen
         requestValue: UpdateTransactionsUseCase.RequestValue,
         completion: @escaping (UpdateTransactionsUseCase.ResultValue) -> Void
     ) -> UpdateTransactionsUseCase {
-        .init(
+        UpdateTransactionsUseCase(
             requestValue: requestValue,
             transactionRepository: makeTransactionRepository(),
             completion: completion
@@ -105,7 +109,7 @@ extension TransactionsListSceneDIContainer: TransactionsListFlowCoordinatorDepen
         requestValue: DeleteTransactionsByIDsUseCase.RequestValue,
         completion: @escaping (DeleteTransactionsByIDsUseCase.ResultValue) -> Void
     ) -> DeleteTransactionsByIDsUseCase {
-        .init(
+        DeleteTransactionsByIDsUseCase(
             requestValue: requestValue,
             transactionRepository: makeTransactionRepository(),
             completion: completion
@@ -122,6 +126,6 @@ extension TransactionsListSceneDIContainer: TransactionsListFlowCoordinatorDepen
     func makeTransactionsFlowCoordinator(
         navigationController: UINavigationController
     ) -> TransactionsListFlowCoordinator {
-        .init(navigationController: navigationController, dependencies: self)
+        TransactionsListFlowCoordinator(navigationController: navigationController, dependencies: self)
     }
 }

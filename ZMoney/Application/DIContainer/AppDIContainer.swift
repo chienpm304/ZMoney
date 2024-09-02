@@ -25,14 +25,16 @@ final class AppDIContainer {
 
     func makeTransactionsSceneDIContainer() -> TransactionsListSceneDIContainer {
         let dependencies = TransactionsListSceneDIContainer.Dependencies(
-            coreDataStack: coreDataStack
+            coreDataStack: coreDataStack,
+            appConfiguration: appConfiguration
         )
         return TransactionsListSceneDIContainer(dependencies: dependencies)
     }
 
     func makeCategoriesSceneDIContainer() -> CategoriesSceneDIContainer {
         let dependencies = CategoriesSceneDIContainer.Dependencies(
-            coreDataStack: coreDataStack
+            coreDataStack: coreDataStack,
+            appConfiguration: appConfiguration
         )
         return CategoriesSceneDIContainer(dependencies: dependencies)
     }

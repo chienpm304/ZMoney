@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct TransactionsListView: View {
+    @EnvironmentObject var appSettings: AppSettings
     @ObservedObject private var viewModel: TransactionsListViewModel
 
     init(viewModel: TransactionsListViewModel) {
@@ -52,31 +53,25 @@ struct TransactionsListView: View {
                         HStack {
                             VStack {
                                 Text("Income")
-                                    .fontWeight(.medium)
                                 MoneyText(value: viewModel.totalIncome, type: .income)
-                                    .fontWeight(.medium)
                             }
                             Spacer()
                             VStack {
                                 Text("Expense")
-                                    .fontWeight(.medium)
                                 MoneyText(value: viewModel.totalExpense, type: .expense)
-                                    .fontWeight(.medium)
                             }
                             Spacer()
                             VStack {
                                 Text("Total")
-                                    .fontWeight(.medium)
                                 MoneyText(
                                     value: viewModel.total,
                                     type: viewModel.total > 0 ? .income : .expense
                                 )
-                                .fontWeight(.medium)
                             }
                         }
                         .listRowInsets(EdgeInsets(top: 0, leading: 12, bottom: 0, trailing: 12))
                         .listRowSeparator(.hidden)
-                        .font(.caption)
+                        .font(.caption.weight(.medium))
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                         .id(viewModel.topScrollDate)
                     }
@@ -191,14 +186,13 @@ struct TransactionsListItemView: View {
             if let memo = transaction.memo {
                 Text(memo)
                     .foregroundColor(.secondary)
-                    .fontWeight(.medium)
             }
 
             Spacer()
 
             MoneyText(value: transaction.amount, type: transaction.transactionType)
-                .fontWeight(.medium)
         }
+        .font(.body.weight(.medium))
         .withRightArrow()
         .contentShape(Rectangle())
         .onTapGesture {

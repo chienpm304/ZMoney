@@ -13,6 +13,7 @@ import SwiftUI
 final class CategoriesSceneDIContainer: CategoriesFlowCoordinatorDependencies {
     struct Dependencies {
         let coreDataStack: CoreDataStack
+        let appConfiguration: AppConfiguration
     }
 
     private let dependencies: Dependencies
@@ -89,6 +90,7 @@ final class CategoriesSceneDIContainer: CategoriesFlowCoordinatorDependencies {
     ) -> UIViewController {
         let viewModel = makeCategoriesListViewModel(actions: actions)
         let view = CategoriesListView(viewModel: viewModel)
+            .environmentObject(dependencies.appConfiguration.settings)
         return UIHostingController(rootView: view)
     }
 
@@ -103,6 +105,7 @@ final class CategoriesSceneDIContainer: CategoriesFlowCoordinatorDependencies {
             actions: actions
         )
         let view = CategoryDetailView(viewModel: viewModel)
+            .environmentObject(self.dependencies.appConfiguration.settings)
         return UIHostingController(rootView: view)
     }
 

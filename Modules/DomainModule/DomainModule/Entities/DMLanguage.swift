@@ -7,7 +7,7 @@
 
 // swiftlint:disable identifier_name
 
-enum DMLanguage: String {
+public enum DMLanguage: String {
     case vi
     case en
 }

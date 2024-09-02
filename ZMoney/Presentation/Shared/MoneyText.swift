@@ -9,39 +9,38 @@ import SwiftUI
 import DomainModule
 
 struct MoneyText: View {
+    @EnvironmentObject var appSettings: AppSettings
     private let value: MoneyValue
     private let type: DMTransactionType
+    private let hideCurrencySymbol: Bool
 
-    init(value: MoneyValue, type: DMTransactionType) {
+    init(
+        value: MoneyValue,
+        type: DMTransactionType,
+        hideCurrencySymbol: Bool = false
+    ) {
         self.value = value
         self.type = type
+        self.hideCurrencySymbol = hideCurrencySymbol
     }
 
     var body: some View {
-        textView
-    }
-
-    private var textView: Text {
-        Text("\(value)")
+        Text(formattedValue)
             .foregroundColor(type == .expense ? .red : .blue)
     }
-}
 
-extension MoneyText {
-    func font(_ font: Font?) -> some View {
-        textView.font(font)
+    private var formattedValue: String {
+        let formatter = appSettings.currencyFormatter
+        formatter.positiveSuffix = hideCurrencySymbol ? "" : " \(appSettings.currencySymbol)"
+        return formatter.string(from: NSNumber(value: value)) ?? "\(value)"
     }
 
-    func fontWeight(_ weight: Font.Weight?) -> some View {
-        textView.fontWeight(weight)
-    }
 }
 
 #Preview {
     VStack {
         MoneyText(value: 123456, type: .expense)
-            .fontWeight(.medium)
-            .font(.title)
+            .font(.title.weight(.medium))
         MoneyText(value: 123456, type: .income)
     }
 }
