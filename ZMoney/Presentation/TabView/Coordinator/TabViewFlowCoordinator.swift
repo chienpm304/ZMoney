@@ -20,6 +20,10 @@ protocol TabViewFlowCoordinatorDependencies {
     func makeCategoriesFlowCoordinator(
         navigationController: UINavigationController
     ) -> CategoriesFlowCoordinator
+
+    func makeSettingsFlowCoordinator(
+        navigationController: UINavigationController
+    ) -> SettingsFlowCoordinator
 }
 
 final class TabViewFlowCoordinator: NSObject {
@@ -56,6 +60,11 @@ final class TabViewFlowCoordinator: NSObject {
                 navigationController: navController
             )
             categoriesFlowCoordinator.start()
+        case .settings:
+            let settingsFlowCoordinator = dependencies.makeSettingsFlowCoordinator(
+                navigationController: navController
+            )
+            settingsFlowCoordinator.start()
         }
 
         navController.tabBarItem = UITabBarItem(

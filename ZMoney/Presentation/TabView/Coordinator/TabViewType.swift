@@ -10,6 +10,7 @@ import Foundation
 enum TabViewType: CaseIterable {
     case transactions
     case categories
+    case settings
 
     static var primaryTab: TabViewType { .transactions }
 
@@ -19,6 +20,8 @@ enum TabViewType: CaseIterable {
             self = .transactions
         case 1:
             self = .categories
+        case 2:
+            self = .settings
         default:
             return nil
         }
@@ -30,6 +33,8 @@ enum TabViewType: CaseIterable {
             return "Transactions"
         case .categories:
             return "Categories"
+        case .settings:
+            return "Settings"
         }
     }
 
@@ -39,6 +44,8 @@ enum TabViewType: CaseIterable {
             return 0
         case .categories:
             return 1
+        case .settings:
+            return 2
         }
     }
 
@@ -48,6 +55,8 @@ enum TabViewType: CaseIterable {
             return "calendar"
         case .categories:
             return "list.bullet"
+        case .settings:
+            return "gear"
         }
     }
 }

@@ -38,4 +38,9 @@ final class AppDIContainer {
         )
         return CategoriesSceneDIContainer(dependencies: dependencies)
     }
+
+    func makeSettingsSceneDIContainer() -> SettingsSceneDIContainer {
+        let dependencies = SettingsSceneDIContainer.Dependencies(appConfiguration: appConfiguration)
+        return SettingsSceneDIContainer(dependencies: dependencies)
+    }
 }

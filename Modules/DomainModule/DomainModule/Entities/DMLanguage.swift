@@ -7,9 +7,22 @@
 
 // swiftlint:disable identifier_name
 
-public enum DMLanguage: String {
+public enum DMLanguage: String, CaseIterable, Identifiable {
     case vi
     case en
+
+    public var id: String { rawValue }
+}
+
+extension DMLanguage {
+    public var displayName: String {
+        switch self {
+        case .vi:
+            "Tiếng Việt"
+        case .en:
+            "English"
+        }
+    }
 }
 
 // swiftlint:enable identifier_name

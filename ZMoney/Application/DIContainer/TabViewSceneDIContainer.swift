@@ -51,4 +51,15 @@ extension TabViewSceneDIContainer: TabViewFlowCoordinatorDependencies {
                 navigationController: navigationController
             )
     }
+
+    func makeSettingsFlowCoordinator(
+        navigationController: UINavigationController
+    ) -> SettingsFlowCoordinator {
+        dependencies
+            .appDIContainer
+            .makeSettingsSceneDIContainer()
+            .makeSettingsFlowCoordinator(
+                navigationController: navigationController
+            )
+    }
 }
