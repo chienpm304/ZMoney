@@ -53,25 +53,25 @@ struct TransactionsListView: View {
                             VStack {
                                 Text("Income")
                                     .fontWeight(.medium)
-                                Text("\(viewModel.totalIncome)")
+                                MoneyText(value: viewModel.totalIncome, type: .income)
                                     .fontWeight(.medium)
-                                    .moneyColor(type: .income)
                             }
                             Spacer()
                             VStack {
                                 Text("Expense")
                                     .fontWeight(.medium)
-                                Text("\(viewModel.totalExpense)")
+                                MoneyText(value: viewModel.totalExpense, type: .expense)
                                     .fontWeight(.medium)
-                                    .moneyColor(type: .expense)
                             }
                             Spacer()
                             VStack {
                                 Text("Total")
                                     .fontWeight(.medium)
-                                Text("\(viewModel.total)")
-                                    .fontWeight(.medium)
-                                    .moneyColor(type: viewModel.total > 0 ? .income : .expense)
+                                MoneyText(
+                                    value: viewModel.total,
+                                    type: viewModel.total > 0 ? .income : .expense
+                                )
+                                .fontWeight(.medium)
                             }
                         }
                         .listRowInsets(EdgeInsets(top: 0, leading: 12, bottom: 0, trailing: 12))
@@ -151,7 +151,7 @@ struct HeaderDateView: View {
                 .font(.body)
                 .bold()
             Text(dayRangeString)
-                .font(.caption)
+                .font(.callout)
                 .foregroundColor(.secondary)
         }
         .padding(.vertical, 2)
@@ -184,22 +184,20 @@ struct TransactionsListItemView: View {
 
     var body: some View {
         HStack {
-            Circle()
-                .fill(Color(hex: transaction.categoryColor))
-                .frame(width: 30, height: 30)
-                .overlay(
-                    Image(systemName: transaction.categoryIcon)
-                        .foregroundColor(.white)
-                )
+            Image(systemName: transaction.categoryIcon)
+                .foregroundColor(Color(hex: transaction.categoryColor))
+                .frame(width: 32, height: 32)
+
             if let memo = transaction.memo {
                 Text(memo)
                     .foregroundColor(.secondary)
                     .fontWeight(.medium)
             }
+
             Spacer()
-            Text("\(transaction.amount)")
+
+            MoneyText(value: transaction.amount, type: transaction.transactionType)
                 .fontWeight(.medium)
-                .moneyColor(type: transaction.transactionType)
         }
         .withRightArrow()
         .contentShape(Rectangle())

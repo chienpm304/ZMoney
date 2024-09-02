@@ -81,16 +81,14 @@ struct ZCalendarView: View {
                         if let income = incomeValue?(date), income > 0 {
                             HStack {
                                 Spacer(minLength: 2)
-                                Text("\(income)")
-                                    .moneyColor(type: .income)
+                                MoneyText(value: income, type: .income)
                                     .lineLimit(1)
                             }
                         }
                         if let expense = expenseValue?(date), expense > 0 {
                             HStack {
                                 Spacer(minLength: 2)
-                                Text("\(expense)")
-                                    .moneyColor(type: .expense)
+                                MoneyText(value: expense, type: .expense)
                                     .lineLimit(1)
                             }
                         }

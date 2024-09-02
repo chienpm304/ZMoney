@@ -15,6 +15,7 @@
 		C30729282C73918700C9674B /* AppConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30729272C73918700C9674B /* AppConfiguration.swift */; };
 		C307292A2C7391FE00C9674B /* AppFlowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30729292C7391FE00C9674B /* AppFlowCoordinator.swift */; };
 		C307292C2C7392B000C9674B /* CategoriesSceneDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C307292B2C7392B000C9674B /* CategoriesSceneDIContainer.swift */; };
+		C3142B1E2C85727200788D0A /* MoneyText.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3142B1D2C85727200788D0A /* MoneyText.swift */; };
 		C316268C2C806B5800E55BFB /* TransactionsListFlowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C316268B2C806B5700E55BFB /* TransactionsListFlowCoordinator.swift */; };
 		C316268E2C806C5600E55BFB /* TransactionsListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C316268D2C806C5600E55BFB /* TransactionsListViewModel.swift */; };
 		C31626902C806ED900E55BFB /* TransactionsListSceneDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C316268F2C806ED900E55BFB /* TransactionsListSceneDIContainer.swift */; };
@@ -58,6 +59,7 @@
 		C30729272C73918700C9674B /* AppConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfiguration.swift; sourceTree = "<group>"; };
 		C30729292C7391FE00C9674B /* AppFlowCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFlowCoordinator.swift; sourceTree = "<group>"; };
 		C307292B2C7392B000C9674B /* CategoriesSceneDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesSceneDIContainer.swift; sourceTree = "<group>"; };
+		C3142B1D2C85727200788D0A /* MoneyText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyText.swift; sourceTree = "<group>"; };
 		C316268B2C806B5700E55BFB /* TransactionsListFlowCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsListFlowCoordinator.swift; sourceTree = "<group>"; };
 		C316268D2C806C5600E55BFB /* TransactionsListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsListViewModel.swift; sourceTree = "<group>"; };
 		C316268F2C806ED900E55BFB /* TransactionsListSceneDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsListSceneDIContainer.swift; sourceTree = "<group>"; };
@@ -361,6 +363,7 @@
 				C36F6AC62C7E1A68006E1A86 /* Calendar */,
 				C3E79D652C7A2E7B002DED34 /* Modifiers */,
 				C3E79D5E2C7A2DDE002DED34 /* Icons */,
+				C3142B1D2C85727200788D0A /* MoneyText.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -522,6 +525,7 @@
 			files = (
 				C37E6BC22C784CFD003F34D9 /* CategoryDetailModel.swift in Sources */,
 				C316268C2C806B5800E55BFB /* TransactionsListFlowCoordinator.swift in Sources */,
+				C3142B1E2C85727200788D0A /* MoneyText.swift in Sources */,
 				C30729262C73914C00C9674B /* AppDIContainer.swift in Sources */,
 				C3EB8A642C82201D001FEA1D /* AppAppearance.swift in Sources */,
 				C31626942C808F1200E55BFB /* TransactionsListView.swift in Sources */,

@@ -29,8 +29,10 @@ extension TabViewSceneDIContainer: TabViewFlowCoordinatorDependencies {
     func makeTabViewController() -> UITabBarController {
         UITabBarController()
     }
-    
-    func makeTransactionsFlowCoordinator(navigationController: UINavigationController) -> TransactionsListFlowCoordinator {
+
+    func makeTransactionsFlowCoordinator(
+        navigationController: UINavigationController
+    ) -> TransactionsListFlowCoordinator {
         dependencies
             .appDIContainer
             .makeTransactionsSceneDIContainer()
@@ -38,8 +40,10 @@ extension TabViewSceneDIContainer: TabViewFlowCoordinatorDependencies {
                 navigationController: navigationController
             )
     }
-    
-    func makeCategoriesFlowCoordinator(navigationController: UINavigationController) -> CategoriesFlowCoordinator {
+
+    func makeCategoriesFlowCoordinator(
+        navigationController: UINavigationController
+    ) -> CategoriesFlowCoordinator {
         dependencies
             .appDIContainer
             .makeCategoriesSceneDIContainer()
@@ -47,5 +51,4 @@ extension TabViewSceneDIContainer: TabViewFlowCoordinatorDependencies {
                 navigationController: navigationController
             )
     }
-
 }
