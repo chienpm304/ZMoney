@@ -18,6 +18,15 @@ struct TransactionsListView: View {
         self.viewModel = viewModel
     }
 
+//    private var selectedDate: Binding<Date> {
+//        get { viewModel.dateRange.startDate }
+//        set {
+//            viewModel.dateRange = DateRangeType.month.dateRange(of: newValue)
+//        }
+//    }
+
+    @State private var testDate = Date()
+
     var body: some View {
         VStack {
             HStack {
@@ -87,7 +96,7 @@ struct TransactionsListView: View {
                                     .font(.body)
                             }
                         } header: {
-                            Text(sectionHeaderDate(date))
+                            Text(date.formatDateMediumWithShortWeekday())
                                 .fontWeight(.semibold)
                                 .id(date)
                         }
@@ -121,12 +130,6 @@ struct TransactionsListView: View {
     private var numberOfWeeks: Int {
         Date.numberOfWeeksBetween(startDate: startDate, endDate: endDate)
     }
-
-    private func sectionHeaderDate(_ date: Date) -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .medium
-        return dateFormatter.string(from: date) + " (\(date.weekdayName(.short)))"
-    }
 }
 #if targetEnvironment(simulator)
 #Preview {
@@ -152,7 +155,7 @@ struct HeaderDateView: View {
         .frame(maxWidth: .infinity)
         .background(
             RoundedRectangle(cornerRadius: 4)
-                .fill(Color.fieldBackground)
+                .fill(Color.secondarySystemBackground)
         )
     }
 

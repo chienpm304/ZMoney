@@ -24,4 +24,12 @@ extension Date {
 
         return totalWeeks
     }
+
+    // MARK: Formatter
+
+    func formatDateMediumWithShortWeekday() -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .medium
+        return dateFormatter.string(from: self) + " (\(self.weekdayName(.short)))"
+    }
 }

@@ -57,7 +57,7 @@ struct ZCalendarView: View {
                 .foregroundStyle(Color.white)
                 .font(.system(size: 12))
                 .frame(maxWidth: .infinity, maxHeight: dayOfWeekHeaderHeight)
-                .background(.blue)
+                .background(Color.accentColor)
         }
         .days { [selectedDate] day in
             let date = calendar.date(from: day.components)
@@ -99,7 +99,7 @@ struct ZCalendarView: View {
             }
             .padding(2)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(isSelected ? .blue.opacity(0.2) : .clear)
+            .background(isSelected ? Color.accentColor.opacity(0.3) : .clear)
             .overlay {
                 Rectangle()
                     .stroke(.gray, lineWidth: 0.5)

@@ -40,8 +40,16 @@ extension Color {
         return String(format: "#%06X", rgb)
     }
 
-    static var fieldBackground: Color {
-        Color.secondary.opacity(0.15)
+    static var systemBackground: Color {
+        Color(.systemBackground)
+    }
+
+    static var secondarySystemBackground: Color {
+        Color(.secondarySystemBackground)
+    }
+
+    static var systemGroupedBackground: Color {
+        Color(.systemGroupedBackground)
     }
 }
 

@@ -18,6 +18,7 @@ struct CategoryDetailView: View {
                         Text("Name")
                             .fontWeight(.medium)
                         TextField("Category name", text: $viewModel.model.name)
+                            .withFieldBackground()
                     }
 
                     ColorPicker(selection: $viewModel.model.color, supportsOpacity: false) {
@@ -41,12 +42,15 @@ struct CategoryDetailView: View {
                 } label: {
                     Text("Save")
                         .foregroundColor(.white)
-                        .padding(.vertical, 2)
                         .frame(maxWidth: .infinity)
                         .cornerRadius(8)
                 }
                 .disabled(!viewModel.isSaveEnabled)
-                .listRowBackground(viewModel.isSaveEnabled ? Color.blue : Color.gray)
+                .listRowBackground(
+                    viewModel.isSaveEnabled 
+                    ? Color.accentColor
+                    : Color.accentColor.opacity(0.5)
+                )
             }
             .navigationBarTitle(viewModel.navigationTitle, displayMode: .inline)
         }

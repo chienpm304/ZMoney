@@ -14,9 +14,12 @@ struct TransactionDetailView: View {
 
     var body: some View {
         NavigationView {
-            Form {
-                transactionDetailsSection
-                saveButtonSection
+            VStack {
+                transactionTypeSection
+                Form {
+                    transactionDetailsSection
+                    saveButtonSection
+                }
             }
             .navigationTitle(viewModel.isNewTransaction ? "Add Transaction" : "Edit Transaction")
             .navigationBarTitleDisplayMode(.inline)
@@ -25,14 +28,17 @@ struct TransactionDetailView: View {
 
     private var leftColumsWidth: CGFloat { 80 }
 
-    private var transactionDetailsSection: some View {
-        Section(header: Text("Transaction Details")) {
+    private var transactionTypeSection: some View {
+        Section {
             if viewModel.isNewTransaction {
                 transactionTypePicker
-            } else {
-                transactionTypeDisplay
             }
+        }
+        .padding(.horizontal)
+    }
 
+    private var transactionDetailsSection: some View {
+        Section(header: Text("Transaction Details")) {
             datePicker
             amountTextField
             memoTextField
@@ -41,12 +47,21 @@ struct TransactionDetailView: View {
     }
 
     private var datePicker: some View {
-        DatePicker(selection: $viewModel.transaction.inputTime, displayedComponents: .date) {
+        DatePicker(
+            selection: $viewModel.transaction.inputTime,
+            displayedComponents: .date
+        ) {
             Text("Date")
                 .fontWeight(.medium)
                 .frame(width: leftColumsWidth, alignment: .leading)
         }
-        .frame(maxWidth: .infinity)
+//        HStack {
+//            Text("Date")
+//                .fontWeight(.medium)
+//                .frame(width: leftColumsWidth, alignment: .leading)
+//            Spacer()
+//            DateView(date: viewModel.transaction.inputTime)
+//        }
     }
 
     private var transactionTypePicker: some View {
@@ -56,17 +71,6 @@ struct TransactionDetailView: View {
             }
         }
         .pickerStyle(.segmented)
-    }
-
-    private var transactionTypeDisplay: some View {
-        HStack {
-            Text("Type")
-                .fontWeight(.medium)
-                .frame(width: leftColumsWidth, alignment: .leading)
-            Spacer()
-            Text(viewModel.transaction.transactionType == .expense ? "Expense" : "Income")
-                .foregroundColor(.gray)
-        }
     }
 
     private var amountTextField: some View {
@@ -79,13 +83,7 @@ struct TransactionDetailView: View {
                 "Amount",
                 amount: $viewModel.transaction.amount
             )
-            .padding(.vertical, 6)
-            .padding(.horizontal, 8)
-            .frame(maxWidth: .infinity)
-            .background(
-                RoundedRectangle(cornerRadius: 8)
-                    .fill(Color.fieldBackground)
-            )
+            .withFieldBackground()
 
             Text(appSettings.currencySymbol)
         }
@@ -97,6 +95,7 @@ struct TransactionDetailView: View {
                 .fontWeight(.medium)
                 .frame(width: leftColumsWidth, alignment: .leading)
             TextField("Enter value", text: $viewModel.transaction.memo)
+                .withFieldBackground()
         }
     }
 
@@ -119,12 +118,15 @@ struct TransactionDetailView: View {
             } label: {
                 Text("Save")
                     .foregroundColor(.white)
-                    .padding(.vertical, 2)
                     .frame(maxWidth: .infinity)
                     .cornerRadius(8)
             }
             .disabled(!viewModel.isSaveEnabled)
-            .listRowBackground(viewModel.isSaveEnabled ? Color.blue : Color.gray)
+            .listRowBackground(
+                viewModel.isSaveEnabled
+                ? Color.accentColor
+                : Color.accentColor.opacity(0.5)
+            )
         }
     }
 }
@@ -149,4 +151,23 @@ struct TransactionDetailView: View {
         )
     }
     .environmentObject(AppSettings())
+}
+
+struct DateView: View {
+    let date: Date
+
+    var body: some View {
+        HStack(alignment: .center, spacing: 4) {
+            Text(date.formatDateMediumWithShortWeekday())
+                .font(.callout)
+                .foregroundColor(.secondary)
+        }
+        .padding(.vertical, 6)
+        .padding(.horizontal, 8)
+        .frame(maxWidth: .infinity)
+        .background(
+            RoundedRectangle(cornerRadius: 4)
+                .fill(Color.secondarySystemBackground)
+        )
+    }
 }
