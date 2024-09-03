@@ -39,6 +39,10 @@ extension Color {
 
         return String(format: "#%06X", rgb)
     }
+
+    static var fieldBackground: Color {
+        Color.secondary.opacity(0.15)
+    }
 }
 
 // swiftlint:enable identifier_name

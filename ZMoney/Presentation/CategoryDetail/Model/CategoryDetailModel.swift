@@ -8,7 +8,7 @@
 import DomainModule
 import SwiftUI
 
-struct CategoryDetailModel {
+struct CategoryDetailModel: Identifiable, Hashable {
     var id: ID
     var name: String
     var icon: String

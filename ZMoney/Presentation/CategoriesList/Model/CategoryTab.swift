@@ -23,3 +23,14 @@ extension CategoryTab {
         }
     }
 }
+
+extension DMTransactionType {
+    var toViewModel: CategoryTab {
+        switch self {
+        case .expense:
+            return .expense
+        case .income:
+            return .income
+        }
+    }
+}

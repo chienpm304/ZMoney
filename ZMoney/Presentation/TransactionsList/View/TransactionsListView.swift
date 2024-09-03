@@ -148,11 +148,11 @@ struct HeaderDateView: View {
                 .font(.callout)
                 .foregroundColor(.secondary)
         }
-        .padding(.vertical, 2)
+        .padding(4)
         .frame(maxWidth: .infinity)
         .background(
             RoundedRectangle(cornerRadius: 4)
-                .fill(Color.secondary.opacity(0.5))
+                .fill(Color.fieldBackground)
         )
     }
 

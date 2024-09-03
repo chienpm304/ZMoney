@@ -24,12 +24,25 @@ final class AppSettings: ObservableObject {
         currency.symbol
     }
 
-    var currencyFormatter: NumberFormatter {
+    lazy var currencyFormatter: NumberFormatter = {
+        let formatter = baseCurrencyFormatter
+        formatter.positiveSuffix = " \(currencySymbol)"
+        return formatter
+    }()
+
+    lazy var currencyFormatterWithoutSymbol: NumberFormatter = {
+        let formatter = baseCurrencyFormatter
+        formatter.positiveSuffix = ""
+        return formatter
+    }()
+
+    private var baseCurrencyFormatter: NumberFormatter {
         let formatter = NumberFormatter()
         formatter.numberStyle = .decimal
         formatter.groupingSeparator = ","
         formatter.positivePrefix = ""
-        formatter.positiveSuffix = " \(currencySymbol)"
+        formatter.minimumFractionDigits = 0
+        formatter.maximumFractionDigits = 0
         return formatter
     }
 }

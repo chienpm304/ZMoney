@@ -49,6 +49,20 @@ final class CategoriesListViewModel: ObservableObject {
 // MARK: Input
 extension CategoriesListViewModel {
     func onViewAppear() {
+        fetchCategories()
+    }
+
+    func didSelectItem(_ item: CategoriesListItemModel) {
+        let categories = selectedTab == .expense ? expenseCategories : incomeCategories
+        guard let category = categories.first(where: { $0.id == item.id })
+        else {
+            assertionFailure()
+            return
+        }
+        dependencies.actions?.editCategoryDetail(category)
+    }
+
+    func fetchCategories() {
         let completion: (Result<[DMCategory], Error>) -> Void = { [weak self] result in
             guard let self else { return }
             DispatchQueue.main.async {
@@ -65,16 +79,6 @@ extension CategoriesListViewModel {
         let useCase = dependencies.useCaseFactory.fetchUseCase(completion)
         useCase.execute()
         fetchUseCase = useCase // keep reference
-    }
-
-    func didSelectItem(_ item: CategoriesListItemModel) {
-        let categories = selectedTab == .expense ? expenseCategories : incomeCategories
-        guard let category = categories.first(where: { $0.id == item.id })
-        else {
-            assertionFailure()
-            return
-        }
-        dependencies.actions?.editCategoryDetail(category)
     }
 
     func addCategory() {

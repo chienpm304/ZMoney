@@ -48,13 +48,15 @@ extension TransactionsListSceneDIContainer: TransactionsListFlowCoordinatorDepen
     }
 
     func makeCreateTransactionViewController(inputDate: Date) -> UIViewController {
-        let view = TransactionDetail(isNew: true)
+        let viewModel = TransactionDetailViewModel(inputDate: inputDate)
+        let view = TransactionDetailView(viewModel: viewModel)
             .environmentObject(dependencies.appConfiguration.settings)
         return UIHostingController(rootView: view)
     }
 
-    func makeEditTransactionViewController(transaction: DomainModule.DMTransaction) -> UIViewController {
-        let view = TransactionDetail(transaction: transaction, isNew: false)
+    func makeEditTransactionViewController(transaction: DMTransaction) -> UIViewController {
+        let viewModel = TransactionDetailViewModel(transaction: transaction)
+        let view = TransactionDetailView(viewModel: viewModel)
             .environmentObject(dependencies.appConfiguration.settings)
         return UIHostingController(rootView: view)
     }
