@@ -11,6 +11,9 @@ struct TransactionsListView: View {
     @EnvironmentObject var appSettings: AppSettings
     @ObservedObject private var viewModel: TransactionsListViewModel
 
+    private var startDate: Date { viewModel.dateRange.startDate }
+    private var endDate: Date { viewModel.dateRange.endDate }
+
     init(viewModel: TransactionsListViewModel) {
         self.viewModel = viewModel
     }
@@ -24,7 +27,7 @@ struct TransactionsListView: View {
                     Image(systemName: "chevron.left")
                 }
                 Spacer()
-                HeaderDateView(startDate: viewModel.startDate, endDate: viewModel.endDate)
+                HeaderDateView(dateRange: viewModel.dateRange)
                 Spacer()
                 Button {
                     viewModel.didTapNextDateRange()
@@ -35,7 +38,7 @@ struct TransactionsListView: View {
             .padding(.horizontal, 24)
 
             ZCalendarView(
-                startDate: viewModel.startDate,
+                startDate: viewModel.dateRange.startDate,
                 endDate: viewModel.dateRange.endDate,
                 selectedDate: viewModel.selectedDate,
                 incomeValue: viewModel.totalIncome(in:),
@@ -76,9 +79,9 @@ struct TransactionsListView: View {
                         .id(viewModel.topScrollDate)
                     }
 
-                    ForEach(viewModel.itemsMap.keys.sorted(), id: \.self) { date in
+                    ForEach(viewModel.sortedDates, id: \.self) { date in
                         Section {
-                            let transactions = viewModel.itemsMap[date] ?? []
+                            let transactions = viewModel.items(inSameDateAs: date) ?? []
                             ForEach(transactions) { transaction in
                                 TransactionsListItemView(viewModel: viewModel, transaction: transaction)
                                     .font(.body)
@@ -116,10 +119,7 @@ struct TransactionsListView: View {
     }
 
     private var numberOfWeeks: Int {
-        Date.numberOfWeeksBetween(
-            startDate: viewModel.startDate,
-            endDate: viewModel.endDate
-        )
+        Date.numberOfWeeksBetween(startDate: startDate, endDate: endDate)
     }
 
     private func sectionHeaderDate(_ date: Date) -> String {
@@ -137,8 +137,7 @@ struct TransactionsListView: View {
 #endif
 
 struct HeaderDateView: View {
-    let startDate: Date
-    let endDate: Date
+    let dateRange: DateRange
 
     var body: some View {
         HStack(alignment: .center, spacing: 4) {
@@ -158,12 +157,12 @@ struct HeaderDateView: View {
     }
 
     private var monthYearString: String {
-        startDate.toFormat("MMM yyyy")
+        dateRange.startDate.toFormat("MMM yyyy")
     }
 
     private var dayRangeString: String {
-        let startDayString = startDate.toFormat("MMM dd")
-        let endDayString = endDate.toFormat("MMM dd")
+        let startDayString = dateRange.startDate.toFormat("MMM dd")
+        let endDayString = dateRange.endDate.toFormat("MMM dd")
         return "(\(startDayString) - \(endDayString))"
     }
 }

@@ -21,31 +21,16 @@ final class TransactionsListViewModel: ObservableObject {
         let actions: TransactionsListViewModelActions
     }
 
-    // MARK: Domain
-    private var transactions: [DMTransaction] = [] {
-        didSet {
-            let items = transactions.map(TransactionsListItemModel.init)
-            itemsMap = Dictionary(grouping: items, by: { $0.inputDate.dateAtStartOf(.day).date })
-            scrollToDate = topScrollDate
-        }
-    }
-
-    var topScrollDate: Date? {
-        itemsMap.keys.sorted().first?.dateByAdding(-1, .day).date
-    }
-
     // MARK: Dependencies
     private let dependencies: Dependencies
     private var fetchUseCase: UseCase?
     private let dateRangeType: DateRangeType
 
     // MARK: Output
-    @Published var itemsMap: [Date: [TransactionsListItemModel]] = [:]
+    @Published private var dataModel: TransactionsListDataModel
     @Published var dateRange: DateRange
     @Published var selectedDate: Date
     @Published var scrollToDate: Date?
-    var startDate: Date { dateRange.startDate }
-    var endDate: Date { dateRange.endDate }
 
     init(
         dateRangeType: DateRangeType = .month,
@@ -53,46 +38,34 @@ final class TransactionsListViewModel: ObservableObject {
     ) {
         self.dependencies = dependencies
         self.dateRangeType = dateRangeType
+        self.dataModel = TransactionsListDataModel(transactions: [])
         self.dateRange = dateRangeType.dateRange(of: .now)
         self.selectedDate = .now
     }
 
-    // TODO: move to usecase
-    func totalExpense(in date: Date) -> MoneyValue {
-        totalAmount(of: .expense, in: date)
+    private func setupDataModel(with transactions: [DMTransaction]) {
+        dataModel = TransactionsListDataModel(transactions: transactions)
+        scrollToDate = dataModel.topScrollDate
     }
 
-    func totalIncome(in date: Date) -> MoneyValue {
-        totalAmount(of: .income, in: date)
-    }
+    // MARK: Public
 
-    var totalExpense: MoneyValue {
-        totalAmount(of: .expense)
-    }
+    var topScrollDate: Date? { dataModel.topScrollDate }
 
-    var totalIncome: MoneyValue {
-        totalAmount(of: .income)
-    }
+    func totalExpense(in date: Date) -> MoneyValue { dataModel.totalExpense(in: date) }
 
-    var total: MoneyValue {
-        totalIncome - totalExpense
-    }
+    func totalIncome(in date: Date) -> MoneyValue { dataModel.totalIncome(in: date) }
 
-    private func totalAmount(of type: DMTransactionType, in date: Date) -> MoneyValue {
-        transactions
-            .filter {
-                Calendar.current.isDate($0.inputTime.dateValue, inSameDayAs: date)
-            }
-            .filter { $0.category.type == type }
-            .map { $0.amount }
-            .reduce(0, +)
-    }
+    var totalExpense: MoneyValue { dataModel.totalExpense }
 
-    private func totalAmount(of type: DMTransactionType) -> MoneyValue {
-        transactions
-            .filter { $0.category.type == type }
-            .map { $0.amount }
-            .reduce(0, +)
+    var totalIncome: MoneyValue { dataModel.totalIncome }
+
+    var total: MoneyValue { dataModel.total }
+
+    var sortedDates: [Date] { dataModel.sortedDates }
+
+    func items(inSameDateAs date: Date) -> [TransactionsListItemModel]? {
+        dataModel.items(inSameDateAs: date)?.1
     }
 }
 
@@ -106,17 +79,17 @@ extension TransactionsListViewModel {
         if tapCount == 1 {
             selectedDate = date
             print("should scroll to section: \(date)")
-            guard let section = itemsMap.keys.first(where: { Calendar.current.isDate($0, inSameDayAs: date) })
+            guard let section = dataModel.items(inSameDateAs: date)
             else { return }
-            scrollToDate = section
-            print(itemsMap[section, default: []].map {$0.memo})
+            scrollToDate = section.0
+            print(section.1.map { $0.memo })
         } else if tapCount == 2 {
             dependencies.actions.createTransaction(date)
         }
     }
 
     func didTapTransactionItem(_ item: TransactionsListItemModel) {
-        guard let selectedTransaction = transactions.first(where: { $0.id == item.id }) else {
+        guard let selectedTransaction = dataModel.transaction(by: item.id) else {
             assertionFailure()
             return
         }
@@ -148,23 +121,28 @@ extension TransactionsListViewModel {
             DispatchQueue.main.async {
                 switch result {
                 case .success(let transactions):
-                    self.transactions = transactions
                     // TODO: remove test
-                    self.transactions = (0...50).map({
-                        let date = DateInRegion.randomDate(
-                            between: self.startDate.inDefaultRegion(),
-                            and: self.endDate.inDefaultRegion()
-                        ).date
-                        let categories = DMCategory.defaultIncomeCategories
-                        + DMCategory.defaultExpenseCategories
-                        return .init(
-                            inputTime: date.timeValue,
-                            amount: MoneyValue.random(in: 1...100) * 10_000_00,
-                            memo: "Note \($0)",
-                            category: categories[Int.random(in: 0...10)]
-                        )
-                    })
+                    #if DEBUG
+                    var transactions = transactions
+                    if transactions.isEmpty {
+                        transactions = (0...50).map({
+                            let date = DateInRegion.randomDate(
+                                between: self.dateRange.startDate.inDefaultRegion(),
+                                and: self.dateRange.endDate.inDefaultRegion()
+                            ).date
+                            let categories = DMCategory.defaultIncomeCategories
+                            + DMCategory.defaultExpenseCategories
+                            return .init(
+                                inputTime: date.timeValue,
+                                amount: MoneyValue.random(in: 1...100) * 10_000_00,
+                                memo: "Note \($0)",
+                                category: categories[Int.random(in: 0...10)]
+                            )
+                        })
+                    }
+                    #endif
                     // end test
+                    self.setupDataModel(with: transactions)
                 case .failure(let error):
                     print("failed to fetch transactions: \(error)")
                 }
