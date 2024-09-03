@@ -24,6 +24,7 @@
 		C3142B302C86FB9B00788D0A /* TransactionDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3142B2F2C86FB9B00788D0A /* TransactionDetailViewModel.swift */; };
 		C3142B322C871E9E00788D0A /* CurrencyTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3142B312C871E9E00788D0A /* CurrencyTextField.swift */; };
 		C3142B362C87643200788D0A /* FieldBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3142B352C87643200788D0A /* FieldBackground.swift */; };
+		C3142B382C87677600788D0A /* CategoryPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3142B372C87677600788D0A /* CategoryPickerView.swift */; };
 		C316268C2C806B5800E55BFB /* TransactionsListFlowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C316268B2C806B5700E55BFB /* TransactionsListFlowCoordinator.swift */; };
 		C316268E2C806C5600E55BFB /* TransactionsListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C316268D2C806C5600E55BFB /* TransactionsListViewModel.swift */; };
 		C31626902C806ED900E55BFB /* TransactionsListSceneDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C316268F2C806ED900E55BFB /* TransactionsListSceneDIContainer.swift */; };
@@ -76,6 +77,7 @@
 		C3142B2F2C86FB9B00788D0A /* TransactionDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionDetailViewModel.swift; sourceTree = "<group>"; };
 		C3142B312C871E9E00788D0A /* CurrencyTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyTextField.swift; sourceTree = "<group>"; };
 		C3142B352C87643200788D0A /* FieldBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FieldBackground.swift; sourceTree = "<group>"; };
+		C3142B372C87677600788D0A /* CategoryPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryPickerView.swift; sourceTree = "<group>"; };
 		C316268B2C806B5700E55BFB /* TransactionsListFlowCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsListFlowCoordinator.swift; sourceTree = "<group>"; };
 		C316268D2C806C5600E55BFB /* TransactionsListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsListViewModel.swift; sourceTree = "<group>"; };
 		C316268F2C806ED900E55BFB /* TransactionsListSceneDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsListSceneDIContainer.swift; sourceTree = "<group>"; };
@@ -233,6 +235,7 @@
 			isa = PBXGroup;
 			children = (
 				C31626992C80C7CC00E55BFB /* TransactionDetailView.swift */,
+				C3142B372C87677600788D0A /* CategoryPickerView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -635,6 +638,7 @@
 				C3142B222C85906300788D0A /* AppSettingsView.swift in Sources */,
 				C37E6BB42C7788EF003F34D9 /* CategoryTab.swift in Sources */,
 				C3142B322C871E9E00788D0A /* CurrencyTextField.swift in Sources */,
+				C3142B382C87677600788D0A /* CategoryPickerView.swift in Sources */,
 				C31626962C80BC9400E55BFB /* TransactionsListItemModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

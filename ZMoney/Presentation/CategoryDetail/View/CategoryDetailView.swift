@@ -47,7 +47,7 @@ struct CategoryDetailView: View {
                 }
                 .disabled(!viewModel.isSaveEnabled)
                 .listRowBackground(
-                    viewModel.isSaveEnabled 
+                    viewModel.isSaveEnabled
                     ? Color.accentColor
                     : Color.accentColor.opacity(0.5)
                 )

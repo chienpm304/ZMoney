@@ -100,15 +100,11 @@ struct TransactionDetailView: View {
     }
 
     private var categoryPicker: some View {
-        Picker("Category", selection: $viewModel.transaction.category) {
-            ForEach(viewModel.filteredCategories, id: \.id) { category in
-                HStack {
-                    Text(category.icon)
-                    Text(category.name)
-                }
-                .tag(category)
-            }
-        }
+        CategoryPickerView(
+            spacing: 8,
+            items: viewModel.filteredCategories,
+            selectedItem: $viewModel.transaction.category
+        )
     }
 
     private var saveButtonSection: some View {
