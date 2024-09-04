@@ -130,27 +130,27 @@ struct TransactionDetailView: View {
     }
 }
 
-//#Preview {
-//    VStack {
-//        TransactionDetailView(
-//            viewModel: .init()
-//        )
+// #Preview {
+//     VStack {
+//         TransactionDetailView(
+//             viewModel: .init()
+//         )
 //
-//        Divider()
+//         Divider()
 //
-//        TransactionDetailView(
-//            viewModel: .init(
-//                transaction: .init(
-//                    inputTime: Date().timeValue,
-//                    amount: 123456,
-//                    memo: "hihi",
-//                    category: .defaultIncomeCategories.first!
-//                )
-//            )
-//        )
-//    }
-//    .environmentObject(AppSettings())
-//}
+//         TransactionDetailView(
+//             viewModel: .init(
+//                 transaction: .init(
+//                     inputTime: Date().timeValue,
+//                     amount: 123456,
+//                     memo: "hihi",
+//                     category: .defaultIncomeCategories.first!
+//                 )
+//             )
+//         )
+//     }
+//     .environmentObject(AppSettings())
+// }
 
 struct DateView: View {
     let date: Date

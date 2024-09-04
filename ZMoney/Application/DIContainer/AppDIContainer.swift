@@ -26,11 +26,11 @@ final class AppDIContainer {
     lazy var transactionsSceneDIContainer: TransactionsListSceneDIContainer = {
         let dependencies = TransactionsListSceneDIContainer.Dependencies(
             coreDataStack: coreDataStack,
-            appConfiguration: appConfiguration, 
+            appConfiguration: appConfiguration,
             categoriesDIContainer: categoriesSceneDIContainer
         )
         return TransactionsListSceneDIContainer(dependencies: dependencies)
-    } ()
+    }()
 
     lazy var categoriesSceneDIContainer: CategoriesSceneDIContainer = {
         let dependencies = CategoriesSceneDIContainer.Dependencies(
@@ -38,12 +38,12 @@ final class AppDIContainer {
             appConfiguration: appConfiguration
         )
         return CategoriesSceneDIContainer(dependencies: dependencies)
-    } ()
+    }()
 
     lazy var settingsSceneDIContainer: SettingsSceneDIContainer = {
         let dependencies = SettingsSceneDIContainer.Dependencies(
             appConfiguration: appConfiguration
         )
         return SettingsSceneDIContainer(dependencies: dependencies)
-    } ()
+    }()
 }
