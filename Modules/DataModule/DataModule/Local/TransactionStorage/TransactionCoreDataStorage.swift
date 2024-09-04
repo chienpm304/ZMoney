@@ -154,7 +154,6 @@ extension TransactionCoreDataStorage: TransactionStorage {
         context: NSManagedObjectContext,
         completion: @escaping (Result<[DMTransaction], DMError>) -> Void
     ) {
-        print("[TransactionStorage] Generating mock transactions")
         let categoryRepository = DefaultCategoryRepository(
             storage: CategoryCoreDataStorage(coreData: self.coreData)
         )
@@ -178,6 +177,7 @@ extension TransactionCoreDataStorage: TransactionStorage {
                         category: categories[Int.random(in: 0..<categories.count)]
                     )
                 }
+                print("[Transaction] Generated mock transactions")
                 self.addTransactions(transactions, completion: completion)
 
             case .failure(let failure):

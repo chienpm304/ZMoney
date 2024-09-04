@@ -29,6 +29,7 @@ public final class FetchCategoriesUseCase: UseCase {
                 guard !categories.isEmpty else {
                     let generatedCategories = self.generateDefaultCategories()
                     self.categoryRepository.addCategories(generatedCategories) { result in
+                        print("[Category] Generated default categories")
                         self.completion(result)
                     }
                     return
