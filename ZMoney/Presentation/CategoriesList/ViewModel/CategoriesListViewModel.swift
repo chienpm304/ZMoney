@@ -73,6 +73,7 @@ extension CategoriesListViewModel {
                 case .failure(let error):
                     print("failed to fetch categories: \(error)")
                 }
+                self.fetchUseCase = nil
             }
         }
 

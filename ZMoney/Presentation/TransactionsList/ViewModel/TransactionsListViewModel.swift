@@ -78,7 +78,6 @@ extension TransactionsListViewModel {
     func didTapDate(_ date: Date, tapCount: Int) {
         if tapCount == 1 {
             selectedDate = date
-            print("should scroll to section: \(date)")
             guard let section = dataModel.items(inSameDateAs: date)
             else { return }
             scrollToDate = section.0
@@ -121,27 +120,6 @@ extension TransactionsListViewModel {
             DispatchQueue.main.async {
                 switch result {
                 case .success(let transactions):
-                    // TODO: remove test
-                    #if DEBUG
-                    var transactions = transactions
-                    if transactions.isEmpty {
-                        transactions = (0...50).map({
-                            let date = DateInRegion.randomDate(
-                                between: self.dateRange.startDate.inDefaultRegion(),
-                                and: self.dateRange.endDate.inDefaultRegion()
-                            ).date
-                            let categories = DMCategory.defaultIncomeCategories
-                            + DMCategory.defaultExpenseCategories
-                            return .init(
-                                inputTime: date.timeValue,
-                                amount: MoneyValue.random(in: 1...100) * 10_000_00,
-                                memo: "Note \($0)",
-                                category: categories[Int.random(in: 0...10)]
-                            )
-                        })
-                    }
-                    #endif
-                    // end test
                     self.setupDataModel(with: transactions)
                 case .failure(let error):
                     print("failed to fetch transactions: \(error)")

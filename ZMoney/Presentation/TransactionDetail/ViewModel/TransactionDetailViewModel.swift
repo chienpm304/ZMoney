@@ -86,12 +86,15 @@ class TransactionDetailViewModel: ObservableObject {
     private var fetchCategoriesUseCase: UseCase?
 
     private func fetchCategoriesList() {
-        guard isFetching == false else { return }
+        guard !isFetching else {
+            return
+        }
         isFetching = true
+
         let completion: (Result<[DMCategory], Error>) -> Void = { [weak self] result in
             guard let self else { return }
+
             DispatchQueue.main.async {
-                self.isFetching = false
                 switch result {
                 case .success(let categories):
                     self.categories = categories
@@ -101,6 +104,8 @@ class TransactionDetailViewModel: ObservableObject {
                 case .failure(let error):
                     print("failed to fetch categories: \(error)")
                 }
+                self.isFetching = false
+                self.fetchCategoriesUseCase = nil
             }
         }
 

@@ -7,6 +7,7 @@
 
 import DomainModule
 import CoreData
+import SwiftDate
 
 public final class TransactionCoreDataStorage {
     private let coreData: CoreDataStack
@@ -54,6 +55,19 @@ extension TransactionCoreDataStorage: TransactionStorage {
                 ]
 
                 let entities = try context.fetch(fetchRequest)
+#if DEBUG
+                // TODO: remove test
+                if entities.isEmpty {
+                    self.generateMockTransactions(
+                        startTime: startTime,
+                        endTime: endTime,
+                        context: context,
+                        completion: completion
+                    )
+                    return
+                }
+                // end test
+#endif
                 completion(.success(entities.map { $0.domain }))
             } catch {
                 completion(.failure(CoreDataError.fetchError(error)))
@@ -128,4 +142,40 @@ extension TransactionCoreDataStorage: TransactionStorage {
             }
         }
     }
+
+#if DEBUG
+    private func generateMockTransactions(
+        startTime: TimeValue,
+        endTime: TimeValue,
+        context: NSManagedObjectContext,
+        completion: @escaping (Result<[DMTransaction], Error>) -> Void
+    ) {
+        print("[TransactionStorage] Generating mock transactions")
+        let categoryRepository = DefaultCategoryRepository(
+            storage: CategoryCoreDataStorage(coreData: self.coreData)
+        )
+        categoryRepository.fetchCategories { result in
+            switch result {
+            case .success(let categories):
+                let transactions: [DMTransaction] = (0...50).map {
+                    let date = DateInRegion.randomDate(
+                        between: startTime.dateValue.inDefaultRegion(),
+                        and: endTime.dateValue.inDefaultRegion()
+                    ).date
+
+                    return .init(
+                        inputTime: date.timeValue,
+                        amount: MoneyValue.random(in: 1...100) * 10_000_00,
+                        memo: "Test note \($0)",
+                        category: categories[Int.random(in: 0..<categories.count)]
+                    )
+                }
+                self.addTransactions(transactions, completion: completion)
+
+            case .failure(let failure):
+                completion(.failure(failure))
+            }
+        }
+    }
+#endif
 }

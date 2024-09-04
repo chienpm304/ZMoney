@@ -3,6 +3,7 @@ PODS:
   - DataModule (1.0.0):
     - DomainModule
     - NetworkingModule
+    - SwiftDate
   - DomainModule (1.0.0):
     - CommonModule
   - HorizonCalendar (2.0.0)
@@ -42,7 +43,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   CommonModule: b43f07412680fa4d300a4e55e4a5665859e6381f
-  DataModule: 0e019914213606b051aeeb979578c6cf1a7a233d
+  DataModule: 5044f32f2d914da9cd532a8f903847fdd4df9b16
   DomainModule: cadc53c724e8817330e35e37d97c35527ebbe113
   HorizonCalendar: 21e600058a8f4d407c79ef7848beda692c53a484
   NetworkingModule: 0bd6fbd9d6207a6f81f2db48e1f34fe7d35db722
