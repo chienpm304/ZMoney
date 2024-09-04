@@ -25,7 +25,7 @@ class TransactionDetailViewModel: ObservableObject {
     private let originalTransaction: TransactionDetailModel?
     private let dependencies: Dependencies
 
-    private var categories: [DMCategory] = []
+    @Published private var categories: [DMCategory] = []
     private var isFetching = false
 
     init(

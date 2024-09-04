@@ -88,11 +88,11 @@ final class CategoriesSceneDIContainer: CategoriesFlowCoordinatorDependencies {
 
     func makeCategoriesListViewController(
         actions: CategoriesListViewModelActions
-    ) -> UIViewController {
+    ) -> (UIViewController, CategoriesListViewModel) {
         let viewModel = makeCategoriesListViewModel(actions: actions)
         let view = CategoriesListView(viewModel: viewModel)
             .environmentObject(dependencies.appConfiguration.settings)
-        return UIHostingController(rootView: view)
+        return (UIHostingController(rootView: view), viewModel)
     }
 
     func makeCategoryDetailViewController(

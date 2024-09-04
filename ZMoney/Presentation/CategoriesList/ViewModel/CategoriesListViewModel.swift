@@ -49,7 +49,7 @@ final class CategoriesListViewModel: ObservableObject {
 // MARK: Input
 extension CategoriesListViewModel {
     func onViewAppear() {
-        fetchCategories()
+        refreshCategories()
     }
 
     func didSelectItem(_ item: CategoriesListItemModel) {
@@ -62,7 +62,7 @@ extension CategoriesListViewModel {
         dependencies.actions?.editCategoryDetail(category)
     }
 
-    func fetchCategories() {
+    func refreshCategories() {
         let completion: (Result<[DMCategory], DMError>) -> Void = { [weak self] result in
             guard let self else { return }
             DispatchQueue.main.async {

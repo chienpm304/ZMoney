@@ -11,7 +11,7 @@ import DomainModule
 protocol CategoriesFlowCoordinatorDependencies {
     func makeCategoriesListViewController(
         actions: CategoriesListViewModelActions
-    ) -> UIViewController
+    ) -> (UIViewController, CategoriesListViewModel)
 
     func makeCategoryDetailViewController(
         category: DMCategory,
@@ -24,6 +24,7 @@ final class CategoriesFlowCoordinator {
     private weak var navigationController: UINavigationController?
     private let dependencies: CategoriesFlowCoordinatorDependencies
     private weak var categoriesListViewController: UIViewController?
+    private weak var categoriesListViewModel: CategoriesListViewModel?
 
     init(
         navigationController: UINavigationController? = nil,
@@ -34,17 +35,15 @@ final class CategoriesFlowCoordinator {
     }
 
     public func start() {
-        let tranCategoriesListVC = makeCategoriesListViewController()
-        categoriesListViewController = tranCategoriesListVC
-        navigationController?.pushViewController(tranCategoriesListVC, animated: true)
-    }
-
-    private func makeCategoriesListViewController() -> UIViewController {
         let actions = CategoriesListViewModelActions(
             editCategoryDetail: editCategoryDetail,
             addCategoryDetail: addCategoryDetail
         )
-        return dependencies.makeCategoriesListViewController(actions: actions)
+        let categoriesList = dependencies.makeCategoriesListViewController(actions: actions)
+
+        categoriesListViewController = categoriesList.0
+        categoriesListViewModel = categoriesList.1
+        navigationController?.pushViewController(categoriesList.0, animated: true)
     }
 
     private func editCategoryDetail(category: DMCategory) {
@@ -61,6 +60,7 @@ final class CategoriesFlowCoordinator {
             if let listViewController = self?.categoriesListViewController {
                 self?.navigationController?.popToViewController(listViewController, animated: true)
             }
+            self?.categoriesListViewModel?.refreshCategories()
         }
         let detailVC = dependencies.makeCategoryDetailViewController(
             category: category,
