@@ -14,6 +14,7 @@ final class TransactionsListSceneDIContainer {
     struct Dependencies {
         let coreDataStack: CoreDataStack
         let appConfiguration: AppConfiguration
+        let categoriesDIContainer: CategoriesSceneDIContainer
     }
 
     private let dependencies: Dependencies
@@ -30,13 +31,7 @@ final class TransactionsListSceneDIContainer {
 // MARK: TransactionsListFlowCoordinatorDependencies
 extension TransactionsListSceneDIContainer: TransactionsListFlowCoordinatorDependencies {
     func makeTransactionsListViewController(actions: TransactionsListViewModelActions) -> UIViewController {
-        let useCaseFactory = TransactionsUseCaseFactory(
-            fetchByIDUseCase: fetchTransactionByIDUserCaseFactory,
-            fetchByTimeUseCase: fetchTransactionsByTimeUserCaseFactory(requestValue:completion:),
-            addUseCase: addTransactionsUserCaseFactory(requestValue:completion:),
-            updateUseCase: updateTransactionsUserCaseFactory(requestValue:completion:),
-            deleteUseCase: deleteTransactionsUserCaseFactory(requestValue:completion:)
-        )
+        let useCaseFactory = makeTransactionsUseCaseFactory()
         let dependencies = TransactionsListViewModel.Dependencies(
             useCaseFactory: useCaseFactory,
             actions: actions
@@ -47,21 +42,71 @@ extension TransactionsListSceneDIContainer: TransactionsListFlowCoordinatorDepen
         return UIHostingController(rootView: view)
     }
 
-    func makeCreateTransactionViewController(inputDate: Date) -> UIViewController {
-        let viewModel = TransactionDetailViewModel(inputDate: inputDate)
+    func makeCreateTransactionViewController(
+        inputDate: Date,
+        actions: TransactionDetailViewModelActions
+    ) -> UIViewController {
+        let viewModel = makeTransactionDetailViewModel(
+            transaction: nil,
+            inputDate: inputDate,
+            actions: actions
+        )
         let view = TransactionDetailView(viewModel: viewModel)
             .environmentObject(dependencies.appConfiguration.settings)
         return UIHostingController(rootView: view)
     }
 
-    func makeEditTransactionViewController(transaction: DMTransaction) -> UIViewController {
-        let viewModel = TransactionDetailViewModel(transaction: transaction)
+    func makeEditTransactionViewController(
+        transaction: DMTransaction,
+        actions: TransactionDetailViewModelActions
+    ) -> UIViewController {
+        let viewModel = makeTransactionDetailViewModel(
+            transaction: transaction,
+            inputDate: nil,
+            actions: actions
+        )
         let view = TransactionDetailView(viewModel: viewModel)
             .environmentObject(dependencies.appConfiguration.settings)
         return UIHostingController(rootView: view)
+    }
+
+    func makeCategoriesFlowCoordinator(
+        from navigationController: UINavigationController
+    ) -> CategoriesFlowCoordinator {
+        dependencies
+            .categoriesDIContainer
+            .makeCategoriesFlowCoordinator(navigationController: navigationController)
+    }
+
+    // MARK: ViewModel
+
+    func makeTransactionDetailViewModel(
+        transaction: DMTransaction?,
+        inputDate: Date?,
+        actions: TransactionDetailViewModelActions
+    ) -> TransactionDetailViewModel {
+        let dependencies = TransactionDetailViewModel.Dependencies(
+            actions: actions,
+            fetchCategoriesUseCaseFactory: makeFetchCategoriesUseCase(completion:),
+            transactionsUseCaseFactory: makeTransactionsUseCaseFactory()
+        )
+        if let transaction {
+            return TransactionDetailViewModel(transaction: transaction, dependencies: dependencies)
+        } else {
+            return TransactionDetailViewModel(inputDate: inputDate, dependencies: dependencies)
+        }
     }
 
     // MARK: UseCase
+    private func makeTransactionsUseCaseFactory() -> TransactionsUseCaseFactory {
+        return TransactionsUseCaseFactory(
+            fetchByIDUseCase: fetchTransactionByIDUserCaseFactory,
+            fetchByTimeUseCase: fetchTransactionsByTimeUserCaseFactory(requestValue:completion:),
+            addUseCase: addTransactionsUserCaseFactory(requestValue:completion:),
+            updateUseCase: updateTransactionsUserCaseFactory(requestValue:completion:),
+            deleteUseCase: deleteTransactionsUserCaseFactory(requestValue:completion:)
+        )
+    }
 
     private func fetchTransactionByIDUserCaseFactory(
         requestValue: FetchTransactionByIDUseCase.RequestValue,
@@ -116,6 +161,13 @@ extension TransactionsListSceneDIContainer: TransactionsListFlowCoordinatorDepen
             transactionRepository: makeTransactionRepository(),
             completion: completion
         )
+    }
+
+    func makeFetchCategoriesUseCase(
+        completion: @escaping (FetchCategoriesUseCase.ResultValue) -> Void
+    ) -> UseCase {
+        let categoryRepository = dependencies.categoriesDIContainer.makeCategoriesRepository()
+        return FetchCategoriesUseCase(categoryRepository: categoryRepository, completion: completion)
     }
 
     // MARK: Repository

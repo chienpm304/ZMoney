@@ -39,4 +39,17 @@ extension TransactionDetailModel {
             category: category.domain
         )
     }
+
+    private static var defaultTransactionType: DMTransactionType { .expense }
+
+    static func defaultTransaction(inputDate: Date = .now) -> TransactionDetailModel {
+        let categoryPlaceHolder = DMCategory(type: Self.defaultTransactionType)
+        return TransactionDetailModel(
+            id: .generate(),
+            inputTime: inputDate,
+            amount: 0,
+            memo: "",
+            category: CategoryDetailModel(category: categoryPlaceHolder)
+        )
+    }
 }

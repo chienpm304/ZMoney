@@ -14,17 +14,25 @@ protocol TransactionsListFlowCoordinatorDependencies {
     ) -> UIViewController
 
     func makeCreateTransactionViewController(
-        inputDate: Date
+        inputDate: Date,
+        actions: TransactionDetailViewModelActions
     ) -> UIViewController
 
     func makeEditTransactionViewController(
-        transaction: DMTransaction
+        transaction: DMTransaction,
+        actions: TransactionDetailViewModelActions
     ) -> UIViewController
+
+    func makeCategoriesFlowCoordinator(
+        from navigationController: UINavigationController
+    ) -> CategoriesFlowCoordinator
 }
 
 final class TransactionsListFlowCoordinator {
     private weak var navigationController: UINavigationController?
     private let dependencies: TransactionsListFlowCoordinatorDependencies
+    private var transactionsListViewController: UIViewController?
+    private var transactionDetailViewController: UIViewController?
 
     init(
         navigationController: UINavigationController? = nil,
@@ -42,16 +50,45 @@ final class TransactionsListFlowCoordinator {
         let transactionsListVC = dependencies.makeTransactionsListViewController(
             actions: actions
         )
+        transactionsListViewController = transactionsListVC
         navigationController?.pushViewController(transactionsListVC, animated: true)
     }
 
     private func openCreateTransactionView(inputDate: Date) {
-        let transactionDetailVC = dependencies.makeCreateTransactionViewController(inputDate: inputDate)
-        navigationController?.present(transactionDetailVC, animated: true)
+        let transactionDetailVC = dependencies.makeCreateTransactionViewController(
+            inputDate: inputDate,
+            actions: makeTransactionDetailViewModelActions()
+        )
+        presentTransactionDetailViewController(transactionDetailVC)
     }
 
     private func openEditTransactionView(transaction: DMTransaction) {
-        let transactionDetailVC = dependencies.makeEditTransactionViewController(transaction: transaction)
-        navigationController?.present(transactionDetailVC, animated: true)
+        let transactionDetailVC = dependencies.makeEditTransactionViewController(
+            transaction: transaction,
+            actions: makeTransactionDetailViewModelActions()
+        )
+        presentTransactionDetailViewController(transactionDetailVC)
+    }
+
+    private func presentTransactionDetailViewController(_ viewController: UIViewController) {
+        transactionDetailViewController = viewController
+
+        let presentedNavigationController = UINavigationController(rootViewController: viewController)
+        navigationController?.present(presentedNavigationController, animated: true, completion: nil)
+    }
+
+    private func makeTransactionDetailViewModelActions() -> TransactionDetailViewModelActions {
+        TransactionDetailViewModelActions { [weak self] in
+            guard let self, let navigationController = transactionDetailViewController?.navigationController
+            else { return }
+            let categoriesCoordinator = self.dependencies.makeCategoriesFlowCoordinator(
+                from: navigationController
+            )
+            categoriesCoordinator.start()
+        } notifyDidSavedTransactionDetail: { [weak self] _ in
+            if let listViewController = self?.transactionsListViewController {
+                self?.navigationController?.popToViewController(listViewController, animated: true)
+            }
+        }
     }
 }

@@ -23,7 +23,7 @@ protocol CategoriesFlowCoordinatorDependencies {
 final class CategoriesFlowCoordinator {
     private weak var navigationController: UINavigationController?
     private let dependencies: CategoriesFlowCoordinatorDependencies
-    private var categoriesListViewController: UIViewController?
+    private weak var categoriesListViewController: UIViewController?
 
     init(
         navigationController: UINavigationController? = nil,
@@ -34,13 +34,17 @@ final class CategoriesFlowCoordinator {
     }
 
     public func start() {
+        let tranCategoriesListVC = makeCategoriesListViewController()
+        categoriesListViewController = tranCategoriesListVC
+        navigationController?.pushViewController(tranCategoriesListVC, animated: true)
+    }
+
+    private func makeCategoriesListViewController() -> UIViewController {
         let actions = CategoriesListViewModelActions(
             editCategoryDetail: editCategoryDetail,
             addCategoryDetail: addCategoryDetail
         )
-        let tranCategoriesListVC = dependencies.makeCategoriesListViewController(actions: actions)
-        categoriesListViewController = tranCategoriesListVC
-        navigationController?.pushViewController(tranCategoriesListVC, animated: true)
+        return dependencies.makeCategoriesListViewController(actions: actions)
     }
 
     private func editCategoryDetail(category: DMCategory) {

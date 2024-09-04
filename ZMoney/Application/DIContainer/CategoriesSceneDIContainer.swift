@@ -35,6 +35,7 @@ final class CategoriesSceneDIContainer: CategoriesFlowCoordinatorDependencies {
             deleteUseCase: makeDeleteCategoriesUseCase
         )
     }
+
     func makeFetchCategoriesUseCase(
         completion: @escaping (FetchCategoriesUseCase.ResultValue) -> Void
     ) -> UseCase {

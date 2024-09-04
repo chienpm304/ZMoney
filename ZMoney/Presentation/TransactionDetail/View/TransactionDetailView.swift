@@ -13,16 +13,17 @@ struct TransactionDetailView: View {
     @ObservedObject var viewModel: TransactionDetailViewModel
 
     var body: some View {
-        NavigationView {
-            VStack {
-                transactionTypeSection
-                Form {
-                    transactionDetailsSection
-                    saveButtonSection
-                }
+        VStack {
+            transactionTypeSection
+            Form {
+                transactionDetailsSection
+                saveButtonSection
             }
-            .navigationTitle(viewModel.isNewTransaction ? "Add Transaction" : "Edit Transaction")
-            .navigationBarTitleDisplayMode(.inline)
+        }
+        .navigationTitle(viewModel.isNewTransaction ? "Add Transaction" : "Edit Transaction")
+        .navigationBarTitleDisplayMode(.inline)
+        .onAppear {
+            viewModel.onViewAppear()
         }
     }
 
@@ -128,27 +129,27 @@ struct TransactionDetailView: View {
     }
 }
 
-#Preview {
-    VStack {
-        TransactionDetailView(
-            viewModel: .init()
-        )
-
-        Divider()
-
-        TransactionDetailView(
-            viewModel: .init(
-                transaction: .init(
-                    inputTime: Date().timeValue,
-                    amount: 123456,
-                    memo: "hihi",
-                    category: .defaultIncomeCategories.first!
-                )
-            )
-        )
-    }
-    .environmentObject(AppSettings())
-}
+//#Preview {
+//    VStack {
+//        TransactionDetailView(
+//            viewModel: .init()
+//        )
+//
+//        Divider()
+//
+//        TransactionDetailView(
+//            viewModel: .init(
+//                transaction: .init(
+//                    inputTime: Date().timeValue,
+//                    amount: 123456,
+//                    memo: "hihi",
+//                    category: .defaultIncomeCategories.first!
+//                )
+//            )
+//        )
+//    }
+//    .environmentObject(AppSettings())
+//}
 
 struct DateView: View {
     let date: Date
