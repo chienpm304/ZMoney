@@ -22,6 +22,13 @@ struct TransactionDetailView: View {
         }
         .navigationTitle(viewModel.isNewTransaction ? "Add Transaction" : "Edit Transaction")
         .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .cancellationAction) {
+                Button("Cancel", role: .cancel) {
+                    viewModel.cancel()
+                }
+            }
+        }
         .onAppear {
             viewModel.onViewAppear()
         }

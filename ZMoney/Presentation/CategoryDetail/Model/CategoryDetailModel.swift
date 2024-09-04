@@ -15,16 +15,22 @@ struct CategoryDetailModel: Identifiable, Hashable {
     var color: Color
     var sortIndex: Index
     var type: DMTransactionType
+    var isPlaceholder: Bool
 }
 
 extension CategoryDetailModel {
-    init(category: DMCategory) {
+    init(category: DMCategory, isPlaceholder: Bool) {
         self.id = category.id
         self.name = category.name
         self.icon = category.icon
         self.color = Color(hex: category.color)
         self.sortIndex = category.sortIndex
         self.type = category.type
+        self.isPlaceholder = isPlaceholder
+    }
+
+    init(category: DMCategory) {
+        self.init(category: category, isPlaceholder: false)
     }
 
     var domain: DMCategory {

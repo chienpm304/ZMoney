@@ -9,7 +9,8 @@ import DomainModule
 
 struct TransactionDetailViewModelActions {
     let editCategoriesList: () -> Void
-    let notifyDidSavedTransactionDetail: (DMTransaction) -> Void
+    let notifyDidSaveTransactionDetail: (DMTransaction) -> Void
+    let notifyDidCancelTransactionDetail: () -> Void
 }
 
 class TransactionDetailViewModel: ObservableObject {
@@ -47,7 +48,9 @@ class TransactionDetailViewModel: ObservableObject {
     }
 
     var isSaveEnabled: Bool {
-        transaction.amount > 0 && (isNewTransaction || isModified)
+        transaction.amount > 0
+        && !transaction.category.isPlaceholder
+        && (isNewTransaction || isModified)
     }
 
     var allowChangeTransactionType: Bool { isNewTransaction }
@@ -63,9 +66,16 @@ class TransactionDetailViewModel: ObservableObject {
         fetchCategoriesList()
     }
 
+    func cancel() {
+        dependencies.actions.notifyDidCancelTransactionDetail()
+    }
+
     func save() {
-        // Handle saving logic here, including creating a new DMTransaction from TransactionDetailModel
-        // For new transactions, ensure the transactionType is properly applied to the selected category
+        if isNewTransaction {
+            addTransaction()
+        } else {
+            updateTransaction()
+        }
     }
 
     func didTapEditCategory() {
@@ -85,6 +95,16 @@ class TransactionDetailViewModel: ObservableObject {
 
     private var fetchCategoriesUseCase: UseCase?
 
+    private func setupDataModel(categories: [DMCategory]) {
+        self.categories = categories
+
+        if isNewTransaction, transaction.category.isPlaceholder,
+            let defaultCategory = filteredCategories.first {
+            transaction.category = defaultCategory
+            transaction.category.isPlaceholder = false
+        }
+    }
+
     private func fetchCategoriesList() {
         guard !isFetching else {
             return
@@ -97,10 +117,7 @@ class TransactionDetailViewModel: ObservableObject {
             DispatchQueue.main.async {
                 switch result {
                 case .success(let categories):
-                    self.categories = categories
-                    if self.isNewTransaction, let defaultCategory = self.filteredCategories.first {
-                        self.transaction.category = defaultCategory
-                    }
+                    self.setupDataModel(categories: categories)
                 case .failure(let error):
                     print("failed to fetch categories: \(error)")
                 }
@@ -112,5 +129,54 @@ class TransactionDetailViewModel: ObservableObject {
         let useCase = dependencies.fetchCategoriesUseCaseFactory(completion)
         fetchCategoriesUseCase = useCase // keep reference
         useCase.execute()
+    }
+
+    private func addTransaction() {
+        let requestValue = AddTransactionsUseCase.RequestValue(
+            transactions: [transaction.domain]
+        )
+        let completion: (AddTransactionsUseCase.ResultValue) -> Void = { [weak self] result in
+            guard let self else { return }
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let transactions):
+                    guard let transaction = transactions.first else {
+                        assertionFailure("Unknown error")
+                        return
+                    }
+                    print("Added transaction success: \(transaction)")
+                    self.dependencies.actions.notifyDidSaveTransactionDetail(transaction)
+                case .failure(let error):
+                    print("Added transaction failed: \(error)")
+                }
+            }
+        }
+        let addUseCase = dependencies.transactionsUseCaseFactory.addUseCase(requestValue, completion)
+        addUseCase.execute()
+    }
+
+    private func updateTransaction() {
+        let requestValue = UpdateTransactionsUseCase.RequestValue(
+            transactions: [transaction.domain]
+        )
+        let completion: (UpdateTransactionsUseCase.ResultValue) -> Void = { [weak self] result in
+            guard let self else { return }
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let transactions):
+                    guard let transaction = transactions.first else {
+                        assertionFailure("Unknown error")
+                        return
+                    }
+                    print("Updated transaction success: \(transaction)")
+                    self.dependencies.actions.notifyDidSaveTransactionDetail(transaction)
+
+                case .failure(let error):
+                    print("Updated transaction failed: \(error)")
+                }
+            }
+        }
+        let updateUseCase = dependencies.transactionsUseCaseFactory.updateUseCase(requestValue, completion)
+        updateUseCase.execute()
     }
 }

@@ -44,12 +44,13 @@ extension TransactionDetailModel {
 
     static func defaultTransaction(inputDate: Date = .now) -> TransactionDetailModel {
         let categoryPlaceHolder = DMCategory(type: Self.defaultTransactionType)
+        let categoryDetailModel = CategoryDetailModel(category: categoryPlaceHolder, isPlaceholder: true)
         return TransactionDetailModel(
             id: .generate(),
             inputTime: inputDate,
             amount: 0,
             memo: "",
-            category: CategoryDetailModel(category: categoryPlaceHolder)
+            category: categoryDetailModel
         )
     }
 }

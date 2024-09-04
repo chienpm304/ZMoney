@@ -85,10 +85,10 @@ final class TransactionsListFlowCoordinator {
                 from: navigationController
             )
             categoriesCoordinator.start()
-        } notifyDidSavedTransactionDetail: { [weak self] _ in
-            if let listViewController = self?.transactionsListViewController {
-                self?.navigationController?.popToViewController(listViewController, animated: true)
-            }
+        } notifyDidSaveTransactionDetail: { [weak self] _ in
+            self?.transactionDetailViewController?.dismiss(animated: true)
+        } notifyDidCancelTransactionDetail: { [weak self] in
+            self?.transactionDetailViewController?.dismiss(animated: true)
         }
     }
 }
