@@ -85,7 +85,11 @@ extension TransactionCoreDataStorage: TransactionStorage {
                 try context.save()
                 completion(.success(entities.map { $0.domain }))
             } catch {
-                completion(.failure(CoreDataError.saveError(error)))
+                if (error as NSError).code == NSManagedObjectConstraintMergeError {
+                    completion(.failure(CoreDataError.duplicated))
+                } else {
+                    completion(.failure(CoreDataError.saveError(error)))
+                }
             }
         }
     }

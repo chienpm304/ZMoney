@@ -12,6 +12,7 @@ enum CoreDataError: Error {
     case saveError(Error)
     case deleteError(Error)
     case notFound
+    case duplicated
 }
 
 public final class CoreDataStack {

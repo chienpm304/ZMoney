@@ -38,7 +38,27 @@ extension CategoryCoreDataStorage: CategoryStorage {
     ) {
         coreData.performBackgroundTask { context in
             do {
-                let entities = categories.map { CDCategory(category: $0, insertInto: context) }
+                // By right we can simply ensure the data uniqueness by specify attribute constraint
+                // But with CoreData (or sqlite) limitation, Entity CDCategory cannot have uniqueness
+                // constraints and to-one mandatory inverse relationship CDTransaction.category
+                // So we handle the uqniueness checking muanlually.
+
+                // Check for existing categories with the same IDs
+                let existingCategoryIDs = Set(categories.map { $0.id })
+                let fetchRequest: NSFetchRequest<CDCategory> = CDCategory.fetchRequest()
+                fetchRequest.predicate = NSPredicate(format: "id IN %@", existingCategoryIDs)
+
+                let existingCategories = try context.fetch(fetchRequest)
+                let existingCategoryIDsSet = Set(existingCategories.map { $0.id })
+
+                let newCategories = categories.filter { !existingCategoryIDsSet.contains($0.id) }
+                if newCategories.isEmpty {
+                    completion(.failure(CoreDataError.duplicated))
+                    return
+                }
+
+                // Create new entities for categories that do not exist yet
+                let entities = newCategories.map { CDCategory(category: $0, insertInto: context) }
                 try context.save()
                 completion(.success(entities.map { $0.domain }))
             } catch {
