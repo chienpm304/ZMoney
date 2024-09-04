@@ -65,11 +65,13 @@ struct ZCalendarView: View {
                 date ?? .distantFuture,
                 inSameDayAs: selectedDate ?? .distantPast
             )
+            let isToday = date?.isToday ?? false
 
             VStack(alignment: .leading) {
                 HStack {
                     Text("\(day.day)")
                         .font(.system(size: 10))
+                        .fontWeight(isToday ? .semibold : .regular)
                         .padding(.leading, 2)
                         .padding(.top, 1)
                     Spacer()
