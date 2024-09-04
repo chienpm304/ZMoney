@@ -157,6 +157,10 @@ extension TransactionCoreDataStorage: TransactionStorage {
         categoryRepository.fetchCategories { result in
             switch result {
             case .success(let categories):
+                if categories.isEmpty {
+                    completion(.success([]))
+                    return
+                }
                 let transactions: [DMTransaction] = (0...50).map {
                     let date = DateInRegion.randomDate(
                         between: startTime.dateValue.inDefaultRegion(),

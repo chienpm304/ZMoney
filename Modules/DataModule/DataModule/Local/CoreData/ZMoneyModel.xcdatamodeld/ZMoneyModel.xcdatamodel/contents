@@ -15,5 +15,10 @@
         <attribute name="inputTime" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="memo" optional="YES" attributeType="String"/>
         <relationship name="category" maxCount="1" deletionRule="Nullify" destinationEntity="CDCategory" inverseName="transactions" inverseEntity="CDCategory"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="id"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
     </entity>
 </model>
