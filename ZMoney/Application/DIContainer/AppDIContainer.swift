@@ -23,24 +23,27 @@ final class AppDIContainer {
         return TabViewSceneDIContainer(dependencies: dependencies)
     }
 
-    func makeTransactionsSceneDIContainer() -> TransactionsListSceneDIContainer {
+    lazy var transactionsSceneDIContainer: TransactionsListSceneDIContainer = {
         let dependencies = TransactionsListSceneDIContainer.Dependencies(
             coreDataStack: coreDataStack,
-            appConfiguration: appConfiguration
+            appConfiguration: appConfiguration, 
+            categoriesDIContainer: categoriesSceneDIContainer
         )
         return TransactionsListSceneDIContainer(dependencies: dependencies)
-    }
+    } ()
 
-    func makeCategoriesSceneDIContainer() -> CategoriesSceneDIContainer {
+    lazy var categoriesSceneDIContainer: CategoriesSceneDIContainer = {
         let dependencies = CategoriesSceneDIContainer.Dependencies(
             coreDataStack: coreDataStack,
             appConfiguration: appConfiguration
         )
         return CategoriesSceneDIContainer(dependencies: dependencies)
-    }
+    } ()
 
-    func makeSettingsSceneDIContainer() -> SettingsSceneDIContainer {
-        let dependencies = SettingsSceneDIContainer.Dependencies(appConfiguration: appConfiguration)
+    lazy var settingsSceneDIContainer: SettingsSceneDIContainer = {
+        let dependencies = SettingsSceneDIContainer.Dependencies(
+            appConfiguration: appConfiguration
+        )
         return SettingsSceneDIContainer(dependencies: dependencies)
-    }
+    } ()
 }

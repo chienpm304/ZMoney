@@ -35,7 +35,7 @@ extension TabViewSceneDIContainer: TabViewFlowCoordinatorDependencies {
     ) -> TransactionsListFlowCoordinator {
         dependencies
             .appDIContainer
-            .makeTransactionsSceneDIContainer()
+            .transactionsSceneDIContainer
             .makeTransactionsFlowCoordinator(
                 navigationController: navigationController
             )
@@ -46,7 +46,7 @@ extension TabViewSceneDIContainer: TabViewFlowCoordinatorDependencies {
     ) -> CategoriesFlowCoordinator {
         dependencies
             .appDIContainer
-            .makeCategoriesSceneDIContainer()
+            .categoriesSceneDIContainer
             .makeCategoriesFlowCoordinator(
                 navigationController: navigationController
             )
@@ -57,7 +57,7 @@ extension TabViewSceneDIContainer: TabViewFlowCoordinatorDependencies {
     ) -> SettingsFlowCoordinator {
         dependencies
             .appDIContainer
-            .makeSettingsSceneDIContainer()
+            .settingsSceneDIContainer
             .makeSettingsFlowCoordinator(
                 navigationController: navigationController
             )
