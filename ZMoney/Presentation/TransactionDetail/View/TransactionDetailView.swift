@@ -11,6 +11,7 @@ import DomainModule
 struct TransactionDetailView: View {
     @EnvironmentObject var appSettings: AppSettings
     @ObservedObject var viewModel: TransactionDetailViewModel
+    @State private var showDeleteConfirmationDialog = false
 
     var body: some View {
         VStack {
@@ -29,8 +30,32 @@ struct TransactionDetailView: View {
                 }
             }
         }
+        .navigationBarItems(trailing: deleteButton)
         .onAppear {
             viewModel.onViewAppear()
+        }
+    }
+
+    private var deleteButton: some View {
+        HStack {
+            if !viewModel.isNewTransaction {
+                Button(role: .destructive) {
+                    showDeleteConfirmationDialog = true
+                } label: {
+                    Text("Delete")
+                        .foregroundColor(.red)
+                }
+                .confirmationDialog(
+                    "Are you sure you want to delete this transaction?",
+                    isPresented: $showDeleteConfirmationDialog,
+                    titleVisibility: .visible
+                ) {
+                    Button("Yes, delete", role: .destructive) {
+                        viewModel.delete()
+                    }
+                    Button("Cancel", role: .cancel) { }
+                }
+            }
         }
     }
 

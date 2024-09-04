@@ -85,7 +85,7 @@ final class TransactionsListFlowCoordinator {
                 from: navigationController
             )
             categoriesCoordinator.start()
-        } notifyDidSaveTransactionDetail: { [weak self] _ in
+        } notifyDidUpdateTransactionDetail: { [weak self] _ in
             self?.transactionDetailViewController?.dismiss(animated: true)
         } notifyDidCancelTransactionDetail: { [weak self] in
             self?.transactionDetailViewController?.dismiss(animated: true)

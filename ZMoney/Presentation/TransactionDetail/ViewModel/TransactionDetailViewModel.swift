@@ -9,7 +9,7 @@ import DomainModule
 
 struct TransactionDetailViewModelActions {
     let editCategoriesList: () -> Void
-    let notifyDidSaveTransactionDetail: (DMTransaction) -> Void
+    let notifyDidUpdateTransactionDetail: (DMTransaction) -> Void
     let notifyDidCancelTransactionDetail: () -> Void
 }
 
@@ -76,6 +76,11 @@ class TransactionDetailViewModel: ObservableObject {
         } else {
             updateTransaction()
         }
+    }
+
+    func delete() {
+        guard !isNewTransaction else { return }
+        deleteTransaction()
     }
 
     func didTapEditCategory() {
@@ -145,7 +150,7 @@ class TransactionDetailViewModel: ObservableObject {
                         return
                     }
                     print("Added transaction success: \(transaction)")
-                    self.dependencies.actions.notifyDidSaveTransactionDetail(transaction)
+                    self.dependencies.actions.notifyDidUpdateTransactionDetail(transaction)
                 case .failure(let error):
                     print("Added transaction failed: \(error)")
                 }
@@ -169,7 +174,7 @@ class TransactionDetailViewModel: ObservableObject {
                         return
                     }
                     print("Updated transaction success: \(transaction)")
-                    self.dependencies.actions.notifyDidSaveTransactionDetail(transaction)
+                    self.dependencies.actions.notifyDidUpdateTransactionDetail(transaction)
 
                 case .failure(let error):
                     print("Updated transaction failed: \(error)")
@@ -177,6 +182,33 @@ class TransactionDetailViewModel: ObservableObject {
             }
         }
         let updateUseCase = dependencies.transactionsUseCaseFactory.updateUseCase(requestValue, completion)
+        updateUseCase.execute()
+    }
+
+    private func deleteTransaction() {
+        let requestValue = DeleteTransactionsByIDsUseCase.RequestValue(
+            transactionIDs: [transaction.id]
+        )
+        let completion: (DeleteTransactionsByIDsUseCase.ResultValue) -> Void = { [weak self] result in
+            guard let self else { return }
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let transactions):
+                    guard let transaction = transactions.first else {
+                        assertionFailure("Unknown error")
+                        return
+                    }
+                    print("Deleted transaction success: \(transaction)")
+                    self.dependencies.actions.notifyDidUpdateTransactionDetail(transaction)
+
+                case .failure(let error):
+                    print("Deleted transaction failed: \(error)")
+                }
+            }
+        }
+        let updateUseCase = dependencies
+            .transactionsUseCaseFactory
+            .deleteUseCase(requestValue, completion)
         updateUseCase.execute()
     }
 }
