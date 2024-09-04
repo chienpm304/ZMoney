@@ -110,7 +110,7 @@ extension TransactionsListViewModel {
         refreshTransactions()
     }
 
-    private func refreshTransactions() {
+    func refreshTransactions() {
         let request = FetchTransactionsByTimeUseCase.RequestValue(
             startTime: dateRange.startDate.timeValue,
             endTime: dateRange.endDate.timeValue

@@ -30,7 +30,9 @@ final class TransactionsListSceneDIContainer {
 
 // MARK: TransactionsListFlowCoordinatorDependencies
 extension TransactionsListSceneDIContainer: TransactionsListFlowCoordinatorDependencies {
-    func makeTransactionsListViewController(actions: TransactionsListViewModelActions) -> UIViewController {
+    func makeTransactionsListViewController(
+        actions: TransactionsListViewModelActions
+    ) -> (UIViewController, TransactionsListViewModel) {
         let useCaseFactory = makeTransactionsUseCaseFactory()
         let dependencies = TransactionsListViewModel.Dependencies(
             useCaseFactory: useCaseFactory,
@@ -39,7 +41,7 @@ extension TransactionsListSceneDIContainer: TransactionsListFlowCoordinatorDepen
         let viewModel = TransactionsListViewModel(dependencies: dependencies)
         let view = TransactionsListView(viewModel: viewModel)
             .environmentObject(self.dependencies.appConfiguration.settings)
-        return UIHostingController(rootView: view)
+        return (UIHostingController(rootView: view), viewModel)
     }
 
     func makeCreateTransactionViewController(

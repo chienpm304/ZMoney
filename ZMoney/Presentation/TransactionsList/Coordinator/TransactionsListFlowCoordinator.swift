@@ -11,7 +11,7 @@ import DomainModule
 protocol TransactionsListFlowCoordinatorDependencies {
     func makeTransactionsListViewController(
         actions: TransactionsListViewModelActions
-    ) -> UIViewController
+    ) -> (UIViewController, TransactionsListViewModel)
 
     func makeCreateTransactionViewController(
         inputDate: Date,
@@ -32,6 +32,8 @@ final class TransactionsListFlowCoordinator {
     private weak var navigationController: UINavigationController?
     private let dependencies: TransactionsListFlowCoordinatorDependencies
     private var transactionsListViewController: UIViewController?
+    private var transactionsListViewModel: TransactionsListViewModel?
+
     private var transactionDetailViewController: UIViewController?
 
     init(
@@ -47,11 +49,12 @@ final class TransactionsListFlowCoordinator {
             createTransaction: openCreateTransactionView,
             editTransaction: openEditTransactionView
         )
-        let transactionsListVC = dependencies.makeTransactionsListViewController(
+        let transactionsList = dependencies.makeTransactionsListViewController(
             actions: actions
         )
-        transactionsListViewController = transactionsListVC
-        navigationController?.pushViewController(transactionsListVC, animated: true)
+        transactionsListViewController = transactionsList.0
+        transactionsListViewModel = transactionsList.1
+        navigationController?.pushViewController(transactionsList.0, animated: true)
     }
 
     private func openCreateTransactionView(inputDate: Date) {
@@ -78,17 +81,28 @@ final class TransactionsListFlowCoordinator {
     }
 
     private func makeTransactionDetailViewModelActions() -> TransactionDetailViewModelActions {
-        TransactionDetailViewModelActions { [weak self] in
-            guard let self, let navigationController = transactionDetailViewController?.navigationController
-            else { return }
-            let categoriesCoordinator = self.dependencies.makeCategoriesFlowCoordinator(
-                from: navigationController
-            )
-            categoriesCoordinator.start()
-        } notifyDidUpdateTransactionDetail: { [weak self] _ in
-            self?.transactionDetailViewController?.dismiss(animated: true)
-        } notifyDidCancelTransactionDetail: { [weak self] in
-            self?.transactionDetailViewController?.dismiss(animated: true)
-        }
+        TransactionDetailViewModelActions(
+            editCategoriesList: editCategoriesList,
+            notifyDidUpdateTransactionDetail: didUpdateTransactionDetail,
+            notifyDidCancelTransactionDetail: didCancelTransactionDetail
+        )
+    }
+
+    private func editCategoriesList() {
+        guard let navigationController = transactionDetailViewController?.navigationController
+        else { return }
+        let categoriesCoordinator = dependencies.makeCategoriesFlowCoordinator(
+            from: navigationController
+        )
+        categoriesCoordinator.start()
+    }
+
+    private func didUpdateTransactionDetail(_ transaction: DMTransaction) {
+        transactionDetailViewController?.dismiss(animated: true)
+        transactionsListViewModel?.refreshTransactions()
+    }
+
+    private func didCancelTransactionDetail() {
+        transactionDetailViewController?.dismiss(animated: true)
     }
 }
