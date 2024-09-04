@@ -51,6 +51,10 @@ extension Color {
     static var systemGroupedBackground: Color {
         Color(.systemGroupedBackground)
     }
+
+    static var border: Color {
+        Color.secondary.opacity(0.5)
+    }
 }
 
 // swiftlint:enable identifier_name

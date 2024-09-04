@@ -49,7 +49,7 @@ struct IconPickerView: View {
     private func itemList() -> ForEach<[String], String, some View> {
         return ForEach(icons, id: \.self) { icon in
             let isSelected = icon == selectedIcon
-            let color = isSelected ? selectedColor : Color.secondary.opacity(0.8)
+            let color = isSelected ? selectedColor : Color.border
             IconItemView(icon: icon, color: color)
                 .frame(width: iconSize.width - totalPadding, height: iconSize.height - totalPadding)
                 .padding(innerPadding)

@@ -103,8 +103,9 @@ struct TransactionDetailView: View {
         CategoryPickerView(
             spacing: 8,
             items: viewModel.filteredCategories,
-            selectedItem: $viewModel.transaction.category
-        )
+            selectedItem: $viewModel.transaction.category) {
+                viewModel.didTapEditCategory()
+            }
     }
 
     private var saveButtonSection: some View {

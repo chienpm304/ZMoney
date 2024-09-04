@@ -12,30 +12,34 @@ struct CategoryPickerView: View {
     let spacing: CGFloat
     let items: [CategoryDetailModel]
     @Binding var selectedItem: CategoryDetailModel
+    var didTapEdit: (() -> Void)?
 
-    private let innerPadding = 2.0
+    private let innerPadding = 4.0
     private let outterPadding = 2.0
     private let borderWidth = 1.0
 
-    private var totalPadding: Double {
-        innerPadding + outterPadding + borderWidth
+    private var cornerRadius: Double {
+        innerPadding + outterPadding
     }
 
     private var layout: [GridItem] {
-        [GridItem(.adaptive(minimum: 60))]
+        [GridItem(.adaptive(minimum: 80))]
     }
+
+    private var maxWidth: CGFloat { 120 }
+    private var maxHeight: CGFloat { 50 }
 
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
             LazyVGrid(columns: layout, spacing: spacing) {
                 ForEach(items, id: \.self) { item in
                     let isSelected = item == selectedItem
-                    let color = isSelected ? Color.accentColor : Color.secondary.opacity(0.5)
+                    let color = isSelected ? Color.accentColor : Color.border
                     CategoryItemView(item: item)
-                        .frame(maxWidth: 80)
-                        .frame(height: 50)
+                        .frame(maxWidth: maxWidth)
+                        .frame(maxHeight: maxHeight)
                         .padding(innerPadding)
-                        .cornerRadius(innerPadding + outterPadding)
+                        .cornerRadius(cornerRadius)
                         .overlay(
                             RoundedRectangle(cornerRadius: innerPadding)
                                 .stroke(color, lineWidth: borderWidth)
@@ -44,6 +48,28 @@ struct CategoryPickerView: View {
                         .onTapGesture {
                             selectedItem = item
                         }
+                }
+
+                Button {
+                    didTapEdit?()
+                } label: {
+                    HStack {
+                        Text("Edit")
+                            .font(.system(size: 14))
+                        Image(systemName: "chevron.right")
+                            .font(.caption)
+                            .foregroundColor(.gray)
+                    }
+                    .padding(.horizontal, innerPadding)
+                    .padding(.vertical, 24)
+                    .frame(maxWidth: maxWidth)
+                    .frame(maxHeight: maxHeight)
+                    .cornerRadius(cornerRadius)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: innerPadding)
+                            .stroke(Color.border, lineWidth: borderWidth)
+                    )
+                    .padding(outterPadding)
                 }
             }
             .padding(.vertical, 1)

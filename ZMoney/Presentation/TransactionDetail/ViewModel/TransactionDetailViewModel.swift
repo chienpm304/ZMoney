@@ -58,6 +58,10 @@ class TransactionDetailViewModel: ObservableObject {
         // For new transactions, ensure the transactionType is properly applied to the selected category
     }
 
+    func didTapEditCategory() {
+        print("Did tap edit category")
+    }
+
     // MARK: Private
 
     private var isModified: Bool {
@@ -65,7 +69,7 @@ class TransactionDetailViewModel: ObservableObject {
 
         return transaction.amount != originalTransaction.amount
         || transaction.inputTime != originalTransaction.inputTime
-        || transaction.memo != originalTransaction.memo 
+        || transaction.memo != originalTransaction.memo
         || transaction.category.id != originalTransaction.category.id
     }
 }
