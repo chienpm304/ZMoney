@@ -63,7 +63,7 @@ extension CategoriesListViewModel {
     }
 
     func fetchCategories() {
-        let completion: (Result<[DMCategory], Error>) -> Void = { [weak self] result in
+        let completion: (Result<[DMCategory], DMError>) -> Void = { [weak self] result in
             guard let self else { return }
             DispatchQueue.main.async {
                 switch result {
@@ -140,11 +140,11 @@ extension CategoriesListViewModel {
                     }
                 case .failure(let error):
                     switch error {
-                    case .categoryNotFound:
+                    case .notFound:
                         print("delete category error: NOT FOUND")
-                    case .violateRelationshipConstraintError:
+                    case .violateRelationshipConstraint:
                         print("delete category denied: \(error.localizedDescription)")
-                    case .error(let error):
+                    default:
                         print("delete category error: \(error)")
                     }
                 }

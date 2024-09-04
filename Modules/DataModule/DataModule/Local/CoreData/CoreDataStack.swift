@@ -7,14 +7,6 @@
 
 import CoreData
 
-enum CoreDataError: Error {
-    case fetchError(Error)
-    case saveError(Error)
-    case deleteError(Error)
-    case notFound
-    case duplicated
-}
-
 public final class CoreDataStack {
 
     public static let shared = CoreDataStack()

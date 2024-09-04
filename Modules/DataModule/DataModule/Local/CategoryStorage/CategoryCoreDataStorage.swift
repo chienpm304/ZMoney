@@ -17,7 +17,7 @@ public final class CategoryCoreDataStorage {
 }
 
 extension CategoryCoreDataStorage: CategoryStorage {
-    public func fetchCategories(completion: @escaping (Result<[DMCategory], Error>) -> Void) {
+    public func fetchCategories(completion: @escaping (Result<[DMCategory], DMError>) -> Void) {
         coreData.performBackgroundTask { context in
             do {
                 let request: NSFetchRequest = CDCategory.fetchRequest()
@@ -27,14 +27,14 @@ extension CategoryCoreDataStorage: CategoryStorage {
                 let result = try context.fetch(request).map { $0.domain }
                 completion(.success(result))
             } catch {
-                completion(.failure(CoreDataError.fetchError(error)))
+                completion(.failure(.fetchError(error)))
             }
         }
     }
 
     public func addCategories(
         _ categories: [DMCategory],
-        completion: @escaping (Result<[DMCategory], Error>) -> Void
+        completion: @escaping (Result<[DMCategory], DMError>) -> Void
     ) {
         coreData.performBackgroundTask { context in
             do {
@@ -53,7 +53,7 @@ extension CategoryCoreDataStorage: CategoryStorage {
 
                 let newCategories = categories.filter { !existingCategoryIDsSet.contains($0.id) }
                 if newCategories.isEmpty {
-                    completion(.failure(CoreDataError.duplicated))
+                    completion(.failure(.duplicated))
                     return
                 }
 
@@ -62,14 +62,14 @@ extension CategoryCoreDataStorage: CategoryStorage {
                 try context.save()
                 completion(.success(entities.map { $0.domain }))
             } catch {
-                completion(.failure(CoreDataError.saveError(error)))
+                completion(.failure(.addError(error)))
             }
         }
     }
 
     public func updateCategories(
         _ categories: [DMCategory],
-        completion: @escaping (Result<[DMCategory], Error>) -> Void
+        completion: @escaping (Result<[DMCategory], DMError>) -> Void
     ) {
         coreData.performBackgroundTask { context in
             do {
@@ -92,14 +92,14 @@ extension CategoryCoreDataStorage: CategoryStorage {
                 try context.save()
                 completion(.success(entities.map { $0.domain }))
             } catch {
-                completion(.failure(CoreDataError.saveError(error)))
+                completion(.failure(.updateError(error)))
             }
         }
     }
 
     public func deleteCategories(
         _ categoryIDs: [ID],
-        completion: @escaping (Result<[DMCategory], CategoryDeleteError>) -> Void
+        completion: @escaping (Result<[DMCategory], DMError>) -> Void
     ) {
         coreData.performBackgroundTask { context in
             do {
@@ -108,7 +108,7 @@ extension CategoryCoreDataStorage: CategoryStorage {
 
                 let entities = try context.fetch(fetchRequest)
                 guard !entities.isEmpty else {
-                    completion(.failure(.categoryNotFound))
+                    completion(.failure(.notFound))
                     return
                 }
                 let deletedCategories = entities.map { $0.domain }
@@ -117,9 +117,9 @@ extension CategoryCoreDataStorage: CategoryStorage {
                 completion(.success(deletedCategories))
             } catch {
                 if (error as NSError).code == NSValidationRelationshipDeniedDeleteError {
-                    completion(.failure(.violateRelationshipConstraintError))
+                    completion(.failure(.violateRelationshipConstraint))
                 } else {
-                    completion(.failure(.error(error)))
+                    completion(.failure(.deleteError(error)))
                 }
             }
         }

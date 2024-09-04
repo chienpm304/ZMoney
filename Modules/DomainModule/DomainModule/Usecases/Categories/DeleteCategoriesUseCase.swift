@@ -16,7 +16,7 @@ public final class DeleteCategoriesUseCase: UseCase {
         }
     }
 
-    public typealias ResultValue = (Result<[DMCategory], CategoryDeleteError>)
+    public typealias ResultValue = (Result<[DMCategory], DMError>)
 
     private let requestValue: RequestValue
     private let categoryRepository: CategoryRepository

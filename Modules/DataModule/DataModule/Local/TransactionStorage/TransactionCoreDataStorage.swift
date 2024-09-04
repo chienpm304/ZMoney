@@ -20,7 +20,7 @@ public final class TransactionCoreDataStorage {
 extension TransactionCoreDataStorage: TransactionStorage {
     public func fetchTransaction(
         by id: ID,
-        completion: @escaping (Result<DMTransaction, Error>) -> Void
+        completion: @escaping (Result<DMTransaction, DMError>) -> Void
     ) {
         coreData.performBackgroundTask { context in
             let fetchRequest: NSFetchRequest<CDTransaction> = CDTransaction.fetchRequest()
@@ -29,10 +29,10 @@ extension TransactionCoreDataStorage: TransactionStorage {
                 if let entity = try context.fetch(fetchRequest).first {
                     completion(.success(entity.domain))
                 } else {
-                    completion(.failure(CoreDataError.notFound))
+                    completion(.failure(.notFound))
                 }
             } catch {
-                completion(.failure(CoreDataError.fetchError(error)))
+                completion(.failure(.fetchError(error)))
             }
         }
     }
@@ -40,7 +40,7 @@ extension TransactionCoreDataStorage: TransactionStorage {
     public func fetchTransactions(
         startTime: TimeValue,
         endTime: TimeValue,
-        completion: @escaping (Result<[DMTransaction], Error>) -> Void
+        completion: @escaping (Result<[DMTransaction], DMError>) -> Void
     ) {
         coreData.performBackgroundTask { context in
             do {
@@ -70,14 +70,14 @@ extension TransactionCoreDataStorage: TransactionStorage {
 #endif
                 completion(.success(entities.map { $0.domain }))
             } catch {
-                completion(.failure(CoreDataError.fetchError(error)))
+                completion(.failure(.fetchError(error)))
             }
         }
     }
 
     public func addTransactions(
         _ transactions: [DMTransaction],
-        completion: @escaping (Result<[DMTransaction], Error>) -> Void
+        completion: @escaping (Result<[DMTransaction], DMError>) -> Void
     ) {
         coreData.performBackgroundTask { context in
             do {
@@ -86,9 +86,9 @@ extension TransactionCoreDataStorage: TransactionStorage {
                 completion(.success(entities.map { $0.domain }))
             } catch {
                 if (error as NSError).code == NSManagedObjectConstraintMergeError {
-                    completion(.failure(CoreDataError.duplicated))
+                    completion(.failure(.duplicated))
                 } else {
-                    completion(.failure(CoreDataError.saveError(error)))
+                    completion(.failure(.addError(error)))
                 }
             }
         }
@@ -96,7 +96,7 @@ extension TransactionCoreDataStorage: TransactionStorage {
 
     public func updateTransactions(
         _ transactions: [DMTransaction],
-        completion: @escaping (Result<[DMTransaction], Error>) -> Void
+        completion: @escaping (Result<[DMTransaction], DMError>) -> Void
     ) {
         coreData.performBackgroundTask { context in
             do {
@@ -118,14 +118,14 @@ extension TransactionCoreDataStorage: TransactionStorage {
                 try context.save()
                 completion(.success(entities.map { $0.domain }))
             } catch {
-                completion(.failure(CoreDataError.saveError(error)))
+                completion(.failure(.updateError(error)))
             }
         }
     }
 
     public func deleteTransactionsByIDs(
         _ transactionIDs: [ID],
-        completion: @escaping (Result<[DMTransaction], Error>) -> Void
+        completion: @escaping (Result<[DMTransaction], DMError>) -> Void
     ) {
         coreData.performBackgroundTask { context in
             do {
@@ -134,7 +134,7 @@ extension TransactionCoreDataStorage: TransactionStorage {
 
                 let entities = try context.fetch(fetchRequest)
                 guard !entities.isEmpty else {
-                    completion(.failure(CoreDataError.notFound))
+                    completion(.failure(.notFound))
                     return
                 }
                 let deletedTransactions = entities.map { $0.domain }
@@ -142,7 +142,7 @@ extension TransactionCoreDataStorage: TransactionStorage {
                 try context.save()
                 completion(.success(deletedTransactions))
             } catch {
-                completion(.failure(CoreDataError.deleteError(error)))
+                completion(.failure(.deleteError(error)))
             }
         }
     }
@@ -152,7 +152,7 @@ extension TransactionCoreDataStorage: TransactionStorage {
         startTime: TimeValue,
         endTime: TimeValue,
         context: NSManagedObjectContext,
-        completion: @escaping (Result<[DMTransaction], Error>) -> Void
+        completion: @escaping (Result<[DMTransaction], DMError>) -> Void
     ) {
         print("[TransactionStorage] Generating mock transactions")
         let categoryRepository = DefaultCategoryRepository(

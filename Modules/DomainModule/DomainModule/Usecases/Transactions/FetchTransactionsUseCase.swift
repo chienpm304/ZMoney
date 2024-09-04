@@ -16,7 +16,7 @@ public final class FetchTransactionByIDUseCase: UseCase {
         }
     }
 
-    public typealias ResultValue = (Result<DMTransaction, Error>)
+    public typealias ResultValue = (Result<DMTransaction, DMError>)
 
     private let requestValue: RequestValue
     private let transactionRepository: TransactionRepository

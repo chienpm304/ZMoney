@@ -8,7 +8,7 @@
 import Combine
 
 public final class FetchCategoriesUseCase: UseCase {
-    public typealias ResultValue = (Result<[DMCategory], Error>)
+    public typealias ResultValue = (Result<[DMCategory], DMError>)
 
     private let categoryRepository: CategoryRepository
     private let completion: (ResultValue) -> Void

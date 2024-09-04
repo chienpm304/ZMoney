@@ -18,7 +18,7 @@ public final class DefaultTransactionRepository {
 extension DefaultTransactionRepository: TransactionRepository {
     public func fetchTransaction(
         by id: ID,
-        completion: @escaping (Result<DMTransaction, Error>) -> Void
+        completion: @escaping (Result<DMTransaction, DMError>) -> Void
     ) {
         storage.fetchTransaction(by: id, completion: completion)
     }
@@ -26,28 +26,28 @@ extension DefaultTransactionRepository: TransactionRepository {
     public func fetchTransactions(
         startTime: TimeValue,
         endTime: TimeValue,
-        completion: @escaping (Result<[DMTransaction], Error>) -> Void
+        completion: @escaping (Result<[DMTransaction], DMError>) -> Void
     ) {
         storage.fetchTransactions(startTime: startTime, endTime: endTime, completion: completion)
     }
 
     public func addTransactions(
         _ transactions: [DMTransaction],
-        completion: @escaping (Result<[DMTransaction], Error>) -> Void
+        completion: @escaping (Result<[DMTransaction], DMError>) -> Void
     ) {
         storage.addTransactions(transactions, completion: completion)
     }
 
     public func updateTransactions(
         _ transactions: [DMTransaction],
-        completion: @escaping (Result<[DMTransaction], Error>) -> Void
+        completion: @escaping (Result<[DMTransaction], DMError>) -> Void
     ) {
         storage.updateTransactions(transactions, completion: completion)
     }
 
     public func deleteTransactionsByIDs(
         _ transactionIDs: [ID],
-        completion: @escaping (Result<[DMTransaction], Error>) -> Void
+        completion: @escaping (Result<[DMTransaction], DMError>) -> Void
     ) {
         storage.deleteTransactionsByIDs(transactionIDs, completion: completion)
     }

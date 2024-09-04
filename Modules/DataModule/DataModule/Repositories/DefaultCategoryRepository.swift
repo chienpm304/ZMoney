@@ -16,27 +16,27 @@ public final class DefaultCategoryRepository {
 }
 
 extension DefaultCategoryRepository: CategoryRepository {
-    public func fetchCategories(completion: @escaping (Result<[DMCategory], Error>) -> Void) {
+    public func fetchCategories(completion: @escaping (Result<[DMCategory], DMError>) -> Void) {
         storage.fetchCategories(completion: completion)
     }
 
     public func addCategories(
         _ categories: [DMCategory],
-        completion: @escaping (Result<[DMCategory], Error>) -> Void
+        completion: @escaping (Result<[DMCategory], DMError>) -> Void
     ) {
         storage.addCategories(categories, completion: completion)
     }
 
     public func updateCategories(
         _ categories: [DMCategory],
-        completion: @escaping (Result<[DMCategory], Error>) -> Void
+        completion: @escaping (Result<[DMCategory], DMError>) -> Void
     ) {
         storage.updateCategories(categories, completion: completion)
     }
 
     public func deleteCategories(
         _ categoryIDs: [ID],
-        completion: @escaping (Result<[DMCategory], CategoryDeleteError>) -> Void
+        completion: @escaping (Result<[DMCategory], DMError>) -> Void
     ) {
         storage.deleteCategories(categoryIDs, completion: completion)
     }

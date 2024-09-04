@@ -111,7 +111,7 @@ class TransactionDetailViewModel: ObservableObject {
         }
         isFetching = true
 
-        let completion: (Result<[DMCategory], Error>) -> Void = { [weak self] result in
+        let completion: (Result<[DMCategory], DMError>) -> Void = { [weak self] result in
             guard let self else { return }
 
             DispatchQueue.main.async {

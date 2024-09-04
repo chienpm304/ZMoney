@@ -16,7 +16,7 @@ public final class AddCategoriesUseCase: UseCase {
         }
     }
 
-    public typealias ResultValue = (Result<[DMCategory], Error>)
+    public typealias ResultValue = (Result<[DMCategory], DMError>)
 
     private let requestValue: RequestValue
     private let categoryRepository: CategoryRepository
