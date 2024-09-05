@@ -53,7 +53,7 @@ extension TransactionsListSceneDIContainer: TransactionsListFlowCoordinatorDepen
             inputDate: inputDate,
             actions: actions
         )
-        let view = TransactionDetailView(viewModel: viewModel)
+        let view = TransactionDetailView(viewModel: viewModel, isModal: true)
             .environmentObject(dependencies.appConfiguration.settings)
         return UIHostingController(rootView: view)
     }
@@ -67,7 +67,7 @@ extension TransactionsListSceneDIContainer: TransactionsListFlowCoordinatorDepen
             inputDate: nil,
             actions: actions
         )
-        let view = TransactionDetailView(viewModel: viewModel)
+        let view = TransactionDetailView(viewModel: viewModel, isModal: true)
             .environmentObject(dependencies.appConfiguration.settings)
         return UIHostingController(rootView: view)
     }

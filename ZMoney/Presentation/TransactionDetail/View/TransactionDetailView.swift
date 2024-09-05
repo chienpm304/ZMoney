@@ -12,6 +12,15 @@ struct TransactionDetailView: View {
     @EnvironmentObject var appSettings: AppSettings
     @ObservedObject var viewModel: TransactionDetailViewModel
     @State private var showDeleteConfirmationDialog = false
+    private let isModal: Bool
+
+    init(
+        viewModel: TransactionDetailViewModel,
+        isModal: Bool
+    ) {
+        self.viewModel = viewModel
+        self.isModal = isModal
+    }
 
     var body: some View {
         VStack {
@@ -23,16 +32,27 @@ struct TransactionDetailView: View {
         }
         .navigationTitle(viewModel.isNewTransaction ? "Add Transaction" : "Edit Transaction")
         .navigationBarTitleDisplayMode(.inline)
-        .toolbar {
-            ToolbarItem(placement: .cancellationAction) {
+//        .toolbar {
+//            ToolbarItem(placement: .cancellationAction) {
+//                Button("Cancel", role: .cancel) {
+//                    viewModel.cancel()
+//                }
+//            }
+//        }
+        .navigationBarItems(leading: cancelButton)
+        .navigationBarItems(trailing: deleteButton)
+        .onAppear {
+            viewModel.onViewAppear()
+        }
+    }
+
+    private var cancelButton: some View {
+        HStack {
+            if isModal {
                 Button("Cancel", role: .cancel) {
                     viewModel.cancel()
                 }
             }
-        }
-        .navigationBarItems(trailing: deleteButton)
-        .onAppear {
-            viewModel.onViewAppear()
         }
     }
 

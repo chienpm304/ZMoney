@@ -46,7 +46,7 @@ final class TransactionDetailSceneDIContainer: TransactionDetailFlowCoordinatorD
             inputDate: inputDate,
             actions: actions
         )
-        let view = TransactionDetailView(viewModel: viewModel)
+        let view = TransactionDetailView(viewModel: viewModel, isModal: false)
             .environmentObject(dependencies.appConfiguration.settings)
         return (UIHostingController(rootView: view), viewModel)
     }
