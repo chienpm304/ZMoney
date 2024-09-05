@@ -72,8 +72,8 @@ struct CategoryPickerView: View {
                     .padding(outterPadding)
                 }
             }
-            .padding(.vertical, 1)
         }
+        .padding(.vertical, 8)
     }
 }
 
