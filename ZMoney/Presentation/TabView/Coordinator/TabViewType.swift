@@ -8,19 +8,22 @@
 import Foundation
 
 enum TabViewType: CaseIterable {
+    case createTransaction
     case transactions
     case categories
     case settings
 
-    static var primaryTab: TabViewType { .transactions }
+    static var primaryTab: TabViewType { .createTransaction }
 
     init?(index: Int) {
         switch index {
         case 0:
-            self = .transactions
+            self = .createTransaction
         case 1:
-            self = .categories
+            self = .transactions
         case 2:
+            self = .categories
+        case 3:
             self = .settings
         default:
             return nil
@@ -29,8 +32,10 @@ enum TabViewType: CaseIterable {
 
     var title: String {
         switch self {
+        case .createTransaction:
+            return "Input"
         case .transactions:
-            return "Transactions"
+            return "Calendar"
         case .categories:
             return "Categories"
         case .settings:
@@ -40,17 +45,21 @@ enum TabViewType: CaseIterable {
 
     var index: Int {
         switch self {
-        case .transactions:
+        case .createTransaction:
             return 0
-        case .categories:
+        case .transactions:
             return 1
-        case .settings:
+        case .categories:
             return 2
+        case .settings:
+            return 3
         }
     }
 
     var tabIcon: String {
         switch self {
+        case .createTransaction:
+            return "square.and.pencil"
         case .transactions:
             return "calendar"
         case .categories:

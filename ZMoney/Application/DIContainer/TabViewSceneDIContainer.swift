@@ -30,6 +30,17 @@ extension TabViewSceneDIContainer: TabViewFlowCoordinatorDependencies {
         UITabBarController()
     }
 
+    func makeTransactionDetailFlowCoordinator(
+        navigationController: UINavigationController
+    ) -> TransactionDetailFlowCoordinator {
+        dependencies
+            .appDIContainer
+            .transactionDetailSceneDIContainer
+            .makeTransactionDetailFlowCoordinator(
+                navigationController: navigationController
+            )
+    }
+
     func makeTransactionsFlowCoordinator(
         navigationController: UINavigationController
     ) -> TransactionsListFlowCoordinator {

@@ -23,6 +23,15 @@ final class AppDIContainer {
         return TabViewSceneDIContainer(dependencies: dependencies)
     }
 
+    lazy var transactionDetailSceneDIContainer: TransactionDetailSceneDIContainer = {
+        let dependencies = TransactionDetailSceneDIContainer.Dependencies(
+            coreDataStack: coreDataStack,
+            appConfiguration: appConfiguration, 
+            categoriesDIContainer: categoriesSceneDIContainer
+        )
+        return TransactionDetailSceneDIContainer(dependencies: dependencies)
+    }()
+
     lazy var transactionsSceneDIContainer: TransactionsListSceneDIContainer = {
         let dependencies = TransactionsListSceneDIContainer.Dependencies(
             coreDataStack: coreDataStack,

@@ -34,6 +34,8 @@
 		C31626A12C80D20000E55BFB /* DateRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31626A02C80D20000E55BFB /* DateRange.swift */; };
 		C343F3432C79B21700224D61 /* CategoryDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C343F3422C79B21700224D61 /* CategoryDetailViewModel.swift */; };
 		C35AE4872C74ED1E00400DD7 /* CategoriesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C35AE4862C74ED1E00400DD7 /* CategoriesListView.swift */; };
+		C3636F312C89A41C003EC13E /* TransactionDetailFlowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3636F302C89A41C003EC13E /* TransactionDetailFlowCoordinator.swift */; };
+		C3636F332C89A7AE003EC13E /* TransactionDetailSceneDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3636F322C89A7AE003EC13E /* TransactionDetailSceneDIContainer.swift */; };
 		C36F6AC82C7E1A7E006E1A86 /* ZCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36F6AC72C7E1A7E006E1A86 /* ZCalendarView.swift */; };
 		C379AFCB2C82F0A300C181B2 /* MoneyColorModifer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C379AFCA2C82F0A300C181B2 /* MoneyColorModifer.swift */; };
 		C37E6BB42C7788EF003F34D9 /* CategoryTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37E6BB32C7788EF003F34D9 /* CategoryTab.swift */; };
@@ -87,6 +89,8 @@
 		C31626A02C80D20000E55BFB /* DateRange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateRange.swift; sourceTree = "<group>"; };
 		C343F3422C79B21700224D61 /* CategoryDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDetailViewModel.swift; sourceTree = "<group>"; };
 		C35AE4862C74ED1E00400DD7 /* CategoriesListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoriesListView.swift; sourceTree = "<group>"; };
+		C3636F302C89A41C003EC13E /* TransactionDetailFlowCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionDetailFlowCoordinator.swift; sourceTree = "<group>"; };
+		C3636F322C89A7AE003EC13E /* TransactionDetailSceneDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionDetailSceneDIContainer.swift; sourceTree = "<group>"; };
 		C36F6AC72C7E1A7E006E1A86 /* ZCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZCalendarView.swift; sourceTree = "<group>"; };
 		C379AFCA2C82F0A300C181B2 /* MoneyColorModifer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyColorModifer.swift; sourceTree = "<group>"; };
 		C37E6BB32C7788EF003F34D9 /* CategoryTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryTab.swift; sourceTree = "<group>"; };
@@ -190,6 +194,7 @@
 			isa = PBXGroup;
 			children = (
 				C30729252C73914C00C9674B /* AppDIContainer.swift */,
+				C3636F322C89A7AE003EC13E /* TransactionDetailSceneDIContainer.swift */,
 				C307292B2C7392B000C9674B /* CategoriesSceneDIContainer.swift */,
 				C316268F2C806ED900E55BFB /* TransactionsListSceneDIContainer.swift */,
 				C3142B262C85972E00788D0A /* SettingsSceneDIContainer.swift */,
@@ -295,6 +300,7 @@
 		C31626982C80C7BE00E55BFB /* TransactionDetail */ = {
 			isa = PBXGroup;
 			children = (
+				C3636F2F2C89A406003EC13E /* Coordinator */,
 				C3142B2C2C86FB3C00788D0A /* Model */,
 				C3142B2B2C86FB3500788D0A /* View */,
 				C3142B2A2C86FB1800788D0A /* ViewModel */,
@@ -311,6 +317,14 @@
 				C37E6BBB2C78492D003F34D9 /* Coordinator */,
 			);
 			path = CategoriesList;
+			sourceTree = "<group>";
+		};
+		C3636F2F2C89A406003EC13E /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				C3636F302C89A41C003EC13E /* TransactionDetailFlowCoordinator.swift */,
+			);
+			path = Coordinator;
 			sourceTree = "<group>";
 		};
 		C36F6AC62C7E1A68006E1A86 /* Calendar */ = {
@@ -599,6 +613,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C37E6BC22C784CFD003F34D9 /* CategoryDetailModel.swift in Sources */,
+				C3636F332C89A7AE003EC13E /* TransactionDetailSceneDIContainer.swift in Sources */,
 				C316268C2C806B5800E55BFB /* TransactionsListFlowCoordinator.swift in Sources */,
 				C3142B1E2C85727200788D0A /* MoneyText.swift in Sources */,
 				C30729262C73914C00C9674B /* AppDIContainer.swift in Sources */,
@@ -633,6 +648,7 @@
 				C3142B362C87643200788D0A /* FieldBackground.swift in Sources */,
 				C3C47B192C847B5100B134C4 /* Date+Extensions.swift in Sources */,
 				C37E6BBF2C784CD0003F34D9 /* CategoryDetailView.swift in Sources */,
+				C3636F312C89A41C003EC13E /* TransactionDetailFlowCoordinator.swift in Sources */,
 				C3AE5B762C770EBB00865A54 /* Color+Extensions.swift in Sources */,
 				C3142B272C85972E00788D0A /* SettingsSceneDIContainer.swift in Sources */,
 				C3142B222C85906300788D0A /* AppSettingsView.swift in Sources */,

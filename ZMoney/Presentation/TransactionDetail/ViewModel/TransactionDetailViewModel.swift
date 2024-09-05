@@ -22,7 +22,7 @@ class TransactionDetailViewModel: ObservableObject {
 
     @Published var transaction: TransactionDetailModel
     @Published var isNewTransaction: Bool
-    private let originalTransaction: TransactionDetailModel?
+    private var originalTransaction: TransactionDetailModel?
     private let dependencies: Dependencies
 
     @Published private var categories: [DMCategory] = []
@@ -45,6 +45,19 @@ class TransactionDetailViewModel: ObservableObject {
             self.originalTransaction = nil
         }
         fetchCategoriesList()
+    }
+
+    func prepareForNextTransaction() {
+        guard isNewTransaction else {
+            assertionFailure("This method is meant to use for creatation only!")
+            return
+        }
+        transaction.id = .generate()
+        transaction.amount = 0
+        transaction.memo = ""
+
+        isNewTransaction = true
+        originalTransaction = nil
     }
 
     var isSaveEnabled: Bool {

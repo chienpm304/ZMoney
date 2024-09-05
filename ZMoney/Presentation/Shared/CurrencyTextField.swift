@@ -44,6 +44,9 @@ struct CurrencyTextField: View {
         .onAppear {
             formattedAmount = formatAmount(amount)
         }
+        .onChange(of: amount) { newAmount in
+            formattedAmount = formatAmount(newAmount)
+        }
     }
 
     private func formatAmount(_ amount: MoneyValue) -> String {
