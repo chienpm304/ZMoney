@@ -48,13 +48,15 @@ extension TransactionsListSceneDIContainer: TransactionsListFlowCoordinatorDepen
 
     func makeTransactionDetailFlowCoordinator(
         from navigationController: UINavigationController,
-        request: TransactionDetailFlowCoordinator.Request
+        request: TransactionDetailFlowCoordinator.Request,
+        response: TransactionDetailFlowCoordinator.Response?
     ) -> TransactionDetailFlowCoordinator {
         dependencies
             .transactionDetailDIContainer
             .makeTransactionDetailFlowCoordinator(
                 navigationController: navigationController,
-                request: request
+                request: request,
+                response: response
             )
     }
 

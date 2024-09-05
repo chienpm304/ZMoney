@@ -28,27 +28,35 @@ final class TransactionDetailFlowCoordinator {
         let editTransaction: DMTransaction?
     }
 
+    struct Response {
+        let didUpdateTransactionDetail: (DMTransaction) -> Void
+        let didCancelTransactionDetail: () -> Void
+    }
+
     private weak var navigationController: UINavigationController?
     private let dependencies: TransactionDetailFlowCoordinatorDependencies
     private let request: Request
+    private let response: Response?
     private weak var detailViewController: UIViewController?
     private weak var detailViewModel: TransactionDetailViewModel?
 
     init(
         navigationController: UINavigationController? = nil,
         dependencies: TransactionDetailFlowCoordinatorDependencies,
-        request: Request
+        request: Request,
+        response: Response?
     ) {
         self.navigationController = navigationController
         self.dependencies = dependencies
         self.request = request
+        self.response = response
     }
 
     func start() {
         let actions = TransactionDetailViewModelActions(
             editCategoriesList: editCategoriesList,
-            notifyDidUpdateTransactionDetail: didUpdateTransactionDetail,
-            notifyDidCancelTransactionDetail: didCancelTransactionDetail
+            didUpdateTransactionDetail: didUpdateTransactionDetail,
+            didCancelTransactionDetail: didCancelTransactionDetail
         )
         let transactionDetail = dependencies.makeTransactionDetailViewController(
             forNewTransactionAt: request.newTransactionInputDate,
@@ -84,6 +92,7 @@ final class TransactionDetailFlowCoordinator {
         case .present:
             detailViewController?.dismiss(animated: true)
         }
+        response?.didUpdateTransactionDetail(transaction)
     }
 
     private func didCancelTransactionDetail() {
@@ -93,5 +102,6 @@ final class TransactionDetailFlowCoordinator {
         case .present:
             detailViewController?.dismiss(animated: true)
         }
+        response?.didCancelTransactionDetail()
     }
 }

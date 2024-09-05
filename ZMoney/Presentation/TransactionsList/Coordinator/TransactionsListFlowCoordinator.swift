@@ -15,7 +15,8 @@ protocol TransactionsListFlowCoordinatorDependencies {
 
     func makeTransactionDetailFlowCoordinator(
         from navigationController: UINavigationController,
-        request: TransactionDetailFlowCoordinator.Request
+        request: TransactionDetailFlowCoordinator.Request,
+        response: TransactionDetailFlowCoordinator.Response?
     ) -> TransactionDetailFlowCoordinator
 }
 
@@ -63,9 +64,17 @@ final class TransactionsListFlowCoordinator {
             newTransactionInputDate: innputDate,
             editTransaction: transaction
         )
+
+        let response = TransactionDetailFlowCoordinator.Response { [weak self] _ in
+            self?.transactionsListViewModel?.refreshTransactions()
+        } didCancelTransactionDetail: {
+            // do nothing
+        }
+
         let coordinator = dependencies.makeTransactionDetailFlowCoordinator(
             from: navigationController,
-            request: request
+            request: request,
+            response: response
         )
         coordinator.start()
     }

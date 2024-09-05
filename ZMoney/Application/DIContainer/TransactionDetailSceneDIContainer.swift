@@ -31,12 +31,14 @@ final class TransactionDetailSceneDIContainer: TransactionDetailFlowCoordinatorD
 
     func makeTransactionDetailFlowCoordinator(
         navigationController: UINavigationController,
-        request: TransactionDetailFlowCoordinator.Request
+        request: TransactionDetailFlowCoordinator.Request,
+        response: TransactionDetailFlowCoordinator.Response?
     ) -> TransactionDetailFlowCoordinator {
         TransactionDetailFlowCoordinator(
             navigationController: navigationController,
             dependencies: self,
-            request: request
+            request: request,
+            response: response
         )
     }
 

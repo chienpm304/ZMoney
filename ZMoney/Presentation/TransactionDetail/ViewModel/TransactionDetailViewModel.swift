@@ -9,8 +9,8 @@ import DomainModule
 
 struct TransactionDetailViewModelActions {
     let editCategoriesList: () -> Void
-    let notifyDidUpdateTransactionDetail: (DMTransaction) -> Void
-    let notifyDidCancelTransactionDetail: () -> Void
+    let didUpdateTransactionDetail: (DMTransaction) -> Void
+    let didCancelTransactionDetail: () -> Void
 }
 
 class TransactionDetailViewModel: ObservableObject {
@@ -80,7 +80,7 @@ class TransactionDetailViewModel: ObservableObject {
     }
 
     func cancel() {
-        dependencies.actions.notifyDidCancelTransactionDetail()
+        dependencies.actions.didCancelTransactionDetail()
     }
 
     func save() {
@@ -163,7 +163,7 @@ class TransactionDetailViewModel: ObservableObject {
                         return
                     }
                     print("Added transaction success: \(transaction)")
-                    self.dependencies.actions.notifyDidUpdateTransactionDetail(transaction)
+                    self.dependencies.actions.didUpdateTransactionDetail(transaction)
                 case .failure(let error):
                     print("Added transaction failed: \(error)")
                 }
@@ -187,7 +187,7 @@ class TransactionDetailViewModel: ObservableObject {
                         return
                     }
                     print("Updated transaction success: \(transaction)")
-                    self.dependencies.actions.notifyDidUpdateTransactionDetail(transaction)
+                    self.dependencies.actions.didUpdateTransactionDetail(transaction)
 
                 case .failure(let error):
                     print("Updated transaction failed: \(error)")
@@ -212,7 +212,7 @@ class TransactionDetailViewModel: ObservableObject {
                         return
                     }
                     print("Deleted transaction success: \(transaction)")
-                    self.dependencies.actions.notifyDidUpdateTransactionDetail(transaction)
+                    self.dependencies.actions.didUpdateTransactionDetail(transaction)
 
                 case .failure(let error):
                     print("Deleted transaction failed: \(error)")

@@ -33,14 +33,16 @@ extension TabViewSceneDIContainer: TabViewFlowCoordinatorDependencies {
 
     func makeTransactionDetailFlowCoordinator(
         navigationController: UINavigationController,
-        request: TransactionDetailFlowCoordinator.Request
+        request: TransactionDetailFlowCoordinator.Request,
+        response: TransactionDetailFlowCoordinator.Response?
     ) -> TransactionDetailFlowCoordinator {
         dependencies
             .appDIContainer
             .transactionDetailSceneDIContainer
             .makeTransactionDetailFlowCoordinator(
                 navigationController: navigationController,
-                request: request
+                request: request,
+                response: response
             )
     }
 
