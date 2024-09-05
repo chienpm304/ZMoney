@@ -37,7 +37,7 @@ final class TransactionDetailFlowCoordinator {
     private let dependencies: TransactionDetailFlowCoordinatorDependencies
     private let request: Request
     private let response: Response?
-    private weak var detailViewController: UIViewController?
+    private var detailViewController: UIViewController?
 
     init(
         navigationController: UINavigationController? = nil,
