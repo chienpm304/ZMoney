@@ -14,7 +14,8 @@ protocol TabViewFlowCoordinatorDependencies {
     ) -> UITabBarController
 
     func makeTransactionDetailFlowCoordinator(
-        navigationController: UINavigationController
+        navigationController: UINavigationController,
+        request: TransactionDetailFlowCoordinator.Request
     ) -> TransactionDetailFlowCoordinator
 
     func makeTransactionsFlowCoordinator(
@@ -55,8 +56,14 @@ final class TabViewFlowCoordinator: NSObject {
 
         switch tabType {
         case .createTransaction:
+            let request = TransactionDetailFlowCoordinator.Request(
+                navgationType: .push,
+                newTransactionInputDate: .now,
+                editTransaction: nil
+            )
             let createTransactionFlowCoordinator = dependencies.makeTransactionDetailFlowCoordinator(
-                navigationController: navController
+                navigationController: navController,
+                request: request
             )
             createTransactionFlowCoordinator.start()
         case .transactions:

@@ -14,6 +14,7 @@ final class TransactionsListSceneDIContainer {
     struct Dependencies {
         let coreDataStack: CoreDataStack
         let appConfiguration: AppConfiguration
+        let transactionDetailDIContainer: TransactionDetailSceneDIContainer
         let categoriesDIContainer: CategoriesSceneDIContainer
     }
 
@@ -29,6 +30,7 @@ final class TransactionsListSceneDIContainer {
 }
 
 // MARK: TransactionsListFlowCoordinatorDependencies
+
 extension TransactionsListSceneDIContainer: TransactionsListFlowCoordinatorDependencies {
     func makeTransactionsListViewController(
         actions: TransactionsListViewModelActions
@@ -44,62 +46,20 @@ extension TransactionsListSceneDIContainer: TransactionsListFlowCoordinatorDepen
         return (UIHostingController(rootView: view), viewModel)
     }
 
-    func makeCreateTransactionViewController(
-        inputDate: Date,
-        actions: TransactionDetailViewModelActions
-    ) -> UIViewController {
-        let viewModel = makeTransactionDetailViewModel(
-            transaction: nil,
-            inputDate: inputDate,
-            actions: actions
-        )
-        let view = TransactionDetailView(viewModel: viewModel, isModal: true)
-            .environmentObject(dependencies.appConfiguration.settings)
-        return UIHostingController(rootView: view)
-    }
-
-    func makeEditTransactionViewController(
-        transaction: DMTransaction,
-        actions: TransactionDetailViewModelActions
-    ) -> UIViewController {
-        let viewModel = makeTransactionDetailViewModel(
-            transaction: transaction,
-            inputDate: nil,
-            actions: actions
-        )
-        let view = TransactionDetailView(viewModel: viewModel, isModal: true)
-            .environmentObject(dependencies.appConfiguration.settings)
-        return UIHostingController(rootView: view)
-    }
-
-    func makeCategoriesFlowCoordinator(
-        from navigationController: UINavigationController
-    ) -> CategoriesFlowCoordinator {
+    func makeTransactionDetailFlowCoordinator(
+        from navigationController: UINavigationController,
+        request: TransactionDetailFlowCoordinator.Request
+    ) -> TransactionDetailFlowCoordinator {
         dependencies
-            .categoriesDIContainer
-            .makeCategoriesFlowCoordinator(navigationController: navigationController)
-    }
-
-    // MARK: ViewModel
-
-    func makeTransactionDetailViewModel(
-        transaction: DMTransaction?,
-        inputDate: Date?,
-        actions: TransactionDetailViewModelActions
-    ) -> TransactionDetailViewModel {
-        let dependencies = TransactionDetailViewModel.Dependencies(
-            actions: actions,
-            fetchCategoriesUseCaseFactory: makeFetchCategoriesUseCase(completion:),
-            transactionsUseCaseFactory: makeTransactionsUseCaseFactory()
-        )
-        if let transaction {
-            return TransactionDetailViewModel(transaction: transaction, dependencies: dependencies)
-        } else {
-            return TransactionDetailViewModel(inputDate: inputDate, dependencies: dependencies)
-        }
+            .transactionDetailDIContainer
+            .makeTransactionDetailFlowCoordinator(
+                navigationController: navigationController,
+                request: request
+            )
     }
 
     // MARK: UseCase
+
     private func makeTransactionsUseCaseFactory() -> TransactionsUseCaseFactory {
         return TransactionsUseCaseFactory(
             fetchByIDUseCase: fetchTransactionByIDUserCaseFactory,
@@ -179,6 +139,7 @@ extension TransactionsListSceneDIContainer: TransactionsListFlowCoordinatorDepen
     }
 
     // MARK: Flow
+
     func makeTransactionsFlowCoordinator(
         navigationController: UINavigationController
     ) -> TransactionsListFlowCoordinator {

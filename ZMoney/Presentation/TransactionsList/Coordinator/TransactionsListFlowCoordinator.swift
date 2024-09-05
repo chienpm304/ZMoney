@@ -13,19 +13,10 @@ protocol TransactionsListFlowCoordinatorDependencies {
         actions: TransactionsListViewModelActions
     ) -> (UIViewController, TransactionsListViewModel)
 
-    func makeCreateTransactionViewController(
-        inputDate: Date,
-        actions: TransactionDetailViewModelActions
-    ) -> UIViewController
-
-    func makeEditTransactionViewController(
-        transaction: DMTransaction,
-        actions: TransactionDetailViewModelActions
-    ) -> UIViewController
-
-    func makeCategoriesFlowCoordinator(
-        from navigationController: UINavigationController
-    ) -> CategoriesFlowCoordinator
+    func makeTransactionDetailFlowCoordinator(
+        from navigationController: UINavigationController,
+        request: TransactionDetailFlowCoordinator.Request
+    ) -> TransactionDetailFlowCoordinator
 }
 
 final class TransactionsListFlowCoordinator {
@@ -46,8 +37,8 @@ final class TransactionsListFlowCoordinator {
 
     func start() {
         let actions = TransactionsListViewModelActions(
-            createTransaction: openCreateTransactionView,
-            editTransaction: openEditTransactionView
+            createTransaction: createTransactionView,
+            editTransaction: editTransactionView
         )
         let transactionsList = dependencies.makeTransactionsListViewController(
             actions: actions
@@ -57,52 +48,25 @@ final class TransactionsListFlowCoordinator {
         navigationController?.pushViewController(transactionsList.0, animated: true)
     }
 
-    private func openCreateTransactionView(inputDate: Date) {
-        let transactionDetailVC = dependencies.makeCreateTransactionViewController(
-            inputDate: inputDate,
-            actions: makeTransactionDetailViewModelActions()
+    private func createTransactionView(inputDate: Date) {
+        createOrEditTransactionView(innputDate: inputDate, transaction: nil)
+    }
+
+    private func editTransactionView(transaction: DMTransaction) {
+        createOrEditTransactionView(innputDate: nil, transaction: transaction)
+    }
+
+    private func createOrEditTransactionView(innputDate: Date?, transaction: DMTransaction?) {
+        guard let navigationController else { return }
+        let request = TransactionDetailFlowCoordinator.Request(
+            navgationType: .present,
+            newTransactionInputDate: innputDate,
+            editTransaction: transaction
         )
-        presentTransactionDetailViewController(transactionDetailVC)
-    }
-
-    private func openEditTransactionView(transaction: DMTransaction) {
-        let transactionDetailVC = dependencies.makeEditTransactionViewController(
-            transaction: transaction,
-            actions: makeTransactionDetailViewModelActions()
+        let coordinator = dependencies.makeTransactionDetailFlowCoordinator(
+            from: navigationController,
+            request: request
         )
-        presentTransactionDetailViewController(transactionDetailVC)
-    }
-
-    private func presentTransactionDetailViewController(_ viewController: UIViewController) {
-        transactionDetailViewController = viewController
-
-        let presentedNavigationController = UINavigationController(rootViewController: viewController)
-        navigationController?.present(presentedNavigationController, animated: true, completion: nil)
-    }
-
-    private func makeTransactionDetailViewModelActions() -> TransactionDetailViewModelActions {
-        TransactionDetailViewModelActions(
-            editCategoriesList: editCategoriesList,
-            notifyDidUpdateTransactionDetail: didUpdateTransactionDetail,
-            notifyDidCancelTransactionDetail: didCancelTransactionDetail
-        )
-    }
-
-    private func editCategoriesList() {
-        guard let navigationController = transactionDetailViewController?.navigationController
-        else { return }
-        let categoriesCoordinator = dependencies.makeCategoriesFlowCoordinator(
-            from: navigationController
-        )
-        categoriesCoordinator.start()
-    }
-
-    private func didUpdateTransactionDetail(_ transaction: DMTransaction) {
-        transactionDetailViewController?.dismiss(animated: true)
-        transactionsListViewModel?.refreshTransactions()
-    }
-
-    private func didCancelTransactionDetail() {
-        transactionDetailViewController?.dismiss(animated: true)
+        coordinator.start()
     }
 }

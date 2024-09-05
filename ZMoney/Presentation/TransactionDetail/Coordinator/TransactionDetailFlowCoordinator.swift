@@ -9,9 +9,11 @@ import UIKit
 import DomainModule
 
 protocol TransactionDetailFlowCoordinatorDependencies {
-    func makeCreateTransactionViewController(
-        inputDate: Date,
-        actions: TransactionDetailViewModelActions
+    func makeTransactionDetailViewController(
+        forNewTransactionAt inputDate: Date?,
+        forEditTransaction transaction: DMTransaction?,
+        actions: TransactionDetailViewModelActions,
+        navigationType: NavigationType
     ) -> (UIViewController, TransactionDetailViewModel)
 
     func makeCategoriesFlowCoordinator(
@@ -20,17 +22,26 @@ protocol TransactionDetailFlowCoordinatorDependencies {
 }
 
 final class TransactionDetailFlowCoordinator {
+    struct Request {
+        let navgationType: NavigationType
+        let newTransactionInputDate: Date?
+        let editTransaction: DMTransaction?
+    }
+
     private weak var navigationController: UINavigationController?
     private let dependencies: TransactionDetailFlowCoordinatorDependencies
+    private let request: Request
     private weak var detailViewController: UIViewController?
     private weak var detailViewModel: TransactionDetailViewModel?
 
     init(
         navigationController: UINavigationController? = nil,
-        dependencies: TransactionDetailFlowCoordinatorDependencies
+        dependencies: TransactionDetailFlowCoordinatorDependencies,
+        request: Request
     ) {
         self.navigationController = navigationController
         self.dependencies = dependencies
+        self.request = request
     }
 
     func start() {
@@ -39,13 +50,23 @@ final class TransactionDetailFlowCoordinator {
             notifyDidUpdateTransactionDetail: didUpdateTransactionDetail,
             notifyDidCancelTransactionDetail: didCancelTransactionDetail
         )
-        let transactionDetail = dependencies.makeCreateTransactionViewController(
-            inputDate: .now,
-            actions: actions
+        let transactionDetail = dependencies.makeTransactionDetailViewController(
+            forNewTransactionAt: request.newTransactionInputDate,
+            forEditTransaction: request.editTransaction,
+            actions: actions,
+            navigationType: request.navgationType
         )
-        detailViewController = transactionDetail.0
+        let viewController = transactionDetail.0
+        detailViewController = viewController
         detailViewModel = transactionDetail.1
-        navigationController?.pushViewController(transactionDetail.0, animated: true)
+
+        switch request.navgationType {
+        case .push:
+            navigationController?.pushViewController(viewController, animated: true)
+        case .present:
+            let presentedNavigationController = UINavigationController(rootViewController: viewController)
+            navigationController?.present(presentedNavigationController, animated: true, completion: nil)
+        }
     }
 
     private func editCategoriesList() {
@@ -57,10 +78,20 @@ final class TransactionDetailFlowCoordinator {
     }
 
     private func didUpdateTransactionDetail(_ transaction: DMTransaction) {
-        detailViewModel?.prepareForNextTransaction()
+        switch request.navgationType {
+        case .push:
+            detailViewModel?.prepareForNextTransaction()
+        case .present:
+            detailViewController?.dismiss(animated: true)
+        }
     }
 
     private func didCancelTransactionDetail() {
-        // do nothing
+        switch request.navgationType {
+        case .push:
+            assertionFailure()
+        case .present:
+            detailViewController?.dismiss(animated: true)
+        }
     }
 }

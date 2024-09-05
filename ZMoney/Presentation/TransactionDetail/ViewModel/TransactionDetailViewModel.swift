@@ -29,8 +29,8 @@ class TransactionDetailViewModel: ObservableObject {
     private var isFetching = false
 
     init(
-        transaction: DMTransaction? = nil,
-        inputDate: Date? = nil,
+        forNewTransactionAt inputDate: Date? = nil,
+        forEditTransaction transaction: DMTransaction? = nil,
         dependencies: Dependencies
     ) {
         self.dependencies = dependencies

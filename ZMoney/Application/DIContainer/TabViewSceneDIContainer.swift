@@ -25,19 +25,22 @@ final class TabViewSceneDIContainer {
 }
 
 // MARK: TransactionsListFlowCoordinatorDependencies
+
 extension TabViewSceneDIContainer: TabViewFlowCoordinatorDependencies {
     func makeTabViewController() -> UITabBarController {
         UITabBarController()
     }
 
     func makeTransactionDetailFlowCoordinator(
-        navigationController: UINavigationController
+        navigationController: UINavigationController,
+        request: TransactionDetailFlowCoordinator.Request
     ) -> TransactionDetailFlowCoordinator {
         dependencies
             .appDIContainer
             .transactionDetailSceneDIContainer
             .makeTransactionDetailFlowCoordinator(
-                navigationController: navigationController
+                navigationController: navigationController,
+                request: request
             )
     }
 

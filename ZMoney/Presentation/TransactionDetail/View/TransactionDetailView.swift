@@ -12,14 +12,14 @@ struct TransactionDetailView: View {
     @EnvironmentObject var appSettings: AppSettings
     @ObservedObject var viewModel: TransactionDetailViewModel
     @State private var showDeleteConfirmationDialog = false
-    private let isModal: Bool
+    private let navigationType: NavigationType
 
     init(
         viewModel: TransactionDetailViewModel,
-        isModal: Bool
+        navigationType: NavigationType
     ) {
         self.viewModel = viewModel
-        self.isModal = isModal
+        self.navigationType = navigationType
     }
 
     var body: some View {
@@ -48,7 +48,7 @@ struct TransactionDetailView: View {
 
     private var cancelButton: some View {
         HStack {
-            if isModal {
+            if navigationType == .present {
                 Button("Cancel", role: .cancel) {
                     viewModel.cancel()
                 }

@@ -30,23 +30,30 @@ final class TransactionDetailSceneDIContainer: TransactionDetailFlowCoordinatorD
     // MARK: Flow
 
     func makeTransactionDetailFlowCoordinator(
-        navigationController: UINavigationController
+        navigationController: UINavigationController,
+        request: TransactionDetailFlowCoordinator.Request
     ) -> TransactionDetailFlowCoordinator {
-        TransactionDetailFlowCoordinator(navigationController: navigationController, dependencies: self)
+        TransactionDetailFlowCoordinator(
+            navigationController: navigationController,
+            dependencies: self,
+            request: request
+        )
     }
 
     // MARK: TransactionDetailFlowCoordinatorDependencies
 
-    func makeCreateTransactionViewController(
-        inputDate: Date,
-        actions: TransactionDetailViewModelActions
+    func makeTransactionDetailViewController(
+        forNewTransactionAt inputDate: Date?,
+        forEditTransaction transaction: DMTransaction?,
+        actions: TransactionDetailViewModelActions,
+        navigationType: NavigationType
     ) -> (UIViewController, TransactionDetailViewModel) {
         let viewModel = makeTransactionDetailViewModel(
-            transaction: nil,
-            inputDate: inputDate,
+            forNewTransactionAt: inputDate,
+            forEditTransaction: transaction,
             actions: actions
         )
-        let view = TransactionDetailView(viewModel: viewModel, isModal: false)
+        let view = TransactionDetailView(viewModel: viewModel, navigationType: navigationType)
             .environmentObject(dependencies.appConfiguration.settings)
         return (UIHostingController(rootView: view), viewModel)
     }
@@ -62,8 +69,8 @@ final class TransactionDetailSceneDIContainer: TransactionDetailFlowCoordinatorD
     // MARK: ViewModel
 
     func makeTransactionDetailViewModel(
-        transaction: DMTransaction?,
-        inputDate: Date?,
+        forNewTransactionAt inputDate: Date?,
+        forEditTransaction transaction: DMTransaction?,
         actions: TransactionDetailViewModelActions
     ) -> TransactionDetailViewModel {
         let dependencies = TransactionDetailViewModel.Dependencies(
@@ -72,9 +79,15 @@ final class TransactionDetailSceneDIContainer: TransactionDetailFlowCoordinatorD
             transactionsUseCaseFactory: makeTransactionsUseCaseFactory()
         )
         if let transaction {
-            return TransactionDetailViewModel(transaction: transaction, dependencies: dependencies)
+            return TransactionDetailViewModel(
+                forEditTransaction: transaction,
+                dependencies: dependencies
+            )
         } else {
-            return TransactionDetailViewModel(inputDate: inputDate, dependencies: dependencies)
+            return TransactionDetailViewModel(
+                forNewTransactionAt: inputDate,
+                dependencies: dependencies
+            )
         }
     }
 
