@@ -49,7 +49,7 @@ final class TransactionDetailSceneDIContainer: TransactionDetailFlowCoordinatorD
         forEditTransaction transaction: DMTransaction?,
         actions: TransactionDetailViewModelActions,
         navigationType: NavigationType
-    ) -> (UIViewController, TransactionDetailViewModel) {
+    ) -> UIViewController {
         let viewModel = makeTransactionDetailViewModel(
             forNewTransactionAt: inputDate,
             forEditTransaction: transaction,
@@ -57,7 +57,7 @@ final class TransactionDetailSceneDIContainer: TransactionDetailFlowCoordinatorD
         )
         let view = TransactionDetailView(viewModel: viewModel, navigationType: navigationType)
             .environmentObject(dependencies.appConfiguration.settings)
-        return (UIHostingController(rootView: view), viewModel)
+        return UIHostingController(rootView: view)
     }
 
     func makeCategoriesFlowCoordinator(

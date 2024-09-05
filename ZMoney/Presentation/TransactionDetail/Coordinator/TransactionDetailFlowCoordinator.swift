@@ -14,7 +14,7 @@ protocol TransactionDetailFlowCoordinatorDependencies {
         forEditTransaction transaction: DMTransaction?,
         actions: TransactionDetailViewModelActions,
         navigationType: NavigationType
-    ) -> (UIViewController, TransactionDetailViewModel)
+    ) -> UIViewController
 
     func makeCategoriesFlowCoordinator(
         from navigationController: UINavigationController
@@ -38,7 +38,6 @@ final class TransactionDetailFlowCoordinator {
     private let request: Request
     private let response: Response?
     private weak var detailViewController: UIViewController?
-    private weak var detailViewModel: TransactionDetailViewModel?
 
     init(
         navigationController: UINavigationController? = nil,
@@ -58,21 +57,21 @@ final class TransactionDetailFlowCoordinator {
             didUpdateTransactionDetail: didUpdateTransactionDetail,
             didCancelTransactionDetail: didCancelTransactionDetail
         )
-        let transactionDetail = dependencies.makeTransactionDetailViewController(
+        let transactionDetailVC = dependencies.makeTransactionDetailViewController(
             forNewTransactionAt: request.newTransactionInputDate,
             forEditTransaction: request.editTransaction,
             actions: actions,
             navigationType: request.navigationType
         )
-        let viewController = transactionDetail.0
-        detailViewController = viewController
-        detailViewModel = transactionDetail.1
+        detailViewController = transactionDetailVC
 
         switch request.navigationType {
         case .push:
-            navigationController?.pushViewController(viewController, animated: true)
+            navigationController?.pushViewController(transactionDetailVC, animated: true)
         case .present:
-            let presentedNavigationController = UINavigationController(rootViewController: viewController)
+            let presentedNavigationController = UINavigationController(
+                rootViewController: transactionDetailVC
+            )
             navigationController?.present(presentedNavigationController, animated: true, completion: nil)
         }
     }
@@ -88,7 +87,7 @@ final class TransactionDetailFlowCoordinator {
     private func didUpdateTransactionDetail(_ transaction: DMTransaction) {
         switch request.navigationType {
         case .push:
-            detailViewModel?.prepareForNextTransaction()
+            break
         case .present:
             detailViewController?.dismiss(animated: true)
         }

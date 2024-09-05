@@ -47,7 +47,7 @@ class TransactionDetailViewModel: ObservableObject {
         fetchCategoriesList()
     }
 
-    func prepareForNextTransaction() {
+    private func prepareForNextTransaction() {
         guard isNewTransaction else {
             assertionFailure("This method is meant to use for creatation only!")
             return
@@ -163,6 +163,7 @@ class TransactionDetailViewModel: ObservableObject {
                         return
                     }
                     print("Added transaction success: \(transaction)")
+                    self.prepareForNextTransaction()
                     self.dependencies.actions.didUpdateTransactionDetail(transaction)
                 case .failure(let error):
                     print("Added transaction failed: \(error)")
