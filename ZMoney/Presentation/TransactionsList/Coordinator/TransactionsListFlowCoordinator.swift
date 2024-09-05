@@ -26,8 +26,6 @@ final class TransactionsListFlowCoordinator {
     private var transactionsListViewController: UIViewController?
     private var transactionsListViewModel: TransactionsListViewModel?
 
-    private var transactionDetailViewController: UIViewController?
-
     init(
         navigationController: UINavigationController? = nil,
         dependencies: TransactionsListFlowCoordinatorDependencies
@@ -50,18 +48,18 @@ final class TransactionsListFlowCoordinator {
     }
 
     private func createTransactionView(inputDate: Date) {
-        createOrEditTransactionView(innputDate: inputDate, transaction: nil)
+        createOrEditTransactionView(inputDate: inputDate, transaction: nil)
     }
 
     private func editTransactionView(transaction: DMTransaction) {
-        createOrEditTransactionView(innputDate: nil, transaction: transaction)
+        createOrEditTransactionView(inputDate: nil, transaction: transaction)
     }
 
-    private func createOrEditTransactionView(innputDate: Date?, transaction: DMTransaction?) {
+    private func createOrEditTransactionView(inputDate: Date?, transaction: DMTransaction?) {
         guard let navigationController else { return }
         let request = TransactionDetailFlowCoordinator.Request(
             navigationType: .present,
-            newTransactionInputDate: innputDate,
+            newTransactionInputDate: inputDate,
             editTransaction: transaction
         )
 

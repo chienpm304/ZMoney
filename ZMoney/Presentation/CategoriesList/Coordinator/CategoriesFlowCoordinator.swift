@@ -23,8 +23,8 @@ protocol CategoriesFlowCoordinatorDependencies {
 final class CategoriesFlowCoordinator {
     private weak var navigationController: UINavigationController?
     private let dependencies: CategoriesFlowCoordinatorDependencies
-    private weak var categoriesListViewController: UIViewController?
-    private weak var categoriesListViewModel: CategoriesListViewModel?
+    private var categoriesListViewController: UIViewController?
+    private var categoriesListViewModel: CategoriesListViewModel?
 
     init(
         navigationController: UINavigationController? = nil,
