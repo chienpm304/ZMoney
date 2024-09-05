@@ -23,7 +23,7 @@ protocol TransactionDetailFlowCoordinatorDependencies {
 
 final class TransactionDetailFlowCoordinator {
     struct Request {
-        let navgationType: NavigationType
+        let navigationType: NavigationType
         let newTransactionInputDate: Date?
         let editTransaction: DMTransaction?
     }
@@ -62,13 +62,13 @@ final class TransactionDetailFlowCoordinator {
             forNewTransactionAt: request.newTransactionInputDate,
             forEditTransaction: request.editTransaction,
             actions: actions,
-            navigationType: request.navgationType
+            navigationType: request.navigationType
         )
         let viewController = transactionDetail.0
         detailViewController = viewController
         detailViewModel = transactionDetail.1
 
-        switch request.navgationType {
+        switch request.navigationType {
         case .push:
             navigationController?.pushViewController(viewController, animated: true)
         case .present:
@@ -86,7 +86,7 @@ final class TransactionDetailFlowCoordinator {
     }
 
     private func didUpdateTransactionDetail(_ transaction: DMTransaction) {
-        switch request.navgationType {
+        switch request.navigationType {
         case .push:
             detailViewModel?.prepareForNextTransaction()
         case .present:
@@ -96,7 +96,7 @@ final class TransactionDetailFlowCoordinator {
     }
 
     private func didCancelTransactionDetail() {
-        switch request.navgationType {
+        switch request.navigationType {
         case .push:
             assertionFailure()
         case .present:

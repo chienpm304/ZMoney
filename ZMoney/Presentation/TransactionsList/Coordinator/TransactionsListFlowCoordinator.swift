@@ -60,7 +60,7 @@ final class TransactionsListFlowCoordinator {
     private func createOrEditTransactionView(innputDate: Date?, transaction: DMTransaction?) {
         guard let navigationController else { return }
         let request = TransactionDetailFlowCoordinator.Request(
-            navgationType: .present,
+            navigationType: .present,
             newTransactionInputDate: innputDate,
             editTransaction: transaction
         )

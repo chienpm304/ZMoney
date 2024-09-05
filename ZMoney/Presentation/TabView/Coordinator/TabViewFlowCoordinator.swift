@@ -58,7 +58,7 @@ final class TabViewFlowCoordinator: NSObject {
         switch tabType {
         case .createTransaction:
             let request = TransactionDetailFlowCoordinator.Request(
-                navgationType: .push,
+                navigationType: .push,
                 newTransactionInputDate: .now,
                 editTransaction: nil
             )
