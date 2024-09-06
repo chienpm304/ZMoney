@@ -77,9 +77,17 @@ final class TransactionDetailFlowCoordinator {
     }
 
     private func editCategoriesList() {
-        guard let navigationController else { return }
+        let presentingNavigationController: UINavigationController?
+        switch request.navigationType {
+        case .push:
+            presentingNavigationController = self.navigationController
+        case .present:
+            presentingNavigationController = detailViewController?.navigationController
+        }
+
+        guard let presentingNavigationController else { return }
         let categoriesCoordinator = dependencies.makeCategoriesFlowCoordinator(
-            from: navigationController
+            from: presentingNavigationController
         )
         categoriesCoordinator.start()
     }
