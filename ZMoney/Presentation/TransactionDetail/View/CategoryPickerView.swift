@@ -37,7 +37,7 @@ struct CategoryPickerView: View {
                     let color = isSelected ? Color.accentColor : Color.border
                     CategoryItemView(item: item)
                         .frame(maxWidth: maxWidth)
-                        .frame(maxHeight: maxHeight)
+                        .frame(height: maxHeight)
                         .padding(innerPadding)
                         .cornerRadius(cornerRadius)
                         .overlay(
@@ -60,10 +60,9 @@ struct CategoryPickerView: View {
                             .font(.caption)
                             .foregroundColor(.gray)
                     }
-                    .padding(.horizontal, innerPadding)
-                    .padding(.vertical, 24)
                     .frame(maxWidth: maxWidth)
-                    .frame(maxHeight: maxHeight)
+                    .frame(height: maxHeight)
+                    .padding(innerPadding)
                     .cornerRadius(cornerRadius)
                     .overlay(
                         RoundedRectangle(cornerRadius: innerPadding)
