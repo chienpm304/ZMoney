@@ -11,6 +11,7 @@ PODS:
     - CommonModule
   - SwiftDate (7.0.0)
   - SwiftLint (0.54.0)
+  - SwiftUI-SimpleToast (0.6.2)
 
 DEPENDENCIES:
   - CommonModule (from `Modules/CommonModule`)
@@ -20,6 +21,7 @@ DEPENDENCIES:
   - NetworkingModule (from `Modules/NetworkingModule`)
   - SwiftDate
   - SwiftLint
+  - SwiftUI-SimpleToast (from `https://github.com/sanzaru/SimpleToast.git`)
 
 SPEC REPOS:
   trunk:
@@ -40,6 +42,13 @@ EXTERNAL SOURCES:
     :path: Modules/NetworkingModule
     :testspec:
       - Tests
+  SwiftUI-SimpleToast:
+    :git: https://github.com/sanzaru/SimpleToast.git
+
+CHECKOUT OPTIONS:
+  SwiftUI-SimpleToast:
+    :commit: b7eb28e94f50f07145e5e73bc56938318874609c
+    :git: https://github.com/sanzaru/SimpleToast.git
 
 SPEC CHECKSUMS:
   CommonModule: b43f07412680fa4d300a4e55e4a5665859e6381f
@@ -49,7 +58,8 @@ SPEC CHECKSUMS:
   NetworkingModule: 0bd6fbd9d6207a6f81f2db48e1f34fe7d35db722
   SwiftDate: bbc26e26fc8c0c33fbee8c140c5e8a68293a148a
   SwiftLint: c1de071d9d08c8aba837545f6254315bc900e211
+  SwiftUI-SimpleToast: 34a7ede33ac00e1ab21cc114c041d68da5fbc6b3
 
-PODFILE CHECKSUM: 05cb02dcef25556e18abb4b478d46203e124316d
+PODFILE CHECKSUM: bf6ea9cd5402851107c6f71fee980d6e51a32555
 
 COCOAPODS: 1.10.2

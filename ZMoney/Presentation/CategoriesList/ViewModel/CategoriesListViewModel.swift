@@ -14,7 +14,7 @@ struct CategoriesListViewModelActions {
     let addCategoryDetail: (DMTransactionType) -> Void
 }
 
-final class CategoriesListViewModel: ObservableObject {
+final class CategoriesListViewModel: ObservableObject, AlertProvidable {
     struct Dependencies {
         let useCaseFactory: CategoriesUseCaseFactory
         let actions: CategoriesListViewModelActions?
@@ -40,6 +40,7 @@ final class CategoriesListViewModel: ObservableObject {
     @Published var selectedTab: CategoryTab = .expense
     @Published var expenseItems: [CategoriesListItemModel] = []
     @Published var incomeItems: [CategoriesListItemModel] = []
+    @Published var alertData: AlertData?
 
     init(dependencies: Dependencies) {
         self.dependencies = dependencies
@@ -71,7 +72,7 @@ extension CategoriesListViewModel {
                     self.expenseCategories = categories.filter { $0.type == .expense }
                     self.incomeCategories = categories.filter { $0.type == .income }
                 case .failure(let error):
-                    print("failed to fetch categories: \(error)")
+                    self.showErrorAlert(with: error)
                 }
                 self.fetchUseCase = nil
             }
@@ -109,7 +110,7 @@ extension CategoriesListViewModel {
                         self.incomeCategories = categories
                     }
                 case .failure(let error):
-                    print("failed to move categories: \(error)")
+                    self.showErrorAlert(with: error)
                 }
             }
         }
@@ -147,6 +148,7 @@ extension CategoriesListViewModel {
                     default:
                         print("delete category error: \(error)")
                     }
+                    self.showErrorAlert(with: error)
                 }
             }
         }

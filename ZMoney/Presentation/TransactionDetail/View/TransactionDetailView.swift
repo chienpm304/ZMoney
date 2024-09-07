@@ -44,6 +44,7 @@ struct TransactionDetailView: View {
         .onAppear {
             viewModel.onViewAppear()
         }
+        .resultAlert(alertData: $viewModel.alertData)
     }
 
     private var cancelButton: some View {

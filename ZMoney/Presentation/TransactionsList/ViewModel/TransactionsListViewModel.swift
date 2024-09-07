@@ -15,7 +15,7 @@ struct TransactionsListViewModelActions {
     let editTransaction: (DMTransaction) -> Void
 }
 
-final class TransactionsListViewModel: ObservableObject {
+final class TransactionsListViewModel: ObservableObject, AlertProvidable {
     struct Dependencies {
         let useCaseFactory: TransactionsUseCaseFactory
         let actions: TransactionsListViewModelActions
@@ -31,6 +31,7 @@ final class TransactionsListViewModel: ObservableObject {
     @Published var dateRange: DateRange
     @Published var selectedDate: Date
     @Published var scrollToDate: Date?
+    @Published var alertData: AlertData?
 
     init(
         dateRangeType: DateRangeType = .month,
@@ -122,7 +123,7 @@ extension TransactionsListViewModel {
                 case .success(let transactions):
                     self.setupDataModel(with: transactions)
                 case .failure(let error):
-                    print("failed to fetch transactions: \(error)")
+                    self.showErrorAlert(with: error)
                 }
             }
         }

@@ -16,6 +16,7 @@ target 'ZMoney' do
   pod 'SwiftLint'
   pod 'HorizonCalendar'
   pod 'SwiftDate'
+  pod 'SwiftUI-SimpleToast', :git => 'https://github.com/sanzaru/SimpleToast.git'
 
   # POST_INSTALL
   post_install do |installer|

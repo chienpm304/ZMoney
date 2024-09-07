@@ -13,7 +13,7 @@ struct TransactionDetailViewModelActions {
     let didCancelTransactionDetail: () -> Void
 }
 
-class TransactionDetailViewModel: ObservableObject {
+class TransactionDetailViewModel: ObservableObject, AlertProvidable {
     struct Dependencies {
         let actions: TransactionDetailViewModelActions
         let fetchCategoriesUseCaseFactory: FetchCategoriesUseCaseFactory
@@ -22,6 +22,7 @@ class TransactionDetailViewModel: ObservableObject {
 
     @Published var transaction: TransactionDetailModel
     @Published var isNewTransaction: Bool
+    @Published var alertData: AlertData?
     private var originalTransaction: TransactionDetailModel?
     private let dependencies: Dependencies
 
@@ -137,7 +138,7 @@ class TransactionDetailViewModel: ObservableObject {
                 case .success(let categories):
                     self.setupDataModel(categories: categories)
                 case .failure(let error):
-                    print("failed to fetch categories: \(error)")
+                    self.showErrorAlert(with: error)
                 }
                 self.isFetching = false
                 self.fetchCategoriesUseCase = nil
@@ -168,6 +169,7 @@ class TransactionDetailViewModel: ObservableObject {
                 case .failure(let error):
                     print("Added transaction failed: \(error)")
                 }
+                self.showAlert(with: result, successMessage: "Transaction created")
             }
         }
         let addUseCase = dependencies.transactionsUseCaseFactory.addUseCase(requestValue, completion)
@@ -193,6 +195,7 @@ class TransactionDetailViewModel: ObservableObject {
                 case .failure(let error):
                     print("Updated transaction failed: \(error)")
                 }
+                self.showAlert(with: result, successMessage: "Transaction updated")
             }
         }
         let updateUseCase = dependencies.transactionsUseCaseFactory.updateUseCase(requestValue, completion)
@@ -218,6 +221,7 @@ class TransactionDetailViewModel: ObservableObject {
                 case .failure(let error):
                     print("Deleted transaction failed: \(error)")
                 }
+                self.showAlert(with: result, successMessage: "Transaction deleted")
             }
         }
         let updateUseCase = dependencies

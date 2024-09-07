@@ -111,6 +111,7 @@ struct TransactionsListView: View {
         .onAppear {
             viewModel.onViewAppear()
         }
+        .resultAlert(alertData: $viewModel.alertData)
         .navigationTitle("Transactions")
     }
 

@@ -76,6 +76,7 @@ struct CategoriesListView<ViewModel: CategoriesListViewModel>: View {
         .onAppear {
             viewModel.onViewAppear()
         }
+        .resultAlert(alertData: $viewModel.alertData)
     }
 }
 

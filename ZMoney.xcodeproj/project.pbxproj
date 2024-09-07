@@ -55,6 +55,9 @@
 		C3E79D632C7A2DDE002DED34 /* IconPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E79D602C7A2DDE002DED34 /* IconPickerView.swift */; };
 		C3EB8A642C82201D001FEA1D /* AppAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3EB8A632C82201D001FEA1D /* AppAppearance.swift */; };
 		C3F693B82C8C2F5E00BA9D54 /* HeaderDateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F693B72C8C2F5E00BA9D54 /* HeaderDateView.swift */; };
+		C3F693BE2C8C302900BA9D54 /* AlertModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F693BB2C8C302900BA9D54 /* AlertModifier.swift */; };
+		C3F693BF2C8C302900BA9D54 /* AlertProvidable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F693BC2C8C302900BA9D54 /* AlertProvidable.swift */; };
+		C3F693C02C8C302900BA9D54 /* AlertData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F693BD2C8C302900BA9D54 /* AlertData.swift */; };
 		C51706D8304E868847A947DA /* Pods_ZMoney.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 139DC1D2EB0C97DF21D68110 /* Pods_ZMoney.framework */; };
 /* End PBXBuildFile section */
 
@@ -112,6 +115,9 @@
 		C3E79D602C7A2DDE002DED34 /* IconPickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconPickerView.swift; sourceTree = "<group>"; };
 		C3EB8A632C82201D001FEA1D /* AppAppearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppAppearance.swift; sourceTree = "<group>"; };
 		C3F693B72C8C2F5E00BA9D54 /* HeaderDateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderDateView.swift; sourceTree = "<group>"; };
+		C3F693BB2C8C302900BA9D54 /* AlertModifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertModifier.swift; sourceTree = "<group>"; };
+		C3F693BC2C8C302900BA9D54 /* AlertProvidable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertProvidable.swift; sourceTree = "<group>"; };
+		C3F693BD2C8C302900BA9D54 /* AlertData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -452,6 +458,7 @@
 		C3E79D5C2C7A2DDE002DED34 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				C3F693BA2C8C302900BA9D54 /* Alerts */,
 				C36F6AC62C7E1A68006E1A86 /* Calendar */,
 				C3E79D652C7A2E7B002DED34 /* Modifiers */,
 				C3E79D5E2C7A2DDE002DED34 /* Icons */,
@@ -479,6 +486,16 @@
 				C3142B352C87643200788D0A /* FieldBackground.swift */,
 			);
 			path = Modifiers;
+			sourceTree = "<group>";
+		};
+		C3F693BA2C8C302900BA9D54 /* Alerts */ = {
+			isa = PBXGroup;
+			children = (
+				C3F693BB2C8C302900BA9D54 /* AlertModifier.swift */,
+				C3F693BC2C8C302900BA9D54 /* AlertProvidable.swift */,
+				C3F693BD2C8C302900BA9D54 /* AlertData.swift */,
+			);
+			path = Alerts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -645,14 +662,17 @@
 				C307292C2C7392B000C9674B /* CategoriesSceneDIContainer.swift in Sources */,
 				C30728DA2C73269B00C9674B /* AppDelegate.swift in Sources */,
 				C307292A2C7391FE00C9674B /* AppFlowCoordinator.swift in Sources */,
+				C3F693BF2C8C302900BA9D54 /* AlertProvidable.swift in Sources */,
 				C3E79D612C7A2DDE002DED34 /* RightArrowModifier.swift in Sources */,
 				C3C47B1D2C84B57E00B134C4 /* TabViewFlowCoordinator.swift in Sources */,
+				C3F693C02C8C302900BA9D54 /* AlertData.swift in Sources */,
 				C316269A2C80C7CC00E55BFB /* TransactionDetailView.swift in Sources */,
 				C30728DC2C73269B00C9674B /* SceneDelegate.swift in Sources */,
 				C31626A12C80D20000E55BFB /* DateRange.swift in Sources */,
 				C3142B2E2C86FB5900788D0A /* TransactionDetailModel.swift in Sources */,
 				C3142B252C85968300788D0A /* SettingsFlowCoordinator.swift in Sources */,
 				C3142B362C87643200788D0A /* FieldBackground.swift in Sources */,
+				C3F693BE2C8C302900BA9D54 /* AlertModifier.swift in Sources */,
 				C3C47B192C847B5100B134C4 /* Date+Extensions.swift in Sources */,
 				C3532FFA2C89F2A4008CAFC5 /* NavigationType.swift in Sources */,
 				C37E6BBF2C784CD0003F34D9 /* CategoryDetailView.swift in Sources */,
