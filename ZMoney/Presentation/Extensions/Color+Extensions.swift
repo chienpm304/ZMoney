@@ -55,6 +55,14 @@ extension Color {
     static var border: Color {
         Color.secondary.opacity(0.5)
     }
+
+    static var adaptiveBackgroundColor: Color {
+        return Color(UIColor { traitCollection in
+            traitCollection.userInterfaceStyle == .dark
+            ? UIColor.secondarySystemBackground
+            : UIColor.systemBackground
+        })
+    }
 }
 
 // swiftlint:enable identifier_name

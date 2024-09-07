@@ -17,23 +17,28 @@ struct AlertModifier: ViewModifier {
                 alertData = nil
             } content: {
                 if let alertData {
-                    VStack(alignment: .leading, spacing: 8) {
-                        if alertData.isSuccess {
-                            Text("✅ \(alertData.title)")
-                                .fontWeight(.medium)
-                        } else {
-                            Text("❌ \(alertData.title)")
-                                .fontWeight(.semibold)
-                                .lineLimit(1)
+                    HStack {
+                        VStack(alignment: .leading, spacing: 8) {
+                            if alertData.isSuccess {
+                                Text("✅ \(alertData.title)")
+                                    .fontWeight(.medium)
+                            } else {
+                                Text("❌ \(alertData.title)")
+                                    .fontWeight(.semibold)
+                                    .lineLimit(1)
+                            }
+                            Text(alertData.message ?? "")
+                                .font(.caption)
+                                .lineLimit(2)
                         }
-                        Text(alertData.message ?? "")
-                            .font(.caption)
-                            .lineLimit(2)
+                        Spacer()
                     }
                     .padding()
-                    .background(Color.secondarySystemBackground)
+                    .frame(maxWidth: .infinity)
+                    .background(Color.adaptiveBackgroundColor)
                     .cornerRadius(8)
-                    .shadow(radius: 2)
+                    .padding()
+                    .shadow(radius: 2, x: 1, y: 2)
                 } else {
                     EmptyView()
                 }
@@ -45,11 +50,11 @@ struct AlertModifier: ViewModifier {
         let isToast = alertData?.isToast ?? true
         let duration = isToast ? (isSuccess ? 2.0 : 3.0) : nil
         return SimpleToastOptions(
-            alignment: isSuccess ? .center : .bottom,
+            alignment: isSuccess ? .bottom : .bottom,
             hideAfter: duration,
             backdrop: nil,
             animation: .default,
-            modifierType: isSuccess ? .fade : .slide,
+            modifierType: isSuccess ? .slide : .slide,
             dismissOnTap: true
         )
     }
