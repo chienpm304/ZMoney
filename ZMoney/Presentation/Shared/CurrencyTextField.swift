@@ -13,7 +13,6 @@ struct CurrencyTextField: View {
     let titleKey: LocalizedStringKey
     @Binding var amount: MoneyValue
     @State private var formattedAmount: String = ""
-
     init(
         _ titleKey: LocalizedStringKey,
         amount: Binding<MoneyValue>
@@ -25,18 +24,17 @@ struct CurrencyTextField: View {
     var body: some View {
         TextField(titleKey, text: Binding(
             get: {
-                formattedAmount
+                print("raw: \(formattedAmount), \(formattedAmount.count)")
+                return String(formattedAmount.prefix(16))
             },
             set: { newValue in
-                let cleanAmount = newValue
-                    .replacingOccurrences(of: ",", with: "")
-                    .replacingOccurrences(of: ".", with: "")
+                let cleanAmount = newValue.filter { $0.isNumber }
 
                 if let value = MoneyValue(cleanAmount) {
                     amount = value
                     formattedAmount = formatAmount(amount)
                 } else {
-                    formattedAmount = ""
+                    formattedAmount = "0"
                 }
             }
         ))
@@ -51,7 +49,9 @@ struct CurrencyTextField: View {
 
     private func formatAmount(_ amount: MoneyValue) -> String {
         let formatter = appSettings.currencyFormatterWithoutSymbol
-        return formatter.string(from: amount as NSNumber) ?? ""
+        let result = formatter.string(from: amount as NSNumber) ?? ""
+        print("amount: \(amount) - str: \(result)")
+        return result
     }
 }
 
