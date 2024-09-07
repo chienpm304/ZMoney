@@ -54,6 +54,7 @@
 		C3E79D622C7A2DDE002DED34 /* IconResourceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E79D5F2C7A2DDE002DED34 /* IconResourceProvider.swift */; };
 		C3E79D632C7A2DDE002DED34 /* IconPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E79D602C7A2DDE002DED34 /* IconPickerView.swift */; };
 		C3EB8A642C82201D001FEA1D /* AppAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3EB8A632C82201D001FEA1D /* AppAppearance.swift */; };
+		C3F693B82C8C2F5E00BA9D54 /* HeaderDateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F693B72C8C2F5E00BA9D54 /* HeaderDateView.swift */; };
 		C51706D8304E868847A947DA /* Pods_ZMoney.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 139DC1D2EB0C97DF21D68110 /* Pods_ZMoney.framework */; };
 /* End PBXBuildFile section */
 
@@ -110,6 +111,7 @@
 		C3E79D5F2C7A2DDE002DED34 /* IconResourceProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconResourceProvider.swift; sourceTree = "<group>"; };
 		C3E79D602C7A2DDE002DED34 /* IconPickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconPickerView.swift; sourceTree = "<group>"; };
 		C3EB8A632C82201D001FEA1D /* AppAppearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppAppearance.swift; sourceTree = "<group>"; };
+		C3F693B72C8C2F5E00BA9D54 /* HeaderDateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderDateView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -334,6 +336,7 @@
 			children = (
 				C36F6AC72C7E1A7E006E1A86 /* ZCalendarView.swift */,
 				C31626A02C80D20000E55BFB /* DateRange.swift */,
+				C3F693B72C8C2F5E00BA9D54 /* HeaderDateView.swift */,
 			);
 			path = Calendar;
 			sourceTree = "<group>";
@@ -621,6 +624,7 @@
 				C3142B1E2C85727200788D0A /* MoneyText.swift in Sources */,
 				C30729262C73914C00C9674B /* AppDIContainer.swift in Sources */,
 				C3EB8A642C82201D001FEA1D /* AppAppearance.swift in Sources */,
+				C3F693B82C8C2F5E00BA9D54 /* HeaderDateView.swift in Sources */,
 				C31626942C808F1200E55BFB /* TransactionsListView.swift in Sources */,
 				C3C47B1F2C84B72600B134C4 /* TabViewType.swift in Sources */,
 				C30729282C73918700C9674B /* AppConfiguration.swift in Sources */,

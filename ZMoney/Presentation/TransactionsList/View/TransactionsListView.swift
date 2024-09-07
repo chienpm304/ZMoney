@@ -18,13 +18,6 @@ struct TransactionsListView: View {
         self.viewModel = viewModel
     }
 
-//    private var selectedDate: Binding<Date> {
-//        get { viewModel.dateRange.startDate }
-//        set {
-//            viewModel.dateRange = DateRangeType.month.dateRange(of: newValue)
-//        }
-//    }
-
     @State private var testDate = Date()
 
     var body: some View {
@@ -138,37 +131,6 @@ struct TransactionsListView: View {
     }
 }
 #endif
-
-struct HeaderDateView: View {
-    let dateRange: DateRange
-
-    var body: some View {
-        HStack(alignment: .center, spacing: 4) {
-            Text(monthYearString)
-                .font(.body)
-                .bold()
-            Text(dayRangeString)
-                .font(.callout)
-                .foregroundColor(.secondary)
-        }
-        .padding(4)
-        .frame(maxWidth: .infinity)
-        .background(
-            RoundedRectangle(cornerRadius: 4)
-                .fill(Color.secondarySystemBackground)
-        )
-    }
-
-    private var monthYearString: String {
-        dateRange.startDate.toFormat("MMM yyyy")
-    }
-
-    private var dayRangeString: String {
-        let startDayString = dateRange.startDate.toFormat("MMM dd")
-        let endDayString = dateRange.endDate.toFormat("MMM dd")
-        return "(\(startDayString) - \(endDayString))"
-    }
-}
 
 struct TransactionsListItemView: View {
     @ObservedObject private var viewModel: TransactionsListViewModel
