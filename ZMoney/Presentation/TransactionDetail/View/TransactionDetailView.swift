@@ -132,11 +132,7 @@ struct TransactionDetailView: View {
                 .fontWeight(.medium)
                 .frame(width: leftColumsWidth, alignment: .leading)
 
-            CurrencyTextField(
-                "Amount",
-                amount: $viewModel.transaction.amount
-            )
-            .withFieldBackground()
+            CurrencyTextField(amount: $viewModel.transaction.amount)
 
             Text(appSettings.currencySymbol)
         }

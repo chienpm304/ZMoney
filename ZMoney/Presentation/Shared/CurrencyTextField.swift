@@ -6,59 +6,94 @@
 //
 
 import SwiftUI
+import UIKit
 import DomainModule
 
 struct CurrencyTextField: View {
-    @EnvironmentObject var appSettings: AppSettings
-    let titleKey: LocalizedStringKey
     @Binding var amount: MoneyValue
-    @State private var formattedAmount: String = ""
-    init(
-        _ titleKey: LocalizedStringKey,
-        amount: Binding<MoneyValue>
-    ) {
-        self.titleKey = titleKey
-        self._amount = amount
-    }
+    @EnvironmentObject private var appSettings: AppSettings
 
     var body: some View {
-        TextField(titleKey, text: Binding(
-            get: {
-                print("raw: \(formattedAmount), \(formattedAmount.count)")
-                return String(formattedAmount.prefix(16))
-            },
-            set: { newValue in
-                let cleanAmount = newValue.filter { $0.isNumber }
-
-                if let value = MoneyValue(cleanAmount) {
-                    amount = value
-                    formattedAmount = formatAmount(amount)
-                } else {
-                    formattedAmount = "0"
-                }
-            }
-        ))
-        .keyboardType(.decimalPad)
-        .onAppear {
-            formattedAmount = formatAmount(amount)
-        }
-        .onChange(of: amount) { newAmount in
-            formattedAmount = formatAmount(newAmount)
-        }
-    }
-
-    private func formatAmount(_ amount: MoneyValue) -> String {
-        let formatter = appSettings.currencyFormatterWithoutSymbol
-        let result = formatter.string(from: amount as NSNumber) ?? ""
-        print("amount: \(amount) - str: \(result)")
-        return result
+        _CurrencyTextField(
+            amount: $amount,
+            numberFormatter: appSettings.currencyFormatterWithoutSymbol,
+            maxDigits: appSettings.maxMoneyDigits
+        )
+        .withFieldBackground()
     }
 }
 
+// MARK: Private
+
+private struct _CurrencyTextField: UIViewRepresentable {
+    @Binding var amount: MoneyValue
+    let numberFormatter: NumberFormatter
+    let maxDigits: Int
+
+    func makeUIView(context: Context) -> UITextField {
+        let textField = UITextField()
+        textField.keyboardType = .numberPad
+        textField.delegate = context.coordinator
+        textField.addTarget(
+            context.coordinator,
+            action: #selector(Coordinator.textFieldDidChange(_:)),
+            for: .editingChanged
+        )
+        return textField
+    }
+
+    func updateUIView(_ uiView: UITextField, context: Context) {
+        uiView.text = formatAmount(amount)
+    }
+
+    func makeCoordinator() -> Coordinator {
+        return Coordinator(self)
+    }
+
+    private func formatAmount(_ amount: MoneyValue) -> String? {
+        return numberFormatter.string(from: NSNumber(value: amount))
+    }
+
+    class Coordinator: NSObject, UITextFieldDelegate {
+        var parent: _CurrencyTextField
+
+        init(_ parent: _CurrencyTextField) {
+            self.parent = parent
+        }
+
+        @objc func textFieldDidChange(_ textField: UITextField) {
+            let cleanText = textField.text?.filter { $0.isNumber } ?? "0"
+            if cleanText.isEmpty {
+                parent.amount = 0
+                textField.text = "0"
+                return
+            }
+
+            if cleanText.count <= parent.maxDigits, let value = MoneyValue(cleanText) {
+                parent.amount = value
+                textField.text = parent.formatAmount(parent.amount)
+            } else {
+                textField.text = parent.formatAmount(parent.amount)
+            }
+        }
+    }
+}
+
+// MARK: Preview
+
 #Preview {
-    List {
-        CurrencyTextField("Enter value", amount: .constant(123456))
-        CurrencyTextField("Enter value", amount: .constant(0))
+    @State var amount1: MoneyValue = 0
+    @State var amount2: MoneyValue = 9999
+
+    return List {
+        HStack {
+            CurrencyTextField(amount: $amount1)
+            MoneyText(value: amount1, type: .expense)
+        }
+        HStack {
+            CurrencyTextField(amount: $amount2)
+            MoneyText(value: amount2, type: .expense)
+        }
     }
     .environmentObject(AppSettings())
 }

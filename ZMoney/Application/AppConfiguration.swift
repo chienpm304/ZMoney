@@ -24,6 +24,8 @@ final class AppSettings: ObservableObject {
         currency.symbol
     }
 
+    var maxMoneyDigits: Int { 12 }
+
     lazy var currencyFormatter: NumberFormatter = {
         let formatter = baseCurrencyFormatter
         formatter.positiveSuffix = " \(currencySymbol)"
@@ -39,6 +41,7 @@ final class AppSettings: ObservableObject {
     private var baseCurrencyFormatter: NumberFormatter {
         let formatter = NumberFormatter()
         formatter.numberStyle = .decimal
+        formatter.usesGroupingSeparator = true
         formatter.groupingSeparator = ","
         formatter.positivePrefix = ""
         formatter.minimumFractionDigits = 0
