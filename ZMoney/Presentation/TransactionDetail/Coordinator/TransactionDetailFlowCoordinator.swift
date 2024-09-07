@@ -97,7 +97,9 @@ final class TransactionDetailFlowCoordinator {
         case .push:
             break
         case .present:
-            detailViewController?.dismiss(animated: true)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                self.detailViewController?.dismiss(animated: true)
+            }
         }
         response?.didUpdateTransactionDetail(transaction)
     }
