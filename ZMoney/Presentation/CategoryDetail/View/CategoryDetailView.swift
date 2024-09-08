@@ -52,7 +52,10 @@ struct CategoryDetailView: View {
                     : Color.accentColor.opacity(0.5)
                 )
             }
-            .navigationBarTitle(viewModel.navigationTitle, displayMode: .inline)
+            .navigationBarTitle(
+                viewModel.isNewCategory ? "New category" : "Edit category",
+                displayMode: .inline
+            )
         }
     }
 }

@@ -198,6 +198,16 @@
         }
       }
     },
+    "Edit category" : {
+      "localizations" : {
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chỉnh sửa danh mục"
+          }
+        }
+      }
+    },
     "Edit expense" : {
       "localizations" : {
         "vi" : {

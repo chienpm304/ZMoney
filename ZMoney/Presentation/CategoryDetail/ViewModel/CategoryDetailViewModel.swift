@@ -20,7 +20,7 @@ final class CategoryDetailViewModel: ObservableObject {
 
     @Published var model: CategoryDetailModel
     private let originalModel: CategoryDetailModel
-    private let isNewCategory: Bool
+    let isNewCategory: Bool
     private let dependencies: Dependencies
 
     var iconList: [String] {
@@ -37,10 +37,6 @@ final class CategoryDetailViewModel: ObservableObject {
         self.model = detailModel
         self.dependencies = dependencies
         self.isNewCategory = isNewCategory
-    }
-
-    var navigationTitle: String {
-        isNewCategory ? "New category" : "Edit category"
     }
 
     var isSaveEnabled: Bool {
