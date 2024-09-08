@@ -30,17 +30,10 @@ final class AppSettings: ObservableObject, AlertProvidable {
     }
 
     private func setAppLanguage(languageCode: String, needShowAlert: Bool = true) {
-        if #available(iOS 16, *) {
-            // Method 1: iOS 16+ (No app restart required)
-            UserDefaults.standard.set([languageCode], forKey: "AppleLanguages")
-            Bundle.setLanguage(languageCode)
-        } else {
-            // Method 2: iOS 15 and below (App restart required)
-            UserDefaults.standard.set([languageCode], forKey: "AppleLanguages")
-            UserDefaults.standard.synchronize()
-            if needShowAlert {
-                showSuccessAlert(with: "Please restart the app to apply the language change.")
-            }
+        UserDefaults.standard.set([languageCode], forKey: "AppleLanguages")
+        UserDefaults.standard.synchronize()
+        if needShowAlert {
+            showSuccessAlert(with: "Please restart the app to apply the language change.")
         }
     }
 
@@ -100,12 +93,3 @@ extension AppSettings {
         )
     }
 }
-
-extension Bundle {
-    static func setLanguage(_ language: String) {
-        let value = language.isEmpty ? nil : language
-        objc_setAssociatedObject(Bundle.main, &kBundleKey, value, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-    }
-}
-
-private var kBundleKey: UInt8 = 0
