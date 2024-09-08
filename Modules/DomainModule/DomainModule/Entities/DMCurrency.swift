@@ -5,14 +5,14 @@
 //  Created by Chien Pham on 19/08/2024.
 //
 
-public enum DMCurrency: String, CaseIterable, Identifiable, Codable {
+public enum DMCurrency: String {
     case vnd = "VND"
     case usd = "USD"
-
-    public var id: String { rawValue }
 }
 
 extension DMCurrency {
+    public static var defaultValue: Self { .vnd }
+
     public var symbol: String {
         switch self {
         case .vnd:

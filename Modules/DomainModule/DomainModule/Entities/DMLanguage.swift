@@ -7,14 +7,14 @@
 
 // swiftlint:disable identifier_name
 
-public enum DMLanguage: String, CaseIterable, Identifiable, Codable {
+public enum DMLanguage: String {
     case vi
     case en
-
-    public var id: String { rawValue }
 }
 
 extension DMLanguage {
+    public static var defaultValue: Self { .vi }
+
     public var displayName: String {
         switch self {
         case .vi:

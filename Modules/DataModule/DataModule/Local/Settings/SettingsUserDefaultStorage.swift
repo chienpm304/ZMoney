@@ -17,10 +17,10 @@ public final class SettingsUserDefaultStorage: SettingsStorage {
     
     // TODO: make SettingsJson and map with DMSettings
     public func fetchSettings(forKey key: String) -> DMSettings {
-        return userDefaultCoordinator.get(
+        userDefaultCoordinator.get(
             forKey: key,
-            as: DMSettings.self
-        ) ?? .defaultSetting
+            as: SettingsCodable.self
+        )?.domain ?? .defaultValue
     }
 
     public func updateSettings(
@@ -28,7 +28,8 @@ public final class SettingsUserDefaultStorage: SettingsStorage {
         forKey key: String,
         completion: @escaping (Result<DMSettings, DMError>) -> Void
     ) {
-        let result = userDefaultCoordinator.set(settings, forKey: key)
-        completion(result)
+        let settingsCodable = SettingsCodable(from: settings)
+        let result = userDefaultCoordinator.set(settingsCodable, forKey: key)
+        completion(result.map({ $0.domain }))
     }
 }

@@ -60,6 +60,7 @@
 		C3F693C02C8C302900BA9D54 /* AlertData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F693BD2C8C302900BA9D54 /* AlertData.swift */; };
 		C3F693C52C8C486B00BA9D54 /* DMError+Localized.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F693C42C8C486B00BA9D54 /* DMError+Localized.swift */; };
 		C3F693D92C8CA76600BA9D54 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F693D82C8CA76600BA9D54 /* SettingsViewModel.swift */; };
+		C3F693E42C8DEAC800BA9D54 /* Settings+Mapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F693E32C8DEAC800BA9D54 /* Settings+Mapping.swift */; };
 		C51706D8304E868847A947DA /* Pods_ZMoney.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 139DC1D2EB0C97DF21D68110 /* Pods_ZMoney.framework */; };
 /* End PBXBuildFile section */
 
@@ -122,6 +123,7 @@
 		C3F693BD2C8C302900BA9D54 /* AlertData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertData.swift; sourceTree = "<group>"; };
 		C3F693C42C8C486B00BA9D54 /* DMError+Localized.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DMError+Localized.swift"; sourceTree = "<group>"; };
 		C3F693D82C8CA76600BA9D54 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
+		C3F693E32C8DEAC800BA9D54 /* Settings+Mapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Settings+Mapping.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -508,6 +510,7 @@
 			isa = PBXGroup;
 			children = (
 				C3F693D82C8CA76600BA9D54 /* SettingsViewModel.swift */,
+				C3F693E32C8DEAC800BA9D54 /* Settings+Mapping.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -674,6 +677,7 @@
 				C3142B302C86FB9B00788D0A /* TransactionDetailViewModel.swift in Sources */,
 				C36F6AC82C7E1A7E006E1A86 /* ZCalendarView.swift in Sources */,
 				C343F3432C79B21700224D61 /* CategoryDetailViewModel.swift in Sources */,
+				C3F693E42C8DEAC800BA9D54 /* Settings+Mapping.swift in Sources */,
 				C307292C2C7392B000C9674B /* CategoriesSceneDIContainer.swift in Sources */,
 				C30728DA2C73269B00C9674B /* AppDelegate.swift in Sources */,
 				C307292A2C7391FE00C9674B /* AppFlowCoordinator.swift in Sources */,
