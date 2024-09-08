@@ -1,5 +1,5 @@
 //
-//  AppSettingsView.swift
+//  SettingsView.swift
 //  ZMoney
 //
 //  Created by Chien Pham on 02/09/2024.
@@ -8,20 +8,20 @@
 import SwiftUI
 import DomainModule
 
-struct AppSettingsView: View {
-    @ObservedObject var appSettings: AppSettings
+struct SettingsView: View {
+    @ObservedObject var viewModel: SettingsViewModel
 
     var body: some View {
         Form {
             Section("General settings") {
-                Picker("Language", selection: $appSettings.language) {
+                Picker("Language", selection: $viewModel.settings.language) {
                     ForEach(DMLanguage.allCases) { language in
                         Text(language.displayName)
                             .tag(language)
                     }
                 }
 
-                Picker("Currency", selection: $appSettings.currency) {
+                Picker("Currency", selection: $viewModel.settings.currency) {
                     ForEach(DMCurrency.allCases) { currency in
                         Text(currency.displayName)
                             .tag(currency)
@@ -31,9 +31,10 @@ struct AppSettingsView: View {
         }
         .navigationTitle("Settings")
         .navigationBarTitleDisplayMode(.large)
+        .resultAlert(alertData: $viewModel.alertData)
     }
 }
 
 #Preview {
-    AppSettingsView(appSettings: AppConfiguration().settings)
+    SettingsView(viewModel: .preview)
 }

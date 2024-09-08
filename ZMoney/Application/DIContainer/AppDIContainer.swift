@@ -7,12 +7,20 @@
 
 import Foundation
 import DataModule
+import DomainModule
 
 final class AppDIContainer {
 
-    lazy var appConfiguration = AppConfiguration()
+    lazy var appConfiguration: AppConfiguration = {
+        let settingsStorage = SettingsUserDefaultStorage(userDefaultCoordinator: userDefaultCoordinator)
+        let settingsRepository = DefaultSettingsRepository(settingsStorage: settingsStorage)
+        let appSettings = AppSettings(settingRepository: settingsRepository)
+        return AppConfiguration(settings: appSettings)
+    }()
 
     lazy var coreDataStack: CoreDataStack = .shared
+
+    lazy var userDefaultCoordinator: UserDefaultCoordinator = .init()
 
     // MARK: - DIContainers of scenes
 
@@ -52,7 +60,8 @@ final class AppDIContainer {
 
     lazy var settingsSceneDIContainer: SettingsSceneDIContainer = {
         let dependencies = SettingsSceneDIContainer.Dependencies(
-            appConfiguration: appConfiguration
+            appConfiguration: appConfiguration,
+            userDefaultCoordinator: userDefaultCoordinator
         )
         return SettingsSceneDIContainer(dependencies: dependencies)
     }()

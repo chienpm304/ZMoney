@@ -95,5 +95,5 @@ private struct _CurrencyTextField: UIViewRepresentable {
             MoneyText(value: amount2, type: .expense)
         }
     }
-    .environmentObject(AppSettings())
+    .environmentObject(AppSettings.preview)
 }

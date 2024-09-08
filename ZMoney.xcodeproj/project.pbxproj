@@ -16,7 +16,7 @@
 		C307292A2C7391FE00C9674B /* AppFlowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30729292C7391FE00C9674B /* AppFlowCoordinator.swift */; };
 		C307292C2C7392B000C9674B /* CategoriesSceneDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C307292B2C7392B000C9674B /* CategoriesSceneDIContainer.swift */; };
 		C3142B1E2C85727200788D0A /* MoneyText.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3142B1D2C85727200788D0A /* MoneyText.swift */; };
-		C3142B222C85906300788D0A /* AppSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3142B212C85906300788D0A /* AppSettingsView.swift */; };
+		C3142B222C85906300788D0A /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3142B212C85906300788D0A /* SettingsView.swift */; };
 		C3142B252C85968300788D0A /* SettingsFlowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3142B242C85968300788D0A /* SettingsFlowCoordinator.swift */; };
 		C3142B272C85972E00788D0A /* SettingsSceneDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3142B262C85972E00788D0A /* SettingsSceneDIContainer.swift */; };
 		C3142B292C86090200788D0A /* TransactionsListDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3142B282C86090200788D0A /* TransactionsListDataModel.swift */; };
@@ -58,6 +58,8 @@
 		C3F693BE2C8C302900BA9D54 /* AlertModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F693BB2C8C302900BA9D54 /* AlertModifier.swift */; };
 		C3F693BF2C8C302900BA9D54 /* AlertProvidable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F693BC2C8C302900BA9D54 /* AlertProvidable.swift */; };
 		C3F693C02C8C302900BA9D54 /* AlertData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F693BD2C8C302900BA9D54 /* AlertData.swift */; };
+		C3F693C52C8C486B00BA9D54 /* DMError+Localized.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F693C42C8C486B00BA9D54 /* DMError+Localized.swift */; };
+		C3F693D92C8CA76600BA9D54 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F693D82C8CA76600BA9D54 /* SettingsViewModel.swift */; };
 		C51706D8304E868847A947DA /* Pods_ZMoney.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 139DC1D2EB0C97DF21D68110 /* Pods_ZMoney.framework */; };
 /* End PBXBuildFile section */
 
@@ -76,7 +78,7 @@
 		C30729292C7391FE00C9674B /* AppFlowCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFlowCoordinator.swift; sourceTree = "<group>"; };
 		C307292B2C7392B000C9674B /* CategoriesSceneDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesSceneDIContainer.swift; sourceTree = "<group>"; };
 		C3142B1D2C85727200788D0A /* MoneyText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyText.swift; sourceTree = "<group>"; };
-		C3142B212C85906300788D0A /* AppSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsView.swift; sourceTree = "<group>"; };
+		C3142B212C85906300788D0A /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		C3142B242C85968300788D0A /* SettingsFlowCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsFlowCoordinator.swift; sourceTree = "<group>"; };
 		C3142B262C85972E00788D0A /* SettingsSceneDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsSceneDIContainer.swift; sourceTree = "<group>"; };
 		C3142B282C86090200788D0A /* TransactionsListDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsListDataModel.swift; sourceTree = "<group>"; };
@@ -118,6 +120,8 @@
 		C3F693BB2C8C302900BA9D54 /* AlertModifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertModifier.swift; sourceTree = "<group>"; };
 		C3F693BC2C8C302900BA9D54 /* AlertProvidable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertProvidable.swift; sourceTree = "<group>"; };
 		C3F693BD2C8C302900BA9D54 /* AlertData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertData.swift; sourceTree = "<group>"; };
+		C3F693C42C8C486B00BA9D54 /* DMError+Localized.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DMError+Localized.swift"; sourceTree = "<group>"; };
+		C3F693D82C8CA76600BA9D54 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -216,6 +220,7 @@
 		C3142B1F2C85904B00788D0A /* AppSettings */ = {
 			isa = PBXGroup;
 			children = (
+				C3F693D72C8CA76100BA9D54 /* ViewModel */,
 				C3142B232C85967C00788D0A /* Coordinator */,
 				C3142B202C85905300788D0A /* View */,
 			);
@@ -225,7 +230,7 @@
 		C3142B202C85905300788D0A /* View */ = {
 			isa = PBXGroup;
 			children = (
-				C3142B212C85906300788D0A /* AppSettingsView.swift */,
+				C3142B212C85906300788D0A /* SettingsView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -494,8 +499,17 @@
 				C3F693BB2C8C302900BA9D54 /* AlertModifier.swift */,
 				C3F693BC2C8C302900BA9D54 /* AlertProvidable.swift */,
 				C3F693BD2C8C302900BA9D54 /* AlertData.swift */,
+				C3F693C42C8C486B00BA9D54 /* DMError+Localized.swift */,
 			);
 			path = Alerts;
+			sourceTree = "<group>";
+		};
+		C3F693D72C8CA76100BA9D54 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				C3F693D82C8CA76600BA9D54 /* SettingsViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -640,6 +654,7 @@
 				C316268C2C806B5800E55BFB /* TransactionsListFlowCoordinator.swift in Sources */,
 				C3142B1E2C85727200788D0A /* MoneyText.swift in Sources */,
 				C30729262C73914C00C9674B /* AppDIContainer.swift in Sources */,
+				C3F693C52C8C486B00BA9D54 /* DMError+Localized.swift in Sources */,
 				C3EB8A642C82201D001FEA1D /* AppAppearance.swift in Sources */,
 				C3F693B82C8C2F5E00BA9D54 /* HeaderDateView.swift in Sources */,
 				C31626942C808F1200E55BFB /* TransactionsListView.swift in Sources */,
@@ -671,6 +686,7 @@
 				C31626A12C80D20000E55BFB /* DateRange.swift in Sources */,
 				C3142B2E2C86FB5900788D0A /* TransactionDetailModel.swift in Sources */,
 				C3142B252C85968300788D0A /* SettingsFlowCoordinator.swift in Sources */,
+				C3F693D92C8CA76600BA9D54 /* SettingsViewModel.swift in Sources */,
 				C3142B362C87643200788D0A /* FieldBackground.swift in Sources */,
 				C3F693BE2C8C302900BA9D54 /* AlertModifier.swift in Sources */,
 				C3C47B192C847B5100B134C4 /* Date+Extensions.swift in Sources */,
@@ -679,7 +695,7 @@
 				C3636F312C89A41C003EC13E /* TransactionDetailFlowCoordinator.swift in Sources */,
 				C3AE5B762C770EBB00865A54 /* Color+Extensions.swift in Sources */,
 				C3142B272C85972E00788D0A /* SettingsSceneDIContainer.swift in Sources */,
-				C3142B222C85906300788D0A /* AppSettingsView.swift in Sources */,
+				C3142B222C85906300788D0A /* SettingsView.swift in Sources */,
 				C37E6BB42C7788EF003F34D9 /* CategoryTab.swift in Sources */,
 				C3142B322C871E9E00788D0A /* CurrencyTextField.swift in Sources */,
 				C3142B382C87677600788D0A /* CategoryPickerView.swift in Sources */,

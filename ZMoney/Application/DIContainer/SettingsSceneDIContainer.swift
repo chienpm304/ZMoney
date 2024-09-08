@@ -8,18 +8,26 @@
 import Foundation
 import UIKit
 import SwiftUI
+import DataModule
+import DomainModule
 
 final class SettingsSceneDIContainer: SettingsFlowCoordinatorDependencies {
     private let dependencies: Dependencies
 
     struct Dependencies {
-        // TODO: UserDefault storage to make app configuration persistent
         let appConfiguration: AppConfiguration
+        let userDefaultCoordinator: UserDefaultCoordinator
     }
 
     init(dependencies: Dependencies) {
         self.dependencies = dependencies
     }
+
+    lazy var settingsStorage: SettingsStorage = SettingsUserDefaultStorage(
+        userDefaultCoordinator: dependencies.userDefaultCoordinator
+    )
+
+    // MARK: Flow
 
     func makeSettingsFlowCoordinator(
         navigationController: UINavigationController
@@ -31,8 +39,45 @@ final class SettingsSceneDIContainer: SettingsFlowCoordinatorDependencies {
     }
 
     // MARK: SettingsFlowCoordinatorDependencies
+
     func makeSettingsListViewController() -> UIViewController {
-        let view = AppSettingsView(appSettings: self.dependencies.appConfiguration.settings)
+        let viewModel = dependencies.appConfiguration.settings
+        let view = SettingsView(viewModel: viewModel)
         return UIHostingController(rootView: view)
+    }
+
+    // MARK: UseCase
+
+    func makeSettingsUseCaseFactory() -> SettingsUseCaseFactory {
+        SettingsUseCaseFactory(
+            fetchUseCase: makeFetchSettingsUseCaseFactory(completion:),
+            updateUseCase: makeUpdateSettingsUseCaseFactory(requestValue:completion:)
+        )
+    }
+
+    func makeFetchSettingsUseCaseFactory(
+        completion: ((FetchSettingsUseCase.ResultValue) -> Void)?
+    ) -> UseCase {
+        FetchSettingsUseCase(
+            repository: makeSettingsRespository(),
+            completion: completion
+        )
+    }
+
+    func makeUpdateSettingsUseCaseFactory(
+        requestValue: UpdateSettingsUseCase.RequestValue,
+        completion: @escaping (UpdateSettingsUseCase.ResultValue) -> Void
+    ) -> UseCase {
+        UpdateSettingsUseCase(
+            requestValue: requestValue,
+            repository: makeSettingsRespository(),
+            completion: completion
+        )
+    }
+
+    // MARK: Repository
+
+    func makeSettingsRespository() -> SettingsRepository {
+        DefaultSettingsRepository(settingsStorage: settingsStorage)
     }
 }

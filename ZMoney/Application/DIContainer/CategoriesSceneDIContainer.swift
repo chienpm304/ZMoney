@@ -27,6 +27,7 @@ final class CategoriesSceneDIContainer: CategoriesFlowCoordinatorDependencies {
     }
 
     // MARK: Use Cases
+
     func makeCategoriesUseCaseFactory() -> CategoriesUseCaseFactory {
         CategoriesUseCaseFactory(
             fetchUseCase: makeFetchCategoriesUseCase,
