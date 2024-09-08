@@ -43,6 +43,10 @@ enum TabViewType: CaseIterable {
         }
     }
 
+    var localizedTitle: String {
+        title.localizedCapitalized
+    }
+
     var index: Int {
         switch self {
         case .createTransaction:

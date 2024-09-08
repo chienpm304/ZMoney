@@ -13,7 +13,14 @@ public enum DMLanguage: String {
 }
 
 extension DMLanguage {
-    public static var defaultValue: Self { .vi }
+    public static var defaultValue: Self {
+        guard let currentLanguageCode = Locale.current.languageCode,
+              let currentLanguage = DMLanguage(rawValue: currentLanguageCode)
+        else {
+            return .en
+        }
+        return currentLanguage
+    }
 
     public var displayName: String {
         switch self {
@@ -21,6 +28,15 @@ extension DMLanguage {
             "Tiếng Việt"
         case .en:
             "English"
+        }
+    }
+
+    public var languageCode: String {
+        switch self {
+        case .vi:
+            return "vi"
+        case .en:
+            return "en"
         }
     }
 }

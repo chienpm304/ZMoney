@@ -6,11 +6,12 @@
 //
 
 import Foundation
+import SwiftUI
 
 struct AlertData: Identifiable {
     let id = UUID()
-    var title: String
-    var message: String?
+    var title: LocalizedStringKey
+    var message: LocalizedStringKey?
     var isSuccess: Bool
     var isToast: Bool
 }

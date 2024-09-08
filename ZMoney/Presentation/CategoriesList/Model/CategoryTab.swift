@@ -6,11 +6,21 @@
 //
 
 import DomainModule
+import SwiftUI
 
 enum CategoryTab: String, CaseIterable, Identifiable {
     case expense
     case income
     var id: Self { self }
+
+    var localizedStringKey: LocalizedStringKey {
+        switch self {
+        case .expense:
+            "Expense"
+        case .income:
+            "Income"
+        }
+    }
 }
 
 extension CategoryTab {

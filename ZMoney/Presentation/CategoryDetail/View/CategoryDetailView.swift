@@ -77,7 +77,7 @@ struct CategoryDetailView: View {
                 }
             CategoryDetailView(viewModel: .makePreviewViewModel(isNewCategory: false, isExpense: false))
                 .tabItem {
-                    Label("Edit incom", systemImage: "pencil")
+                    Label("Edit income", systemImage: "pencil")
                 }
         }
     }

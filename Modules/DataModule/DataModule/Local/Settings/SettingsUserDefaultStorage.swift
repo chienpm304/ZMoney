@@ -14,8 +14,7 @@ public final class SettingsUserDefaultStorage: SettingsStorage {
     public init(userDefaultCoordinator: UserDefaultCoordinator) {
         self.userDefaultCoordinator = userDefaultCoordinator
     }
-    
-    // TODO: make SettingsJson and map with DMSettings
+
     public func fetchSettings(forKey key: String) -> DMSettings {
         userDefaultCoordinator.get(
             forKey: key,

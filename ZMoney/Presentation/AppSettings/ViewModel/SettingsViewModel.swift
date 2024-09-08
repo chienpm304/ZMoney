@@ -15,10 +15,31 @@ typealias SettingsViewModel = AppSettings
 final class AppSettings: ObservableObject, AlertProvidable {
     @Published var settings: DMSettings {
         didSet {
+            guard oldValue != settings else { return }
             settingRepository.updateSettings(settings) { [weak self] result in
+                guard let self else { return }
                 DispatchQueue.main.async {
-                    self?.showAlert(with: result, successMessage: "Updated settings!")
+                    if self.settings.language != oldValue.language {
+                        self.setAppLanguage(languageCode: self.settings.language.languageCode)
+                    } else {
+                        self.showAlert(with: result, successMessage: "Updated settings!")
+                    }
                 }
+            }
+        }
+    }
+
+    private func setAppLanguage(languageCode: String, needShowAlert: Bool = true) {
+        if #available(iOS 16, *) {
+            // Method 1: iOS 16+ (No app restart required)
+            UserDefaults.standard.set([languageCode], forKey: "AppleLanguages")
+            Bundle.setLanguage(languageCode)
+        } else {
+            // Method 2: iOS 15 and below (App restart required)
+            UserDefaults.standard.set([languageCode], forKey: "AppleLanguages")
+            UserDefaults.standard.synchronize()
+            if needShowAlert {
+                showSuccessAlert(with: "Please restart the app to apply the language change.")
             }
         }
     }
@@ -30,6 +51,7 @@ final class AppSettings: ObservableObject, AlertProvidable {
     init(settingRepository: SettingsRepository) {
         self.settingRepository = settingRepository
         self.settings = settingRepository.fetchSettings()
+        setAppLanguage(languageCode: settings.language.languageCode, needShowAlert: false)
     }
 
     var currency: DMCurrency { settings.currency }
@@ -78,3 +100,12 @@ extension AppSettings {
         )
     }
 }
+
+extension Bundle {
+    static func setLanguage(_ language: String) {
+        let value = language.isEmpty ? nil : language
+        objc_setAssociatedObject(Bundle.main, &kBundleKey, value, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+    }
+}
+
+private var kBundleKey: UInt8 = 0

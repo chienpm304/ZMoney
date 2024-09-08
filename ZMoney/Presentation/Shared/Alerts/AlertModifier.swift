@@ -20,13 +20,21 @@ struct AlertModifier: ViewModifier {
                     HStack {
                         VStack(alignment: .leading, spacing: 8) {
                             if alertData.isSuccess {
-                                Text("✅ \(alertData.title)")
-                                    .fontWeight(.medium)
+                                HStack {
+                                    Text("✅")
+                                    Text(alertData.title)
+                                        .fontWeight(.medium)
+                                }
+                                .lineLimit(1)
                             } else {
-                                Text("❌ \(alertData.title)")
-                                    .fontWeight(.semibold)
-                                    .lineLimit(1)
+                                HStack {
+                                    Text("❌")
+                                    Text(alertData.title)
+                                        .fontWeight(.medium)
+                                }
+                                .lineLimit(1)
                             }
+
                             Text(alertData.message ?? "")
                                 .font(.caption)
                                 .lineLimit(2)

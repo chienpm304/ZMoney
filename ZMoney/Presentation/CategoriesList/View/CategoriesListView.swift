@@ -26,7 +26,7 @@ struct CategoriesListView<ViewModel: CategoriesListViewModel>: View {
             HStack {
                 Picker("Tab", selection: $viewModel.selectedTab) {
                     ForEach(CategoryTab.allCases) {
-                        Text($0.rawValue.capitalized)
+                        Text($0.localizedStringKey)
                     }
                 }
                 .pickerStyle(.segmented)

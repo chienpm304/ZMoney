@@ -8,6 +8,13 @@
 import Foundation
 import DomainModule
 
+extension DMSettings: Equatable {
+    public static func == (lhs: DMSettings, rhs: DMSettings) -> Bool {
+        lhs.currency == rhs.currency
+        && lhs.language == rhs.language
+    }
+}
+
 extension DMLanguage: Identifiable, CaseIterable {
     public var id: String { rawValue }
 

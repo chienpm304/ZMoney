@@ -7,20 +7,27 @@
 
 import Combine
 import DomainModule
+import SwiftUI
 
 protocol AlertProvidable: ObservableObject {
     var alertData: AlertData? { get set }
 
-    func showAlert<T>(with result: Result<T, DMError>, successMessage: String?, errorMessage: String?)
-    func showSuccessAlert(with successMessage: String?)
-    func showErrorAlert(with error: DMError, errorMessage: String?)
+    func showAlert<T>(
+        with result: Result<T, DMError>,
+        successMessage: LocalizedStringKey?,
+        errorMessage: LocalizedStringKey?
+    )
+    func showSuccessAlert(with successMessage: LocalizedStringKey?)
+    func showErrorAlert(with error: DMError, errorMessage: LocalizedStringKey?)
 }
+
+// swiftlint:disable empty_enum_arguments
 
 extension AlertProvidable {
     func showAlert<T>(
         with result: Result<T, DMError>,
-        successMessage: String? = nil,
-        errorMessage: String? = nil
+        successMessage: LocalizedStringKey? = nil,
+        errorMessage: LocalizedStringKey? = nil
     ) {
         switch result {
         case .success(_):
@@ -30,7 +37,7 @@ extension AlertProvidable {
         }
     }
 
-    func showSuccessAlert(with successMessage: String? = nil) {
+    func showSuccessAlert(with successMessage: LocalizedStringKey? = nil) {
         alertData = AlertData(
             title: "Success",
             message: successMessage,
@@ -39,12 +46,14 @@ extension AlertProvidable {
         )
     }
 
-    func showErrorAlert(with error: DMError, errorMessage: String? = nil) {
+    func showErrorAlert(with error: DMError, errorMessage: LocalizedStringKey? = nil) {
         alertData = AlertData(
             title: "Error",
-            message: errorMessage ?? error.localizedDescription,
+            message: errorMessage ?? LocalizedStringKey(error.localizedDescription),
             isSuccess: false,
             isToast: true
         )
     }
 }
+
+// swiftlint:enable empty_enum_arguments

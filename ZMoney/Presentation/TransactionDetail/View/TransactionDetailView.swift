@@ -32,13 +32,6 @@ struct TransactionDetailView: View {
         }
         .navigationTitle(viewModel.isNewTransaction ? "Add Transaction" : "Edit Transaction")
         .navigationBarTitleDisplayMode(.inline)
-//        .toolbar {
-//            ToolbarItem(placement: .cancellationAction) {
-//                Button("Cancel", role: .cancel) {
-//                    viewModel.cancel()
-//                }
-//            }
-//        }
         .navigationBarItems(leading: cancelButton)
         .navigationBarItems(trailing: deleteButton)
         .onAppear {
@@ -121,7 +114,7 @@ struct TransactionDetailView: View {
     private var transactionTypePicker: some View {
         Picker("Tab", selection: $viewModel.transaction.transactionType) {
             ForEach(CategoryTab.allCases) {
-                Text($0.rawValue.capitalized)
+                Text($0.localizedStringKey)
             }
         }
         .pickerStyle(.segmented)
