@@ -80,8 +80,6 @@ struct CategoriesListView<ViewModel: CategoriesListViewModel>: View {
     }
 }
 
-#if targetEnvironment(simulator)
 #Preview {
     CategoriesListView(viewModel: .makePreviewViewModel())
 }
-#endif

@@ -135,8 +135,6 @@ extension TransactionsListViewModel {
 
 // MARK: Previews
 
-#if targetEnvironment(simulator)
-
 import DataModule
 
 extension TransactionsListViewModel {
@@ -186,5 +184,3 @@ extension TransactionsListViewModel {
         return TransactionsListViewModel(dependencies: dependencies)
     }
 }
-
-#endif

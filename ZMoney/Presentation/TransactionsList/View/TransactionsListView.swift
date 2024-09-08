@@ -125,13 +125,12 @@ struct TransactionsListView: View {
         Date.numberOfWeeksBetween(startDate: startDate, endDate: endDate)
     }
 }
-#if targetEnvironment(simulator)
+
 #Preview {
     NavigationView {
         TransactionsListView(viewModel: .makePreviewViewModel())
     }
 }
-#endif
 
 struct TransactionsListItemView: View {
     @ObservedObject private var viewModel: TransactionsListViewModel

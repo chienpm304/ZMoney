@@ -117,8 +117,6 @@ final class CategoryDetailViewModel: ObservableObject {
 
 // MARK: Previews
 
-#if targetEnvironment(simulator)
-
 import DataModule
 
 extension CategoryDetailViewModel {
@@ -170,5 +168,3 @@ extension CategoryDetailViewModel {
         )
     }
 }
-
-#endif

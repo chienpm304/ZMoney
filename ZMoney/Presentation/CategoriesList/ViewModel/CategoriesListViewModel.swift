@@ -159,8 +159,6 @@ extension CategoriesListViewModel {
 
 // MARK: Previews
 
-#if targetEnvironment(simulator)
-
 import DataModule
 
 extension CategoriesListViewModel {
@@ -200,5 +198,3 @@ extension CategoriesListViewModel {
         return CategoriesListViewModel(dependencies: dependencies)
     }
 }
-
-#endif
