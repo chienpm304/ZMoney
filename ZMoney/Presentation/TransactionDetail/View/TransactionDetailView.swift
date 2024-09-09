@@ -14,7 +14,12 @@ struct TransactionDetailView: View {
     @State private var showDeleteConfirmationDialog = false
     private let navigationType: NavigationType
 
-    @FocusState private var keyboardFocused: Bool
+    private enum InputField: Hashable {
+        case amount
+        case memo
+    }
+
+    @FocusState private var focusedField: InputField?
 
     init(
         viewModel: TransactionDetailViewModel,
@@ -37,7 +42,7 @@ struct TransactionDetailView: View {
                 Spacer()
 
                 Button {
-                    keyboardFocused = false
+                    focusedField = nil
                 } label: {
                     Text("Done")
                 }
@@ -139,7 +144,26 @@ struct TransactionDetailView: View {
                 .fontWeight(.medium)
                 .frame(width: leftColumsWidth, alignment: .leading)
 
-            CurrencyTextField(amount: $viewModel.transaction.amount)
+            CurrencyTextField(
+                amount: $viewModel.transaction.amount,
+                isFocused: Binding(
+                    get: { focusedField == .amount },
+                    set: { focus in
+                        if !focus {
+                            if viewModel.transaction.memo.isEmpty {
+                                focusedField = .memo
+                            } else {
+                                focusedField = nil
+                            }
+                        }
+                    }
+                )
+            )
+            .focused($focusedField, equals: .amount)
+            .onSubmit {
+                focusedField = .amount
+            }
+            .submitLabel(.next)
 
             Text(appSettings.currencySymbol)
         }
@@ -151,8 +175,8 @@ struct TransactionDetailView: View {
                 .fontWeight(.medium)
                 .frame(width: leftColumsWidth, alignment: .leading)
             TextField("Enter value", text: $viewModel.transaction.memo)
-                .focused($keyboardFocused)
                 .withFieldBackground()
+                .focused($focusedField, equals: .memo)
         }
     }
 
