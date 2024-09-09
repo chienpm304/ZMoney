@@ -14,12 +14,7 @@ struct TransactionDetailView: View {
     @State private var showDeleteConfirmationDialog = false
     private let navigationType: NavigationType
 
-    private enum InputField: Hashable {
-        case amount
-        case memo
-    }
-
-    @FocusState private var focusedField: InputField?
+    @FocusState private var focusedField: Bool
 
     init(
         viewModel: TransactionDetailViewModel,
@@ -42,7 +37,7 @@ struct TransactionDetailView: View {
                 Spacer()
 
                 Button {
-                    focusedField = nil
+                    focusedField = false
                 } label: {
                     Text("Done")
                 }
@@ -144,26 +139,7 @@ struct TransactionDetailView: View {
                 .fontWeight(.medium)
                 .frame(width: leftColumsWidth, alignment: .leading)
 
-            CurrencyTextField(
-                amount: $viewModel.transaction.amount,
-                isFocused: Binding(
-                    get: { focusedField == .amount },
-                    set: { focus in
-                        if !focus {
-                            if viewModel.transaction.memo.isEmpty {
-                                focusedField = .memo
-                            } else {
-                                focusedField = nil
-                            }
-                        }
-                    }
-                )
-            )
-            .focused($focusedField, equals: .amount)
-            .onSubmit {
-                focusedField = .amount
-            }
-            .submitLabel(.next)
+            CurrencyTextField(amount: $viewModel.transaction.amount)
 
             Text(appSettings.currencySymbol)
         }
@@ -176,7 +152,7 @@ struct TransactionDetailView: View {
                 .frame(width: leftColumsWidth, alignment: .leading)
             TextField("Enter value", text: $viewModel.transaction.memo)
                 .withFieldBackground()
-                .focused($focusedField, equals: .memo)
+                .focused($focusedField)
         }
     }
 

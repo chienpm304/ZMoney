@@ -11,13 +11,11 @@ import DomainModule
 
 struct CurrencyTextField: View {
     @Binding var amount: MoneyValue
-    @Binding var isFocused: Bool
     @EnvironmentObject private var appSettings: AppSettings
 
     var body: some View {
         _CurrencyTextField(
             amount: $amount,
-            isFocused: $isFocused,
             numberFormatter: appSettings.currencyFormatterWithoutSymbol,
             maxDigits: appSettings.maxMoneyDigits
         )
@@ -29,7 +27,6 @@ struct CurrencyTextField: View {
 
 private struct _CurrencyTextField: UIViewRepresentable {
     @Binding var amount: MoneyValue
-    @Binding var isFocused: Bool
     let numberFormatter: NumberFormatter
     let maxDigits: Int
 
@@ -44,8 +41,8 @@ private struct _CurrencyTextField: UIViewRepresentable {
         let doneButton = UIBarButtonItem(
             title: NSLocalizedString("Done", comment: ""),
             style: .done,
-            target: context.coordinator,
-            action: #selector(Coordinator.doneButtonTapped)
+            target: textField,
+            action: #selector(textField.resignFirstResponder)
         )
 
         let flexibleSpace = UIBarButtonItem(
@@ -90,12 +87,6 @@ private struct _CurrencyTextField: UIViewRepresentable {
         if uiView.text != formattedText {
             uiView.text = formattedText
         }
-
-        if isFocused && !uiView.isFirstResponder {
-            uiView.becomeFirstResponder()
-        } else if !isFocused && uiView.isFirstResponder {
-            uiView.resignFirstResponder()
-        }
     }
 
     func makeCoordinator() -> Coordinator {
@@ -129,10 +120,6 @@ private struct _CurrencyTextField: UIViewRepresentable {
             }
         }
 
-        @objc func doneButtonTapped() {
-            parent.isFocused = false
-        }
-
         @objc func zeroZeroZeroButtonTapped() {
             appendZeros(3)
         }
@@ -159,30 +146,15 @@ private struct _CurrencyTextField: UIViewRepresentable {
     @State var amount1: MoneyValue = 0
     @State var amount2: MoneyValue = 9999
 
-    @State var amountFocus1 = false
-    @State var amountFocus2 = false
-
     return List {
         HStack {
-            CurrencyTextField(amount: $amount1, isFocused: $amountFocus1)
+            CurrencyTextField(amount: $amount1)
             MoneyText(value: amount1, type: .expense)
         }
         HStack {
-            CurrencyTextField(amount: $amount2, isFocused: $amountFocus2)
+            CurrencyTextField(amount: $amount2)
             MoneyText(value: amount2, type: .expense)
         }
-
-        Button(action: {
-            amountFocus1.toggle()
-        }, label: {
-            Text(String("amountFocus1: \(amountFocus1 ? "yes" : "no")"))
-        })
-
-        Button(action: {
-            amountFocus2.toggle()
-        }, label: {
-            Text(String("amountFocus2: \(amountFocus2 ? "yes" : "no")"))
-        })
     }
     .environmentObject(AppSettings.preview)
 }
