@@ -34,6 +34,25 @@ private struct _CurrencyTextField: UIViewRepresentable {
         let textField = UITextField()
         textField.keyboardType = .numberPad
         textField.delegate = context.coordinator
+
+        let toolbar = UIToolbar()
+        toolbar.sizeToFit()
+
+        let doneButton = UIBarButtonItem(
+            title: NSLocalizedString("Done", comment: ""),
+            style: .done,
+            target: textField,
+            action: #selector(textField.resignFirstResponder)
+        )
+        let flexibleSpace = UIBarButtonItem(
+            barButtonSystemItem: .flexibleSpace,
+            target: nil,
+            action: nil
+        )
+
+        toolbar.items = [flexibleSpace, doneButton]
+        textField.inputAccessoryView = toolbar
+
         textField.addTarget(
             context.coordinator,
             action: #selector(Coordinator.textFieldDidChange(_:)),

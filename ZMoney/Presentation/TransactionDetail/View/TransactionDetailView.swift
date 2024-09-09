@@ -14,6 +14,8 @@ struct TransactionDetailView: View {
     @State private var showDeleteConfirmationDialog = false
     private let navigationType: NavigationType
 
+    @FocusState private var keyboardFocused: Bool
+
     init(
         viewModel: TransactionDetailViewModel,
         navigationType: NavigationType
@@ -28,6 +30,17 @@ struct TransactionDetailView: View {
             Form {
                 transactionDetailsSection
                 saveButtonSection
+            }
+        }
+        .toolbar {
+            ToolbarItemGroup(placement: .keyboard) {
+                Spacer()
+
+                Button {
+                    keyboardFocused = false
+                } label: {
+                    Text("Done")
+                }
             }
         }
         .navigationTitle(viewModel.isNewTransaction ? "Add Transaction" : "Edit Transaction")
@@ -138,6 +151,7 @@ struct TransactionDetailView: View {
                 .fontWeight(.medium)
                 .frame(width: leftColumsWidth, alignment: .leading)
             TextField("Enter value", text: $viewModel.transaction.memo)
+                .focused($keyboardFocused)
                 .withFieldBackground()
         }
     }

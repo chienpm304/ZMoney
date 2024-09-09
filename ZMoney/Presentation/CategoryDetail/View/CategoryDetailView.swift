@@ -9,6 +9,7 @@ import SwiftUI
 
 struct CategoryDetailView: View {
     @ObservedObject var viewModel: CategoryDetailViewModel
+    @FocusState private var keyboardFocused: Bool
 
     var body: some View {
         VStack {
@@ -19,6 +20,7 @@ struct CategoryDetailView: View {
                             .fontWeight(.medium)
                         TextField("Category name", text: $viewModel.model.name)
                             .withFieldBackground()
+                            .focused($keyboardFocused)
                     }
 
                     ColorPicker(selection: $viewModel.model.color, supportsOpacity: false) {
@@ -51,6 +53,17 @@ struct CategoryDetailView: View {
                     ? Color.accentColor
                     : Color.accentColor.opacity(0.5)
                 )
+            }
+            .toolbar {
+                ToolbarItemGroup(placement: .keyboard) {
+                    Spacer()
+
+                    Button {
+                        keyboardFocused = false
+                    } label: {
+                        Text("Done")
+                    }
+                }
             }
             .navigationBarTitle(
                 viewModel.isNewCategory ? "New category" : "Edit category",
