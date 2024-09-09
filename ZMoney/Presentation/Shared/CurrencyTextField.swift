@@ -54,7 +54,27 @@ private struct _CurrencyTextField: UIViewRepresentable {
             action: nil
         )
 
-        toolbar.items = [flexibleSpace, doneButton]
+        let zeroZeroZeroButton = UIBarButtonItem(
+            title: "000",
+            style: .done,
+            target: context.coordinator,
+            action: #selector(Coordinator.zeroZeroZeroButtonTapped)
+        )
+
+        let zeroZeroButton = UIBarButtonItem(
+            title: "00",
+            style: .done,
+            target: context.coordinator,
+            action: #selector(Coordinator.zeroZeroButtonTapped)
+        )
+
+        toolbar.items = [
+            zeroZeroZeroButton,
+            flexibleSpace,
+            zeroZeroButton,
+            flexibleSpace,
+            doneButton
+        ]
         textField.inputAccessoryView = toolbar
 
         textField.addTarget(
@@ -111,6 +131,24 @@ private struct _CurrencyTextField: UIViewRepresentable {
 
         @objc func doneButtonTapped() {
             parent.isFocused = false
+        }
+
+        @objc func zeroZeroZeroButtonTapped() {
+            appendZeros(3)
+        }
+
+        @objc func zeroZeroButtonTapped() {
+            appendZeros(2)
+        }
+
+        private func appendZeros(_ count: Int) {
+            guard (1...3).contains(count) else { return }
+            let zeros = Array(repeating: "0", count: count).joined()
+            let text = (String(parent.amount) + zeros).prefix(parent.maxDigits)
+
+            if let value = MoneyValue(text) {
+                parent.amount = value
+            }
         }
     }
 }
