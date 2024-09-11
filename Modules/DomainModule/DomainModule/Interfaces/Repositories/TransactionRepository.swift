@@ -33,4 +33,6 @@ public protocol TransactionRepository {
         _ transactionIDs: [ID],
         completion: @escaping (Result<[DMTransaction], DMError>) -> Void
     )
+
+    func searchTransactions(keyword: String) async throws -> [DMTransaction]
 }

@@ -147,6 +147,26 @@ extension TransactionCoreDataStorage: TransactionStorage {
         }
     }
 
+    public func searchTransactions(keyword: String) async throws -> [DMTransaction] {
+        try await withCheckedThrowingContinuation { continuation in
+            coreData.performBackgroundTask { context in
+                let fetchRequest: NSFetchRequest<CDTransaction> = CDTransaction.fetchRequest()
+                fetchRequest.predicate = NSPredicate(format: "memo CONTAINS[c] %@", keyword)
+                fetchRequest.sortDescriptors = [
+                    NSSortDescriptor(key: #keyPath(CDTransaction.inputTime), ascending: false)
+                ]
+
+                do {
+                    let entities = try context.fetch(fetchRequest)
+                    let transactions = entities.map { $0.domain }
+                    continuation.resume(returning: transactions)
+                } catch {
+                    continuation.resume(throwing: DMError.fetchError(error))
+                }
+            }
+        }
+    }
+
 #if DEBUG
     private func generateMockTransactions(
         startTime: TimeValue,

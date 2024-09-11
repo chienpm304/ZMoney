@@ -51,4 +51,8 @@ extension DefaultTransactionRepository: TransactionRepository {
     ) {
         storage.deleteTransactionsByIDs(transactionIDs, completion: completion)
     }
+
+    public func searchTransactions(keyword: String) async throws -> [DMTransaction] {
+        try await storage.searchTransactions(keyword: keyword)
+    }
 }
