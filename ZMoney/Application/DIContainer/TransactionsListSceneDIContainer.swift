@@ -41,7 +41,7 @@ extension TransactionsListSceneDIContainer: TransactionsListFlowCoordinatorDepen
             actions: actions
         )
         let viewModel = TransactionsListViewModel(dependencies: dependencies)
-        let view = TransactionsListView(viewModel: viewModel)
+        let view = TransactionsListWithCalendarView(viewModel: viewModel)
             .environmentObject(self.dependencies.appConfiguration.settings)
         return (UIHostingController(rootView: view), viewModel)
     }

@@ -27,10 +27,10 @@ final class TransactionsListViewModel: ObservableObject, AlertProvidable {
     private let dateRangeType: DateRangeType
 
     // MARK: Output
-    @Published private var dataModel: TransactionsListDataModel
-    @Published var dateRange: DateRange
-    @Published var selectedDate: Date
-    @Published var scrollToDate: Date?
+    @Published private(set) var dataModel: TransactionsListModel
+    @Published private(set) var dateRange: DateRange
+    @Published private(set) var selectedDate: Date
+    @Published private(set) var scrollToDate: Date?
     @Published var alertData: AlertData?
 
     init(
@@ -39,13 +39,13 @@ final class TransactionsListViewModel: ObservableObject, AlertProvidable {
     ) {
         self.dependencies = dependencies
         self.dateRangeType = dateRangeType
-        self.dataModel = TransactionsListDataModel(transactions: [])
+        self.dataModel = TransactionsListModel(transactions: [])
         self.dateRange = dateRangeType.dateRange(of: .now)
         self.selectedDate = .now
     }
 
     private func setupDataModel(with transactions: [DMTransaction]) {
-        dataModel = TransactionsListDataModel(transactions: transactions)
+        dataModel = TransactionsListModel(transactions: transactions)
         scrollToDate = dataModel.topScrollDate
     }
 

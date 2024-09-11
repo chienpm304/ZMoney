@@ -1,5 +1,5 @@
 //
-//  TransactionsListDataModel.swift
+//  TransactionsListModel.swift
 //  ZMoney
 //
 //  Created by Chien Pham on 02/09/2024.
@@ -8,7 +8,7 @@
 import Foundation
 import DomainModule
 
-struct TransactionsListDataModel {
+struct TransactionsListModel {
     private let dateToItems: [Date: [TransactionsListItemModel]]
     private let transactions: [DMTransaction]
 
