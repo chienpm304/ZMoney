@@ -14,8 +14,22 @@ final class AppDIContainer {
     lazy var appConfiguration: AppConfiguration = {
         let settingsStorage = SettingsUserDefaultStorage(userDefaultCoordinator: userDefaultCoordinator)
         let settingsRepository = DefaultSettingsRepository(settingsStorage: settingsStorage)
-        let appSettings = AppSettings(settingRepository: settingsRepository)
+
+        let appSettings = AppSettings(
+            useCaseFactory: .init(
+                fetchUseCase: makeFetchSettingsUseCaseFactory,
+                updateUseCase: makeUpdateSettingsUseCaseFactory
+            )
+        )
         return AppConfiguration(settings: appSettings)
+
+        func makeFetchSettingsUseCaseFactory() -> FetchSettingsUseCase {
+            FetchSettingsUseCase(repository: settingsRepository)
+        }
+
+        func makeUpdateSettingsUseCaseFactory() -> UpdateSettingsUseCase {
+            UpdateSettingsUseCase(repository: settingsRepository)
+        }
     }()
 
     lazy var coreDataStack: CoreDataStack = .shared

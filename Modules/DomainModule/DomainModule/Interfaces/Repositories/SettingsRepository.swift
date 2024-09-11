@@ -8,10 +8,7 @@
 import Foundation
 
 public protocol SettingsRepository {
-    func fetchSettings() -> DMSettings
+    func fetchSettings() async -> DMSettings
 
-    func updateSettings(
-        _ settings: DMSettings,
-        completion: @escaping (Result<DMSettings, DMError>) -> Void
-    )
+    func updateSettings(_ settings: DMSettings) async throws -> DMSettings
 }

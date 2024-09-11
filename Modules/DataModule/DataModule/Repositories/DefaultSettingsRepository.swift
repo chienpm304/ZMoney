@@ -18,18 +18,21 @@ public class DefaultSettingsRepository: SettingsRepository {
         self.settingsStorage = settingsStorage
     }
 
-    public func fetchSettings() -> DMSettings {
-        settingsStorage.fetchSettings(forKey: Keys.settings.rawValue)
+    public func fetchSettings() async -> DMSettings {
+        await withCheckedContinuation { continuation in
+            let settings = settingsStorage.fetchSettings(forKey: Keys.settings.rawValue)
+            continuation.resume(returning: settings)
+        }
     }
 
-    public func updateSettings(
-        _ settings: DMSettings,
-        completion: @escaping (Result<DMSettings, DMError>) -> Void
-    ) {
-        settingsStorage.updateSettings(
-            settings,
-            forKey: Keys.settings.rawValue,
-            completion: completion
-        )
+    public func updateSettings(_ settings: DMSettings) async throws -> DMSettings {
+        try await withCheckedThrowingContinuation { continuation in
+            settingsStorage.updateSettings(
+                settings,
+                forKey: Keys.settings.rawValue
+            ) { result in
+                continuation.resume(with: result)
+            }
+        }
     }
 }

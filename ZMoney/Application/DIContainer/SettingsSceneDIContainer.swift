@@ -46,35 +46,6 @@ final class SettingsSceneDIContainer: SettingsFlowCoordinatorDependencies {
         return UIHostingController(rootView: view)
     }
 
-    // MARK: UseCase
-
-    func makeSettingsUseCaseFactory() -> SettingsUseCaseFactory {
-        SettingsUseCaseFactory(
-            fetchUseCase: makeFetchSettingsUseCaseFactory(completion:),
-            updateUseCase: makeUpdateSettingsUseCaseFactory(requestValue:completion:)
-        )
-    }
-
-    func makeFetchSettingsUseCaseFactory(
-        completion: ((FetchSettingsUseCase.ResultValue) -> Void)?
-    ) -> UseCase {
-        FetchSettingsUseCase(
-            repository: makeSettingsRespository(),
-            completion: completion
-        )
-    }
-
-    func makeUpdateSettingsUseCaseFactory(
-        requestValue: UpdateSettingsUseCase.RequestValue,
-        completion: @escaping (UpdateSettingsUseCase.ResultValue) -> Void
-    ) -> UseCase {
-        UpdateSettingsUseCase(
-            requestValue: requestValue,
-            repository: makeSettingsRespository(),
-            completion: completion
-        )
-    }
-
     // MARK: Repository
 
     func makeSettingsRespository() -> SettingsRepository {

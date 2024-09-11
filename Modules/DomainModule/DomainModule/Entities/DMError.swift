@@ -15,4 +15,5 @@ public enum DMError: Error {
     case notFound
     case duplicated
     case violateRelationshipConstraint
+    case unknown(Error)
 }

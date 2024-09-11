@@ -7,32 +7,27 @@
 
 import Combine
 
-final public class UpdateSettingsUseCase: UseCase {
-    public struct RequestValue {
+final public class UpdateSettingsUseCase: AsyncUseCase {
+
+    public struct Input {
         let settings: DMSettings
+
+        public init(settings: DMSettings) {
+            self.settings = settings
+        }
     }
 
-    public typealias ResultValue = (Result<DMSettings, DMError>)
+    public typealias Output = DMSettings
 
-    private let requestValue: RequestValue
     private let repository: SettingsRepository
-    private let completion: (ResultValue) -> Void
 
     public init(
-        requestValue: RequestValue,
-        repository: SettingsRepository,
-        completion: @escaping (ResultValue) -> Void
+        repository: SettingsRepository
     ) {
-        self.requestValue = requestValue
         self.repository = repository
-        self.completion = completion
     }
 
-    public func execute() -> Cancellable? {
-        repository.updateSettings(
-            requestValue.settings,
-            completion: completion
-        )
-        return nil
+    public func execute(input: Input) async throws -> Output {
+        try await repository.updateSettings(input.settings)
     }
 }

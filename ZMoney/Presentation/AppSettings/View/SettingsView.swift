@@ -10,6 +10,7 @@ import DomainModule
 
 struct SettingsView: View {
     @ObservedObject var viewModel: SettingsViewModel
+    @State private var hasInitialized = false
 
     var body: some View {
         Form {
@@ -28,10 +29,25 @@ struct SettingsView: View {
                     }
                 }
             }
+            .onChange(of: viewModel.settings) { [oldValue = viewModel.settings] newValue in
+                // Skip the initial update!
+                // Remove this workaround and use the onChange's in iOS 17 for this purpose
+                guard hasInitialized else {
+                    hasInitialized = true
+                    return
+                }
+                Task {
+                    guard oldValue != newValue else { return }
+                    await viewModel.updateSettings(oldValue)
+                }
+            }
         }
         .navigationTitle("Settings")
         .navigationBarTitleDisplayMode(.large)
         .resultAlert(alertData: $viewModel.alertData)
+        .task {
+            await viewModel.fetchSettings()
+        }
     }
 }
 

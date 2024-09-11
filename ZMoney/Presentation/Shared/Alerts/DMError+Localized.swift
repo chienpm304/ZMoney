@@ -24,6 +24,8 @@ extension DMError: LocalizedError {
             return "Cannot process duplicated data."
         case .violateRelationshipConstraint:
             return "This data is required by other records."
+        case .unknown(let error):
+            return "Unknown error. \(error.localizedDescription)"
         }
     }
 }

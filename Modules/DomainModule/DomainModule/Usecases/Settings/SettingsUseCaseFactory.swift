@@ -7,14 +7,9 @@
 
 import Foundation
 
-public typealias FetchSettingsUseCaseFactory = (
-    @escaping (FetchSettingsUseCase.ResultValue) -> Void
-) -> UseCase
+public typealias FetchSettingsUseCaseFactory = () -> FetchSettingsUseCase
 
-public typealias UpdateSettingsUseCaseFactory = (
-    UpdateSettingsUseCase.RequestValue,
-    @escaping (UpdateSettingsUseCase.ResultValue) -> Void
-) -> UseCase
+public typealias UpdateSettingsUseCaseFactory = () -> UpdateSettingsUseCase
 
 public struct SettingsUseCaseFactory {
     public let fetchUseCase: FetchSettingsUseCaseFactory
