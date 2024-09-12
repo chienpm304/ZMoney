@@ -45,7 +45,7 @@ struct AlertModifier: ViewModifier {
                     .frame(maxWidth: .infinity)
                     .background(Color.adaptiveBackgroundColor)
                     .cornerRadius(8)
-                    .padding()
+                    .padding(10)
                     .shadow(radius: 2, x: 1, y: 2)
                 } else {
                     EmptyView()
