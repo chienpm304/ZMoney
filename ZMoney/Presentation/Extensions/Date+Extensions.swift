@@ -28,8 +28,8 @@ extension Date {
     // MARK: Formatter
 
     func formatDateMediumWithShortWeekday() -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .medium
-        return dateFormatter.string(from: self) + " (\(self.weekdayName(.short)))"
+        let dateString = self.toFormat("dd/MM/yyyy")
+        let weekdayName = self.weekdayName(.short)
+        return "\(dateString)" + " (\(weekdayName))"
     }
 }
