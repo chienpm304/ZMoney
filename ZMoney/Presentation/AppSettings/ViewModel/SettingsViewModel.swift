@@ -13,14 +13,18 @@ import DataModule
 typealias SettingsViewModel = AppSettings
 
 final class AppSettings: ObservableObject, AlertProvidable {
+    struct Dependencies {
+        let fetchSettingUseCaseFactory: FetchSettingsUseCaseFactory
+        let updateSettingUseCaseFactory: UpdateSettingsUseCaseFactory
+    }
 
     @MainActor @Published var settings: DMSettings = .defaultValue
     @Published var alertData: AlertData?
 
-    private let useCaseFactory: SettingsUseCaseFactory
+    private let dependencies: Dependencies
 
-    init(useCaseFactory: SettingsUseCaseFactory) {
-        self.useCaseFactory = useCaseFactory
+    init(dependencies: Dependencies) {
+        self.dependencies = dependencies
     }
 
     @MainActor var currency: DMCurrency { settings.currency }
@@ -56,13 +60,13 @@ final class AppSettings: ObservableObject, AlertProvidable {
     }
 
     @MainActor func fetchSettings() async {
-        let fetchSettingsUseCase = useCaseFactory.fetchUseCase()
+        let fetchSettingsUseCase = dependencies.fetchSettingUseCaseFactory()
         settings = await fetchSettingsUseCase.execute(input: ())
     }
 
     @MainActor func updateSettings(_ oldValue: DMSettings) async {
         do {
-            let updateSettingsUseCase = useCaseFactory.updateUseCase()
+            let updateSettingsUseCase = dependencies.updateSettingUseCaseFactory()
             let input = UpdateSettingsUseCase.Input(settings: settings)
             settings = try await updateSettingsUseCase.execute(input: input)
 
@@ -94,12 +98,13 @@ extension AppSettings {
                 )
             )
         )
-        return AppSettings(
-            useCaseFactory: .init(fetchUseCase: {
+        let dependencies = Dependencies(
+            fetchSettingUseCaseFactory: {
                 FetchSettingsUseCase(repository: repository)
-            }, updateUseCase: {
+            }, updateSettingUseCaseFactory: {
                 UpdateSettingsUseCase(repository: repository)
-            })
+            }
         )
+        return AppSettings(dependencies: dependencies)
     }
 }
