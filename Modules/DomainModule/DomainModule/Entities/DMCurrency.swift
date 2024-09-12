@@ -5,7 +5,7 @@
 //  Created by Chien Pham on 19/08/2024.
 //
 
-public enum DMCurrency: String {
+public enum DMCurrency: String, CaseIterable {
     case vnd = "VND"
     case usd = "USD"
 }

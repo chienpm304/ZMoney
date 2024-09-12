@@ -10,7 +10,6 @@ import DomainModule
 
 struct SettingsView: View {
     @ObservedObject var viewModel: SettingsViewModel
-    @State private var hasInitialized = false
 
     var body: some View {
         Form {
@@ -29,16 +28,9 @@ struct SettingsView: View {
                     }
                 }
             }
-            .onChange(of: viewModel.settings) { [oldValue = viewModel.settings] newValue in
-                // Skip the initial update!
-                // Remove this workaround and use the onChange's in iOS 17 for this purpose
-                guard hasInitialized else {
-                    hasInitialized = true
-                    return
-                }
+            .onChange(of: viewModel.settings) { _ in
                 Task {
-                    guard oldValue != newValue else { return }
-                    await viewModel.updateSettings(oldValue)
+                    await viewModel.updateSettings()
                 }
             }
         }

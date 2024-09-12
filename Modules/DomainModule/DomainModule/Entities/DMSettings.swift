@@ -15,6 +15,13 @@ public struct DMSettings {
     }
 }
 
+extension DMSettings: Equatable {
+    public static func == (lhs: DMSettings, rhs: DMSettings) -> Bool {
+        lhs.currency == rhs.currency
+        && lhs.language == rhs.language
+    }
+}
+
 extension DMSettings {
     public static var defaultValue: Self {
         DMSettings(

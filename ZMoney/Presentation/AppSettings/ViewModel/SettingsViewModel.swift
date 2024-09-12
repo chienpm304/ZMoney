@@ -10,21 +10,27 @@ import Combine
 import DomainModule
 import DataModule
 
-typealias SettingsViewModel = AppSettings
+typealias AppSettings = SettingsViewModel
 
-final class AppSettings: ObservableObject, AlertProvidable {
+final class SettingsViewModel: ObservableObject, AlertProvidable {
     struct Dependencies {
         let fetchSettingUseCaseFactory: FetchSettingsUseCaseFactory
         let updateSettingUseCaseFactory: UpdateSettingsUseCaseFactory
     }
 
-    @MainActor @Published var settings: DMSettings = .defaultValue
+    private let previousSettings: DMSettings = .defaultValue
+    private var domainModel: DMSettings = .defaultValue
+    @MainActor @Published var settings = SettingsModel(domain: .defaultValue)
+
     @Published var alertData: AlertData?
 
     private let dependencies: Dependencies
 
     init(dependencies: Dependencies) {
         self.dependencies = dependencies
+        Task {
+            await fetchSettings()
+        }
     }
 
     @MainActor var currency: DMCurrency { settings.currency }
@@ -61,22 +67,27 @@ final class AppSettings: ObservableObject, AlertProvidable {
 
     @MainActor func fetchSettings() async {
         let fetchSettingsUseCase = dependencies.fetchSettingUseCaseFactory()
-        settings = await fetchSettingsUseCase.execute(input: ())
+        domainModel = await fetchSettingsUseCase.execute(input: ())
+        settings = SettingsModel(domain: domainModel)
     }
 
-    @MainActor func updateSettings(_ oldValue: DMSettings) async {
+    @MainActor func updateSettings() async {
+        guard settings.domain != domainModel else { return }
         do {
             let updateSettingsUseCase = dependencies.updateSettingUseCaseFactory()
-            let input = UpdateSettingsUseCase.Input(settings: settings)
-            settings = try await updateSettingsUseCase.execute(input: input)
+            let input = UpdateSettingsUseCase.Input(settings: settings.domain)
 
-            if oldValue.language != settings.language {
-                self.setAppLanguage(languageCode: settings.language.languageCode)
+            settings = SettingsModel(domain: try await updateSettingsUseCase.execute(input: input))
+
+            if domainModel.language != settings.language {
+                setAppLanguage(languageCode: settings.language.languageCode)
             } else {
-                self.showSuccessAlert(with: "Updated settings!")
+                showSuccessAlert(with: "Updated settings!")
             }
+
+            domainModel = settings.domain
         } catch {
-            self.showErrorAlert(with: error as? DMError ?? .unknown(error))
+            showErrorAlert(with: error as? DMError ?? .unknown(error))
         }
     }
 

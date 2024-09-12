@@ -32,6 +32,7 @@
 		C31626962C80BC9400E55BFB /* TransactionsListItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31626952C80BC9400E55BFB /* TransactionsListItemModel.swift */; };
 		C316269A2C80C7CC00E55BFB /* TransactionDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31626992C80C7CC00E55BFB /* TransactionDetailView.swift */; };
 		C31626A12C80D20000E55BFB /* DateRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31626A02C80D20000E55BFB /* DateRange.swift */; };
+		C33FB93F2C92C2D100AFA240 /* SettingsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C33FB93E2C92C2D100AFA240 /* SettingsModel.swift */; };
 		C343F3432C79B21700224D61 /* CategoryDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C343F3422C79B21700224D61 /* CategoryDetailViewModel.swift */; };
 		C3532FFA2C89F2A4008CAFC5 /* NavigationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3532FF92C89F2A4008CAFC5 /* NavigationType.swift */; };
 		C35AE4872C74ED1E00400DD7 /* CategoriesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C35AE4862C74ED1E00400DD7 /* CategoriesListView.swift */; };
@@ -62,7 +63,6 @@
 		C3F693C02C8C302900BA9D54 /* AlertData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F693BD2C8C302900BA9D54 /* AlertData.swift */; };
 		C3F693C52C8C486B00BA9D54 /* DMError+Localized.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F693C42C8C486B00BA9D54 /* DMError+Localized.swift */; };
 		C3F693D92C8CA76600BA9D54 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F693D82C8CA76600BA9D54 /* SettingsViewModel.swift */; };
-		C3F693E42C8DEAC800BA9D54 /* Settings+Mapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F693E32C8DEAC800BA9D54 /* Settings+Mapping.swift */; };
 		C3F693E72C8DEE0600BA9D54 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = C3F693E62C8DEE0600BA9D54 /* Localizable.xcstrings */; };
 		C51706D8304E868847A947DA /* Pods_ZMoney.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 139DC1D2EB0C97DF21D68110 /* Pods_ZMoney.framework */; };
 /* End PBXBuildFile section */
@@ -98,6 +98,7 @@
 		C31626952C80BC9400E55BFB /* TransactionsListItemModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsListItemModel.swift; sourceTree = "<group>"; };
 		C31626992C80C7CC00E55BFB /* TransactionDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionDetailView.swift; sourceTree = "<group>"; };
 		C31626A02C80D20000E55BFB /* DateRange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateRange.swift; sourceTree = "<group>"; };
+		C33FB93E2C92C2D100AFA240 /* SettingsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsModel.swift; sourceTree = "<group>"; };
 		C343F3422C79B21700224D61 /* CategoryDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDetailViewModel.swift; sourceTree = "<group>"; };
 		C3532FF92C89F2A4008CAFC5 /* NavigationType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationType.swift; sourceTree = "<group>"; };
 		C35AE4862C74ED1E00400DD7 /* CategoriesListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoriesListView.swift; sourceTree = "<group>"; };
@@ -128,7 +129,6 @@
 		C3F693BD2C8C302900BA9D54 /* AlertData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertData.swift; sourceTree = "<group>"; };
 		C3F693C42C8C486B00BA9D54 /* DMError+Localized.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DMError+Localized.swift"; sourceTree = "<group>"; };
 		C3F693D82C8CA76600BA9D54 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
-		C3F693E32C8DEAC800BA9D54 /* Settings+Mapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Settings+Mapping.swift"; sourceTree = "<group>"; };
 		C3F693E52C8DED5600BA9D54 /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		C3F693E62C8DEE0600BA9D54 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -230,6 +230,7 @@
 		C3142B1F2C85904B00788D0A /* AppSettings */ = {
 			isa = PBXGroup;
 			children = (
+				C33FB93D2C92C2C800AFA240 /* Model */,
 				C3F693D72C8CA76100BA9D54 /* ViewModel */,
 				C3142B232C85967C00788D0A /* Coordinator */,
 				C3142B202C85905300788D0A /* View */,
@@ -335,6 +336,53 @@
 			path = TransactionDetail;
 			sourceTree = "<group>";
 		};
+		C33FB9382C92A23E00AFA240 /* SearchTransactions */ = {
+			isa = PBXGroup;
+			children = (
+				C33FB93C2C92A26F00AFA240 /* Coordinator */,
+				C33FB93B2C92A26800AFA240 /* ViewModel */,
+				C33FB93A2C92A26400AFA240 /* View */,
+				C33FB9392C92A25D00AFA240 /* Model */,
+			);
+			path = SearchTransactions;
+			sourceTree = "<group>";
+		};
+		C33FB9392C92A25D00AFA240 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		C33FB93A2C92A26400AFA240 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		C33FB93B2C92A26800AFA240 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		C33FB93C2C92A26F00AFA240 /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		C33FB93D2C92C2C800AFA240 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				C33FB93E2C92C2D100AFA240 /* SettingsModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		C35AE4852C74ED1E00400DD7 /* CategoriesList */ = {
 			isa = PBXGroup;
 			children = (
@@ -434,6 +482,7 @@
 		C391528D2C74AECD008AE1E4 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				C33FB9382C92A23E00AFA240 /* SearchTransactions */,
 				C3142B1F2C85904B00788D0A /* AppSettings */,
 				C3C47B1A2C84B55000B134C4 /* TabView */,
 				C3E79D5C2C7A2DDE002DED34 /* Shared */,
@@ -520,7 +569,6 @@
 			isa = PBXGroup;
 			children = (
 				C3F693D82C8CA76600BA9D54 /* SettingsViewModel.swift */,
-				C3F693E32C8DEAC800BA9D54 /* Settings+Mapping.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -690,7 +738,6 @@
 				C3142B302C86FB9B00788D0A /* TransactionDetailViewModel.swift in Sources */,
 				C36F6AC82C7E1A7E006E1A86 /* ZCalendarView.swift in Sources */,
 				C343F3432C79B21700224D61 /* CategoryDetailViewModel.swift in Sources */,
-				C3F693E42C8DEAC800BA9D54 /* Settings+Mapping.swift in Sources */,
 				C307292C2C7392B000C9674B /* CategoriesSceneDIContainer.swift in Sources */,
 				C3D08DA62C91F5F60011349C /* TransactionsListView.swift in Sources */,
 				C30728DA2C73269B00C9674B /* AppDelegate.swift in Sources */,
@@ -710,6 +757,7 @@
 				C3C47B192C847B5100B134C4 /* Date+Extensions.swift in Sources */,
 				C3532FFA2C89F2A4008CAFC5 /* NavigationType.swift in Sources */,
 				C37E6BBF2C784CD0003F34D9 /* CategoryDetailView.swift in Sources */,
+				C33FB93F2C92C2D100AFA240 /* SettingsModel.swift in Sources */,
 				C3636F312C89A41C003EC13E /* TransactionDetailFlowCoordinator.swift in Sources */,
 				C3AE5B762C770EBB00865A54 /* Color+Extensions.swift in Sources */,
 				C3142B272C85972E00788D0A /* SettingsSceneDIContainer.swift in Sources */,
