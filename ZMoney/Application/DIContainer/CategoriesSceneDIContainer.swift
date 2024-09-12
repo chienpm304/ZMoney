@@ -28,15 +28,6 @@ final class CategoriesSceneDIContainer: CategoriesFlowCoordinatorDependencies {
 
     // MARK: Use Cases
 
-    func makeCategoriesUseCaseFactory() -> CategoriesUseCaseFactory {
-        CategoriesUseCaseFactory(
-            fetchUseCase: makeFetchCategoriesUseCase,
-            addUseCase: makeAddCategoriesUseCase,
-            updateUseCase: makeUpdateCategoriesUseCase,
-            deleteUseCase: makeDeleteCategoriesUseCase
-        )
-    }
-
     func makeFetchCategoriesUseCase(
         completion: @escaping (FetchCategoriesUseCase.ResultValue) -> Void
     ) -> UseCase {
@@ -117,7 +108,9 @@ final class CategoriesSceneDIContainer: CategoriesFlowCoordinatorDependencies {
         actions: CategoriesListViewModelActions
     ) -> CategoriesListViewModel {
         let dependencies = CategoriesListViewModel.Dependencies(
-            useCaseFactory: makeCategoriesUseCaseFactory(),
+            fetchUseCaseFactory: makeFetchCategoriesUseCase,
+            updateUseCaseFactory: makeUpdateCategoriesUseCase,
+            deleteUseCaseFactory: makeDeleteCategoriesUseCase,
             actions: actions
         )
         return CategoriesListViewModel(dependencies: dependencies)
@@ -129,7 +122,8 @@ final class CategoriesSceneDIContainer: CategoriesFlowCoordinatorDependencies {
         actions: CategoryDetailViewModelActions
     ) -> CategoryDetailViewModel {
         let dependencies = CategoryDetailViewModel.Dependencies(
-            useCaseFactory: makeCategoriesUseCaseFactory(),
+            addUseCaseFactory: makeAddCategoriesUseCase,
+            updateUseCaseFactory: makeUpdateCategoriesUseCase,
             actions: actions
         )
         return CategoryDetailViewModel(

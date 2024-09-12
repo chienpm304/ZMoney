@@ -25,22 +25,3 @@ public typealias DeleteCategoriesUseCaseFactory = (
     DeleteCategoriesUseCase.RequestValue,
     @escaping (DeleteCategoriesUseCase.ResultValue) -> Void
 ) -> UseCase
-
-public struct CategoriesUseCaseFactory {
-    public let fetchUseCase: FetchCategoriesUseCaseFactory
-    public let addUseCase: AddCategoriesUseCaseFactory
-    public let updateUseCase: UpdateCategoriesUseCaseFactory
-    public let deleteUseCase: DeleteCategoriesUseCaseFactory
-
-    public init(
-        fetchUseCase: @escaping FetchCategoriesUseCaseFactory,
-        addUseCase: @escaping AddCategoriesUseCaseFactory,
-        updateUseCase: @escaping UpdateCategoriesUseCaseFactory,
-        deleteUseCase: @escaping DeleteCategoriesUseCaseFactory
-    ) {
-        self.fetchUseCase = fetchUseCase
-        self.addUseCase = addUseCase
-        self.updateUseCase = updateUseCase
-        self.deleteUseCase = deleteUseCase
-    }
-}

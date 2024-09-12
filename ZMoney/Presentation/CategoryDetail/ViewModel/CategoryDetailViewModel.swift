@@ -14,7 +14,8 @@ struct CategoryDetailViewModelActions {
 
 final class CategoryDetailViewModel: ObservableObject {
     struct Dependencies {
-        let useCaseFactory: CategoriesUseCaseFactory
+        let addUseCaseFactory: AddCategoriesUseCaseFactory
+        let updateUseCaseFactory: UpdateCategoriesUseCaseFactory
         let actions: CategoryDetailViewModelActions
     }
 
@@ -80,7 +81,7 @@ final class CategoryDetailViewModel: ObservableObject {
                 }
             }
         }
-        let addUseCase = dependencies.useCaseFactory.addUseCase(requestValue, completion)
+        let addUseCase = dependencies.addUseCaseFactory(requestValue, completion)
         addUseCase.execute()
     }
 
@@ -106,7 +107,7 @@ final class CategoryDetailViewModel: ObservableObject {
                 }
             }
         }
-        let updateUseCase = dependencies.useCaseFactory.updateUseCase(requestValue, completion)
+        let updateUseCase = dependencies.updateUseCaseFactory(requestValue, completion)
         updateUseCase.execute()
     }
 }
@@ -132,31 +133,22 @@ extension CategoryDetailViewModel {
         }
         let categoriesStorage: CategoryStorage = CategoryCoreDataStorage(coreData: .testInstance)
         let categoriesRepository: CategoryRepository = DefaultCategoryRepository(storage: categoriesStorage)
-
-        let factory = CategoriesUseCaseFactory { fetchCompletion in
-            FetchCategoriesUseCase(categoryRepository: categoriesRepository, completion: fetchCompletion)
-        } addUseCase: { addRequest, addCompletion in
-            AddCategoriesUseCase(
-                requestValue: addRequest,
-                categoryRepository: categoriesRepository,
-                completion: addCompletion
-            )
-        } updateUseCase: { updateRequest, updateCompletion in
-            UpdateCategoriesUseCase(
-                requestValue: updateRequest,
-                categoryRepository: categoriesRepository,
-                completion: updateCompletion
-            )
-        } deleteUseCase: { deleteRequest, deleteCompletion in
-            DeleteCategoriesUseCase(
-                requestValue: deleteRequest,
-                categoryRepository: categoriesRepository,
-                completion: deleteCompletion
-            )
-        }
-
         let category = makePreviewCategory(isNewCategory: isNewCategory, isExpense: isExpense)
-        let dependencies = Dependencies(useCaseFactory: factory, actions: actions)
+        let dependencies = Dependencies(
+            addUseCaseFactory: { addRequest, addCompletion in
+                AddCategoriesUseCase(
+                    requestValue: addRequest,
+                    categoryRepository: categoriesRepository,
+                    completion: addCompletion
+                )
+            }, updateUseCaseFactory: { updateRequest, updateCompletion in
+                UpdateCategoriesUseCase(
+                    requestValue: updateRequest,
+                    categoryRepository: categoriesRepository,
+                    completion: updateCompletion
+                )
+            }, actions: actions
+        )
         return CategoryDetailViewModel(
             category: category,
             isNewCategory: isNewCategory,

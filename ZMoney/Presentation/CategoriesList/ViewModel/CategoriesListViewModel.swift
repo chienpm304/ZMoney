@@ -16,7 +16,9 @@ struct CategoriesListViewModelActions {
 
 final class CategoriesListViewModel: ObservableObject, AlertProvidable {
     struct Dependencies {
-        let useCaseFactory: CategoriesUseCaseFactory
+        let fetchUseCaseFactory: FetchCategoriesUseCaseFactory
+        let updateUseCaseFactory: UpdateCategoriesUseCaseFactory
+        let deleteUseCaseFactory: DeleteCategoriesUseCaseFactory
         let actions: CategoriesListViewModelActions?
     }
 
@@ -78,7 +80,7 @@ extension CategoriesListViewModel {
             }
         }
 
-        let useCase = dependencies.useCaseFactory.fetchUseCase(completion)
+        let useCase = dependencies.fetchUseCaseFactory(completion)
         useCase.execute()
         fetchUseCase = useCase // keep reference
     }
@@ -114,7 +116,7 @@ extension CategoriesListViewModel {
                 }
             }
         }
-        let updateUseCase = dependencies.useCaseFactory.updateUseCase(requestValue, completion)
+        let updateUseCase = dependencies.updateUseCaseFactory(requestValue, completion)
         updateUseCase.execute()
     }
 
@@ -152,7 +154,7 @@ extension CategoriesListViewModel {
                 }
             }
         }
-        let deteleUseCase = dependencies.useCaseFactory.deleteUseCase(requestValue, completion)
+        let deteleUseCase = dependencies.deleteUseCaseFactory(requestValue, completion)
         deteleUseCase.execute()
     }
 }
@@ -166,35 +168,32 @@ extension CategoriesListViewModel {
         let categoriesStorage: CategoryStorage = CategoryCoreDataStorage(coreData: .testInstance)
         let categoriesRepository: CategoryRepository = DefaultCategoryRepository(storage: categoriesStorage)
 
-        let factory = CategoriesUseCaseFactory { fetchCompletion in
-            FetchCategoriesUseCase(categoryRepository: categoriesRepository, completion: fetchCompletion)
-        } addUseCase: { addRequest, addCompletion in
-            AddCategoriesUseCase(
-                requestValue: addRequest,
-                categoryRepository: categoriesRepository,
-                completion: addCompletion
-            )
-        } updateUseCase: { updateRequest, updateCompletion in
-            UpdateCategoriesUseCase(
-                requestValue: updateRequest,
-                categoryRepository: categoriesRepository,
-                completion: updateCompletion
-            )
-        } deleteUseCase: { deleteRequest, deleteCompletion in
-            DeleteCategoriesUseCase(
-                requestValue: deleteRequest,
-                categoryRepository: categoriesRepository,
-                completion: deleteCompletion
-            )
-        }
-
         let actions = CategoriesListViewModelActions { editCategory in
             print("[Preview] Edit category \(editCategory.name)")
         } addCategoryDetail: { addCategoryType in
             print("[Preview] Add \(addCategoryType)")
         }
 
-        let dependencies = Dependencies(useCaseFactory: factory, actions: actions)
+        let dependencies = Dependencies(
+            fetchUseCaseFactory: { fetchCompletion in
+                FetchCategoriesUseCase(categoryRepository: categoriesRepository, completion: fetchCompletion)
+            },
+            updateUseCaseFactory: { updateRequest, updateCompletion in
+                UpdateCategoriesUseCase(
+                    requestValue: updateRequest,
+                    categoryRepository: categoriesRepository,
+                    completion: updateCompletion
+                )
+            },
+            deleteUseCaseFactory: { deleteRequest, deleteCompletion in
+                DeleteCategoriesUseCase(
+                    requestValue: deleteRequest,
+                    categoryRepository: categoriesRepository,
+                    completion: deleteCompletion
+                )
+            },
+            actions: actions
+        )
         return CategoriesListViewModel(dependencies: dependencies)
     }
 }
