@@ -124,6 +124,72 @@
         }
       }
     },
+    "Cannot create data. %@" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Không thể tạo dữ liệu. %@"
+          }
+        }
+      }
+    },
+    "Cannot delete data. %@" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Không thể xóa dữ liệu. %@"
+          }
+        }
+      }
+    },
+    "Cannot fetch data. %@" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Không thể tải dữ liệu. %@"
+          }
+        }
+      }
+    },
+    "Cannot found data." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Không tìm thấy dữ liệu."
+          }
+        }
+      }
+    },
+    "Cannot process duplicated data." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dữ liệu bị trùng lặp."
+          }
+        }
+      }
+    },
+    "Cannot update data. %@" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Không thể cập nhật dữ liệu. %@"
+          }
+        }
+      }
+    },
     "Categories" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -459,6 +525,17 @@
         }
       }
     },
+    "This data is required by other records." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dữ liệu này đang được sử dụng ở trang khác."
+          }
+        }
+      }
+    },
     "Total" : {
       "localizations" : {
         "vi" : {
@@ -515,6 +592,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Giao dịch"
+          }
+        }
+      }
+    },
+    "Unknown error. %@" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lỗi không xác định. %@"
           }
         }
       }
