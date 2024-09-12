@@ -17,7 +17,9 @@ class TransactionDetailViewModel: ObservableObject, AlertProvidable {
     struct Dependencies {
         let actions: TransactionDetailViewModelActions
         let fetchCategoriesUseCaseFactory: FetchCategoriesUseCaseFactory
-        let transactionsUseCaseFactory: TransactionsUseCaseFactory
+        let addTransactionsUseCaseFactory: AddTransactionsUseCaseFactory
+        let updateTransactionsUseCaseFactory: UpdateTransactionsUseCaseFactory
+        let deleteTransactionsUseCaseFactory: DeleteTransactionsUseCaseFactory
     }
 
     @Published var transaction: TransactionDetailModel
@@ -172,7 +174,7 @@ class TransactionDetailViewModel: ObservableObject, AlertProvidable {
                 self.showAlert(with: result, successMessage: "Transaction created")
             }
         }
-        let addUseCase = dependencies.transactionsUseCaseFactory.addUseCase(requestValue, completion)
+        let addUseCase = dependencies.addTransactionsUseCaseFactory(requestValue, completion)
         addUseCase.execute()
     }
 
@@ -198,7 +200,7 @@ class TransactionDetailViewModel: ObservableObject, AlertProvidable {
                 self.showAlert(with: result, successMessage: "Transaction updated")
             }
         }
-        let updateUseCase = dependencies.transactionsUseCaseFactory.updateUseCase(requestValue, completion)
+        let updateUseCase = dependencies.updateTransactionsUseCaseFactory(requestValue, completion)
         updateUseCase.execute()
     }
 
@@ -224,9 +226,7 @@ class TransactionDetailViewModel: ObservableObject, AlertProvidable {
                 self.showAlert(with: result, successMessage: "Transaction deleted")
             }
         }
-        let updateUseCase = dependencies
-            .transactionsUseCaseFactory
-            .deleteUseCase(requestValue, completion)
+        let updateUseCase = dependencies.deleteTransactionsUseCaseFactory(requestValue, completion)
         updateUseCase.execute()
     }
 }

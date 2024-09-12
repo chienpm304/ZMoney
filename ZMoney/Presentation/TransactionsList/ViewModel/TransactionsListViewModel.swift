@@ -17,7 +17,7 @@ struct TransactionsListViewModelActions {
 
 final class TransactionsListViewModel: ObservableObject, AlertProvidable {
     struct Dependencies {
-        let useCaseFactory: TransactionsUseCaseFactory
+        let fetchTransactionByTimeUseCaseFactory: FetchTransactionsByTimeUseCaseFactory
         let actions: TransactionsListViewModelActions
     }
 
@@ -127,7 +127,7 @@ extension TransactionsListViewModel {
                 }
             }
         }
-        let fetchUseCase = dependencies.useCaseFactory.fetchByTimeUseCase(request, completion)
+        let fetchUseCase = dependencies.fetchTransactionByTimeUseCaseFactory(request, completion)
         fetchUseCase.execute()
         self.fetchUseCase = fetchUseCase
     }
@@ -143,44 +143,21 @@ extension TransactionsListViewModel {
             storage: TransactionCoreDataStorage(coreData: .testInstance)
         )
 
-        let factory = TransactionsUseCaseFactory { fetchRequest, fetchCompletion in
-            FetchTransactionByIDUseCase(
-                requestValue: fetchRequest,
-                transactionRepository: repository,
-                completion: fetchCompletion
-            )
-        } fetchByTimeUseCase: { fetchRequest, fetchCompletion in
-            FetchTransactionsByTimeUseCase(
-                requestValue: fetchRequest,
-                transactionRepository: repository,
-                completion: fetchCompletion
-            )
-        } addUseCase: { addRequest, addCompletion in
-            AddTransactionsUseCase(
-                requestValue: addRequest,
-                transactionRepository: repository,
-                completion: addCompletion
-            )
-        } updateUseCase: { updateRequest, updateCompletion in
-            UpdateTransactionsUseCase(
-                requestValue: updateRequest,
-                transactionRepository: repository,
-                completion: updateCompletion
-            )
-        } deleteUseCase: { deleteRequest, deleteCompletion in
-            DeleteTransactionsByIDsUseCase(
-                requestValue: deleteRequest,
-                transactionRepository: repository,
-                completion: deleteCompletion
-            )
-        }
-
         let actions = TransactionsListViewModelActions { date in
             print("[Preview] Create new transaction at: \(date)")
         } editTransaction: { transaction in
             print("[Preview] Edit transaction: \(transaction.amount)")
         }
-        let dependencies = Dependencies(useCaseFactory: factory, actions: actions)
+        let dependencies = Dependencies(
+            fetchTransactionByTimeUseCaseFactory: { fetchRequest, fetchCompletion in
+                FetchTransactionsByTimeUseCase(
+                    requestValue: fetchRequest,
+                    transactionRepository: repository,
+                    completion: fetchCompletion
+                )
+            },
+            actions: actions
+        )
         return TransactionsListViewModel(dependencies: dependencies)
     }
 }

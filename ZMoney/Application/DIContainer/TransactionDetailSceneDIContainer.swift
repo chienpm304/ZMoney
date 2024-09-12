@@ -77,8 +77,10 @@ final class TransactionDetailSceneDIContainer: TransactionDetailFlowCoordinatorD
     ) -> TransactionDetailViewModel {
         let dependencies = TransactionDetailViewModel.Dependencies(
             actions: actions,
-            fetchCategoriesUseCaseFactory: makeFetchCategoriesUseCase(completion:),
-            transactionsUseCaseFactory: makeTransactionsUseCaseFactory()
+            fetchCategoriesUseCaseFactory: makeFetchCategoriesUseCase,
+            addTransactionsUseCaseFactory: makeAddTransactionsUseCase,
+            updateTransactionsUseCaseFactory: makeUpdateTransactionsUseCase,
+            deleteTransactionsUseCaseFactory: makeDeleteTransactionsUseCase
         )
         if let transaction {
             return TransactionDetailViewModel(
@@ -102,17 +104,7 @@ final class TransactionDetailSceneDIContainer: TransactionDetailFlowCoordinatorD
         return FetchCategoriesUseCase(categoryRepository: categoryRepository, completion: completion)
     }
 
-    private func makeTransactionsUseCaseFactory() -> TransactionsUseCaseFactory {
-        return TransactionsUseCaseFactory(
-            fetchByIDUseCase: fetchTransactionByIDUserCaseFactory,
-            fetchByTimeUseCase: fetchTransactionsByTimeUserCaseFactory(requestValue:completion:),
-            addUseCase: addTransactionsUserCaseFactory(requestValue:completion:),
-            updateUseCase: updateTransactionsUserCaseFactory(requestValue:completion:),
-            deleteUseCase: deleteTransactionsUserCaseFactory(requestValue:completion:)
-        )
-    }
-
-    private func fetchTransactionByIDUserCaseFactory(
+    private func fetchTransactionByIDUseCaseFactory(
         requestValue: FetchTransactionByIDUseCase.RequestValue,
         completion: @escaping (FetchTransactionByIDUseCase.ResultValue) -> Void
     ) -> FetchTransactionByIDUseCase {
@@ -123,18 +115,7 @@ final class TransactionDetailSceneDIContainer: TransactionDetailFlowCoordinatorD
         )
     }
 
-    private func fetchTransactionsByTimeUserCaseFactory(
-        requestValue: FetchTransactionsByTimeUseCase.RequestValue,
-        completion: @escaping (FetchTransactionsByTimeUseCase.ResultValue) -> Void
-    ) -> FetchTransactionsByTimeUseCase {
-        FetchTransactionsByTimeUseCase(
-            requestValue: requestValue,
-            transactionRepository: makeTransactionRepository(),
-            completion: completion
-        )
-    }
-
-    private func addTransactionsUserCaseFactory(
+    private func makeAddTransactionsUseCase(
         requestValue: AddTransactionsUseCase.RequestValue,
         completion: @escaping (AddTransactionsUseCase.ResultValue) -> Void
     ) -> AddTransactionsUseCase {
@@ -145,7 +126,7 @@ final class TransactionDetailSceneDIContainer: TransactionDetailFlowCoordinatorD
         )
     }
 
-    private func updateTransactionsUserCaseFactory(
+    private func makeUpdateTransactionsUseCase(
         requestValue: UpdateTransactionsUseCase.RequestValue,
         completion: @escaping (UpdateTransactionsUseCase.ResultValue) -> Void
     ) -> UpdateTransactionsUseCase {
@@ -156,7 +137,7 @@ final class TransactionDetailSceneDIContainer: TransactionDetailFlowCoordinatorD
         )
     }
 
-    private func deleteTransactionsUserCaseFactory(
+    private func makeDeleteTransactionsUseCase(
         requestValue: DeleteTransactionsByIDsUseCase.RequestValue,
         completion: @escaping (DeleteTransactionsByIDsUseCase.ResultValue) -> Void
     ) -> DeleteTransactionsByIDsUseCase {
