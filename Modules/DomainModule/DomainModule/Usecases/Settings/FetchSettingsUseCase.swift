@@ -17,7 +17,7 @@ public final class FetchSettingsUseCase: AsyncUseCase {
         self.repository = repository
     }
 
-    public func execute(input: Void) async -> DMSettings {
+    public func execute(input: Input) async -> Output {
         await repository.fetchSettings()
     }
 }

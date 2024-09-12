@@ -65,5 +65,14 @@ struct TransactionsListView: View {
             }
         }
         .listStyle(PlainListStyle())
+        .overlay(alignment: .center) {
+            if (dataModel.sortedDates.isEmpty) {
+                Text("There's nothing here yet.\nCreate a transaction to get started! 😊")
+                    .multilineTextAlignment(.center)
+                    .font(.callout)
+                    .foregroundStyle(.secondary)
+                    .padding()
+            }
+        }
     }
 }

@@ -18,6 +18,10 @@ protocol TransactionsListFlowCoordinatorDependencies {
         request: TransactionDetailFlowCoordinator.Request,
         response: TransactionDetailFlowCoordinator.Response?
     ) -> TransactionDetailFlowCoordinator
+
+    func makeSearchTransactionsFlowCoordinator(
+        from navigationController: UINavigationController
+    ) -> SearchTransactionsFlowCoordinator
 }
 
 final class TransactionsListFlowCoordinator {
@@ -37,7 +41,8 @@ final class TransactionsListFlowCoordinator {
     func start() {
         let actions = TransactionsListViewModelActions(
             createTransaction: createTransactionView,
-            editTransaction: editTransactionView
+            editTransaction: editTransactionView,
+            searchTransactions: searchTransactions
         )
         let transactionsList = dependencies.makeTransactionsListViewController(
             actions: actions
@@ -55,6 +60,13 @@ final class TransactionsListFlowCoordinator {
         createOrEditTransactionView(inputDate: nil, transaction: transaction)
     }
 
+    private func searchTransactions() {
+        guard let navigationController else { return }
+        dependencies
+            .makeSearchTransactionsFlowCoordinator(from: navigationController)
+            .start()
+    }
+
     private func createOrEditTransactionView(inputDate: Date?, transaction: DMTransaction?) {
         guard let navigationController else { return }
         let request = TransactionDetailFlowCoordinator.Request(
@@ -69,11 +81,12 @@ final class TransactionsListFlowCoordinator {
             // do nothing
         }
 
-        let coordinator = dependencies.makeTransactionDetailFlowCoordinator(
-            from: navigationController,
-            request: request,
-            response: response
-        )
-        coordinator.start()
+        dependencies
+            .makeTransactionDetailFlowCoordinator(
+                from: navigationController,
+                request: request,
+                response: response
+            )
+            .start()
     }
 }

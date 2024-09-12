@@ -15,6 +15,7 @@ final class TransactionsListSceneDIContainer {
         let coreDataStack: CoreDataStack
         let appConfiguration: AppConfiguration
         let transactionDetailDIContainer: TransactionDetailSceneDIContainer
+        let searchTransactionsDIContainer: SearchTransactionsDISceneDIContainer
         let categoriesDIContainer: CategoriesSceneDIContainer
     }
 
@@ -57,6 +58,14 @@ extension TransactionsListSceneDIContainer: TransactionsListFlowCoordinatorDepen
                 request: request,
                 response: response
             )
+    }
+
+    func makeSearchTransactionsFlowCoordinator(
+        from navigationController: UINavigationController
+    ) -> SearchTransactionsFlowCoordinator {
+        dependencies
+            .searchTransactionsDIContainer
+            .makeSearchTransactionsFlowCoordinator(navigationController: navigationController)
     }
 
     // MARK: UseCase

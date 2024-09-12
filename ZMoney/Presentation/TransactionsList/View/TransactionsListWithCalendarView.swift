@@ -66,11 +66,20 @@ struct TransactionsListWithCalendarView: View {
             }
             .padding(.top, 8)
         }
+        .resultAlert(alertData: $viewModel.alertData)
+        .navigationTitle("Transactions")
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button {
+                    viewModel.didTapSearchButton()
+                } label: {
+                    Image(systemName: "magnifyingglass")
+                }
+            }
+        }
         .onAppear {
             viewModel.onViewAppear()
         }
-        .resultAlert(alertData: $viewModel.alertData)
-        .navigationTitle("Transactions")
     }
 }
 

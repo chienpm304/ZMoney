@@ -334,6 +334,16 @@
         }
       }
     },
+    "Loading..." : {
+      "localizations" : {
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Đang tải..."
+          }
+        }
+      }
+    },
     "Name" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -388,6 +398,26 @@
         }
       }
     },
+    "Search ..." : {
+      "localizations" : {
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tìm kiếm ..."
+          }
+        }
+      }
+    },
+    "Search Transactions" : {
+      "localizations" : {
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tiềm kiếm giao dịch"
+          }
+        }
+      }
+    },
     "Settings" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -415,6 +445,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Thẻ"
+          }
+        }
+      }
+    },
+    "There's nothing here yet.\nCreate a transaction to get started! 😊" : {
+      "localizations" : {
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chưa có gì ở đây.\nTạo giao dịch để bắt đầu nhé! 😊"
           }
         }
       }

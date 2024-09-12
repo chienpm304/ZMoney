@@ -188,7 +188,7 @@ class TransactionDetailViewModel: ObservableObject, AlertProvidable {
                 switch result {
                 case .success(let transactions):
                     guard let transaction = transactions.first else {
-                        assertionFailure("Unknown error")
+                        self.showErrorAlert(with: DMError.notFound)
                         return
                     }
                     print("Updated transaction success: \(transaction)")

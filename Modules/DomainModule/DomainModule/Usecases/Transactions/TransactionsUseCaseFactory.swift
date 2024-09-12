@@ -31,3 +31,5 @@ public typealias DeleteTransactionsUseCaseFactory = (
     DeleteTransactionsByIDsUseCase.RequestValue,
     @escaping (DeleteTransactionsByIDsUseCase.ResultValue) -> Void
 ) -> UseCase
+
+public typealias SearchTransactionsUseCaseFactory = () -> SearchTransactionsUseCase

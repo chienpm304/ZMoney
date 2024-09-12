@@ -10,7 +10,6 @@ import DataModule
 import DomainModule
 
 final class AppDIContainer {
-
     lazy var appConfiguration: AppConfiguration = {
         let settingsStorage = SettingsUserDefaultStorage(userDefaultCoordinator: userDefaultCoordinator)
         let settingsRepository = DefaultSettingsRepository(settingsStorage: settingsStorage)
@@ -58,6 +57,7 @@ final class AppDIContainer {
             coreDataStack: coreDataStack,
             appConfiguration: appConfiguration,
             transactionDetailDIContainer: transactionDetailSceneDIContainer,
+            searchTransactionsDIContainer: searchTransactionsSceneDIContainer,
             categoriesDIContainer: categoriesSceneDIContainer
         )
         return TransactionsListSceneDIContainer(dependencies: dependencies)
@@ -69,6 +69,15 @@ final class AppDIContainer {
             appConfiguration: appConfiguration
         )
         return CategoriesSceneDIContainer(dependencies: dependencies)
+    }()
+
+    lazy var searchTransactionsSceneDIContainer: SearchTransactionsDISceneDIContainer = {
+        let dependencies = SearchTransactionsDISceneDIContainer.Dependencies(
+            coreDataStack: coreDataStack,
+            appConfiguration: appConfiguration,
+            transactionDetailDIContainer: transactionDetailSceneDIContainer
+        )
+        return SearchTransactionsDISceneDIContainer(dependencies: dependencies)
     }()
 
     lazy var settingsSceneDIContainer: SettingsSceneDIContainer = {

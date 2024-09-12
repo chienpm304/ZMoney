@@ -13,6 +13,7 @@ import SwiftDate
 struct TransactionsListViewModelActions {
     let createTransaction: (Date) -> Void
     let editTransaction: (DMTransaction) -> Void
+    let searchTransactions: () -> Void
 }
 
 final class TransactionsListViewModel: ObservableObject, AlertProvidable {
@@ -111,6 +112,10 @@ extension TransactionsListViewModel {
         refreshTransactions()
     }
 
+    func didTapSearchButton() {
+        dependencies.actions.searchTransactions()
+    }
+
     func refreshTransactions() {
         let request = FetchTransactionsByTimeUseCase.RequestValue(
             startTime: dateRange.startDate.timeValue,
@@ -147,6 +152,8 @@ extension TransactionsListViewModel {
             print("[Preview] Create new transaction at: \(date)")
         } editTransaction: { transaction in
             print("[Preview] Edit transaction: \(transaction.amount)")
+        } searchTransactions: {
+            print("[Preview] Search transactions ...")
         }
         let dependencies = Dependencies(
             fetchTransactionByTimeUseCaseFactory: { fetchRequest, fetchCompletion in
