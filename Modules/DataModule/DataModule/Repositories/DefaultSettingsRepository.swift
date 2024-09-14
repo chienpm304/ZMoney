@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import DomainModule
 
 public class DefaultSettingsRepository: SettingsRepository {
     private enum Keys: String {

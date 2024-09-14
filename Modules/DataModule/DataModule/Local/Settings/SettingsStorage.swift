@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import DomainModule
 
 public protocol SettingsStorage {
     func fetchSettings(forKey key: String) -> DMSettings
