@@ -12,7 +12,14 @@
       }
     },
     "%.1f%%" : {
-
+      "localizations" : {
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%.1f%%"
+          }
+        }
+      }
     },
     "%lld" : {
       "localizations" : {
@@ -413,6 +420,16 @@
         }
       }
     },
+    "N/A" : {
+      "localizations" : {
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "N/A"
+          }
+        }
+      }
+    },
     "Name" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -452,6 +469,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Vui lòng khởi động lại ứng dụng để áp dụng thay đổi ngôn ngữ."
+          }
+        }
+      }
+    },
+    "Report" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Báo cáo"
           }
         }
       }
@@ -580,7 +608,14 @@
       }
     },
     "Transaction Report" : {
-
+      "localizations" : {
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Thống kê giao dịch"
+          }
+        }
+      }
     },
     "Transaction updated" : {
       "localizations" : {

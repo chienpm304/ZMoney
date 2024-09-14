@@ -10,6 +10,7 @@ import SwiftUICharts
 import DomainModule
 
 struct ReportTransactionsView: View {
+    @EnvironmentObject private var appSettings: AppSettings
     @ObservedObject var viewModel: ReportTransactionsViewModel
     @State private var selectedCategoryTab: DMTransactionType = .expense
 
@@ -26,7 +27,6 @@ struct ReportTransactionsView: View {
             }
             .padding(.horizontal, 24)
 
-            // Total Summary
             TransactionsSummaryView(
                 totalIncome: viewModel.reportModel.totalIncome,
                 totalExpense: viewModel.reportModel.totalExpense,
@@ -45,7 +45,25 @@ struct ReportTransactionsView: View {
             .padding(.horizontal, 20)
 
             List {
-                PieChartView(data: [8,23,54,32], title: "Title", legend: "Legendary") // legend is optional
+                Section {
+                    let data = chartData
+                    DoughnutChart(chartData: data)
+                        .touchOverlay(chartData: data, formatter: appSettings.currencyFormatter)
+                        .headerBox(chartData: data)
+                        .frame(
+                            minWidth: 250,
+                            maxWidth: 380,
+                            minHeight: 180,
+                            idealHeight: 180,
+                            maxHeight: 250,
+                            alignment: .center
+                        )
+                        .id(data.id)
+                        .padding(.bottom, 20)
+                }
+                .listRowInsets(EdgeInsets(top: 12, leading: 20, bottom: 12, trailing: 20))
+                .listRowSeparator(.hidden)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
 
                 ForEach(viewModel.reportModel.itemsModel, id: \.id) { item in
                     Button {
@@ -72,8 +90,8 @@ struct ReportTransactionsView: View {
                         .withRightArrow()
                     }
                 }
-                .listStyle(GroupedListStyle())
             }
+            .listStyle(PlainListStyle())
             .navigationTitle("Transaction Report")
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
@@ -90,18 +108,53 @@ struct ReportTransactionsView: View {
             }
         }
     }
-}
 
-    // Placeholder for DonutChartView
-    //struct DonutChartView: View {
-    //    let items: [ReportTransactionItemModel]
-    //
-    //    var body: some View {
-    //        // Example using Charts framework (SwiftUI Charts)
-    //        Chart(items, id: \.category.id) { item in
-    //            PieSlice(startAngle: .degrees(0), endAngle: .degrees(Double(item.amount) / 100.0 * 360))
-    //                .foregroundStyle(by: .value("Category", item.category.name))
-    //        }
-    //        .frame(height: 200)
-    //    }
-    //}
+    private var chartData: DoughnutChartData {
+        let dataPoints: [PieChartDataPoint] = viewModel.reportModel.itemsModel.map {
+            let description =
+            $0.category.name
+            + " - "
+            + String(format: "%.1f%%", $0.percent)
+            let overlapType = OverlayType.label(
+                text: $0.category.name,
+                colour: .primary,
+                font: .caption,
+                rFactor: 1.0
+            )
+            return PieChartDataPoint(
+                value: Double($0.amount),
+                description: description,
+                date: nil,
+                colour: $0.category.color,
+                label: overlapType
+            )
+        }
+
+        let metadata = ChartMetadata(
+            titleFont: .body,
+            titleColour: .primary,
+            subtitleFont: .caption,
+            subtitleColour: .secondary
+        )
+
+        let chartStyle = DoughnutChartStyle(
+            infoBoxPlacement: .header,
+            infoBoxContentAlignment: .vertical,
+            infoBoxValueFont: .callout,
+            infoBoxValueColour: .primary,
+            infoBoxDescriptionFont: .caption,
+            infoBoxDescriptionColour: .primary,
+            infoBoxBackgroundColour: .systemBackground,
+            infoBoxBorderColour: .clear,
+            globalAnimation: Animation.linear(duration: 0.75),
+            strokeWidth: 40
+        )
+
+        return DoughnutChartData(
+            dataSets: .init(dataPoints: dataPoints, legendTitle: ""),
+            metadata: metadata,
+            chartStyle: chartStyle,
+            noDataText: Text("N/A")
+        )
+    }
+}

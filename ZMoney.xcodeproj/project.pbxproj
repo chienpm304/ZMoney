@@ -63,7 +63,7 @@
 		C3D57C5C2C9570310018B660 /* TransactionsSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D57C5B2C9570310018B660 /* TransactionsSummaryView.swift */; };
 		C3D57C5E2C9577950018B660 /* ReportTransactionsSceneDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D57C5D2C9577950018B660 /* ReportTransactionsSceneDIContainer.swift */; };
 		C3D57C622C9583430018B660 /* ReportTransactionItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D57C612C9583430018B660 /* ReportTransactionItemModel.swift */; };
-		C3D57C652C9584D60018B660 /* SwiftUICharts in Frameworks */ = {isa = PBXBuildFile; productRef = C3D57C642C9584D60018B660 /* SwiftUICharts */; };
+		C3D57C692C9589340018B660 /* SwiftUICharts in Frameworks */ = {isa = PBXBuildFile; productRef = C3D57C682C9589340018B660 /* SwiftUICharts */; };
 		C3E79D5B2C7A2DD1002DED34 /* CategoriesFlowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E79D5A2C7A2DD1002DED34 /* CategoriesFlowCoordinator.swift */; };
 		C3E79D612C7A2DDE002DED34 /* RightArrowModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E79D5D2C7A2DDE002DED34 /* RightArrowModifier.swift */; };
 		C3E79D622C7A2DDE002DED34 /* IconResourceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E79D5F2C7A2DDE002DED34 /* IconResourceProvider.swift */; };
@@ -162,7 +162,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C51706D8304E868847A947DA /* Pods_ZMoney.framework in Frameworks */,
-				C3D57C652C9584D60018B660 /* SwiftUICharts in Frameworks */,
+				C3D57C692C9589340018B660 /* SwiftUICharts in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -668,7 +668,7 @@
 			);
 			name = ZMoney;
 			packageProductDependencies = (
-				C3D57C642C9584D60018B660 /* SwiftUICharts */,
+				C3D57C682C9589340018B660 /* SwiftUICharts */,
 			);
 			productName = ZMoney;
 			productReference = C30728D62C73269B00C9674B /* ZMoney.app */;
@@ -700,7 +700,7 @@
 			);
 			mainGroup = C30728CD2C73269B00C9674B;
 			packageReferences = (
-				C3D57C632C9584D60018B660 /* XCRemoteSwiftPackageReference "ChartView" */,
+				C3D57C672C9589340018B660 /* XCRemoteSwiftPackageReference "SwiftUICharts" */,
 			);
 			productRefGroup = C30728D72C73269B00C9674B /* Products */;
 			projectDirPath = "";
@@ -1079,20 +1079,20 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		C3D57C632C9584D60018B660 /* XCRemoteSwiftPackageReference "ChartView" */ = {
+		C3D57C672C9589340018B660 /* XCRemoteSwiftPackageReference "SwiftUICharts" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/AppPear/ChartView";
+			repositoryURL = "https://github.com/willdale/SwiftUICharts";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.5.5;
+				minimumVersion = 2.10.2;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		C3D57C642C9584D60018B660 /* SwiftUICharts */ = {
+		C3D57C682C9589340018B660 /* SwiftUICharts */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = C3D57C632C9584D60018B660 /* XCRemoteSwiftPackageReference "ChartView" */;
+			package = C3D57C672C9589340018B660 /* XCRemoteSwiftPackageReference "SwiftUICharts" */;
 			productName = SwiftUICharts;
 		};
 /* End XCSwiftPackageProductDependency section */
