@@ -63,6 +63,15 @@ final class AppDIContainer {
         return TransactionsListSceneDIContainer(dependencies: dependencies)
     }()
 
+    lazy var reportTransactionsSceneDIContainer: ReportTransactionsSceneDIContainer = {
+        let dependencies = ReportTransactionsSceneDIContainer.Dependencies(
+            coreDataStack: coreDataStack,
+            appConfiguration: appConfiguration,
+            searchTransactionsDIContainer: searchTransactionsSceneDIContainer
+        )
+        return ReportTransactionsSceneDIContainer(dependencies: dependencies)
+    }()
+
     lazy var categoriesSceneDIContainer: CategoriesSceneDIContainer = {
         let dependencies = CategoriesSceneDIContainer.Dependencies(
             coreDataStack: coreDataStack,

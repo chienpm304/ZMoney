@@ -78,4 +78,3 @@ struct TransactionsListWithCalendarView: View {
         TransactionsListWithCalendarView(viewModel: .makePreviewViewModel())
     }
 }
-

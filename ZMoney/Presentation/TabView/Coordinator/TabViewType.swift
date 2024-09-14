@@ -10,6 +10,7 @@ import Foundation
 enum TabViewType: CaseIterable {
     case createTransaction
     case transactions
+    case report
     case categories
     case settings
 
@@ -22,8 +23,10 @@ enum TabViewType: CaseIterable {
         case 1:
             self = .transactions
         case 2:
-            self = .categories
+            self = .report
         case 3:
+            self = .categories
+        case 4:
             self = .settings
         default:
             return nil
@@ -36,6 +39,8 @@ enum TabViewType: CaseIterable {
             return "Input"
         case .transactions:
             return "Calendar"
+        case .report:
+            return "Report"
         case .categories:
             return "Categories"
         case .settings:
@@ -53,10 +58,12 @@ enum TabViewType: CaseIterable {
             return 0
         case .transactions:
             return 1
-        case .categories:
+        case .report:
             return 2
-        case .settings:
+        case .categories:
             return 3
+        case .settings:
+            return 4
         }
     }
 
@@ -66,6 +73,8 @@ enum TabViewType: CaseIterable {
             return "square.and.pencil"
         case .transactions:
             return "calendar"
+        case .report:
+            return "chart.bar"
         case .categories:
             return "list.bullet"
         case .settings:

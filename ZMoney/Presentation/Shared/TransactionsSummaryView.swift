@@ -33,5 +33,6 @@ struct TransactionsSummaryView: View {
                 )
             }
         }
+        .font(.caption.weight(.medium))
     }
 }

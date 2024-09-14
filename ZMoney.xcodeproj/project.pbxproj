@@ -56,7 +56,12 @@
 		C3C47B212C84BEE300B134C4 /* TabViewSceneDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C47B202C84BEE300B134C4 /* TabViewSceneDIContainer.swift */; };
 		C3D08DA62C91F5F60011349C /* TransactionsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D08DA52C91F5F60011349C /* TransactionsListView.swift */; };
 		C3D08DA82C91F6470011349C /* TransactionsListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D08DA72C91F6470011349C /* TransactionsListItemView.swift */; };
+		C3D57C542C9560740018B660 /* ReportTransactionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D57C532C9560740018B660 /* ReportTransactionsViewModel.swift */; };
+		C3D57C562C9560840018B660 /* ReportTransactionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D57C552C9560840018B660 /* ReportTransactionsView.swift */; };
+		C3D57C582C95608F0018B660 /* ReportTransactionsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D57C572C95608F0018B660 /* ReportTransactionsModel.swift */; };
+		C3D57C5A2C95609C0018B660 /* ReportTransactionsFlowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D57C592C95609C0018B660 /* ReportTransactionsFlowCoordinator.swift */; };
 		C3D57C5C2C9570310018B660 /* TransactionsSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D57C5B2C9570310018B660 /* TransactionsSummaryView.swift */; };
+		C3D57C5E2C9577950018B660 /* ReportTransactionsSceneDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D57C5D2C9577950018B660 /* ReportTransactionsSceneDIContainer.swift */; };
 		C3E79D5B2C7A2DD1002DED34 /* CategoriesFlowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E79D5A2C7A2DD1002DED34 /* CategoriesFlowCoordinator.swift */; };
 		C3E79D612C7A2DDE002DED34 /* RightArrowModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E79D5D2C7A2DDE002DED34 /* RightArrowModifier.swift */; };
 		C3E79D622C7A2DDE002DED34 /* IconResourceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E79D5F2C7A2DDE002DED34 /* IconResourceProvider.swift */; };
@@ -127,7 +132,12 @@
 		C3C47B202C84BEE300B134C4 /* TabViewSceneDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewSceneDIContainer.swift; sourceTree = "<group>"; };
 		C3D08DA52C91F5F60011349C /* TransactionsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsListView.swift; sourceTree = "<group>"; };
 		C3D08DA72C91F6470011349C /* TransactionsListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsListItemView.swift; sourceTree = "<group>"; };
+		C3D57C532C9560740018B660 /* ReportTransactionsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportTransactionsViewModel.swift; sourceTree = "<group>"; };
+		C3D57C552C9560840018B660 /* ReportTransactionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportTransactionsView.swift; sourceTree = "<group>"; };
+		C3D57C572C95608F0018B660 /* ReportTransactionsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportTransactionsModel.swift; sourceTree = "<group>"; };
+		C3D57C592C95609C0018B660 /* ReportTransactionsFlowCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportTransactionsFlowCoordinator.swift; sourceTree = "<group>"; };
 		C3D57C5B2C9570310018B660 /* TransactionsSummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsSummaryView.swift; sourceTree = "<group>"; };
+		C3D57C5D2C9577950018B660 /* ReportTransactionsSceneDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportTransactionsSceneDIContainer.swift; sourceTree = "<group>"; };
 		C3E79D5A2C7A2DD1002DED34 /* CategoriesFlowCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoriesFlowCoordinator.swift; sourceTree = "<group>"; };
 		C3E79D5D2C7A2DDE002DED34 /* RightArrowModifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RightArrowModifier.swift; sourceTree = "<group>"; };
 		C3E79D5F2C7A2DDE002DED34 /* IconResourceProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconResourceProvider.swift; sourceTree = "<group>"; };
@@ -231,6 +241,7 @@
 				C3636F322C89A7AE003EC13E /* TransactionDetailSceneDIContainer.swift */,
 				C3895E402C933204006EFEBA /* SearchTransactionsDISceneDIContainer.swift */,
 				C307292B2C7392B000C9674B /* CategoriesSceneDIContainer.swift */,
+				C3D57C5D2C9577950018B660 /* ReportTransactionsSceneDIContainer.swift */,
 				C316268F2C806ED900E55BFB /* TransactionsListSceneDIContainer.swift */,
 				C3142B262C85972E00788D0A /* SettingsSceneDIContainer.swift */,
 				C3C47B202C84BEE300B134C4 /* TabViewSceneDIContainer.swift */,
@@ -496,6 +507,7 @@
 		C391528D2C74AECD008AE1E4 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				C3D57C4E2C9560420018B660 /* ReportTransactions */,
 				C33FB9382C92A23E00AFA240 /* SearchTransactions */,
 				C3142B1F2C85904B00788D0A /* AppSettings */,
 				C3C47B1A2C84B55000B134C4 /* TabView */,
@@ -531,6 +543,49 @@
 			children = (
 				C3C47B1C2C84B57E00B134C4 /* TabViewFlowCoordinator.swift */,
 				C3C47B1E2C84B72600B134C4 /* TabViewType.swift */,
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		C3D57C4E2C9560420018B660 /* ReportTransactions */ = {
+			isa = PBXGroup;
+			children = (
+				C3D57C522C9560660018B660 /* Coordinator */,
+				C3D57C512C95605C0018B660 /* Model */,
+				C3D57C502C9560560018B660 /* ViewModel */,
+				C3D57C4F2C9560510018B660 /* View */,
+			);
+			path = ReportTransactions;
+			sourceTree = "<group>";
+		};
+		C3D57C4F2C9560510018B660 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C3D57C552C9560840018B660 /* ReportTransactionsView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		C3D57C502C9560560018B660 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				C3D57C532C9560740018B660 /* ReportTransactionsViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		C3D57C512C95605C0018B660 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				C3D57C572C95608F0018B660 /* ReportTransactionsModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		C3D57C522C9560660018B660 /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				C3D57C592C95609C0018B660 /* ReportTransactionsFlowCoordinator.swift */,
 			);
 			path = Coordinator;
 			sourceTree = "<group>";
@@ -735,6 +790,7 @@
 				C3F693C52C8C486B00BA9D54 /* DMError+Localized.swift in Sources */,
 				C3EB8A642C82201D001FEA1D /* AppAppearance.swift in Sources */,
 				C3F693B82C8C2F5E00BA9D54 /* HeaderDateView.swift in Sources */,
+				C3D57C542C9560740018B660 /* ReportTransactionsViewModel.swift in Sources */,
 				C31626942C808F1200E55BFB /* TransactionsListWithCalendarView.swift in Sources */,
 				C3C47B1F2C84B72600B134C4 /* TabViewType.swift in Sources */,
 				C30729282C73918700C9674B /* AppConfiguration.swift in Sources */,
@@ -748,7 +804,10 @@
 				C31626902C806ED900E55BFB /* TransactionsListSceneDIContainer.swift in Sources */,
 				C379AFCB2C82F0A300C181B2 /* MoneyColorModifer.swift in Sources */,
 				C316268E2C806C5600E55BFB /* TransactionsListViewModel.swift in Sources */,
+				C3D57C5E2C9577950018B660 /* ReportTransactionsSceneDIContainer.swift in Sources */,
 				C35AE4872C74ED1E00400DD7 /* CategoriesListView.swift in Sources */,
+				C3D57C5A2C95609C0018B660 /* ReportTransactionsFlowCoordinator.swift in Sources */,
+				C3D57C582C95608F0018B660 /* ReportTransactionsModel.swift in Sources */,
 				C3E79D622C7A2DDE002DED34 /* IconResourceProvider.swift in Sources */,
 				C3142B302C86FB9B00788D0A /* TransactionDetailViewModel.swift in Sources */,
 				C36F6AC82C7E1A7E006E1A86 /* ZCalendarView.swift in Sources */,
@@ -762,6 +821,7 @@
 				C3C47B1D2C84B57E00B134C4 /* TabViewFlowCoordinator.swift in Sources */,
 				C3D57C5C2C9570310018B660 /* TransactionsSummaryView.swift in Sources */,
 				C3F693C02C8C302900BA9D54 /* AlertData.swift in Sources */,
+				C3D57C562C9560840018B660 /* ReportTransactionsView.swift in Sources */,
 				C316269A2C80C7CC00E55BFB /* TransactionDetailView.swift in Sources */,
 				C30728DC2C73269B00C9674B /* SceneDelegate.swift in Sources */,
 				C31626A12C80D20000E55BFB /* DateRange.swift in Sources */,

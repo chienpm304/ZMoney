@@ -27,7 +27,6 @@ struct TransactionsListView: View {
                 )
                 .listRowInsets(EdgeInsets(top: 0, leading: 12, bottom: 0, trailing: 12))
                 .listRowSeparator(.hidden)
-                .font(.caption.weight(.medium))
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .id(dataModel.topScrollDate)
             }

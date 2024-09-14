@@ -57,6 +57,17 @@ extension TabViewSceneDIContainer: TabViewFlowCoordinatorDependencies {
             )
     }
 
+    func makeReportTransactionsFlowCoordinator(
+        navigationController: UINavigationController
+    ) -> ReportTransactionsFlowCoordinator {
+        dependencies
+            .appDIContainer
+            .reportTransactionsSceneDIContainer
+            .makeReportTransactionsFlowCoordinator(
+                navigationController: navigationController
+            )
+    }
+
     func makeCategoriesFlowCoordinator(
         navigationController: UINavigationController
     ) -> CategoriesFlowCoordinator {

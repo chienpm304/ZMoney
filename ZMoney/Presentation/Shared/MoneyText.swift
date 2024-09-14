@@ -34,7 +34,6 @@ struct MoneyText: View {
         formatter.positiveSuffix = hideCurrencySymbol ? "" : " \(appSettings.currencySymbol)"
         return formatter.string(from: NSNumber(value: value)) ?? "\(value)"
     }
-
 }
 
 #Preview {

@@ -5,7 +5,7 @@
 //  Created by Chien Pham on 19/08/2024.
 //
 
-public struct DMTransaction {
+public struct DMTransaction: Hashable {
     public let id: ID
     public let inputTime: TimeValue
     public let amount: MoneyValue

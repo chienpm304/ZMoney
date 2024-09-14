@@ -11,6 +11,9 @@
         }
       }
     },
+    "%.1f%%" : {
+
+    },
     "%lld" : {
       "localizations" : {
         "vi" : {
@@ -575,6 +578,9 @@
           }
         }
       }
+    },
+    "Transaction Report" : {
+
     },
     "Transaction updated" : {
       "localizations" : {
