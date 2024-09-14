@@ -8,14 +8,6 @@
 import Foundation
 import DomainModule
 
-struct ReportTransactionItemModel: Identifiable {
-    let category: CategoryDetailModel
-    let amount: MoneyValue
-    let percent: Double
-
-    var id: UUID { category.id }
-}
-
 struct ReportTransactionsModel {
     private let transactions: [DMTransaction]
 

@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import Charts
+import SwiftUICharts
 import DomainModule
 
 struct ReportTransactionsView: View {
@@ -45,12 +45,7 @@ struct ReportTransactionsView: View {
             .padding(.horizontal, 20)
 
             List {
-            // Donut Chart
-            //            DonutChartView(items: viewModel.reportModel.itemsModel)
-
-                Chart {
-                    
-                }
+                PieChartView(data: [8,23,54,32], title: "Title", legend: "Legendary") // legend is optional
 
                 ForEach(viewModel.reportModel.itemsModel, id: \.id) { item in
                     Button {
