@@ -56,6 +56,7 @@
 		C3C47B212C84BEE300B134C4 /* TabViewSceneDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C47B202C84BEE300B134C4 /* TabViewSceneDIContainer.swift */; };
 		C3D08DA62C91F5F60011349C /* TransactionsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D08DA52C91F5F60011349C /* TransactionsListView.swift */; };
 		C3D08DA82C91F6470011349C /* TransactionsListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D08DA72C91F6470011349C /* TransactionsListItemView.swift */; };
+		C3D57C5C2C9570310018B660 /* TransactionsSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D57C5B2C9570310018B660 /* TransactionsSummaryView.swift */; };
 		C3E79D5B2C7A2DD1002DED34 /* CategoriesFlowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E79D5A2C7A2DD1002DED34 /* CategoriesFlowCoordinator.swift */; };
 		C3E79D612C7A2DDE002DED34 /* RightArrowModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E79D5D2C7A2DDE002DED34 /* RightArrowModifier.swift */; };
 		C3E79D622C7A2DDE002DED34 /* IconResourceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E79D5F2C7A2DDE002DED34 /* IconResourceProvider.swift */; };
@@ -126,6 +127,7 @@
 		C3C47B202C84BEE300B134C4 /* TabViewSceneDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewSceneDIContainer.swift; sourceTree = "<group>"; };
 		C3D08DA52C91F5F60011349C /* TransactionsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsListView.swift; sourceTree = "<group>"; };
 		C3D08DA72C91F6470011349C /* TransactionsListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsListItemView.swift; sourceTree = "<group>"; };
+		C3D57C5B2C9570310018B660 /* TransactionsSummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsSummaryView.swift; sourceTree = "<group>"; };
 		C3E79D5A2C7A2DD1002DED34 /* CategoriesFlowCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoriesFlowCoordinator.swift; sourceTree = "<group>"; };
 		C3E79D5D2C7A2DDE002DED34 /* RightArrowModifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RightArrowModifier.swift; sourceTree = "<group>"; };
 		C3E79D5F2C7A2DDE002DED34 /* IconResourceProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconResourceProvider.swift; sourceTree = "<group>"; };
@@ -543,6 +545,7 @@
 				C3142B1D2C85727200788D0A /* MoneyText.swift */,
 				C3142B312C871E9E00788D0A /* CurrencyTextField.swift */,
 				C3532FF92C89F2A4008CAFC5 /* NavigationType.swift */,
+				C3D57C5B2C9570310018B660 /* TransactionsSummaryView.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -757,6 +760,7 @@
 				C3F693BF2C8C302900BA9D54 /* AlertProvidable.swift in Sources */,
 				C3E79D612C7A2DDE002DED34 /* RightArrowModifier.swift in Sources */,
 				C3C47B1D2C84B57E00B134C4 /* TabViewFlowCoordinator.swift in Sources */,
+				C3D57C5C2C9570310018B660 /* TransactionsSummaryView.swift in Sources */,
 				C3F693C02C8C302900BA9D54 /* AlertData.swift in Sources */,
 				C316269A2C80C7CC00E55BFB /* TransactionDetailView.swift in Sources */,
 				C30728DC2C73269B00C9674B /* SceneDelegate.swift in Sources */,

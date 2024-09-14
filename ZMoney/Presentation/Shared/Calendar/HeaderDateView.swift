@@ -37,3 +37,32 @@ struct HeaderDateView: View {
         return "(\(startDayString) - \(endDayString))"
     }
 }
+
+struct DateRangePicker: View {
+    var dateRange: DateRange
+    var didTapPreviousDateRange: () -> Void
+    var didTapNextDateRange: () -> Void
+
+    var body: some View {
+        HStack {
+            Button {
+                didTapPreviousDateRange()
+            } label: {
+                Image(systemName: "chevron.left")
+            }
+            
+            Spacer()
+
+            HeaderDateView(dateRange: dateRange)
+            
+            Spacer()
+
+            Button {
+                didTapNextDateRange()
+            } label: {
+                Image(systemName: "chevron.right")
+            }
+        }
+//        .padding(.horizontal, 24)
+    }
+}

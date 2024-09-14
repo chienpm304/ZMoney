@@ -20,25 +20,11 @@ struct TransactionsListView: View {
     var body: some View {
         List {
             Section {
-                HStack {
-                    VStack {
-                        Text("Income")
-                        MoneyText(value: dataModel.totalIncome, type: .income)
-                    }
-                    Spacer()
-                    VStack {
-                        Text("Expense")
-                        MoneyText(value: dataModel.totalExpense, type: .expense)
-                    }
-                    Spacer()
-                    VStack {
-                        Text("Total")
-                        MoneyText(
-                            value: dataModel.total,
-                            type: dataModel.total > 0 ? .income : .expense
-                        )
-                    }
-                }
+                TransactionsSummaryView(
+                    totalIncome: dataModel.totalIncome,
+                    totalExpense: dataModel.totalExpense,
+                    total: dataModel.total
+                )
                 .listRowInsets(EdgeInsets(top: 0, leading: 12, bottom: 0, trailing: 12))
                 .listRowSeparator(.hidden)
                 .font(.caption.weight(.medium))

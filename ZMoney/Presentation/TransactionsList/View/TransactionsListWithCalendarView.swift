@@ -22,20 +22,10 @@ struct TransactionsListWithCalendarView: View {
 
     var body: some View {
         VStack {
-            HStack {
-                Button {
-                    viewModel.didTapPreviousDateRange()
-                } label: {
-                    Image(systemName: "chevron.left")
-                }
-                Spacer()
-                HeaderDateView(dateRange: viewModel.dateRange)
-                Spacer()
-                Button {
-                    viewModel.didTapNextDateRange()
-                } label: {
-                    Image(systemName: "chevron.right")
-                }
+            DateRangePicker(dateRange: viewModel.dateRange) {
+                viewModel.didTapPreviousDateRange()
+            } didTapNextDateRange: {
+                viewModel.didTapNextDateRange()
             }
             .padding(.horizontal, 24)
 
@@ -88,3 +78,4 @@ struct TransactionsListWithCalendarView: View {
         TransactionsListWithCalendarView(viewModel: .makePreviewViewModel())
     }
 }
+
