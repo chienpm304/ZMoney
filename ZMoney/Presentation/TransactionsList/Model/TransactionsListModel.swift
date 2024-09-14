@@ -12,9 +12,7 @@ struct TransactionsListModel {
     private let dateToItems: [Date: [TransactionsListItemModel]]
     private let transactions: [DMTransaction]
 
-    init(
-        transactions: [DMTransaction]
-    ) {
+    init(transactions: [DMTransaction]) {
         self.transactions = transactions
         let items = transactions.map(TransactionsListItemModel.init)
         self.dateToItems = Dictionary(grouping: items, by: { $0.inputDate.dateAtStartOf(.day).date })

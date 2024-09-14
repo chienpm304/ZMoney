@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 public final class SearchTransactionsUseCase: AsyncUseCase {
     public struct SearchParams {
         let keyword: String
