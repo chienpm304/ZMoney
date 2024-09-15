@@ -11,7 +11,6 @@ enum TabViewType: CaseIterable {
     case createTransaction
     case transactions
     case report
-    case categories
     case settings
 
     static var primaryTab: TabViewType { .createTransaction }
@@ -25,8 +24,6 @@ enum TabViewType: CaseIterable {
         case 2:
             self = .report
         case 3:
-            self = .categories
-        case 4:
             self = .settings
         default:
             return nil
@@ -41,8 +38,6 @@ enum TabViewType: CaseIterable {
             return "Calendar"
         case .report:
             return "Report"
-        case .categories:
-            return "Categories"
         case .settings:
             return "Settings"
         }
@@ -60,10 +55,8 @@ enum TabViewType: CaseIterable {
             return 1
         case .report:
             return 2
-        case .categories:
-            return 3
         case .settings:
-            return 4
+            return 3
         }
     }
 
@@ -74,9 +67,7 @@ enum TabViewType: CaseIterable {
         case .transactions:
             return "calendar"
         case .report:
-            return "chart.bar"
-        case .categories:
-            return "list.bullet"
+            return "chart.pie.fill"
         case .settings:
             return "gear"
         }

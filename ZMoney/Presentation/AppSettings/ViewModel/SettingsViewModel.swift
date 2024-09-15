@@ -12,10 +12,15 @@ import DataModule
 
 typealias AppSettings = SettingsViewModel
 
+struct SettingsViewModelActions {
+    let didTapCategoies: () -> Void
+}
+
 final class SettingsViewModel: ObservableObject, AlertProvidable {
     struct Dependencies {
         let fetchSettingUseCaseFactory: FetchSettingsUseCaseFactory
         let updateSettingUseCaseFactory: UpdateSettingsUseCaseFactory
+        var actions: SettingsViewModelActions
     }
 
     private let previousSettings: DMSettings = .defaultValue
@@ -24,7 +29,7 @@ final class SettingsViewModel: ObservableObject, AlertProvidable {
 
     @Published var alertData: AlertData?
 
-    private let dependencies: Dependencies
+    private var dependencies: Dependencies
 
     init(dependencies: Dependencies) {
         self.dependencies = dependencies
@@ -91,12 +96,20 @@ final class SettingsViewModel: ObservableObject, AlertProvidable {
         }
     }
 
+    @MainActor func didTapCategories() async {
+        dependencies.actions.didTapCategoies()
+    }
+
     private func setAppLanguage(languageCode: String, needShowAlert: Bool = true) {
         UserDefaults.standard.set([languageCode], forKey: "AppleLanguages")
         UserDefaults.standard.synchronize()
         if needShowAlert {
             showSuccessAlert(with: "Please restart the app to apply the language change.")
         }
+    }
+
+    func updateActions(_ actions: SettingsViewModelActions) {
+        dependencies.actions = actions
     }
 }
 
@@ -114,7 +127,9 @@ extension AppSettings {
                 FetchSettingsUseCase(repository: repository)
             }, updateSettingUseCaseFactory: {
                 UpdateSettingsUseCase(repository: repository)
-            }
+            }, actions: SettingsViewModelActions(didTapCategoies: {
+                print("did tap categories")
+            })
         )
         return AppSettings(dependencies: dependencies)
     }

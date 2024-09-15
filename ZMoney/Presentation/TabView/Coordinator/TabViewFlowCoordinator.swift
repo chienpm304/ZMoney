@@ -27,10 +27,6 @@ protocol TabViewFlowCoordinatorDependencies {
         navigationController: UINavigationController
     ) -> ReportTransactionsFlowCoordinator
 
-    func makeCategoriesFlowCoordinator(
-        navigationController: UINavigationController
-    ) -> CategoriesFlowCoordinator
-
     func makeSettingsFlowCoordinator(
         navigationController: UINavigationController
     ) -> SettingsFlowCoordinator
@@ -82,11 +78,6 @@ final class TabViewFlowCoordinator: NSObject {
                 navigationController: navController
             )
             reportTransactionsFlowCoordinator.start()
-        case .categories:
-            let categoriesFlowCoordinator = dependencies.makeCategoriesFlowCoordinator(
-                navigationController: navController
-            )
-            categoriesFlowCoordinator.start()
         case .settings:
             let settingsFlowCoordinator = dependencies.makeSettingsFlowCoordinator(
                 navigationController: navController

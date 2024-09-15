@@ -11,23 +11,14 @@ import DomainModule
 
 final class AppDIContainer {
     lazy var appConfiguration: AppConfiguration = {
-        let settingsStorage = SettingsUserDefaultStorage(userDefaultCoordinator: userDefaultCoordinator)
-        let settingsRepository = DefaultSettingsRepository(settingsStorage: settingsStorage)
         let dependencies = SettingsViewModel.Dependencies(
             fetchSettingUseCaseFactory: makeFetchSettingsUseCase,
-            updateSettingUseCaseFactory: makeUpdateSettingsUseCase
+            updateSettingUseCaseFactory: makeUpdateSettingsUseCase,
+            actions: .init(didTapCategoies: { })
         )
 
         let appSettings = AppSettings(dependencies: dependencies)
         return AppConfiguration(settings: appSettings)
-
-        func makeFetchSettingsUseCase() -> FetchSettingsUseCase {
-            FetchSettingsUseCase(repository: settingsRepository)
-        }
-
-        func makeUpdateSettingsUseCase() -> UpdateSettingsUseCase {
-            UpdateSettingsUseCase(repository: settingsRepository)
-        }
     }()
 
     lazy var coreDataStack: CoreDataStack = .shared
@@ -92,8 +83,27 @@ final class AppDIContainer {
     lazy var settingsSceneDIContainer: SettingsSceneDIContainer = {
         let dependencies = SettingsSceneDIContainer.Dependencies(
             appConfiguration: appConfiguration,
-            userDefaultCoordinator: userDefaultCoordinator
+            userDefaultCoordinator: userDefaultCoordinator,
+            categoriesDIContainer: categoriesSceneDIContainer
         )
         return SettingsSceneDIContainer(dependencies: dependencies)
     }()
+
+    // MARK: Settings
+
+    lazy var settingsStorage: SettingsStorage = SettingsUserDefaultStorage(
+        userDefaultCoordinator: userDefaultCoordinator
+    )
+
+    func makeSettingsRespository() -> SettingsRepository {
+        DefaultSettingsRepository(settingsStorage: settingsStorage)
+    }
+
+    func makeFetchSettingsUseCase() -> FetchSettingsUseCase {
+        FetchSettingsUseCase(repository: makeSettingsRespository())
+    }
+
+    func makeUpdateSettingsUseCase() -> UpdateSettingsUseCase {
+        UpdateSettingsUseCase(repository: makeSettingsRespository())
+    }
 }

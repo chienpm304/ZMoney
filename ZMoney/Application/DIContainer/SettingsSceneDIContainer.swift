@@ -17,15 +17,12 @@ final class SettingsSceneDIContainer: SettingsFlowCoordinatorDependencies {
     struct Dependencies {
         let appConfiguration: AppConfiguration
         let userDefaultCoordinator: UserDefaultCoordinator
+        let categoriesDIContainer: CategoriesSceneDIContainer
     }
 
     init(dependencies: Dependencies) {
         self.dependencies = dependencies
     }
-
-    lazy var settingsStorage: SettingsStorage = SettingsUserDefaultStorage(
-        userDefaultCoordinator: dependencies.userDefaultCoordinator
-    )
 
     // MARK: Flow
 
@@ -40,15 +37,18 @@ final class SettingsSceneDIContainer: SettingsFlowCoordinatorDependencies {
 
     // MARK: SettingsFlowCoordinatorDependencies
 
-    func makeSettingsListViewController() -> UIViewController {
+    func makeSettingsListViewController(actions: SettingsViewModelActions) -> UIViewController {
         let viewModel = dependencies.appConfiguration.settings
+        viewModel.updateActions(actions)
         let view = SettingsView(viewModel: viewModel)
         return UIHostingController(rootView: view)
     }
 
-    // MARK: Repository
-
-    func makeSettingsRespository() -> SettingsRepository {
-        DefaultSettingsRepository(settingsStorage: settingsStorage)
+    func makeCategoriesFlowCoordinator(
+        from navigationController: UINavigationController
+    ) -> CategoriesFlowCoordinator {
+        dependencies
+            .categoriesDIContainer
+            .makeCategoriesFlowCoordinator(navigationController: navigationController)
     }
 }

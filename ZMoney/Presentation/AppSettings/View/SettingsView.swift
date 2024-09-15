@@ -28,10 +28,21 @@ struct SettingsView: View {
                     }
                 }
             }
-            .onChange(of: viewModel.settings) { _ in
-                Task {
-                    await viewModel.updateSettings()
+
+            Section {
+                Button {
+                    Task {
+                        await viewModel.didTapCategories()
+                    }
+                } label: {
+                    Text("Categories")
                 }
+                .withRightArrow()
+            }
+        }
+        .onChange(of: viewModel.settings) { _ in
+            Task {
+                await viewModel.updateSettings()
             }
         }
         .navigationTitle("Settings")

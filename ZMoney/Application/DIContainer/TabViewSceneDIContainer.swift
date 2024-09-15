@@ -68,17 +68,6 @@ extension TabViewSceneDIContainer: TabViewFlowCoordinatorDependencies {
             )
     }
 
-    func makeCategoriesFlowCoordinator(
-        navigationController: UINavigationController
-    ) -> CategoriesFlowCoordinator {
-        dependencies
-            .appDIContainer
-            .categoriesSceneDIContainer
-            .makeCategoriesFlowCoordinator(
-                navigationController: navigationController
-            )
-    }
-
     func makeSettingsFlowCoordinator(
         navigationController: UINavigationController
     ) -> SettingsFlowCoordinator {

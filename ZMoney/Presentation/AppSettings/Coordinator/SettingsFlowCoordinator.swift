@@ -9,7 +9,13 @@ import Foundation
 import UIKit
 
 protocol SettingsFlowCoordinatorDependencies {
-    func makeSettingsListViewController() -> UIViewController
+    func makeSettingsListViewController(
+        actions: SettingsViewModelActions
+    ) -> UIViewController
+
+    func makeCategoriesFlowCoordinator(
+        from navigationController: UINavigationController
+    ) -> CategoriesFlowCoordinator
 }
 
 final class SettingsFlowCoordinator {
@@ -25,7 +31,16 @@ final class SettingsFlowCoordinator {
     }
 
     public func start() {
-        let settingsVC = dependencies.makeSettingsListViewController()
+        let actions = SettingsViewModelActions(didTapCategoies: openCategoriesListView)
+        let settingsVC = dependencies.makeSettingsListViewController(actions: actions)
         navigationController?.pushViewController(settingsVC, animated: true)
+    }
+
+    private func openCategoriesListView() {
+        guard let navigationController else { return }
+        let categoriesCoordinator = dependencies.makeCategoriesFlowCoordinator(
+            from: navigationController
+        )
+        categoriesCoordinator.start()
     }
 }
