@@ -84,7 +84,9 @@ final class CategoriesSceneDIContainer: CategoriesFlowCoordinatorDependencies {
         let viewModel = makeCategoriesListViewModel(actions: actions)
         let view = CategoriesListView(viewModel: viewModel)
             .environmentObject(dependencies.appConfiguration.settings)
-        return (UIHostingController(rootView: view), viewModel)
+        let viewController = UIHostingController(rootView: view)
+        viewController.hidesBottomBarWhenPushed = true
+        return (viewController, viewModel)
     }
 
     func makeCategoryDetailViewController(
@@ -99,7 +101,9 @@ final class CategoriesSceneDIContainer: CategoriesFlowCoordinatorDependencies {
         )
         let view = CategoryDetailView(viewModel: viewModel)
             .environmentObject(self.dependencies.appConfiguration.settings)
-        return UIHostingController(rootView: view)
+        let viewController = UIHostingController(rootView: view)
+        viewController.hidesBottomBarWhenPushed = true
+        return viewController
     }
 
     // MARK: ViewModel

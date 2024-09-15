@@ -41,7 +41,9 @@ extension SearchTransactionsDISceneDIContainer: SearchTransactionsFlowCoordinato
         let viewModel = SearchTransactionsViewModel(dependencies: dependencies)
         let view = SearchTransactionsView(viewModel: viewModel)
             .environmentObject(self.dependencies.appConfiguration.settings)
-        return (UIHostingController(rootView: view), viewModel)
+        let viewController = UIHostingController(rootView: view)
+        viewController.hidesBottomBarWhenPushed = true
+        return (viewController, viewModel)
     }
 
     func makeTransactionDetailFlowCoordinator(
