@@ -10,7 +10,7 @@ import DomainModule
 import Combine
 
 struct ReportTransactionsViewModelActions {
-    let didTapReportItem: (DMCategory, DateRange) -> Void
+    let didTapReportItem: (DMCategory, DateRange, DateRangeType) -> Void
     let didTapSearch: () -> Void
 }
 
@@ -21,7 +21,14 @@ final class ReportTransactionsViewModel: ObservableObject, AlertProvidable {
     }
 
     private let dependencies: Dependencies
-    private let dateRangeType: DateRangeType
+    @Published var dateRangeType: DateRangeType {
+        didSet {
+            self.dateRange = dateRangeType.dateRange(of: .now)
+            Task {
+                await refreshData()
+            }
+        }
+    }
     @MainActor @Published var reportModel = ReportTransactionsModel(transactions: [], selectedType: .expense)
     @Published private(set) var dateRange: DateRange
     @Published var alertData: AlertData?
@@ -53,7 +60,7 @@ final class ReportTransactionsViewModel: ObservableObject, AlertProvidable {
     }
 
     func didTapItem(_ item: ReportTransactionItemModel) {
-        dependencies.actions.didTapReportItem(item.category.domain, dateRange)
+        dependencies.actions.didTapReportItem(item.category.domain, dateRange, dateRangeType)
     }
 
     func didTapSearchButton() {

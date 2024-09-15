@@ -420,6 +420,16 @@
         }
       }
     },
+    "Month" : {
+      "localizations" : {
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tháng"
+          }
+        }
+      }
+    },
     "N/A" : {
       "localizations" : {
         "vi" : {
@@ -654,6 +664,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Đã cập nhật cài đặt!"
+          }
+        }
+      }
+    },
+    "Year" : {
+      "localizations" : {
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Năm"
           }
         }
       }

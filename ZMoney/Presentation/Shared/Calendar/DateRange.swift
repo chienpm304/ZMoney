@@ -6,15 +6,27 @@
 //
 
 import SwiftDate
+import SwiftUI
 
 struct DateRange {
     let startDate: Date
     let endDate: Date
 }
 
-enum DateRangeType {
+enum DateRangeType: String, CaseIterable, Identifiable {
     case month
     case year
+
+    var id: Self { self }
+
+    var localizedStringKey: LocalizedStringKey {
+        switch self {
+        case .month:
+            "Month"
+        case .year:
+            "Year"
+        }
+    }
 }
 
 extension DateRangeType {

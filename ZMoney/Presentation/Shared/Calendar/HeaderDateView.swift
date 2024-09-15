@@ -9,13 +9,14 @@ import SwiftUI
 
 struct HeaderDateView: View {
     let dateRange: DateRange
+    let type: DateRangeType
 
     var body: some View {
         HStack(alignment: .center, spacing: 4) {
-            Text(monthYearString)
+            Text(primaryString)
                 .font(.body)
                 .bold()
-            Text(dayRangeString)
+            Text(secondaryString)
                 .font(.callout)
                 .foregroundColor(.secondary)
         }
@@ -27,11 +28,16 @@ struct HeaderDateView: View {
         )
     }
 
-    private var monthYearString: String {
-        dateRange.startDate.toFormat("MMM yyyy")
+    private var primaryString: String {
+        switch type {
+        case .month:
+            dateRange.startDate.toFormat("MMM yyyy")
+        case .year:
+            dateRange.startDate.toFormat("yyyy")
+        }
     }
 
-    private var dayRangeString: String {
+    private var secondaryString: String {
         let startDayString = dateRange.startDate.toFormat("MMM dd")
         let endDayString = dateRange.endDate.toFormat("MMM dd")
         return "(\(startDayString) - \(endDayString))"
@@ -39,9 +45,10 @@ struct HeaderDateView: View {
 }
 
 struct DateRangePicker: View {
-    var dateRange: DateRange
-    var didTapPreviousDateRange: () -> Void
-    var didTapNextDateRange: () -> Void
+    let dateRange: DateRange
+    let type: DateRangeType
+    let didTapPreviousDateRange: () -> Void
+    let didTapNextDateRange: () -> Void
 
     var body: some View {
         HStack {
@@ -50,11 +57,11 @@ struct DateRangePicker: View {
             } label: {
                 Image(systemName: "chevron.left")
             }
-            
+
             Spacer()
 
-            HeaderDateView(dateRange: dateRange)
-            
+            HeaderDateView(dateRange: dateRange, type: type)
+
             Spacer()
 
             Button {
@@ -63,6 +70,5 @@ struct DateRangePicker: View {
                 Image(systemName: "chevron.right")
             }
         }
-//        .padding(.horizontal, 24)
     }
 }

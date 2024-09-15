@@ -43,7 +43,11 @@ final class ReportTransactionsFlowCoordinator {
         navigationController?.pushViewController(reportView.0, animated: true)
     }
 
-    private func reportDetailView(category: DMCategory, dateRange: DateRange) {
+    private func reportDetailView(
+        category: DMCategory,
+        dateRange: DateRange,
+        dateRangeType: DateRangeType
+    ) {
         // TODO: wire report detail view detail here
         print("wire report detail view detail here")
     }

@@ -16,7 +16,17 @@ struct ReportTransactionsView: View {
 
     var body: some View {
         VStack {
-            DateRangePicker(dateRange: viewModel.dateRange) {
+            HStack {
+                Picker("", selection: $viewModel.dateRangeType) {
+                    ForEach(DateRangeType.allCases) {
+                        Text($0.localizedStringKey)
+                    }
+                }
+                .pickerStyle(.segmented)
+            }
+            .padding(20)
+
+            DateRangePicker(dateRange: viewModel.dateRange, type: viewModel.dateRangeType) {
                 Task {
                     await viewModel.didTapPreviousDateRange()
                 }

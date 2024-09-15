@@ -22,7 +22,7 @@ struct TransactionsListWithCalendarView: View {
 
     var body: some View {
         VStack {
-            DateRangePicker(dateRange: viewModel.dateRange) {
+            DateRangePicker(dateRange: viewModel.dateRange, type: viewModel.dateRangeType) {
                 viewModel.didTapPreviousDateRange()
             } didTapNextDateRange: {
                 viewModel.didTapNextDateRange()

@@ -25,7 +25,7 @@ final class TransactionsListViewModel: ObservableObject, AlertProvidable {
     // MARK: Dependencies
     private let dependencies: Dependencies
     private var fetchUseCase: UseCase?
-    private let dateRangeType: DateRangeType
+    let dateRangeType: DateRangeType
 
     // MARK: Output
     @Published private(set) var dataModel: TransactionsListModel
