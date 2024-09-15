@@ -51,15 +51,11 @@ struct ReportTransactionsView: View {
                         .touchOverlay(chartData: data, formatter: appSettings.currencyFormatter)
                         .headerBox(chartData: data)
                         .frame(
-                            minWidth: 250,
-                            maxWidth: 380,
-                            minHeight: 180,
-                            idealHeight: 180,
-                            maxHeight: 250,
+                            height: 200,
                             alignment: .center
                         )
                         .id(data.id)
-                        .padding(.bottom, 20)
+                        .padding(.bottom, 50)
                 }
                 .listRowInsets(EdgeInsets(top: 12, leading: 20, bottom: 12, trailing: 20))
                 .listRowSeparator(.hidden)
