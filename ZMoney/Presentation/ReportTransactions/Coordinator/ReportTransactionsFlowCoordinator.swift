@@ -16,6 +16,10 @@ protocol ReportTransactionsFlowCoordinatorDependencies {
     func makeSearchTransactionsFlowCoordinator(
         from navigationController: UINavigationController
     ) -> SearchTransactionsFlowCoordinator
+
+    func makeMonthlyReportTransactionsFlowCoordinator(
+        from navigationController: UINavigationController
+    ) -> MonthlyReportTransactionsFlowCoordinator
 }
 
 final class ReportTransactionsFlowCoordinator {
@@ -48,8 +52,24 @@ final class ReportTransactionsFlowCoordinator {
         dateRange: DateRange,
         dateRangeType: DateRangeType
     ) {
-        // TODO: wire report detail view detail here
-        print("wire report detail view detail here")
+        switch dateRangeType {
+        case .month:
+            // TODO: handle monthly detail as well
+            return
+        case .year:
+            monthlyReportTransactionsView(dateRange: dateRange, category: category)
+        }
+    }
+
+    private func monthlyReportTransactionsView(dateRange: DateRange, category: DMCategory) {
+        guard let navigationController else { return }
+        let newDateRange = DateRange(
+            startDate: dateRange.startDate.dateAtStartOf(.year),
+            endDate: dateRange.endDate.dateAtEndOf(.year)
+        )
+        dependencies
+            .makeMonthlyReportTransactionsFlowCoordinator(from: navigationController)
+            .start(category: category, dateRange: newDateRange)
     }
 
     private func searchTransactions() {

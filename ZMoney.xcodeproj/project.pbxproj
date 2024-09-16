@@ -45,6 +45,11 @@
 		C37E6BC22C784CFD003F34D9 /* CategoryDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37E6BC12C784CFD003F34D9 /* CategoryDetailModel.swift */; };
 		C3895E412C933204006EFEBA /* SearchTransactionsDISceneDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3895E402C933204006EFEBA /* SearchTransactionsDISceneDIContainer.swift */; };
 		C3895E432C9332B1006EFEBA /* SearchTransactionsFlowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3895E422C9332B1006EFEBA /* SearchTransactionsFlowCoordinator.swift */; };
+		C39A4FCF2C98404C003AF7F2 /* MonthlyReportTransactionsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39A4FCE2C98404C003AF7F2 /* MonthlyReportTransactionsModel.swift */; };
+		C39A4FD12C98405A003AF7F2 /* MonthlyReportTransactionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39A4FD02C98405A003AF7F2 /* MonthlyReportTransactionsView.swift */; };
+		C39A4FD32C984064003AF7F2 /* MonthlyReportTransactionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39A4FD22C984064003AF7F2 /* MonthlyReportTransactionsViewModel.swift */; };
+		C39A4FD52C98406D003AF7F2 /* MonthyReportTransactionsFlowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39A4FD42C98406D003AF7F2 /* MonthyReportTransactionsFlowCoordinator.swift */; };
+		C39A4FD72C98407A003AF7F2 /* MonthlyReportTransactionsSceneDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39A4FD62C98407A003AF7F2 /* MonthlyReportTransactionsSceneDIContainer.swift */; };
 		C3AE5B6E2C76F12600865A54 /* CategoriesListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3AE5B6D2C76F12600865A54 /* CategoriesListViewModel.swift */; };
 		C3AE5B702C76F3A200865A54 /* CategoriesListItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3AE5B6F2C76F3A200865A54 /* CategoriesListItemModel.swift */; };
 		C3AE5B762C770EBB00865A54 /* Color+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3AE5B752C770EBB00865A54 /* Color+Extensions.swift */; };
@@ -123,6 +128,11 @@
 		C37E6BC12C784CFD003F34D9 /* CategoryDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDetailModel.swift; sourceTree = "<group>"; };
 		C3895E402C933204006EFEBA /* SearchTransactionsDISceneDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTransactionsDISceneDIContainer.swift; sourceTree = "<group>"; };
 		C3895E422C9332B1006EFEBA /* SearchTransactionsFlowCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTransactionsFlowCoordinator.swift; sourceTree = "<group>"; };
+		C39A4FCE2C98404C003AF7F2 /* MonthlyReportTransactionsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyReportTransactionsModel.swift; sourceTree = "<group>"; };
+		C39A4FD02C98405A003AF7F2 /* MonthlyReportTransactionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyReportTransactionsView.swift; sourceTree = "<group>"; };
+		C39A4FD22C984064003AF7F2 /* MonthlyReportTransactionsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyReportTransactionsViewModel.swift; sourceTree = "<group>"; };
+		C39A4FD42C98406D003AF7F2 /* MonthyReportTransactionsFlowCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthyReportTransactionsFlowCoordinator.swift; sourceTree = "<group>"; };
+		C39A4FD62C98407A003AF7F2 /* MonthlyReportTransactionsSceneDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyReportTransactionsSceneDIContainer.swift; sourceTree = "<group>"; };
 		C3AE5B6D2C76F12600865A54 /* CategoriesListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesListViewModel.swift; sourceTree = "<group>"; };
 		C3AE5B6F2C76F3A200865A54 /* CategoriesListItemModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesListItemModel.swift; sourceTree = "<group>"; };
 		C3AE5B752C770EBB00865A54 /* Color+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extensions.swift"; sourceTree = "<group>"; };
@@ -249,6 +259,7 @@
 				C316268F2C806ED900E55BFB /* TransactionsListSceneDIContainer.swift */,
 				C3142B262C85972E00788D0A /* SettingsSceneDIContainer.swift */,
 				C3C47B202C84BEE300B134C4 /* TabViewSceneDIContainer.swift */,
+				C39A4FD62C98407A003AF7F2 /* MonthlyReportTransactionsSceneDIContainer.swift */,
 			);
 			path = DIContainer;
 			sourceTree = "<group>";
@@ -511,6 +522,7 @@
 		C391528D2C74AECD008AE1E4 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				C39A4FC92C983FD8003AF7F2 /* MonthlyReportTransactions */,
 				C3D57C4E2C9560420018B660 /* ReportTransactions */,
 				C33FB9382C92A23E00AFA240 /* SearchTransactions */,
 				C3142B1F2C85904B00788D0A /* AppSettings */,
@@ -523,6 +535,49 @@
 				C35AE4852C74ED1E00400DD7 /* CategoriesList */,
 			);
 			path = Presentation;
+			sourceTree = "<group>";
+		};
+		C39A4FC92C983FD8003AF7F2 /* MonthlyReportTransactions */ = {
+			isa = PBXGroup;
+			children = (
+				C39A4FCD2C984036003AF7F2 /* Model */,
+				C39A4FCC2C984030003AF7F2 /* View */,
+				C39A4FCB2C984028003AF7F2 /* ViewModel */,
+				C39A4FCA2C984022003AF7F2 /* Coordinator */,
+			);
+			path = MonthlyReportTransactions;
+			sourceTree = "<group>";
+		};
+		C39A4FCA2C984022003AF7F2 /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				C39A4FD42C98406D003AF7F2 /* MonthyReportTransactionsFlowCoordinator.swift */,
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		C39A4FCB2C984028003AF7F2 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				C39A4FD22C984064003AF7F2 /* MonthlyReportTransactionsViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		C39A4FCC2C984030003AF7F2 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C39A4FD02C98405A003AF7F2 /* MonthlyReportTransactionsView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		C39A4FCD2C984036003AF7F2 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				C39A4FCE2C98404C003AF7F2 /* MonthlyReportTransactionsModel.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		C3AE5B742C770EA600865A54 /* Extensions */ = {
@@ -806,6 +861,7 @@
 				C3AE5B702C76F3A200865A54 /* CategoriesListItemModel.swift in Sources */,
 				C3E79D632C7A2DDE002DED34 /* IconPickerView.swift in Sources */,
 				C3142B292C86090200788D0A /* TransactionsListModel.swift in Sources */,
+				C39A4FD72C98407A003AF7F2 /* MonthlyReportTransactionsSceneDIContainer.swift in Sources */,
 				C3D08DA82C91F6470011349C /* TransactionsListItemView.swift in Sources */,
 				C3E79D5B2C7A2DD1002DED34 /* CategoriesFlowCoordinator.swift in Sources */,
 				C31626902C806ED900E55BFB /* TransactionsListSceneDIContainer.swift in Sources */,
@@ -831,6 +887,7 @@
 				C3F693C02C8C302900BA9D54 /* AlertData.swift in Sources */,
 				C3D57C562C9560840018B660 /* ReportTransactionsView.swift in Sources */,
 				C316269A2C80C7CC00E55BFB /* TransactionDetailView.swift in Sources */,
+				C39A4FD32C984064003AF7F2 /* MonthlyReportTransactionsViewModel.swift in Sources */,
 				C30728DC2C73269B00C9674B /* SceneDelegate.swift in Sources */,
 				C31626A12C80D20000E55BFB /* DateRange.swift in Sources */,
 				C3142B2E2C86FB5900788D0A /* TransactionDetailModel.swift in Sources */,
@@ -845,7 +902,10 @@
 				C3C081582C92EDCE00B7F7E5 /* SearchTransactionsViewModel.swift in Sources */,
 				C33FB93F2C92C2D100AFA240 /* SettingsModel.swift in Sources */,
 				C3636F312C89A41C003EC13E /* TransactionDetailFlowCoordinator.swift in Sources */,
+				C39A4FD52C98406D003AF7F2 /* MonthyReportTransactionsFlowCoordinator.swift in Sources */,
 				C3AE5B762C770EBB00865A54 /* Color+Extensions.swift in Sources */,
+				C39A4FCF2C98404C003AF7F2 /* MonthlyReportTransactionsModel.swift in Sources */,
+				C39A4FD12C98405A003AF7F2 /* MonthlyReportTransactionsView.swift in Sources */,
 				C3895E412C933204006EFEBA /* SearchTransactionsDISceneDIContainer.swift in Sources */,
 				C3142B272C85972E00788D0A /* SettingsSceneDIContainer.swift in Sources */,
 				C3142B222C85906300788D0A /* SettingsView.swift in Sources */,

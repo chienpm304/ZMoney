@@ -7,10 +7,17 @@
 
 import SwiftDate
 import SwiftUI
+import DomainModule
 
 struct DateRange {
     let startDate: Date
     let endDate: Date
+}
+
+extension DateRange {
+    var domain: DMTimeRange {
+        .init(startTime: startDate.timeValue, endTime: endDate.timeValue)
+    }
 }
 
 enum DateRangeType: String, CaseIterable, Identifiable {

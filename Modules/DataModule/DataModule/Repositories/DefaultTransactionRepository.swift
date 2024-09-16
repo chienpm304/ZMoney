@@ -31,6 +31,14 @@ extension DefaultTransactionRepository: TransactionRepository {
         storage.fetchTransactions(startTime: startTime, endTime: endTime, completion: completion)
     }
 
+    public func fetchTransactions(
+        category: DMCategory,
+        startTime: TimeValue,
+        endTime: TimeValue
+    ) async throws -> [DMTransaction] {
+        try await storage.fetchTransactions(category: category, startTime: startTime, endTime: endTime)
+    }
+
     public func addTransactions(
         _ transactions: [DMTransaction],
         completion: @escaping (Result<[DMTransaction], DMError>) -> Void

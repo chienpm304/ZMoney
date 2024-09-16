@@ -116,6 +116,9 @@
         }
       }
     },
+    "Average" : {
+
+    },
     "Calendar" : {
       "extractionState" : "manual",
       "localizations" : {

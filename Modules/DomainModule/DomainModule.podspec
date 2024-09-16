@@ -21,5 +21,6 @@ Pod::Spec.new do |s|
   end 
 
   s.dependency 'CommonModule'
+  s.dependency 'SwiftDate'
 
 end

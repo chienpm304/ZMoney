@@ -19,6 +19,12 @@ public protocol TransactionRepository {
         completion: @escaping (Result<[DMTransaction], DMError>) -> Void
     )
 
+    func fetchTransactions(
+        category: DMCategory,
+        startTime: TimeValue,
+        endTime: TimeValue
+    ) async throws -> [DMTransaction]
+
     func addTransactions(
         _ transactions: [DMTransaction],
         completion: @escaping (Result<[DMTransaction], DMError>) -> Void

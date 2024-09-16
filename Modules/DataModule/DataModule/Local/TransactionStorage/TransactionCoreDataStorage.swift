@@ -75,6 +75,32 @@ extension TransactionCoreDataStorage: TransactionStorage {
         }
     }
 
+    public func fetchTransactions(
+        category: DMCategory,
+        startTime: TimeValue,
+        endTime: TimeValue
+    ) async throws -> [DMTransaction] {
+        try await coreData.performBackgroundTask { context in
+            do {
+                let fetchRequest = CDTransaction.fetchRequest()
+                fetchRequest.predicate = NSPredicate(
+                    format: "category != nil AND category.id == %@ && inputTime != nil AND inputTime >= %@ AND inputTime <= %@",
+                    category.id as CVarArg,
+                    startTime.dateValue as NSDate,
+                    endTime.dateValue as NSDate
+                )
+                fetchRequest.sortDescriptors = [
+                    NSSortDescriptor(key: #keyPath(CDTransaction.inputTime), ascending: false)
+                ]
+
+                let entities = try context.fetch(fetchRequest)
+                return entities.map { $0.domain }
+            } catch {
+                throw DMError.fetchError(error)
+            }
+        }
+    }
+
     public func addTransactions(
         _ transactions: [DMTransaction],
         completion: @escaping (Result<[DMTransaction], DMError>) -> Void
