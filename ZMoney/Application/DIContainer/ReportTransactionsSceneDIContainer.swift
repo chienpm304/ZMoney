@@ -44,7 +44,7 @@ extension ReportTransactionsSceneDIContainer: ReportTransactionsFlowCoordinatorD
         actions: ReportTransactionsViewModelActions
     ) -> (UIViewController, ReportTransactionsViewModel) {
         let dependencies = ReportTransactionsViewModel.Dependencies(
-            fetchTransactionsByTimeUseCaseFactory: makeFetchTransactionsByTimeUseCase,
+            fetchTransactionsByTimeUseCaseFactory: makeFetchTransactionsReportByCategoriesUseCase,
             actions: actions
         )
         let viewModel = ReportTransactionsViewModel(dependencies: dependencies)
@@ -63,8 +63,8 @@ extension ReportTransactionsSceneDIContainer: ReportTransactionsFlowCoordinatorD
 
     // MARK: UseCase
 
-    private func makeFetchTransactionsByTimeUseCase() -> FetchTransactionsByTimeAsyncUseCase {
-        FetchTransactionsByTimeAsyncUseCase(
+    private func makeFetchTransactionsReportByCategoriesUseCase() -> FetchTransactionsReportByCategoriesUseCase {
+        FetchTransactionsReportByCategoriesUseCase(
             transactionRepository: makeTransactionRepository()
         )
     }

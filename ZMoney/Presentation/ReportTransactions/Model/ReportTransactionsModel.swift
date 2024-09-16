@@ -9,38 +9,32 @@ import Foundation
 import DomainModule
 
 struct ReportTransactionsModel {
-    private let transactions: [DMTransaction]
+    private let transactions: [(DMCategory, MoneyValue)]
 
     var selectedType: CategoryTab
 
-    init(transactions: [DMTransaction], selectedType: CategoryTab = .expense) {
+    init(transactions: [(DMCategory, MoneyValue)], selectedType: CategoryTab = .expense) {
         self.transactions = transactions
         self.selectedType = selectedType
     }
 
     var itemsModel: [ReportTransactionItemModel] {
         let totalAmountForType = filteredTransactions
-            .map { $0.amount }
-            .reduce(0, +)
+            .reduce(into: 0) { $0 += $1.1 }
 
         guard totalAmountForType != 0 else { return [] }
 
-        return Dictionary(grouping: filteredTransactions) {
-            $0.category
-        }.map { key, value in
-            let totalCategoryAmount = value.reduce(into: 0) { partialResult, transaction in
-                partialResult += transaction.amount
+        return filteredTransactions
+            .map { (category, amount) in
+                let percent = (Double(amount) / Double(totalAmountForType)) * 100
+
+                return ReportTransactionItemModel(
+                    category: CategoryDetailModel(category: category),
+                    amount: amount,
+                    percent: percent
+                )
             }
-
-            // Calculate the percentage of the total amount for this category
-            let percent = (Double(totalCategoryAmount) / Double(totalAmountForType)) * 100
-
-            return ReportTransactionItemModel(
-                category: CategoryDetailModel(category: key),
-                amount: totalCategoryAmount,
-                percent: percent
-            )
-        }.sorted { $0.amount > $1.amount }
+            .sorted { $0.amount > $1.amount }
     }
 
     var totalExpense: MoneyValue { totalAmount(of: .expense) }
@@ -51,14 +45,14 @@ struct ReportTransactionsModel {
 
     // MARK: Private
 
-    private var filteredTransactions: [DMTransaction] {
-        transactions.filter { $0.category.type == selectedType.domainType }
+    private var filteredTransactions: [(DMCategory, MoneyValue)] {
+        transactions
+            .filter { $0.0.type == selectedType.domainType }
     }
 
     private func totalAmount(of type: DMTransactionType) -> MoneyValue {
         transactions
-            .filter { $0.category.type == type }
-            .map { $0.amount }
-            .reduce(0, +)
+            .filter { $0.0.type == type }
+            .reduce(into: 0) { $0 += $1.1 }
     }
 }

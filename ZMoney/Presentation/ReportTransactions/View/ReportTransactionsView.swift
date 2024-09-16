@@ -23,6 +23,16 @@ struct ReportTransactionsView: View {
                     }
                 }
                 .pickerStyle(.segmented)
+
+                Text("/")
+                    .foregroundStyle(Color.secondary)
+
+                Picker("", selection: $viewModel.reportModel.selectedType) {
+                    ForEach(CategoryTab.allCases) {
+                        Text($0.localizedStringKey)
+                    }
+                }
+                .pickerStyle(.segmented)
             }
             .padding(20)
 
@@ -44,28 +54,15 @@ struct ReportTransactionsView: View {
             )
             .padding()
 
-            HStack {
-                Picker("Tab", selection: $viewModel.reportModel.selectedType) {
-                    ForEach(CategoryTab.allCases) {
-                        Text($0.localizedStringKey)
-                    }
-                }
-                .pickerStyle(.segmented)
-            }
-            .padding(.horizontal, 20)
-
             List {
                 Section {
                     let data = chartData
                     DoughnutChart(chartData: data)
                         .touchOverlay(chartData: data, formatter: appSettings.currencyFormatter)
                         .headerBox(chartData: data)
-                        .frame(
-                            height: 200,
-                            alignment: .center
-                        )
+                        .frame(height: 164, alignment: .center)
                         .id(data.id)
-                        .padding(.bottom, 50)
+                        .padding(.bottom, 32)
                 }
                 .listRowInsets(EdgeInsets(top: 12, leading: 20, bottom: 12, trailing: 20))
                 .listRowSeparator(.hidden)

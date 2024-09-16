@@ -16,7 +16,7 @@ struct ReportTransactionsViewModelActions {
 
 final class ReportTransactionsViewModel: ObservableObject, AlertProvidable {
     struct Dependencies {
-        let fetchTransactionsByTimeUseCaseFactory: () -> FetchTransactionsByTimeAsyncUseCase
+        let fetchTransactionsByTimeUseCaseFactory: () -> FetchTransactionsReportByCategoriesUseCase
         let actions: ReportTransactionsViewModelActions
     }
 
@@ -44,7 +44,7 @@ final class ReportTransactionsViewModel: ObservableObject, AlertProvidable {
 
     @MainActor func refreshData() async {
         do {
-            let input = FetchTransactionsByTimeAsyncUseCase.Input(
+            let input = FetchTransactionsReportByCategoriesUseCase.Input(
                 startTime: dateRange.startDate.timeValue,
                 endTime: dateRange.endDate.timeValue
             )
