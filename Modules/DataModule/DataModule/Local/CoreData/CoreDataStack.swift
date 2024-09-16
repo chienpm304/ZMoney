@@ -60,4 +60,23 @@ public final class CoreDataStack {
     func performBackgroundTask(_ block: @escaping (NSManagedObjectContext) -> Void) {
         persistentContainer.performBackgroundTask(block)
     }
+
+    func performBackgroundTask<T>(
+        _ block: @escaping (NSManagedObjectContext) throws -> T
+    ) async throws -> T {
+        if #available(iOS 15.0, *) {
+            return try await persistentContainer.performBackgroundTask(block)
+        } else {
+            return try await withCheckedThrowingContinuation { continuation in
+                performBackgroundTask { context in
+                    do {
+                        let result = try block(context)
+                        continuation.resume(returning: result)
+                    } catch {
+                        continuation.resume(throwing: error)
+                    }
+                }
+            }
+        }
+    }
 }
