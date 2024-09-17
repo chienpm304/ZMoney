@@ -17,20 +17,17 @@ struct TransactionsSummaryView: View {
         HStack {
             VStack {
                 Text("Income")
-                MoneyText(value: totalIncome, type: .income)
+                MoneyText(value: totalIncome, style: .income)
             }
             Spacer()
             VStack {
                 Text("Expense")
-                MoneyText(value: totalExpense, type: .expense)
+                MoneyText(value: totalExpense, style: .expense)
             }
             Spacer()
             VStack {
                 Text("Total")
-                MoneyText(
-                    value: total,
-                    type: total > 0 ? .income : .expense
-                )
+                MoneyText(value: total, style: .adaptive)
             }
         }
         .font(.caption.weight(.medium))

@@ -11,7 +11,9 @@ import DomainModule
 enum MoneyTextStyle {
     case income
     case expense
+    case adaptive
     case report
+    case custom(Color)
 }
 
 fileprivate extension DMTransactionType {
@@ -53,7 +55,22 @@ struct MoneyText: View {
 
     var body: some View {
         Text(formattedValue)
-            .foregroundColor(style == .report ? .primary : (style == .expense ? .red : .blue))
+            .foregroundColor(textColor)
+    }
+
+    var textColor: Color {
+        switch style {
+        case .income:
+            return .blue
+        case .expense:
+            return .red
+        case .adaptive:
+            return value > 0 ? .blue : .red
+        case .report:
+            return .primary
+        case .custom(let color):
+            return color
+        }
     }
 
     private var formattedValue: String {

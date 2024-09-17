@@ -86,39 +86,45 @@ struct MonthlyReportTransactionsView: View {
                 .padding(.horizontal, 12)
                 .padding(.top, 20)
                 .id(data.id)
+
             List {
                 Section {
                     HStack {
                         Text("Total")
+                            .fontWeight(.medium)
                         Spacer()
-                        MoneyText(value: viewModel.model.totalAmount, style: .report)
+                        MoneyText(value: viewModel.model.totalAmount, style: .income)
+                            .font(.body.weight(.medium))
                     }
 
                     HStack {
                         Text("Average")
+                            .fontWeight(.medium)
                         Spacer()
-                        MoneyText(value: viewModel.model.averageAmount, style: .report)
+                        MoneyText(value: viewModel.model.averageAmount, style: .income)
+                            .font(.body.weight(.medium))
                     }
                 }
 
                 Section {
                     ForEach(viewModel.model.itemModels) { item in
-                        HStack {
-                            Text(item.month.monthName(.default))
-                            Spacer()
-                            if item.amount > 0 {
-                                MoneyText(value: item.amount, style: .report)
-                            } else {
-                                MoneyText(value: item.amount, style: .report)
-                            }
-                        }
-//                        .withRightArrow()
-                        
-                        .onTapGesture {
+                        Button {
                             Task {
                                 viewModel.didTapItem(item)
                             }
+                        } label: {
+                            HStack {
+                                Text(item.month.monthName(.default))
+                                    .fontWeight(.medium)
+                                Spacer()
+                                MoneyText(value: item.amount, style: .report)
+                                    .font(.body.weight(.medium))
+                            }
+                            .if(item.amount > 0) { view in
+                                view.withRightArrow()
+                            }
                         }
+                        .foregroundStyle(Color.primary)
                     }
                 }
             }

@@ -59,6 +59,7 @@
 		C3C47B1D2C84B57E00B134C4 /* TabViewFlowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C47B1C2C84B57E00B134C4 /* TabViewFlowCoordinator.swift */; };
 		C3C47B1F2C84B72600B134C4 /* TabViewType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C47B1E2C84B72600B134C4 /* TabViewType.swift */; };
 		C3C47B212C84BEE300B134C4 /* TabViewSceneDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C47B202C84BEE300B134C4 /* TabViewSceneDIContainer.swift */; };
+		C3C87BD12C99E0DF006680C6 /* OptionalModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C87BD02C99E0DF006680C6 /* OptionalModifier.swift */; };
 		C3D08DA62C91F5F60011349C /* TransactionsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D08DA52C91F5F60011349C /* TransactionsListView.swift */; };
 		C3D08DA82C91F6470011349C /* TransactionsListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D08DA72C91F6470011349C /* TransactionsListItemView.swift */; };
 		C3D57C542C9560740018B660 /* ReportTransactionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D57C532C9560740018B660 /* ReportTransactionsViewModel.swift */; };
@@ -142,6 +143,7 @@
 		C3C47B1C2C84B57E00B134C4 /* TabViewFlowCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewFlowCoordinator.swift; sourceTree = "<group>"; };
 		C3C47B1E2C84B72600B134C4 /* TabViewType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewType.swift; sourceTree = "<group>"; };
 		C3C47B202C84BEE300B134C4 /* TabViewSceneDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewSceneDIContainer.swift; sourceTree = "<group>"; };
+		C3C87BD02C99E0DF006680C6 /* OptionalModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionalModifier.swift; sourceTree = "<group>"; };
 		C3D08DA52C91F5F60011349C /* TransactionsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsListView.swift; sourceTree = "<group>"; };
 		C3D08DA72C91F6470011349C /* TransactionsListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsListItemView.swift; sourceTree = "<group>"; };
 		C3D57C532C9560740018B660 /* ReportTransactionsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportTransactionsViewModel.swift; sourceTree = "<group>"; };
@@ -661,6 +663,7 @@
 				C3142B312C871E9E00788D0A /* CurrencyTextField.swift */,
 				C3532FF92C89F2A4008CAFC5 /* NavigationType.swift */,
 				C3D57C5B2C9570310018B660 /* TransactionsSummaryView.swift */,
+				C3C87BD02C99E0DF006680C6 /* OptionalModifier.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -873,6 +876,7 @@
 				C3D57C582C95608F0018B660 /* ReportTransactionsModel.swift in Sources */,
 				C3E79D622C7A2DDE002DED34 /* IconResourceProvider.swift in Sources */,
 				C3142B302C86FB9B00788D0A /* TransactionDetailViewModel.swift in Sources */,
+				C3C87BD12C99E0DF006680C6 /* OptionalModifier.swift in Sources */,
 				C36F6AC82C7E1A7E006E1A86 /* ZCalendarView.swift in Sources */,
 				C3D57C622C9583430018B660 /* ReportTransactionItemModel.swift in Sources */,
 				C343F3432C79B21700224D61 /* CategoryDetailViewModel.swift in Sources */,
