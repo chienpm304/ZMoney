@@ -10,7 +10,7 @@ import DomainModule
 
 struct MonthlyReportTransactionsItemModel: Identifiable {
     var id: Date { month }
-    
+
     let month: Date
     let amount: MoneyValue
 }
@@ -18,7 +18,7 @@ struct MonthlyReportTransactionsItemModel: Identifiable {
 struct MonthlyReportTransactionsModel {
     var itemModels: [MonthlyReportTransactionsItemModel]
     var timeRange: DateRange
-    
+
     init(
         timeRange: DateRange,
         reportData: [(TimeValue, MoneyValue)]
@@ -28,11 +28,11 @@ struct MonthlyReportTransactionsModel {
             MonthlyReportTransactionsItemModel(month: timeValue.dateValue, amount: amount)
         }
     }
-    
+
     var totalAmount: MoneyValue {
         itemModels.reduce(into: 0) { $0 += $1.amount }
     }
-    
+
     var averageAmount: MoneyValue {
         guard !itemModels.isEmpty else { return 0 }
         return totalAmount / Int64(itemModels.count)

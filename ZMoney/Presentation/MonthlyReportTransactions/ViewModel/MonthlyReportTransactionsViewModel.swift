@@ -42,7 +42,7 @@ final class MonthlyReportTransactionsViewModel: ObservableObject, AlertProvidabl
     }
 
     var navigationTitle: String {
-        dateRange.startDate.toFormat("yyyy")
+        "\(category.name) (\(dateRange.startDate.toFormat("yyyy")))"
     }
 
     @MainActor func refreshData() async {
