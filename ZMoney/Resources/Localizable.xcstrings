@@ -12,7 +12,14 @@
       }
     },
     "/" : {
-
+      "localizations" : {
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "/"
+          }
+        }
+      }
     },
     "%.1f%%" : {
       "localizations" : {
@@ -117,7 +124,14 @@
       }
     },
     "Average" : {
-
+      "localizations" : {
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Trung bình"
+          }
+        }
+      }
     },
     "Calendar" : {
       "extractionState" : "manual",

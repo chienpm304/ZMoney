@@ -16,18 +16,14 @@ struct MonthlyReportTransactionsView: View {
             let colorStyle = ColourStyle(colour: .orange)
             return BarChartDataPoint(
                 value: Double($0.amount),
-                xAxisLabel: $0.month.monthName(.short),
+                xAxisLabel: $0.month.monthName(.short).capitalized,
                 description: nil,
                 date: $0.month,
                 colour: colorStyle
             )
         }
 
-        let gridStyle = GridStyle(
-            numberOfLines: 6,
-            lineWidth: 0.5,
-            dash: []
-        )
+        let gridStyle = GridStyle(numberOfLines: 6, lineWidth: 0.5, dash: [])
 
         let chartStyle = BarChartStyle(
             infoBoxPlacement: .floating,
@@ -114,7 +110,7 @@ struct MonthlyReportTransactionsView: View {
                             }
                         } label: {
                             HStack {
-                                Text(item.month.monthName(.default))
+                                Text(item.month.monthName(.default).capitalized)
                                     .fontWeight(.medium)
                                 Spacer()
                                 MoneyText(value: item.amount, style: .report)

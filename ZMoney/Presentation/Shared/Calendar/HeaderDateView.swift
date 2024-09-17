@@ -31,15 +31,15 @@ struct HeaderDateView: View {
     private var primaryString: String {
         switch type {
         case .month:
-            dateRange.startDate.toFormat("MMM yyyy")
+            dateRange.startDate.toFormat("MMM yyyy").capitalized
         case .year:
             dateRange.startDate.toFormat("yyyy")
         }
     }
 
     private var secondaryString: String {
-        let startDayString = dateRange.startDate.toFormat("MMM dd")
-        let endDayString = dateRange.endDate.toFormat("MMM dd")
+        let startDayString = dateRange.startDate.toFormat("MMM dd").capitalized
+        let endDayString = dateRange.endDate.toFormat("MMM dd").capitalized
         return "(\(startDayString) - \(endDayString))"
     }
 }
