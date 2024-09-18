@@ -67,3 +67,30 @@ final class MonthlyReportTransactionsViewModel: ObservableObject, AlertProvidabl
         dependencies.actions.didTapMonthlyReportItem(category, item.month.timeValue)
     }
 }
+
+// MARK: Preview
+
+import DataModule
+
+extension MonthlyReportTransactionsViewModel {
+    static var preview: MonthlyReportTransactionsViewModel = {
+        .init(
+            category: .defaultExpenseCategories.first!,
+            dateRange: .init(startDate: .now.dateAtStartOf(.year), endDate: .now.dateAtEndOf(.year)),
+            dependencies: .init(
+                getMonthlyTransactionsReportUseCaseFactory: {
+                    GetMonthlyTransactionsReportByCategoryUseCase(
+                        fetchTransactionsByCategoryUseCase: .init(
+                            transactionRepository: DefaultTransactionRepository(
+                                storage: TransactionCoreDataStorage(coreData: .testInstance)
+                            )
+                        )
+                    )
+                },
+                actions: .init(didTapMonthlyReportItem: { category, timeValue in
+                    print("didTapMonthlyReportItem: \(category), timeValue: \(timeValue)")
+                })
+            )
+        )
+    }()
+}

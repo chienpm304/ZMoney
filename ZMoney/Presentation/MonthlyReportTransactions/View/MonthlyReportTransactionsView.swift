@@ -134,6 +134,6 @@ struct MonthlyReportTransactionsView: View {
     }
 }
 
-//#Preview {
-//    MonthlyReportTransactionsView()
-//}
+#Preview {
+    MonthlyReportTransactionsView(viewModel: .preview)
+}
