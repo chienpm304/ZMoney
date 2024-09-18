@@ -38,6 +38,7 @@ struct SettingsView: View {
                     Text("Categories")
                 }
                 .withRightArrow()
+                .foregroundStyle(Color.primary)
             }
         }
         .onChange(of: viewModel.settings) { _ in
