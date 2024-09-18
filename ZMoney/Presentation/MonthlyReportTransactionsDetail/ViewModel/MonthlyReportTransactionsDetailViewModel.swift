@@ -93,7 +93,6 @@ final class MonthlyReportTransactionsDetailViewModel: ObservableObject, AlertPro
             .removeDuplicates { $0.date == $1.date }
             .sink { [weak self] dataPoint in
                 guard let self else { return }
-                print("did tap \(String(describing: dataPoint.date))")
                 if let date = dataPoint.date {
                     self.selectedDateRange = DateRange(
                         startDate: date.dateAtStartOf(.month),
@@ -168,8 +167,14 @@ extension MonthlyReportTransactionsDetailViewModel {
     static let preview: MonthlyReportTransactionsDetailViewModel = {
         .init(
             category: .defaultIncomeCategories.first!,
-            fullDateRange: .init(startDate: .now.dateAtStartOf(.year), endDate: .now.dateAtEndOf(.year)),
-            selectedDateRange: .init(startDate: .now.dateAtStartOf(.month), endDate: .now.dateAtEndOf(.month)),
+            fullDateRange: .init(
+                startDate: .now.dateAtStartOf(.year),
+                endDate: .now.dateAtEndOf(.year)
+            ),
+            selectedDateRange: .init(
+                startDate: .now.dateAtStartOf(.month),
+                endDate: .now.dateAtEndOf(.month)
+            ),
             dependencies: .init(
                 actions: .init(didTapTransaction: {
                     print("didTapTransaction: \($0)")

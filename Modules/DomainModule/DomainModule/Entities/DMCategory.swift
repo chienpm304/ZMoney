@@ -39,7 +39,6 @@ public struct DMCategory: Hashable {
     }
 }
 
-// swiftlint:disable line_length
 extension DMCategory {
     public static var defaultExpenseCategories: [DMCategory] {
         [
@@ -62,5 +61,3 @@ extension DMCategory {
         ]
     }
 }
-
-// swiftlint:enable line_length

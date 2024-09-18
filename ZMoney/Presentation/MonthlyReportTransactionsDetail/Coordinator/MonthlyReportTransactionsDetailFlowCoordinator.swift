@@ -9,8 +9,6 @@ import Foundation
 import DomainModule
 import SwiftUI
 
-// swiftlint:disable type_name
-
 protocol MonthlyReportTransactionsDetailFlowCoordinatorDependencies {
     func makeMonthlyReportTransactionsDetailViewController(
         category: DMCategory,
@@ -92,5 +90,3 @@ final class MonthlyReportTransactionsDetailFlowCoordinator {
         }
     }
 }
-
-// swiftlint:enable type_name
