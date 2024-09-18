@@ -11,50 +11,6 @@ import SwiftUICharts
 struct MonthlyReportTransactionsView: View {
     @EnvironmentObject private var appSettings: AppSettings
     @ObservedObject var viewModel: MonthlyReportTransactionsViewModel
-    var chartData: BarChartData {
-        let dataPoints: [BarChartDataPoint] = viewModel.model.itemModels.map {
-            let colorStyle = ColourStyle(colour: .orange)
-            return BarChartDataPoint(
-                value: Double($0.amount),
-                xAxisLabel: $0.month.monthName(.short).capitalized,
-                description: nil,
-                date: $0.month,
-                colour: colorStyle
-            )
-        }
-
-        let gridStyle = GridStyle(numberOfLines: 6, lineWidth: 0.5, dash: [])
-
-        let chartStyle = BarChartStyle(
-            infoBoxPlacement: .floating,
-            infoBoxValueFont: .body,
-            infoBoxBackgroundColour: .gray,
-            markerType: .full(colour: .red, style: .init()),
-            xAxisGridStyle: gridStyle,
-            xAxisLabelPosition: .bottom,
-            xAxisLabelsFrom: .dataPoint(rotation: .degrees(-90)),
-            yAxisGridStyle: gridStyle,
-            yAxisLabelPosition: .leading,
-            yAxisNumberOfLabels: 6,
-            baseline: .zero,
-            topLine: .maximumValue
-        )
-
-        let dataSets = BarDataSet(dataPoints: dataPoints)
-
-        let barStyle = BarStyle(
-            barWidth: 0.5,
-            cornerRadius: CornerRadius(top: 50, bottom: 0),
-            colourFrom: .dataPoints,
-            colour: ColourStyle(colour: .blue)
-        )
-
-        return BarChartData(
-            dataSets: dataSets,
-            barStyle: barStyle,
-            chartStyle: chartStyle
-        )
-    }
 
     var body: some View {
         VStack {
@@ -67,6 +23,7 @@ struct MonthlyReportTransactionsView: View {
                 .averageLine(
                     chartData: data,
                     labelPosition: .none,
+                    lineColour: .accentColor,
                     strokeStyle: StrokeStyle(lineWidth: 2, dash: [5, 10]),
                     addToLegends: true
                 )
@@ -129,6 +86,51 @@ struct MonthlyReportTransactionsView: View {
         .task {
             await viewModel.refreshData()
         }
+    }
+
+    var chartData: BarChartData {
+        let dataPoints: [BarChartDataPoint] = viewModel.model.itemModels.map {
+            let colorStyle = ColourStyle(colour: .orange)
+            return BarChartDataPoint(
+                value: Double($0.amount),
+                xAxisLabel: $0.month.monthName(.short).capitalized,
+                description: nil,
+                date: $0.month,
+                colour: colorStyle
+            )
+        }
+
+        let gridStyle = GridStyle(numberOfLines: 6, lineWidth: 1, dash: [])
+
+        let chartStyle = BarChartStyle(
+            infoBoxPlacement: .floating,
+            infoBoxValueFont: .body,
+            infoBoxBackgroundColour: .gray,
+            markerType: .full(colour: .red, style: .init()),
+            xAxisGridStyle: gridStyle,
+            xAxisLabelPosition: .bottom,
+            xAxisLabelsFrom: .dataPoint(rotation: .degrees(-45)),
+            yAxisGridStyle: gridStyle,
+            yAxisLabelPosition: .leading,
+            yAxisNumberOfLabels: 6,
+            baseline: .zero,
+            topLine: .maximumValue
+        )
+
+        let dataSets = BarDataSet(dataPoints: dataPoints)
+
+        let barStyle = BarStyle(
+            barWidth: 0.5,
+            cornerRadius: CornerRadius(top: 50, bottom: 0),
+            colourFrom: .dataPoints,
+            colour: ColourStyle(colour: .blue)
+        )
+
+        return BarChartData(
+            dataSets: dataSets,
+            barStyle: barStyle,
+            chartStyle: chartStyle
+        )
     }
 }
 
