@@ -18,6 +18,10 @@ extension DateRange {
     var domain: DMTimeRange {
         .init(startTime: startDate.timeValue, endTime: endDate.timeValue)
     }
+
+    func contains(date: Date) -> Bool {
+        date.isInRange(date: startDate, and: endDate)
+    }
 }
 
 enum DateRangeType: String, CaseIterable, Identifiable {

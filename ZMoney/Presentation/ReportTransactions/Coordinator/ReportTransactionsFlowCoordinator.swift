@@ -20,6 +20,10 @@ protocol ReportTransactionsFlowCoordinatorDependencies {
     func makeMonthlyReportTransactionsFlowCoordinator(
         from navigationController: UINavigationController
     ) -> MonthlyReportTransactionsFlowCoordinator
+
+    func makeMonthlyReportTransactionsDetailFlowCoordinator(
+        from navigationController: UINavigationController
+    ) -> MonthlyReportTransactionsDetailFlowCoordinator
 }
 
 final class ReportTransactionsFlowCoordinator {
@@ -54,22 +58,37 @@ final class ReportTransactionsFlowCoordinator {
     ) {
         switch dateRangeType {
         case .month:
-            // TODO: handle monthly detail as well
+            monthlyReportTransactionsDetailView(dateRange: dateRange, category: category)
             return
         case .year:
             monthlyReportTransactionsView(dateRange: dateRange, category: category)
         }
     }
 
+    private func monthlyReportTransactionsDetailView(dateRange: DateRange, category: DMCategory) {
+        guard let navigationController else { return }
+        let fullDateRange = DateRange(
+            startDate: dateRange.startDate.dateAtStartOf(.year),
+            endDate: dateRange.startDate.dateAtEndOf(.year)
+        )
+        dependencies
+            .makeMonthlyReportTransactionsDetailFlowCoordinator(from: navigationController)
+            .start(
+                category: category,
+                fullDateRange: fullDateRange,
+                selectedDateRange: dateRange
+            )
+    }
+
     private func monthlyReportTransactionsView(dateRange: DateRange, category: DMCategory) {
         guard let navigationController else { return }
-        let newDateRange = DateRange(
+        let yearDateRange = DateRange(
             startDate: dateRange.startDate.dateAtStartOf(.year),
             endDate: dateRange.endDate.dateAtEndOf(.year)
         )
         dependencies
             .makeMonthlyReportTransactionsFlowCoordinator(from: navigationController)
-            .start(category: category, dateRange: newDateRange)
+            .start(category: category, dateRange: yearDateRange)
     }
 
     private func searchTransactions() {

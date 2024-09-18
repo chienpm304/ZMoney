@@ -59,7 +59,8 @@ final class AppDIContainer {
             coreDataStack: coreDataStack,
             appConfiguration: appConfiguration,
             searchTransactionsDIContainer: searchTransactionsSceneDIContainer,
-            monthlyReportTransactionsDIContainer: monthlyReportTransactionsSceneDIContainer
+            monthlyReportTransactionsDIContainer: monthlyReportTransactionsSceneDIContainer,
+            monthlyReportTransactionsDetailDIContainer: monthlyReportTransactionsDetailSceneDIContainer
         )
         return ReportTransactionsSceneDIContainer(dependencies: dependencies)
     }()
@@ -67,9 +68,19 @@ final class AppDIContainer {
     lazy var monthlyReportTransactionsSceneDIContainer: MonthlyReportTransactionsSceneDIContainer = {
         let dependencies = MonthlyReportTransactionsSceneDIContainer.Dependencies(
             coreDataStack: coreDataStack,
-            appConfiguration: appConfiguration
+            appConfiguration: appConfiguration,
+            monthlyReportTransactionsDetailDIContainer: monthlyReportTransactionsDetailSceneDIContainer
         )
         return MonthlyReportTransactionsSceneDIContainer(dependencies: dependencies)
+    }()
+
+    lazy var monthlyReportTransactionsDetailSceneDIContainer: MonthlyReportTransactionsDetailSceneDIContainer = {
+        let dependencies = MonthlyReportTransactionsDetailSceneDIContainer.Dependencies(
+            coreDataStack: coreDataStack,
+            appConfiguration: appConfiguration,
+            transactionDetailDIContainer: transactionDetailSceneDIContainer
+        )
+        return MonthlyReportTransactionsDetailSceneDIContainer(dependencies: dependencies)
     }()
 
     lazy var categoriesSceneDIContainer: CategoriesSceneDIContainer = {

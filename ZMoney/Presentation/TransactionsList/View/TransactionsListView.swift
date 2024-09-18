@@ -9,26 +9,34 @@ import Foundation
 import SwiftUI
 
 struct TransactionsListView: View {
-    private var dataModel: TransactionsListModel
-    private var didTapItem: ((TransactionsListItemModel) -> Void)
+    private let dataModel: TransactionsListModel
+    private let showSummary: Bool
+    private let didTapItem: ((TransactionsListItemModel) -> Void)
 
-    init(dataModel: TransactionsListModel, didTapItem: @escaping (TransactionsListItemModel) -> Void) {
+    init(
+        dataModel: TransactionsListModel,
+        showSummary: Bool = true,
+        didTapItem: @escaping (TransactionsListItemModel) -> Void
+    ) {
         self.dataModel = dataModel
+        self.showSummary = showSummary
         self.didTapItem = didTapItem
     }
 
     var body: some View {
         List {
-            Section {
-                TransactionsSummaryView(
-                    totalIncome: dataModel.totalIncome,
-                    totalExpense: dataModel.totalExpense,
-                    total: dataModel.total
-                )
-                .listRowInsets(EdgeInsets(top: 0, leading: 12, bottom: 0, trailing: 12))
-                .listRowSeparator(.hidden)
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .id(dataModel.topScrollDate)
+            if showSummary {
+                Section {
+                    TransactionsSummaryView(
+                        totalIncome: dataModel.totalIncome,
+                        totalExpense: dataModel.totalExpense,
+                        total: dataModel.total
+                    )
+                    .listRowInsets(EdgeInsets(top: 0, leading: 12, bottom: 0, trailing: 12))
+                    .listRowSeparator(.hidden)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .id(dataModel.topScrollDate)
+                }
             }
 
             ForEach(dataModel.sortedDates, id: \.self) { date in

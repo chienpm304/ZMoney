@@ -83,6 +83,7 @@ struct MonthlyReportTransactionsView: View {
             }
         }
         .navigationTitle(viewModel.navigationTitle)
+        .resultAlert(alertData: $viewModel.alertData)
         .task {
             await viewModel.refreshData()
         }

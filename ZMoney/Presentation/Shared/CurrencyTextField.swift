@@ -142,19 +142,19 @@ private struct _CurrencyTextField: UIViewRepresentable {
 
 // MARK: Preview
 
-//#Preview {
-//    @State var amount1: MoneyValue = 0
-//    @State var amount2: MoneyValue = 9999
-//
-//    return List {
-//        HStack {
-//            CurrencyTextField(amount: $amount1)
-//            MoneyText(value: amount1, type: .expense)
-//        }
-//        HStack {
-//            CurrencyTextField(amount: $amount2)
-//            MoneyText(value: amount2, type: .expense)
-//        }
-//    }
-//    .environmentObject(AppSettings.preview)
-//}
+#Preview {
+    @State var amount1: MoneyValue = 0
+    @State var amount2: MoneyValue = 9999
+
+    return List {
+        HStack {
+            CurrencyTextField(amount: $amount1)
+            MoneyText(value: amount1, type: .expense)
+        }
+        HStack {
+            CurrencyTextField(amount: $amount2)
+            MoneyText(value: amount2, type: .expense)
+        }
+    }
+    .environmentObject(AppSettings.preview)
+}

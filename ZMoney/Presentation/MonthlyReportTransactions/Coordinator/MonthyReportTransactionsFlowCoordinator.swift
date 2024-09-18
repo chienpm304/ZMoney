@@ -8,12 +8,18 @@
 import Foundation
 import DomainModule
 
+// swiftlint:disable type_name
+
 protocol MonthlyReportTransactionsFlowCoordinatorDependencies {
     func makeMonthlyReportTransactionsViewController(
         category: DMCategory,
         dateRange: DateRange,
         actions: MonthlyReportTransactionsViewModelActions
     ) -> (UIViewController, MonthlyReportTransactionsViewModel)
+
+    func makeMonthlyReportTransactionsDetailFlowCoordinator(
+        from navigationController: UINavigationController
+    ) -> MonthlyReportTransactionsDetailFlowCoordinator
 }
 
 final class MonthlyReportTransactionsFlowCoordinator {
@@ -32,7 +38,7 @@ final class MonthlyReportTransactionsFlowCoordinator {
 
     func start(category: DMCategory, dateRange: DateRange) {
         let actions = MonthlyReportTransactionsViewModelActions(
-            didTapMonthlyReportItem: monthlyReportDetailView
+            didTapMonthlyReportItem: monthlyReportTransactionsDetailView
         )
         let reportView = dependencies.makeMonthlyReportTransactionsViewController(
             category: category,
@@ -44,12 +50,25 @@ final class MonthlyReportTransactionsFlowCoordinator {
         navigationController?.pushViewController(reportView.0, animated: true)
     }
 
-    private func monthlyReportDetailView(
-        category: DMCategory,
-        timeValue: TimeValue
-    ) {
-        // TODO: wire report detail view detail here
-        print("wire report detail view detail here")
+    private func monthlyReportTransactionsDetailView(category: DMCategory, timeValue: TimeValue) {
+        guard let navigationController else { return }
+        let date = timeValue.dateValue
+        let fullDateRange = DateRange(
+            startDate: date.dateAtStartOf(.year),
+            endDate: date.dateAtEndOf(.year)
+        )
+        let selectedDateRange = DateRange(
+            startDate: date.dateAtStartOf(.month),
+            endDate: date.dateAtEndOf(.month)
+        )
+        dependencies
+            .makeMonthlyReportTransactionsDetailFlowCoordinator(from: navigationController)
+            .start(
+                category: category,
+                fullDateRange: fullDateRange,
+                selectedDateRange: selectedDateRange
+            )
     }
-
 }
+
+// swiftlint:enable type_name

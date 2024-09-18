@@ -23,11 +23,11 @@ extension TimeValue {
         Date.distantPast.timeValue
     }
 
-    func timeValueAtStartOf(_ unit: Calendar.Component) -> TimeValue {
+    public func timeValueAtStartOf(_ unit: Calendar.Component) -> TimeValue {
         dateValue.inDefaultRegion().dateAtStartOf(unit).date.timeValue
     }
 
-    func timeValueAtEndOf(_ unit: Calendar.Component) -> TimeValue {
+    public func timeValueAtEndOf(_ unit: Calendar.Component) -> TimeValue {
         dateValue.inDefaultRegion().dateAtEndOf(unit).date.timeValue
     }
 }

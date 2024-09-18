@@ -14,6 +14,7 @@ final class MonthlyReportTransactionsSceneDIContainer {
     struct Dependencies {
         let coreDataStack: CoreDataStack
         let appConfiguration: AppConfiguration
+        let monthlyReportTransactionsDetailDIContainer: MonthlyReportTransactionsDetailSceneDIContainer
     }
 
     private let dependencies: Dependencies
@@ -59,6 +60,14 @@ extension MonthlyReportTransactionsSceneDIContainer: MonthlyReportTransactionsFl
         let viewController = UIHostingController(rootView: view)
         viewController.hidesBottomBarWhenPushed = true
         return (viewController, viewModel)
+    }
+
+    func makeMonthlyReportTransactionsDetailFlowCoordinator(
+        from navigationController: UINavigationController
+    ) -> MonthlyReportTransactionsDetailFlowCoordinator {
+        dependencies
+            .monthlyReportTransactionsDetailDIContainer
+            .makeMonthlyReportTransactionsDetailFlowCoordinator(navigationController: navigationController)
     }
 
     // MARK: UseCase

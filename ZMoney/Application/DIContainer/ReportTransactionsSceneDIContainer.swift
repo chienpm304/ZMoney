@@ -16,6 +16,7 @@ final class ReportTransactionsSceneDIContainer {
         let appConfiguration: AppConfiguration
         let searchTransactionsDIContainer: SearchTransactionsDISceneDIContainer
         let monthlyReportTransactionsDIContainer: MonthlyReportTransactionsSceneDIContainer
+        let monthlyReportTransactionsDetailDIContainer: MonthlyReportTransactionsDetailSceneDIContainer
     }
 
     private let dependencies: Dependencies
@@ -68,6 +69,14 @@ extension ReportTransactionsSceneDIContainer: ReportTransactionsFlowCoordinatorD
         dependencies
             .monthlyReportTransactionsDIContainer
             .makeMonthlyReportTransactionsFlowCoordinator(navigationController: navigationController)
+    }
+
+    func makeMonthlyReportTransactionsDetailFlowCoordinator(
+        from navigationController: UINavigationController
+    ) -> MonthlyReportTransactionsDetailFlowCoordinator {
+        dependencies
+            .monthlyReportTransactionsDetailDIContainer
+            .makeMonthlyReportTransactionsDetailFlowCoordinator(navigationController: navigationController)
     }
 
     // MARK: UseCase
