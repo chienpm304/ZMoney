@@ -32,6 +32,8 @@
 		C31626962C80BC9400E55BFB /* TransactionsListItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31626952C80BC9400E55BFB /* TransactionsListItemModel.swift */; };
 		C316269A2C80C7CC00E55BFB /* TransactionDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31626992C80C7CC00E55BFB /* TransactionDetailView.swift */; };
 		C31626A12C80D20000E55BFB /* DateRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31626A02C80D20000E55BFB /* DateRange.swift */; };
+		C33D841A2C9BDBD700E1541C /* DMCategory+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = C33D84192C9BDBD700E1541C /* DMCategory+Preview.swift */; };
+		C33D84222C9BE3B400E1541C /* default_categories.json in Resources */ = {isa = PBXBuildFile; fileRef = C33D84212C9BE3B400E1541C /* default_categories.json */; };
 		C33FB93F2C92C2D100AFA240 /* SettingsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C33FB93E2C92C2D100AFA240 /* SettingsModel.swift */; };
 		C343F3432C79B21700224D61 /* CategoryDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C343F3422C79B21700224D61 /* CategoryDetailViewModel.swift */; };
 		C34B31F92C9ACA26003233A8 /* MonthlyReportTransactionsDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34B31F82C9ACA26003233A8 /* MonthlyReportTransactionsDetailModel.swift */; };
@@ -121,6 +123,8 @@
 		C31626952C80BC9400E55BFB /* TransactionsListItemModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsListItemModel.swift; sourceTree = "<group>"; };
 		C31626992C80C7CC00E55BFB /* TransactionDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionDetailView.swift; sourceTree = "<group>"; };
 		C31626A02C80D20000E55BFB /* DateRange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateRange.swift; sourceTree = "<group>"; };
+		C33D84192C9BDBD700E1541C /* DMCategory+Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DMCategory+Preview.swift"; sourceTree = "<group>"; };
+		C33D84212C9BE3B400E1541C /* default_categories.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = default_categories.json; sourceTree = "<group>"; };
 		C33FB93E2C92C2D100AFA240 /* SettingsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsModel.swift; sourceTree = "<group>"; };
 		C343F3422C79B21700224D61 /* CategoryDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDetailViewModel.swift; sourceTree = "<group>"; };
 		C34B31F82C9ACA26003233A8 /* MonthlyReportTransactionsDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyReportTransactionsDetailModel.swift; sourceTree = "<group>"; };
@@ -256,6 +260,7 @@
 				C30728E22C73269C00C9674B /* Assets.xcassets */,
 				C30728E42C73269C00C9674B /* LaunchScreen.storyboard */,
 				C3F693E62C8DEE0600BA9D54 /* Localizable.xcstrings */,
+				C33D84212C9BE3B400E1541C /* default_categories.json */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -641,6 +646,7 @@
 			isa = PBXGroup;
 			children = (
 				C3AE5B752C770EBB00865A54 /* Color+Extensions.swift */,
+				C33D84192C9BDBD700E1541C /* DMCategory+Preview.swift */,
 				C3C47B182C847B5100B134C4 /* Date+Extensions.swift */,
 			);
 			path = Extensions;
@@ -830,6 +836,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C30728E62C73269C00C9674B /* LaunchScreen.storyboard in Resources */,
+				C33D84222C9BE3B400E1541C /* default_categories.json in Resources */,
 				C30728E32C73269C00C9674B /* Assets.xcassets in Resources */,
 				C3F693E72C8DEE0600BA9D54 /* Localizable.xcstrings in Resources */,
 			);
@@ -922,6 +929,7 @@
 				C3142B292C86090200788D0A /* TransactionsListModel.swift in Sources */,
 				C39A4FD72C98407A003AF7F2 /* MonthlyReportTransactionsSceneDIContainer.swift in Sources */,
 				C3D08DA82C91F6470011349C /* TransactionsListItemView.swift in Sources */,
+				C33D841A2C9BDBD700E1541C /* DMCategory+Preview.swift in Sources */,
 				C3E79D5B2C7A2DD1002DED34 /* CategoriesFlowCoordinator.swift in Sources */,
 				C34B32012C9AD72F003233A8 /* MonthlyReportTransactionsDetailSceneDIContainer.swift in Sources */,
 				C31626902C806ED900E55BFB /* TransactionsListSceneDIContainer.swift in Sources */,

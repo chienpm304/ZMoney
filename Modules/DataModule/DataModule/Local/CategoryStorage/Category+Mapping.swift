@@ -41,3 +41,57 @@ extension CDCategory {
         self.type = category.type.rawValue
     }
 }
+
+// MARK: Codable
+
+extension DMTransactionType: Codable { }
+
+struct CategoryCodable: Codable {
+    let id: ID
+    let name: String
+    let icon: String
+    let color: String
+    let sortIndex: Index
+    let type: DMTransactionType
+
+    init(from category: DMCategory) {
+        self.id = category.id
+        self.name = category.name
+        self.icon = category.icon
+        self.color = category.color
+        self.sortIndex = category.sortIndex
+        self.type = category.type
+    }
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.id = try container.decodeIfPresent(ID.self, forKey: .id) ?? UUID()
+        self.name = try container.decode(String.self, forKey: .name)
+        self.icon = try container.decode(String.self, forKey: .icon)
+        self.color = try container.decode(String.self, forKey: .color)
+        self.sortIndex = try container.decode(Index.self, forKey: .sortIndex)
+        self.type = try container.decode(DMTransactionType.self, forKey: .type)
+    }
+
+    enum CodingKeys: CodingKey {
+        case id
+        case name
+        case icon
+        case color
+        case sortIndex
+        case type
+    }
+}
+
+extension CategoryCodable {
+    var domain: DMCategory {
+        DMCategory(
+            id: id,
+            name: name,
+            icon: icon,
+            color: color,
+            sortIndex: sortIndex,
+            type: type
+        )
+    }
+}

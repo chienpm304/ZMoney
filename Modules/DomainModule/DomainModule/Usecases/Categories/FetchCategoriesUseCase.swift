@@ -27,10 +27,11 @@ public final class FetchCategoriesUseCase: UseCase {
             switch result {
             case .success(let categories):
                 guard !categories.isEmpty else {
-                    let generatedCategories = self.generateDefaultCategories()
-                    self.categoryRepository.addCategories(generatedCategories) { result in
-                        print("[Category] Generated default categories")
-                        self.completion(result)
+                    self.generateDefaultCategories { [weak self] generatedCategories in
+                        self?.categoryRepository.addCategories(generatedCategories) { [weak self] result in
+                            print("[Category] Generated default categories")
+                            self?.completion(result)
+                        }
                     }
                     return
                 }
@@ -42,7 +43,10 @@ public final class FetchCategoriesUseCase: UseCase {
         return nil
     }
 
-    private func generateDefaultCategories() -> [DMCategory] {
-        DMCategory.defaultExpenseCategories + DMCategory.defaultIncomeCategories
+    private func generateDefaultCategories(completion: @escaping ([DMCategory]) -> Void) {
+        Task {
+            let categories = await categoryRepository.fetchDefaultCategories()
+            completion(categories)
+        }
     }
 }

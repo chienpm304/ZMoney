@@ -1,0 +1,83 @@
+{
+    "expense_categories": [
+        {
+            "name": "Food",
+            "icon": "fork.knife.circle",
+            "color": "FABC3F",
+            "sortIndex": 1,
+            "type": 0
+        },
+        {
+            "name": "Sport",
+            "icon": "figure.walk",
+            "color": "E85C0D",
+            "sortIndex": 2,
+            "type": 0
+        },
+        {
+            "name": "Education",
+            "icon": "book",
+            "color": "C7253E",
+            "sortIndex": 3,
+            "type": 0
+        },
+        {
+            "name": "Rent",
+            "icon": "house",
+            "color": "821131",
+            "sortIndex": 4,
+            "type": 0
+        },
+        {
+            "name": "Give",
+            "icon": "fork.knife.circle",
+            "color": "800000",
+            "sortIndex": 5,
+            "type": 0
+        }
+    ],
+    "income_categories": [
+        {
+            "name": "Salary",
+            "icon": "dollarsign.circle",
+            "color": "522258",
+            "sortIndex": 50,
+            "type": 1
+        },
+        {
+            "name": "Pocket money",
+            "icon": "externaldrive",
+            "color": "8C3061",
+            "sortIndex": 51,
+            "type": 1
+        },
+        {
+            "name": "Bonus",
+            "icon": "gift",
+            "color": "C63C51",
+            "sortIndex": 52,
+            "type": 1
+        },
+        {
+            "name": "Side job",
+            "icon": "coloncurrencysign.circle",
+            "color": "D95F59",
+            "sortIndex": 53,
+            "type": 1
+        },
+        {
+            "name": "Investment",
+            "icon": "building.columns",
+            "color": "FF8A8A",
+            "sortIndex": 54,
+            "type": 1
+        },
+        {
+            "name": "Extra",
+            "icon": "directcurrent",
+            "color": "F4DEB3",
+            "sortIndex": 55,
+            "type": 1
+        }
+    ]
+}

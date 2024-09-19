@@ -166,7 +166,7 @@ import SwiftUICharts
 extension MonthlyReportTransactionsDetailViewModel {
     static let preview: MonthlyReportTransactionsDetailViewModel = {
         .init(
-            category: .defaultIncomeCategories.first!,
+            category: .preview(type: .expense),
             fullDateRange: .init(
                 startDate: .now.dateAtStartOf(.year),
                 endDate: .now.dateAtEndOf(.year)

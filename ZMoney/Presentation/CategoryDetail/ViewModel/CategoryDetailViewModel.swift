@@ -121,9 +121,7 @@ extension CategoryDetailViewModel {
         if (isNewCategory) {
             return DMCategory(type: isExpense ? .expense : .income)
         } else {
-            return isExpense
-            ? .defaultExpenseCategories.randomElement()!
-            : .defaultIncomeCategories.randomElement()!
+            return .preview(type: isExpense ? .expense : .income)
         }
     }
 

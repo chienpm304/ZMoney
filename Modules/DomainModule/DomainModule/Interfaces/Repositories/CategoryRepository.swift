@@ -24,4 +24,6 @@ public protocol CategoryRepository {
         _ categoryIDs: [ID],
         completion: @escaping (Result<[DMCategory], DMError>) -> Void
     )
+
+    func fetchDefaultCategories() async -> [DMCategory]
 }

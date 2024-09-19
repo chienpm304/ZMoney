@@ -75,7 +75,7 @@ import DataModule
 extension MonthlyReportTransactionsViewModel {
     static var preview: MonthlyReportTransactionsViewModel = {
         .init(
-            category: .defaultExpenseCategories.first!,
+            category: .preview(type: .income),
             dateRange: .init(startDate: .now.dateAtStartOf(.year), endDate: .now.dateAtEndOf(.year)),
             dependencies: .init(
                 getMonthlyTransactionsReportUseCaseFactory: {

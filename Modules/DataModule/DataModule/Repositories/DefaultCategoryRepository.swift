@@ -40,4 +40,9 @@ extension DefaultCategoryRepository: CategoryRepository {
     ) {
         storage.deleteCategories(categoryIDs, completion: completion)
     }
+
+    public func fetchDefaultCategories() async -> [DMCategory] {
+        (CategoryFileStorage.loadDefaultExpenseCategories() + CategoryFileStorage.loadDefaultIncomeCategories())
+        .map { $0.domain }
+    }
 }
