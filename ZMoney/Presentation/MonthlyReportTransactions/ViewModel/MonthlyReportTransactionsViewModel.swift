@@ -42,7 +42,9 @@ final class MonthlyReportTransactionsViewModel: ObservableObject, AlertProvidabl
     }
 
     var navigationTitle: String {
-        "\(category.name) (\(dateRange.startDate.toFormat("yyyy")))"
+        let categoryName = NSLocalizedString(category.name, comment: "")
+        let yearString = dateRange.startDate.toFormat("yyyy")
+        return "\(categoryName) (\(yearString))"
     }
 
     @MainActor func refreshData() async {

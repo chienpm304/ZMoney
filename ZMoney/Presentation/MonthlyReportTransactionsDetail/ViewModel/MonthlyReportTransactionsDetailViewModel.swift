@@ -43,8 +43,9 @@ final class MonthlyReportTransactionsDetailViewModel: ObservableObject, AlertPro
     }
 
     var navigationTitle: String {
+        let categoryName = NSLocalizedString(category.name, comment: "")
         let monthName = selectedDateRange.startDate.monthName(.short).capitalized
-        return "\(category.name) (\(monthName))"
+        return "\(categoryName) (\(monthName))"
     }
 
     var selectedTransactionListModel: TransactionsListModel {
@@ -124,7 +125,7 @@ final class MonthlyReportTransactionsDetailViewModel: ObservableObject, AlertPro
 
         let barStyle = BarStyle(
             barWidth: 0.5,
-            cornerRadius: CornerRadius(top: 50, bottom: 0),
+            cornerRadius: CornerRadius(top: 0, bottom: 0),
             colourFrom: .dataPoints,
             colour: ColourStyle(colour: .blue)
         )

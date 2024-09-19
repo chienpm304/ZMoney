@@ -133,6 +133,17 @@
         }
       }
     },
+    "Bonus" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tiền thưởng"
+          }
+        }
+      }
+    },
     "Calendar" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -251,6 +262,39 @@
         }
       }
     },
+    "Childcare" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chăm sóc trẻ"
+          }
+        }
+      }
+    },
+    "Clothing" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Quần áo"
+          }
+        }
+      }
+    },
+    "Communication" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Viễn thông"
+          }
+        }
+      }
+    },
     "Currency" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -345,6 +389,17 @@
         }
       }
     },
+    "Education" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Giáo dục"
+          }
+        }
+      }
+    },
     "Enter value" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -352,6 +407,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Nhập"
+          }
+        }
+      }
+    },
+    "Entertainment" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Giải trí"
           }
         }
       }
@@ -377,12 +443,67 @@
         }
       }
     },
+    "Food" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Thức ăn"
+          }
+        }
+      }
+    },
+    "Freelance" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Công việc tự do"
+          }
+        }
+      }
+    },
     "General settings" : {
       "localizations" : {
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Cài đặt cơ bản"
+          }
+        }
+      }
+    },
+    "Giving" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Quà tặng"
+          }
+        }
+      }
+    },
+    "Healthcare" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sức khỏe"
+          }
+        }
+      }
+    },
+    "Housing" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nhà ở"
           }
         }
       }
@@ -420,6 +541,17 @@
         }
       }
     },
+    "Investment" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Đầu tư"
+          }
+        }
+      }
+    },
     "Language" : {
       "localizations" : {
         "vi" : {
@@ -436,6 +568,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Đang tải..."
+          }
+        }
+      }
+    },
+    "Miscellaneous Expense" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chi tiêu khác"
           }
         }
       }
@@ -493,6 +636,39 @@
         }
       }
     },
+    "Other Income" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Thu nhập khác"
+          }
+        }
+      }
+    },
+    "Personal Care " : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chăm sóc cá nhân"
+          }
+        }
+      }
+    },
+    "Pet" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The cưng"
+          }
+        }
+      }
+    },
     "Please restart the app to apply the language change." : {
       "localizations" : {
         "vi" : {
@@ -510,6 +686,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Báo cáo"
+          }
+        }
+      }
+    },
+    "Salary" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tiền lương"
           }
         }
       }
@@ -663,6 +850,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Giao dịch"
+          }
+        }
+      }
+    },
+    "Transport" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Giao thông"
+          }
+        }
+      }
+    },
+    "Travel" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Du lịch"
           }
         }
       }

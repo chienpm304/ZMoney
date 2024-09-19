@@ -81,6 +81,7 @@ struct ReportTransactionsView: View {
                                 .fontWeight(.medium)
                                 .foregroundColor(.primary)
                                 .font(.body)
+                                .lineLimit(1)
 
                             Spacer()
 

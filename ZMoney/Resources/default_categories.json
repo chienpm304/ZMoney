@@ -8,31 +8,94 @@
             "type": 0
         },
         {
-            "name": "Sport",
-            "icon": "figure.walk",
+            "name": "Transport",
+            "icon": "car",
             "color": "E85C0D",
             "sortIndex": 2,
             "type": 0
         },
         {
-            "name": "Education",
-            "icon": "book",
-            "color": "C7253E",
+            "name": "Housing",
+            "icon": "house",
+            "color": "821131",
             "sortIndex": 3,
             "type": 0
         },
         {
-            "name": "Rent",
-            "icon": "house",
-            "color": "821131",
+            "name": "Giving",
+            "icon": "gift",
+            "color": "C7253E",
             "sortIndex": 4,
             "type": 0
         },
         {
-            "name": "Give",
-            "icon": "fork.knife.circle",
-            "color": "800000",
+            "name": "Communication",
+            "icon": "phone.circle",
+            "color": "8E44AD",
             "sortIndex": 5,
+            "type": 0
+        },
+        {
+            "name": "Clothing",
+            "icon": "tshirt",
+            "color": "3498DB",
+            "sortIndex": 6,
+            "type": 0
+        },
+        {
+            "name": "Entertainment",
+            "icon": "gamecontroller",
+            "color": "E74C3C",
+            "sortIndex": 7,
+            "type": 0
+        },
+        {
+            "name": "Personal Care",
+            "icon": "scissors",
+            "color": "2ECC71",
+            "sortIndex": 8,
+            "type": 0
+        },
+        {
+            "name": "Healthcare",
+            "icon": "bandage",
+            "color": "1ABC9C",
+            "sortIndex": 9,
+            "type": 0
+        },
+        {
+            "name": "Education",
+            "icon": "book",
+            "color": "F39C12",
+            "sortIndex": 10,
+            "type": 0
+        },
+        {
+            "name": "Childcare",
+            "icon": "brain.head.profile",
+            "color": "FF6347",
+            "sortIndex": 11,
+            "type": 0
+        },
+        {
+            "name": "Pet",
+            "icon": "pawprint",
+            "color": "2E8B57",
+            "sortIndex": 12,
+            "type": 0
+        },
+        {
+            "name": "Travel",
+            "icon": "airplane",
+            "color": "3498DB",
+            "sortIndex": 13,
+            "type": 0
+        },
+        {
+            "name": "Miscellaneous Expense",
+            "icon": "questionmark.circle",
+            "color": "95A5A6",
+            "sortIndex": 14,
             "type": 0
         }
     ],
@@ -41,42 +104,35 @@
             "name": "Salary",
             "icon": "dollarsign.circle",
             "color": "522258",
-            "sortIndex": 50,
-            "type": 1
-        },
-        {
-            "name": "Pocket money",
-            "icon": "externaldrive",
-            "color": "8C3061",
-            "sortIndex": 51,
+            "sortIndex": 1,
             "type": 1
         },
         {
             "name": "Bonus",
             "icon": "gift",
             "color": "C63C51",
-            "sortIndex": 52,
-            "type": 1
-        },
-        {
-            "name": "Side job",
-            "icon": "coloncurrencysign.circle",
-            "color": "D95F59",
-            "sortIndex": 53,
+            "sortIndex": 2,
             "type": 1
         },
         {
             "name": "Investment",
             "icon": "building.columns",
             "color": "FF8A8A",
-            "sortIndex": 54,
+            "sortIndex": 3,
             "type": 1
         },
         {
-            "name": "Extra",
-            "icon": "directcurrent",
+            "name": "Freelance",
+            "icon": "briefcase",
+            "color": "D95F59",
+            "sortIndex": 4,
+            "type": 1
+        },
+        {
+            "name": "Other Income",
+            "icon": "plus.circle",
             "color": "F4DEB3",
-            "sortIndex": 55,
+            "sortIndex": 5,
             "type": 1
         }
     ]

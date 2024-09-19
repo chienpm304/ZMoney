@@ -52,7 +52,7 @@ struct CategoriesListView<ViewModel: CategoriesListViewModel>: View {
                                     Image(systemName: category.icon)
                                         .foregroundColor(Color(hex: category.iconColor))
                                         .frame(width: 20, height: 20)
-                                    Text(category.name)
+                                    Text(LocalizedStringKey(category.name))
                                         .foregroundColor(.primary)
                                         .withRightArrow()
                                 }
