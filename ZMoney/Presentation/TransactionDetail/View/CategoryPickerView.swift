@@ -30,46 +30,44 @@ struct CategoryPickerView: View {
     private var maxHeight: CGFloat { 50 }
 
     var body: some View {
-        ScrollView(.vertical, showsIndicators: false) {
-            LazyVGrid(columns: layout, spacing: spacing) {
-                ForEach(items, id: \.self) { item in
-                    let isSelected = item == selectedItem
-                    let color = isSelected ? Color.accentColor : Color.border
-                    CategoryItemView(item: item)
-                        .frame(maxWidth: maxWidth)
-                        .frame(height: maxHeight)
-                        .padding(innerPadding)
-                        .cornerRadius(cornerRadius)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: innerPadding)
-                                .stroke(color, lineWidth: borderWidth)
-                        )
-                        .padding(outterPadding)
-                        .onTapGesture {
-                            selectedItem = item
-                        }
-                }
-
-                Button {
-                    didTapEdit?()
-                } label: {
-                    HStack {
-                        Text("Edit")
-                            .font(.system(size: 14))
-                        Image(systemName: "chevron.right")
-                            .font(.caption)
-                            .foregroundColor(.gray)
-                    }
+        LazyVGrid(columns: layout, spacing: spacing) {
+            ForEach(items, id: \.self) { item in
+                let isSelected = item == selectedItem
+                let color = isSelected ? Color.accentColor : Color.border
+                CategoryItemView(item: item)
                     .frame(maxWidth: maxWidth)
                     .frame(height: maxHeight)
                     .padding(innerPadding)
                     .cornerRadius(cornerRadius)
                     .overlay(
                         RoundedRectangle(cornerRadius: innerPadding)
-                            .stroke(Color.border, lineWidth: borderWidth)
+                            .stroke(color, lineWidth: borderWidth)
                     )
                     .padding(outterPadding)
+                    .onTapGesture {
+                        selectedItem = item
+                    }
+            }
+
+            Button {
+                didTapEdit?()
+            } label: {
+                HStack {
+                    Text("Edit")
+                        .font(.system(size: 14))
+                    Image(systemName: "chevron.right")
+                        .font(.caption)
+                        .foregroundColor(.gray)
                 }
+                .frame(maxWidth: maxWidth)
+                .frame(height: maxHeight)
+                .padding(innerPadding)
+                .cornerRadius(cornerRadius)
+                .overlay(
+                    RoundedRectangle(cornerRadius: innerPadding)
+                        .stroke(Color.border, lineWidth: borderWidth)
+                )
+                .padding(outterPadding)
             }
         }
         .padding(.vertical, 8)

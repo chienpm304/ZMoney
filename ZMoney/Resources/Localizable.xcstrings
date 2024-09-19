@@ -814,16 +814,6 @@
         }
       }
     },
-    "Transaction Details" : {
-      "localizations" : {
-        "vi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Chi tiết giao dịch"
-          }
-        }
-      }
-    },
     "Transaction Report" : {
       "localizations" : {
         "vi" : {

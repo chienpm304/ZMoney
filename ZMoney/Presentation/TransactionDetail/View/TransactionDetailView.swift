@@ -98,7 +98,7 @@ struct TransactionDetailView: View {
     }
 
     private var transactionDetailsSection: some View {
-        Section(header: Text("Transaction Details")) {
+        Section {
             datePicker
             amountTextField
             memoTextField
@@ -115,13 +115,6 @@ struct TransactionDetailView: View {
                 .fontWeight(.medium)
                 .frame(width: leftColumsWidth, alignment: .leading)
         }
-//        HStack {
-//            Text("Date")
-//                .fontWeight(.medium)
-//                .frame(width: leftColumsWidth, alignment: .leading)
-//            Spacer()
-//            DateView(date: viewModel.transaction.inputTime)
-//        }
     }
 
     private var transactionTypePicker: some View {
