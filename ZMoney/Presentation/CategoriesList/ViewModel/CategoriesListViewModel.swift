@@ -39,12 +39,13 @@ final class CategoriesListViewModel: ObservableObject, AlertProvidable {
     private var fetchUseCase: UseCase?
 
     // MARK: Output
-    @Published var selectedTab: CategoryTab = .expense
+    @Published var selectedTab: CategoryTab
     @Published var expenseItems: [CategoriesListItemModel] = []
     @Published var incomeItems: [CategoriesListItemModel] = []
     @Published var alertData: AlertData?
 
-    init(dependencies: Dependencies) {
+    init(selectedType: DMTransactionType, dependencies: Dependencies) {
+        self.selectedTab = selectedType.toViewModel
         self.dependencies = dependencies
     }
 }
@@ -194,6 +195,6 @@ extension CategoriesListViewModel {
             },
             actions: actions
         )
-        return CategoriesListViewModel(dependencies: dependencies)
+        return CategoriesListViewModel(selectedType: .expense, dependencies: dependencies)
     }
 }

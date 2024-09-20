@@ -76,7 +76,7 @@ final class TransactionDetailFlowCoordinator {
         }
     }
 
-    private func editCategoriesList() {
+    private func editCategoriesList(_ type: DMTransactionType) {
         let presentingNavigationController: UINavigationController?
         switch request.navigationType {
         case .push:
@@ -89,7 +89,7 @@ final class TransactionDetailFlowCoordinator {
         let categoriesCoordinator = dependencies.makeCategoriesFlowCoordinator(
             from: presentingNavigationController
         )
-        categoriesCoordinator.start()
+        categoriesCoordinator.start(type: type)
     }
 
     private func didUpdateTransactionDetail(_ transaction: DMTransaction) {

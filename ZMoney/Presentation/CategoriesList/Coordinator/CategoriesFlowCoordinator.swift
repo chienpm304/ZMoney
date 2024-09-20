@@ -10,6 +10,7 @@ import DomainModule
 
 protocol CategoriesFlowCoordinatorDependencies {
     func makeCategoriesListViewController(
+        type: DMTransactionType,
         actions: CategoriesListViewModelActions
     ) -> (UIViewController, CategoriesListViewModel)
 
@@ -34,12 +35,15 @@ final class CategoriesFlowCoordinator {
         self.dependencies = dependencies
     }
 
-    public func start() {
+    public func start(type: DMTransactionType = .expense) {
         let actions = CategoriesListViewModelActions(
             editCategoryDetail: editCategoryDetail,
             addCategoryDetail: addCategoryDetail
         )
-        let categoriesList = dependencies.makeCategoriesListViewController(actions: actions)
+        let categoriesList = dependencies.makeCategoriesListViewController(
+            type: type,
+            actions: actions
+        )
 
         categoriesListViewController = categoriesList.0
         categoriesListViewModel = categoriesList.1

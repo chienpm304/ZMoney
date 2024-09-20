@@ -29,8 +29,9 @@ struct TransactionDetailView: View {
             transactionTypeSection
             Form {
                 transactionDetailsSection
-                saveButtonSection
             }
+            saveButtonSection
+                .background(Color.clear)
         }
         .toolbar {
             ToolbarItemGroup(placement: .keyboard) {
@@ -160,22 +161,19 @@ struct TransactionDetailView: View {
     }
 
     private var saveButtonSection: some View {
-        Section {
-            Button {
-                viewModel.save()
-            } label: {
-                Text("Save")
-                    .foregroundColor(.white)
-                    .frame(maxWidth: .infinity)
-                    .cornerRadius(8)
-            }
-            .disabled(!viewModel.isSaveEnabled)
-            .listRowBackground(
-                viewModel.isSaveEnabled
-                ? Color.accentColor
-                : Color.accentColor.opacity(0.5)
-            )
+        Button {
+            viewModel.save()
+        } label: {
+            Text("Save")
+                .foregroundColor(.white)
+                .frame(maxWidth: .infinity)
         }
+        .disabled(!viewModel.isSaveEnabled)
+        .frame(height: 40)
+        .background(viewModel.isSaveEnabled ? Color.accentColor : Color.accentColor.opacity(0.5))
+        .clipShape(RoundedRectangle(cornerRadius: 22))
+        .padding(.horizontal, 24)
+        .padding(.vertical, 8)
     }
 }
 

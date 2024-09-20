@@ -79,9 +79,10 @@ final class CategoriesSceneDIContainer: CategoriesFlowCoordinatorDependencies {
     // MARK: CategoriesFlowCoordinatorDependencies
 
     func makeCategoriesListViewController(
+        type: DMTransactionType,
         actions: CategoriesListViewModelActions
     ) -> (UIViewController, CategoriesListViewModel) {
-        let viewModel = makeCategoriesListViewModel(actions: actions)
+        let viewModel = makeCategoriesListViewModel(selectedType: type, actions: actions)
         let view = CategoriesListView(viewModel: viewModel)
             .environmentObject(dependencies.appConfiguration.settings)
         let viewController = UIHostingController(rootView: view)
@@ -109,6 +110,7 @@ final class CategoriesSceneDIContainer: CategoriesFlowCoordinatorDependencies {
     // MARK: ViewModel
 
     func makeCategoriesListViewModel(
+        selectedType: DMTransactionType,
         actions: CategoriesListViewModelActions
     ) -> CategoriesListViewModel {
         let dependencies = CategoriesListViewModel.Dependencies(
@@ -117,7 +119,7 @@ final class CategoriesSceneDIContainer: CategoriesFlowCoordinatorDependencies {
             deleteUseCaseFactory: makeDeleteCategoriesUseCase,
             actions: actions
         )
-        return CategoriesListViewModel(dependencies: dependencies)
+        return CategoriesListViewModel(selectedType: selectedType, dependencies: dependencies)
     }
 
     func makeCategoryDetailViewModel(

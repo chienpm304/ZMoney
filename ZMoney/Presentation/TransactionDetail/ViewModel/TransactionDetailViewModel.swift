@@ -8,7 +8,7 @@
 import DomainModule
 
 struct TransactionDetailViewModelActions {
-    let editCategoriesList: () -> Void
+    let editCategoriesList: (DMTransactionType) -> Void
     let didUpdateTransactionDetail: (DMTransaction) -> Void
     let didCancelTransactionDetail: () -> Void
 }
@@ -100,7 +100,8 @@ class TransactionDetailViewModel: ObservableObject, AlertProvidable {
     }
 
     func didTapEditCategory() {
-        dependencies.actions.editCategoriesList()
+        let selectedType = transaction.transactionType.domainType
+        dependencies.actions.editCategoriesList(selectedType)
     }
 
     // MARK: Private

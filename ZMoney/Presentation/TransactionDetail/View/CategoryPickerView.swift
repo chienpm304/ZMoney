@@ -33,15 +33,17 @@ struct CategoryPickerView: View {
         LazyVGrid(columns: layout, spacing: spacing) {
             ForEach(items, id: \.self) { item in
                 let isSelected = item == selectedItem
-                let color = isSelected ? Color.accentColor : Color.border
+                let storkeColor = isSelected ? Color.accentColor : Color.border
+                let backgroundColor = isSelected ? Color.accentColor.opacity(0.2) : Color.clear
                 CategoryItemView(item: item)
                     .frame(maxWidth: maxWidth)
                     .frame(height: maxHeight)
                     .padding(innerPadding)
                     .cornerRadius(cornerRadius)
+                    .background(backgroundColor)
                     .overlay(
                         RoundedRectangle(cornerRadius: innerPadding)
-                            .stroke(color, lineWidth: borderWidth)
+                            .stroke(storkeColor, lineWidth: borderWidth)
                     )
                     .padding(outterPadding)
                     .onTapGesture {
