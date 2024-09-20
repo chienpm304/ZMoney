@@ -58,11 +58,15 @@ struct ReportTransactionsView: View {
                 Section {
                     let data = chartData
                     DoughnutChart(chartData: data)
-                        .touchOverlay(chartData: data, formatter: appSettings.currencyFormatter)
+                        .touchOverlay(
+                            chartData: data,
+                            formatter: appSettings.currencyFormatter,
+                            minDistance: 5
+                        )
                         .headerBox(chartData: data)
                         .frame(height: 164, alignment: .center)
                         .id(data.id)
-                        .padding(.bottom, 32)
+                        .padding(.bottom, 40)
                 }
                 .listRowInsets(EdgeInsets(top: 12, leading: 20, bottom: 12, trailing: 20))
                 .listRowSeparator(.hidden)
@@ -115,15 +119,14 @@ struct ReportTransactionsView: View {
 
     private var chartData: DoughnutChartData {
         let dataPoints: [PieChartDataPoint] = viewModel.reportModel.itemsModel.map {
-            let description =
-            $0.category.name
-            + " - "
-            + String(format: "%.1f%%", $0.percent)
+            let name = $0.category.name
+            let displayName = name.count > 14 ? "\(name.prefix(14))..." : name
+            let description = displayName + " - " + String(format: "%.1f%%", $0.percent)
             let overlapType = OverlayType.label(
-                text: $0.category.name,
+                text: displayName,
                 colour: .primary,
                 font: .caption,
-                rFactor: 1.0
+                rFactor: 1.5
             )
             return PieChartDataPoint(
                 value: Double($0.amount),
