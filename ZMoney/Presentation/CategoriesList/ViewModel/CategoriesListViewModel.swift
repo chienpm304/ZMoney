@@ -11,7 +11,7 @@ import Combine
 
 struct CategoriesListViewModelActions {
     let editCategoryDetail: (DMCategory) -> Void
-    let addCategoryDetail: (DMTransactionType) -> Void
+    let addCategoryDetail: (DMTransactionType, Index) -> Void
 }
 
 final class CategoriesListViewModel: ObservableObject, AlertProvidable {
@@ -87,17 +87,19 @@ extension CategoriesListViewModel {
     }
 
     func addCategory() {
-        dependencies.actions?.addCategoryDetail(selectedTab.domainType)
+        let index = selectedTab == .expense ? expenseCategories.count : incomeCategories.count
+        dependencies.actions?.addCategoryDetail(selectedTab.domainType, Index(index))
     }
 
     func moveItems(from source: IndexSet, to newOffset: Int) {
-        var updatedCategories: [DMCategory]
+        let updatedCategories: [DMCategory]
         if selectedTab == .expense {
+            expenseCategories.move(fromOffsets: source, toOffset: newOffset)
             updatedCategories = expenseCategories
         } else {
+            incomeCategories.move(fromOffsets: source, toOffset: newOffset)
             updatedCategories = incomeCategories
         }
-        updatedCategories.move(fromOffsets: source, toOffset: newOffset)
 
         let requestValue = UpdateCategoriesUseCase.RequestValue(
             categories: updatedCategories,
@@ -105,14 +107,7 @@ extension CategoriesListViewModel {
         )
         let completion: (UpdateCategoriesUseCase.ResultValue) -> Void = { result in
             DispatchQueue.main.async {
-                switch result {
-                case .success(let categories):
-                    if self.selectedTab == .expense {
-                        self.expenseCategories = categories
-                    } else {
-                        self.incomeCategories = categories
-                    }
-                case .failure(let error):
+                if case let .failure(error) = result {
                     self.showErrorAlert(with: error)
                 }
             }
@@ -171,8 +166,8 @@ extension CategoriesListViewModel {
 
         let actions = CategoriesListViewModelActions { editCategory in
             print("[Preview] Edit category \(editCategory.name)")
-        } addCategoryDetail: { addCategoryType in
-            print("[Preview] Add \(addCategoryType)")
+        } addCategoryDetail: { addCategoryType, index in
+            print("[Preview] Add \(addCategoryType) at: \(index)")
         }
 
         let dependencies = Dependencies(
