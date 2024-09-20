@@ -647,7 +647,7 @@
         }
       }
     },
-    "Personal Care " : {
+    "Personal Care" : {
       "extractionState" : "manual",
       "localizations" : {
         "vi" : {
@@ -664,7 +664,7 @@
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "The cưng"
+            "value" : "Thú cưng"
           }
         }
       }

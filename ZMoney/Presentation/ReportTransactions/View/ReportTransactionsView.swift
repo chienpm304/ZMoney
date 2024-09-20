@@ -81,7 +81,7 @@ struct ReportTransactionsView: View {
                                 .foregroundColor(item.category.color)
                                 .frame(width: 20, height: 20)
 
-                            Text(item.category.name)
+                            Text(LocalizedStringKey(item.category.name))
                                 .fontWeight(.medium)
                                 .foregroundColor(.primary)
                                 .font(.body)
@@ -119,7 +119,7 @@ struct ReportTransactionsView: View {
 
     private var chartData: DoughnutChartData {
         let dataPoints: [PieChartDataPoint] = viewModel.reportModel.itemsModel.map {
-            let name = $0.category.name
+            let name = NSLocalizedString($0.category.name, comment: "")
             let displayName = name.count > 14 ? "\(name.prefix(14))..." : name
             let description = displayName + " - " + String(format: "%.1f%%", $0.percent)
             let overlapType = OverlayType.label(

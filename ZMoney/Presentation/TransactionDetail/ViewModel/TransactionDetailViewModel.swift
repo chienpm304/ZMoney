@@ -119,12 +119,21 @@ class TransactionDetailViewModel: ObservableObject, AlertProvidable {
 
     private func setupDataModel(categories: [DMCategory]) {
         self.categories = categories
+        guard let defaultCategory = filteredCategories.first else {
+            return
+        }
+
+        if isNewTransaction, transaction.category.isPlaceholder {
+            transaction.category = defaultCategory
+            transaction.category.isPlaceholder = false
+            return
+        }
 
         if let updatedCategory = filteredCategories.first(where: { $0.id == transaction.category.id }) {
             transaction.category = updatedCategory
-        } else if isNewTransaction, transaction.category.isPlaceholder, let defaultCategory = filteredCategories.first {
-            transaction.category = defaultCategory
-            transaction.category.isPlaceholder = false
+        } else {
+            // category has been deleted
+            transaction.category = originalTransaction?.category ?? defaultCategory
         }
     }
 

@@ -107,6 +107,8 @@ final class MonthlyReportTransactionsDetailViewModel: ObservableObject, AlertPro
 
     private func makeChartData() -> BarChartData {
         let gridStyle = GridStyle(numberOfLines: 6, lineWidth: 1, dash: [])
+        let dataSets = makeChartDataSet()
+        let numberOfColums = dataSets.dataPoints.count
 
         let chartStyle = BarChartStyle(
             infoBoxPlacement: .floating,
@@ -115,7 +117,7 @@ final class MonthlyReportTransactionsDetailViewModel: ObservableObject, AlertPro
             markerType: .full(colour: .red, style: .init()),
             xAxisGridStyle: gridStyle,
             xAxisLabelPosition: .bottom,
-            xAxisLabelsFrom: .dataPoint(rotation: .degrees(-45)),
+            xAxisLabelsFrom: .dataPoint(rotation: .degrees(numberOfColums > 5 ? -45 : 0)),
             yAxisGridStyle: gridStyle,
             yAxisLabelPosition: .leading,
             yAxisNumberOfLabels: 6,
@@ -131,7 +133,7 @@ final class MonthlyReportTransactionsDetailViewModel: ObservableObject, AlertPro
         )
 
         let barChartData = BarChartData(
-            dataSets: makeChartDataSet(),
+            dataSets: dataSets,
             barStyle: barStyle,
             chartStyle: chartStyle
         )
