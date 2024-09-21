@@ -17,42 +17,45 @@ struct ReportTransactionsView: View {
     var body: some View {
         VStack {
             HStack {
+                Image(systemName: "chevron.down")
+                    .font(.caption)
+                    .foregroundColor(.accentColor)
+
                 Picker("", selection: $viewModel.dateRangeType) {
                     ForEach(DateRangeType.allCases) {
                         Text($0.localizedStringKey)
                     }
                 }
-                .pickerStyle(.segmented)
+                .pickerStyle(.menu)
+                .padding(.trailing, 12)
 
-                Text("/")
-                    .foregroundStyle(Color.secondary)
-
-                Picker("", selection: $viewModel.reportModel.selectedType) {
-                    ForEach(CategoryTab.allCases) {
-                        Text($0.localizedStringKey)
+                DateRangePicker(dateRange: viewModel.dateRange, type: viewModel.dateRangeType) {
+                    Task {
+                        await viewModel.didTapPreviousDateRange()
+                    }
+                } didTapNextDateRange: {
+                    Task {
+                        await viewModel.didTapNextDateRange()
                     }
                 }
-                .pickerStyle(.segmented)
             }
-            .padding(20)
+            .padding(.horizontal, 12)
 
-            DateRangePicker(dateRange: viewModel.dateRange, type: viewModel.dateRangeType) {
-                Task {
-                    await viewModel.didTapPreviousDateRange()
-                }
-            } didTapNextDateRange: {
-                Task {
-                    await viewModel.didTapNextDateRange()
+            Picker("", selection: $viewModel.reportModel.selectedType) {
+                ForEach(CategoryTab.allCases) {
+                    Text($0.localizedStringKey)
                 }
             }
-            .padding(.horizontal, 24)
+            .pickerStyle(.segmented)
+            .padding(.horizontal, 12)
+            .padding(.vertical, 8)
 
             TransactionsSummaryView(
                 totalIncome: viewModel.reportModel.totalIncome,
                 totalExpense: viewModel.reportModel.totalExpense,
                 total: viewModel.reportModel.total
             )
-            .padding()
+            .padding(.horizontal)
 
             List {
                 Section {

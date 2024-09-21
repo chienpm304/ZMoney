@@ -38,8 +38,8 @@ struct HeaderDateView: View {
     }
 
     private var secondaryString: String {
-        let startDayString = dateRange.startDate.toFormat("MMM dd").capitalized
-        let endDayString = dateRange.endDate.toFormat("MMM dd").capitalized
+        let startDayString = dateRange.startDate.toFormat("dd/MM")
+        let endDayString = dateRange.endDate.toFormat("dd/MM")
         return "(\(startDayString) - \(endDayString))"
     }
 }
