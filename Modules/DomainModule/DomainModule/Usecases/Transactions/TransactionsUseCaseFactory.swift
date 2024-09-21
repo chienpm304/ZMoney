@@ -27,9 +27,6 @@ public typealias UpdateTransactionsUseCaseFactory = (
     @escaping (UpdateTransactionsUseCase.ResultValue) -> Void
 ) -> UseCase
 
-public typealias DeleteTransactionsUseCaseFactory = (
-    DeleteTransactionsByIDsUseCase.RequestValue,
-    @escaping (DeleteTransactionsByIDsUseCase.ResultValue) -> Void
-) -> UseCase
+public typealias DeleteTransactionsUseCaseFactory = () -> DeleteTransactionsByIDsUseCase
 
 public typealias SearchTransactionsUseCaseFactory = () -> SearchTransactionsUseCase

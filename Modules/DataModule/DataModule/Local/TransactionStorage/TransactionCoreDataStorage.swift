@@ -149,26 +149,22 @@ extension TransactionCoreDataStorage: TransactionStorage {
         }
     }
 
-    public func deleteTransactionsByIDs(
-        _ transactionIDs: [ID],
-        completion: @escaping (Result<[DMTransaction], DMError>) -> Void
-    ) {
-        coreData.performBackgroundTask { context in
+    public func deleteTransactionsByIDs(_ transactionIDs: [ID]) async throws -> [DMTransaction] {
+        try await coreData.performBackgroundTask { context in
             do {
                 let fetchRequest = CDTransaction.fetchRequest()
                 fetchRequest.predicate = NSPredicate(format: "id IN %@", transactionIDs)
 
                 let entities = try context.fetch(fetchRequest)
                 guard !entities.isEmpty else {
-                    completion(.failure(.notFound))
-                    return
+                    throw DMError.notFound
                 }
                 let deletedTransactions = entities.map { $0.domain }
                 entities.forEach { context.delete($0) }
                 try context.save()
-                completion(.success(deletedTransactions))
+                return deletedTransactions
             } catch {
-                completion(.failure(.deleteError(error)))
+                throw DMError.deleteError(error)
             }
         }
     }

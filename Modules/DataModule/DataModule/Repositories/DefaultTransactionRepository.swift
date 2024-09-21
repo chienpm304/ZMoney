@@ -53,11 +53,8 @@ extension DefaultTransactionRepository: TransactionRepository {
         storage.updateTransactions(transactions, completion: completion)
     }
 
-    public func deleteTransactionsByIDs(
-        _ transactionIDs: [ID],
-        completion: @escaping (Result<[DMTransaction], DMError>) -> Void
-    ) {
-        storage.deleteTransactionsByIDs(transactionIDs, completion: completion)
+    public func deleteTransactionsByIDs(_ transactionIDs: [ID]) async throws -> [DMTransaction] {
+        try await storage.deleteTransactionsByIDs(transactionIDs)
     }
 
     public func searchTransactions(keyword: String) async throws -> [DMTransaction] {

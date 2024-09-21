@@ -89,9 +89,9 @@ class TransactionDetailViewModel: ObservableObject, AlertProvidable {
         }
     }
 
-    func delete() {
+    @MainActor func delete() async {
         guard !isNewTransaction else { return }
-        deleteTransaction()
+        await deleteTransaction()
     }
 
     func didTapEditCategory() {
@@ -198,29 +198,23 @@ class TransactionDetailViewModel: ObservableObject, AlertProvidable {
         updateUseCase.execute()
     }
 
-    private func deleteTransaction() {
-        let requestValue = DeleteTransactionsByIDsUseCase.RequestValue(
-            transactionIDs: [transaction.id]
-        )
-        let completion: (DeleteTransactionsByIDsUseCase.ResultValue) -> Void = { [weak self] result in
-            guard let self else { return }
-            DispatchQueue.main.async {
-                switch result {
-                case .success(let transactions):
-                    guard let transaction = transactions.first else {
-                        assertionFailure("Unknown error")
-                        return
-                    }
-                    print("Deleted transaction success: \(transaction)")
-                    self.dependencies.actions.didUpdateTransactionDetail(transaction)
-
-                case .failure(let error):
-                    print("Deleted transaction failed: \(error)")
-                }
-                self.showAlert(with: result, successMessage: "Transaction deleted")
+    @MainActor private func deleteTransaction() async {
+        do {
+            let input = DeleteTransactionsByIDsUseCase.Input(
+                transactionIDs: [transaction.id]
+            )
+            let useCase = dependencies.deleteTransactionsUseCaseFactory()
+            let transactions = try await useCase.execute(input: input)
+            guard let transaction = transactions.first else {
+                assertionFailure("Unknown error")
+                return
             }
+            dependencies.actions.didUpdateTransactionDetail(transaction)
+            print("Deleted transaction success: \(transaction)")
+            showSuccessAlert(with: "Transaction deleted")
+        } catch {
+            print("Deleted transaction failed: \(error)")
+            showErrorAlert(with: error as? DMError ?? .unknown(error))
         }
-        let updateUseCase = dependencies.deleteTransactionsUseCaseFactory(requestValue, completion)
-        updateUseCase.execute()
     }
 }

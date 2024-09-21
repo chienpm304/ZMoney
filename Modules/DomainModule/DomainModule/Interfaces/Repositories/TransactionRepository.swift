@@ -35,10 +35,7 @@ public protocol TransactionRepository {
         completion: @escaping (Result<[DMTransaction], DMError>) -> Void
     )
 
-    func deleteTransactionsByIDs(
-        _ transactionIDs: [ID],
-        completion: @escaping (Result<[DMTransaction], DMError>) -> Void
-    )
+    func deleteTransactionsByIDs(_ transactionIDs: [ID]) async throws -> [DMTransaction]
 
     func searchTransactions(keyword: String) async throws -> [DMTransaction]
 }

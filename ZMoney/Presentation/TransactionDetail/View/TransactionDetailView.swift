@@ -79,7 +79,9 @@ struct TransactionDetailView: View {
                     titleVisibility: .visible
                 ) {
                     Button("Yes, delete", role: .destructive) {
-                        viewModel.delete()
+                        Task { @MainActor in
+                            await viewModel.delete()
+                        }
                     }
                     Button("Cancel", role: .cancel) { }
                 }

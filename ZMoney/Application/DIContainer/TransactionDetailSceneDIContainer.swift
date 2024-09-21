@@ -135,15 +135,8 @@ final class TransactionDetailSceneDIContainer: TransactionDetailFlowCoordinatorD
         )
     }
 
-    private func makeDeleteTransactionsUseCase(
-        requestValue: DeleteTransactionsByIDsUseCase.RequestValue,
-        completion: @escaping (DeleteTransactionsByIDsUseCase.ResultValue) -> Void
-    ) -> DeleteTransactionsByIDsUseCase {
-        DeleteTransactionsByIDsUseCase(
-            requestValue: requestValue,
-            transactionRepository: makeTransactionRepository(),
-            completion: completion
-        )
+    private func makeDeleteTransactionsUseCase() -> DeleteTransactionsByIDsUseCase {
+        DeleteTransactionsByIDsUseCase(transactionRepository: makeTransactionRepository())
     }
 
     // MARK: Repository
