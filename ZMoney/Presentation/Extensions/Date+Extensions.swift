@@ -9,8 +9,7 @@ import Foundation
 
 extension Date {
     static func numberOfWeeksBetween(startDate: Date, endDate: Date) -> Int {
-        var calendar = Calendar.current
-        calendar.firstWeekday = 1 // Sunday as the first day of the week
+        let calendar = Calendar.current
 
         // Calculate the range of weeks
         let startWeek = calendar.component(.weekOfYear, from: startDate)
