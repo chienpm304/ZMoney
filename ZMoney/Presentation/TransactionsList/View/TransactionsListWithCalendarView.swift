@@ -18,8 +18,6 @@ struct TransactionsListWithCalendarView: View {
         self.viewModel = viewModel
     }
 
-    @State private var testDate = Date()
-
     var body: some View {
         VStack {
             DateRangePicker(dateRange: viewModel.dateRange, type: viewModel.dateRangeType) {
@@ -41,6 +39,7 @@ struct TransactionsListWithCalendarView: View {
             )
             .padding(.top, 8)
             .padding(.horizontal, 12)
+            .padding(.bottom, -calendarViewBottomSpace)
 
             ScrollViewReader { scrollViewProxy in
                 TransactionsListView(dataModel: viewModel.dataModel) {
@@ -70,6 +69,19 @@ struct TransactionsListWithCalendarView: View {
         .task {
             await viewModel.refreshData()
         }
+    }
+
+    // Workaround to archieve Horizon Calendar auto height
+    private var calendarViewBottomSpace: CGFloat {
+        // The caldendar view height's is for 6 weeks
+        abs(CGFloat(40 * (numberOfWeeks - 6)))
+    }
+
+    private var numberOfWeeks: Int {
+        Date.numberOfWeeksBetween(
+            startDate: viewModel.dateRange.startDate,
+            endDate: viewModel.dateRange.endDate
+        )
     }
 }
 
