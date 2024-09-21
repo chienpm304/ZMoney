@@ -40,7 +40,6 @@ final class CategoriesListViewModel: ObservableObject, AlertProvidable {
 
     // MARK: Dependencies
     private let dependencies: Dependencies
-    private var fetchUseCase: UseCase?
 
     // MARK: Output
     @Published var selectedTab: CategoryTab = .expense
