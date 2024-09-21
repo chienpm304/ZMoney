@@ -61,10 +61,13 @@ final class CategoriesFlowCoordinator {
 
     private func addOrEditCategoryDetail(category: DMCategory, isNewCategory: Bool) {
         let actions = CategoryDetailViewModelActions { [weak self] _ in
-            if let listViewController = self?.categoriesListViewController {
-                self?.navigationController?.popToViewController(listViewController, animated: true)
+            guard let self else { return }
+            if let listViewController = self.categoriesListViewController {
+                self.navigationController?.popToViewController(listViewController, animated: true)
             }
-            self?.categoriesListViewModel?.refreshCategories()
+            Task { @MainActor [weak self] in
+                await self?.categoriesListViewModel?.refreshData()
+            }
         }
         let detailVC = dependencies.makeCategoryDetailViewController(
             category: category,

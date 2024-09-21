@@ -47,7 +47,6 @@ class TransactionDetailViewModel: ObservableObject, AlertProvidable {
             self.isNewTransaction = true
             self.originalTransaction = nil
         }
-        fetchCategoriesList()
     }
 
     private func prepareForNextTransaction() {
@@ -76,10 +75,6 @@ class TransactionDetailViewModel: ObservableObject, AlertProvidable {
             $0.type == transaction.transactionType.domainType
         }
         .map(CategoryDetailModel.init)
-    }
-
-    func onViewAppear() {
-        fetchCategoriesList()
     }
 
     func cancel() {
@@ -115,8 +110,6 @@ class TransactionDetailViewModel: ObservableObject, AlertProvidable {
         || transaction.category.id != originalTransaction.category.id
     }
 
-    private var fetchCategoriesUseCase: UseCase?
-
     private func setupDataModel(categories: [DMCategory]) {
         self.categories = categories
         guard let defaultCategory = filteredCategories.first else {
@@ -137,30 +130,20 @@ class TransactionDetailViewModel: ObservableObject, AlertProvidable {
         }
     }
 
-    private func fetchCategoriesList() {
+    @MainActor func refreshData() async {
         guard !isFetching else {
             return
         }
         isFetching = true
 
-        let completion: (Result<[DMCategory], DMError>) -> Void = { [weak self] result in
-            guard let self else { return }
-
-            DispatchQueue.main.async {
-                switch result {
-                case .success(let categories):
-                    self.setupDataModel(categories: categories)
-                case .failure(let error):
-                    self.showErrorAlert(with: error)
-                }
-                self.isFetching = false
-                self.fetchCategoriesUseCase = nil
-            }
+        do {
+            let useCase = dependencies.fetchCategoriesUseCaseFactory()
+            let categories = try await useCase.execute(input: ())
+            isFetching = false
+            setupDataModel(categories: categories)
+        } catch {
+            showErrorAlert(with: error as? DMError ?? .unknown(error))
         }
-
-        let useCase = dependencies.fetchCategoriesUseCaseFactory(completion)
-        fetchCategoriesUseCase = useCase // keep reference
-        useCase.execute()
     }
 
     private func addTransaction() {

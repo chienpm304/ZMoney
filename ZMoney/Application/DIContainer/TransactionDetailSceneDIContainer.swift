@@ -97,11 +97,9 @@ final class TransactionDetailSceneDIContainer: TransactionDetailFlowCoordinatorD
 
     // MARK: UseCases
 
-    func makeFetchCategoriesUseCase(
-        completion: @escaping (FetchCategoriesUseCase.ResultValue) -> Void
-    ) -> UseCase {
+    func makeFetchCategoriesUseCase() -> FetchCategoriesUseCase {
         let categoryRepository = dependencies.categoriesDIContainer.makeCategoriesRepository()
-        return FetchCategoriesUseCase(categoryRepository: categoryRepository, completion: completion)
+        return FetchCategoriesUseCase(categoryRepository: categoryRepository)
     }
 
     private func fetchTransactionByIDUseCaseFactory(

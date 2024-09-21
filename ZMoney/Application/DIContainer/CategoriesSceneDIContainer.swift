@@ -28,24 +28,12 @@ final class CategoriesSceneDIContainer: CategoriesFlowCoordinatorDependencies {
 
     // MARK: Use Cases
 
-    func makeFetchCategoriesUseCase(
-        completion: @escaping (FetchCategoriesUseCase.ResultValue) -> Void
-    ) -> UseCase {
-        FetchCategoriesUseCase(
-            categoryRepository: makeCategoriesRepository(),
-            completion: completion
-        )
+    func makeFetchCategoriesUseCase() -> FetchCategoriesUseCase {
+        FetchCategoriesUseCase(categoryRepository: makeCategoriesRepository())
     }
 
-    func makeAddCategoriesUseCase(
-        requestValue: AddCategoriesUseCase.RequestValue,
-        completion: @escaping (AddCategoriesUseCase.ResultValue) -> Void
-    ) -> UseCase {
-        AddCategoriesUseCase(
-            requestValue: requestValue,
-            categoryRepository: makeCategoriesRepository(),
-            completion: completion
-        )
+    func makeAddCategoriesUseCase() -> AddCategoriesUseCase {
+        AddCategoriesUseCase(categoryRepository: makeCategoriesRepository())
     }
 
     func makeUpdateCategoriesUseCase() -> UpdateCategoriesUseCase {

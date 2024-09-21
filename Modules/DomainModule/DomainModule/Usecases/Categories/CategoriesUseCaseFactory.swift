@@ -7,14 +7,9 @@
 
 import Foundation
 
-public typealias FetchCategoriesUseCaseFactory = (
-    @escaping (FetchCategoriesUseCase.ResultValue) -> Void
-) -> UseCase
+public typealias FetchCategoriesUseCaseFactory = () -> FetchCategoriesUseCase
 
-public typealias AddCategoriesUseCaseFactory = (
-    AddCategoriesUseCase.RequestValue,
-    @escaping (AddCategoriesUseCase.ResultValue) -> Void
-) -> UseCase
+public typealias AddCategoriesUseCaseFactory = () -> AddCategoriesUseCase
 
 public typealias UpdateCategoriesUseCaseFactory = () -> UpdateCategoriesUseCase
 

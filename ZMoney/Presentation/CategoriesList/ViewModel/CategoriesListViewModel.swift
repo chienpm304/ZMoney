@@ -25,12 +25,16 @@ final class CategoriesListViewModel: ObservableObject, AlertProvidable {
     // MARK: Domain
     private var expenseCategories: [DMCategory] = [] {
         didSet {
-            expenseItems = expenseCategories.map(CategoriesListItemModel.init)
+            Task { @MainActor in
+                expenseItems = expenseCategories.map(CategoriesListItemModel.init)
+            }
         }
     }
     private var incomeCategories: [DMCategory] = [] {
         didSet {
-            incomeItems = incomeCategories.map(CategoriesListItemModel.init)
+            Task { @MainActor in
+                incomeItems = incomeCategories.map(CategoriesListItemModel.init)
+            }
         }
     }
 
@@ -40,8 +44,8 @@ final class CategoriesListViewModel: ObservableObject, AlertProvidable {
 
     // MARK: Output
     @Published var selectedTab: CategoryTab = .expense
-    @Published var expenseItems: [CategoriesListItemModel] = []
-    @Published var incomeItems: [CategoriesListItemModel] = []
+    @MainActor @Published var expenseItems: [CategoriesListItemModel] = []
+    @MainActor @Published var incomeItems: [CategoriesListItemModel] = []
     @Published var alertData: AlertData?
 
     init(selectedType: DMTransactionType, dependencies: Dependencies) {
@@ -52,10 +56,6 @@ final class CategoriesListViewModel: ObservableObject, AlertProvidable {
 
 // MARK: Input
 extension CategoriesListViewModel {
-    func onViewAppear() {
-        refreshCategories()
-    }
-
     func didSelectItem(_ item: CategoriesListItemModel) {
         let categories = selectedTab == .expense ? expenseCategories : incomeCategories
         guard let category = categories.first(where: { $0.id == item.id })
@@ -66,24 +66,15 @@ extension CategoriesListViewModel {
         dependencies.actions?.editCategoryDetail(category)
     }
 
-    func refreshCategories() {
-        let completion: (Result<[DMCategory], DMError>) -> Void = { [weak self] result in
-            guard let self else { return }
-            DispatchQueue.main.async {
-                switch result {
-                case .success(let categories):
-                    self.expenseCategories = categories.filter { $0.type == .expense }
-                    self.incomeCategories = categories.filter { $0.type == .income }
-                case .failure(let error):
-                    self.showErrorAlert(with: error)
-                }
-                self.fetchUseCase = nil
-            }
+    @MainActor func refreshData() async {
+        do {
+            let useCase = dependencies.fetchUseCaseFactory()
+            let categories = try await useCase.execute(input: ())
+            expenseCategories = categories.filter { $0.type == .expense }
+            incomeCategories = categories.filter { $0.type == .income }
+        } catch {
+            self.showErrorAlert(with: error as? DMError ?? .unknown(error))
         }
-
-        let useCase = dependencies.fetchUseCaseFactory(completion)
-        useCase.execute()
-        fetchUseCase = useCase // keep reference
     }
 
     func addCategory() {
@@ -107,7 +98,7 @@ extension CategoriesListViewModel {
                 needUpdateSortOrder: true
             )
             let updateUseCase = dependencies.updateUseCaseFactory()
-            let _ = try await updateUseCase.execute(input: input)
+            _ = try await updateUseCase.execute(input: input)
         } catch {
             self.showErrorAlert(with: error as? DMError ?? .unknown(error))
         }
@@ -155,8 +146,8 @@ extension CategoriesListViewModel {
         }
 
         let dependencies = Dependencies(
-            fetchUseCaseFactory: { fetchCompletion in
-                FetchCategoriesUseCase(categoryRepository: categoriesRepository, completion: fetchCompletion)
+            fetchUseCaseFactory: {
+                FetchCategoriesUseCase(categoryRepository: categoriesRepository)
             },
             updateUseCaseFactory: {
                 UpdateCategoriesUseCase(categoryRepository: categoriesRepository)

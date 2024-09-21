@@ -16,15 +16,12 @@ public final class DefaultCategoryRepository {
 }
 
 extension DefaultCategoryRepository: CategoryRepository {
-    public func fetchCategories(completion: @escaping (Result<[DMCategory], DMError>) -> Void) {
-        storage.fetchCategories(completion: completion)
+    public func fetchCategories() async throws -> [DMCategory] {
+        try await storage.fetchCategories()
     }
-
-    public func addCategories(
-        _ categories: [DMCategory],
-        completion: @escaping (Result<[DMCategory], DMError>) -> Void
-    ) {
-        storage.addCategories(categories, completion: completion)
+    
+    public func addCategories(_ categories: [DMCategory]) async throws -> [DMCategory] {
+        try await storage.addCategories(categories)
     }
 
     public func updateCategories(_ categories: [DMCategory]) async throws -> [DMCategory] {
@@ -36,7 +33,9 @@ extension DefaultCategoryRepository: CategoryRepository {
     }
 
     public func fetchDefaultCategories() async -> [DMCategory] {
-        (CategoryFileStorage.loadDefaultExpenseCategories() + CategoryFileStorage.loadDefaultIncomeCategories())
-        .map { $0.domain }
+        let defaultExpenseCategories = CategoryFileStorage.loadDefaultExpenseCategories()
+        let defaultIncomeCategories = CategoryFileStorage.loadDefaultIncomeCategories()
+        return (defaultExpenseCategories + defaultIncomeCategories)
+            .map { $0.domain }
     }
 }

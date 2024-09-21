@@ -67,8 +67,8 @@ struct TransactionsListWithCalendarView: View {
                 }
             }
         }
-        .onAppear {
-            viewModel.onViewAppear()
+        .task {
+            await viewModel.refreshData()
         }
     }
 }

@@ -58,32 +58,27 @@ final class CategoryDetailViewModel: ObservableObject, AlertProvidable {
 
     @MainActor func save() async {
         if isNewCategory {
-            addCategory()
+            await addCategory()
         } else {
             await updateCategory()
         }
     }
 
-    private func addCategory() {
-        let requestValue = AddCategoriesUseCase.RequestValue(categories: [model.domain])
-        let completion: (AddCategoriesUseCase.ResultValue) -> Void = { [weak self] result in
-            guard let self else { return }
-            DispatchQueue.main.async {
-                switch result {
-                case .success(let categories):
-                    guard let category = categories.first else {
-                        assertionFailure("Unknown error")
-                        return
-                    }
-                    print("Added category success: \(category)")
-                    self.dependencies.actions.notifyDidSavedCategory(category)
-                case .failure(let error):
-                    print("Added category failed: \(error)")
-                }
+    @MainActor private func addCategory() async {
+        do {
+            let input = AddCategoriesUseCase.Input(categories: [model.domain])
+            let addUseCase = dependencies.addUseCaseFactory()
+            let categories = try await addUseCase.execute(input: input)
+            guard let category = categories.first else {
+                assertionFailure("Unknown error")
+                return
             }
+            print("Added category success: \(category)")
+            dependencies.actions.notifyDidSavedCategory(category)
+        } catch {
+            print("Added category failed: \(error)")
+            showErrorAlert(with: error as? DMError ?? .unknown(error))
         }
-        let addUseCase = dependencies.addUseCaseFactory(requestValue, completion)
-        addUseCase.execute()
     }
 
     @MainActor private func updateCategory() async {
@@ -128,12 +123,8 @@ extension CategoryDetailViewModel {
         let categoriesRepository: CategoryRepository = DefaultCategoryRepository(storage: categoriesStorage)
         let category = makePreviewCategory(isNewCategory: isNewCategory, isExpense: isExpense)
         let dependencies = Dependencies(
-            addUseCaseFactory: { addRequest, addCompletion in
-                AddCategoriesUseCase(
-                    requestValue: addRequest,
-                    categoryRepository: categoriesRepository,
-                    completion: addCompletion
-                )
+            addUseCaseFactory: {
+                AddCategoriesUseCase(categoryRepository: categoriesRepository)
             }, updateUseCaseFactory: {
                 UpdateCategoriesUseCase(categoryRepository: categoriesRepository)
             }, actions: actions

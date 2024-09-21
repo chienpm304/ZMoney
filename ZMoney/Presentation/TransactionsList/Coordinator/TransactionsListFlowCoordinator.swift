@@ -76,7 +76,9 @@ final class TransactionsListFlowCoordinator {
         )
 
         let response = TransactionDetailFlowCoordinator.Response { [weak self] _ in
-            self?.transactionsListViewModel?.refreshTransactions()
+            Task { @MainActor [weak self] in
+                await self?.transactionsListViewModel?.refreshData()
+            }
         } didCancelTransactionDetail: {
             // do nothing
         }

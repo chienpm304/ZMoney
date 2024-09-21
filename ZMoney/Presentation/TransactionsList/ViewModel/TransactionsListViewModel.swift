@@ -73,10 +73,6 @@ final class TransactionsListViewModel: ObservableObject, AlertProvidable {
 
 // MARK: Input
 extension TransactionsListViewModel {
-    func onViewAppear() {
-        refreshTransactions()
-    }
-
     func didTapDate(_ date: Date, tapCount: Int) {
         if tapCount == 1 {
             selectedDate = date
@@ -99,24 +95,30 @@ extension TransactionsListViewModel {
 
     func didTapNextDateRange() {
         dateRange = dateRangeType.next(of: dateRange)
-        refreshTransactions()
+        Task { @MainActor in
+            await refreshData()
+        }
     }
 
     func didTapPreviousDateRange() {
         dateRange = dateRangeType.previous(of: dateRange)
-        refreshTransactions()
+        Task { @MainActor in
+            await refreshData()
+        }
     }
 
     func didSelectDateRange(_ dateRange: DateRange) {
         self.dateRange = dateRange
-        refreshTransactions()
+        Task { @MainActor in
+            await refreshData()
+        }
     }
 
     func didTapSearchButton() {
         dependencies.actions.searchTransactions()
     }
 
-    func refreshTransactions() {
+    @MainActor func refreshData() async {
         let request = FetchTransactionsByTimeUseCase.RequestValue(
             startTime: dateRange.startDate.timeValue,
             endTime: dateRange.endDate.timeValue

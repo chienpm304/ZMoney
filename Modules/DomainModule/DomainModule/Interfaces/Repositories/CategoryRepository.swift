@@ -6,14 +6,9 @@
 //
 
 public protocol CategoryRepository {
-    func fetchCategories(
-        completion: @escaping (Result<[DMCategory], DMError>) -> Void
-    )
+    func fetchCategories() async throws -> [DMCategory]
 
-    func addCategories(
-        _ categories: [DMCategory],
-        completion: @escaping (Result<[DMCategory], DMError>) -> Void
-    )
+    func addCategories(_ categories: [DMCategory]) async throws -> [DMCategory]
 
     func updateCategories(_ categories: [DMCategory]) async throws -> [DMCategory]
 

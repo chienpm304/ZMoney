@@ -17,26 +17,22 @@ public final class CategoryCoreDataStorage {
 }
 
 extension CategoryCoreDataStorage: CategoryStorage {
-    public func fetchCategories(completion: @escaping (Result<[DMCategory], DMError>) -> Void) {
-        coreData.performBackgroundTask { context in
+    public func fetchCategories() async throws -> [DMCategory] {
+        try await coreData.performBackgroundTask { context in
             do {
                 let request: NSFetchRequest = CDCategory.fetchRequest()
                 request.sortDescriptors = [
                     NSSortDescriptor(key: #keyPath(CDCategory.sortIndex), ascending: true)
                 ]
-                let result = try context.fetch(request).map { $0.domain }
-                completion(.success(result))
+                return try context.fetch(request).map { $0.domain }
             } catch {
-                completion(.failure(.fetchError(error)))
+                throw DMError.fetchError(error)
             }
         }
     }
 
-    public func addCategories(
-        _ categories: [DMCategory],
-        completion: @escaping (Result<[DMCategory], DMError>) -> Void
-    ) {
-        coreData.performBackgroundTask { context in
+    public func addCategories(_ categories: [DMCategory]) async throws -> [DMCategory] {
+        try await coreData.performBackgroundTask { context in
             do {
                 // By right we can simply ensure the data uniqueness by specify attribute constraint
                 // But with CoreData (or sqlite) limitation, Entity CDCategory cannot have uniqueness
@@ -53,16 +49,15 @@ extension CategoryCoreDataStorage: CategoryStorage {
 
                 let newCategories = categories.filter { !existingCategoryIDsSet.contains($0.id) }
                 if newCategories.isEmpty {
-                    completion(.failure(.duplicated))
-                    return
+                    throw DMError.duplicated
                 }
 
                 // Create new entities for categories that do not exist yet
                 let entities = newCategories.map { CDCategory(category: $0, insertInto: context) }
                 try context.save()
-                completion(.success(entities.map { $0.domain }))
+                return entities.map { $0.domain }
             } catch {
-                completion(.failure(.addError(error)))
+                throw DMError.addError(error)
             }
         }
     }

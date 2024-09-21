@@ -7,46 +7,29 @@
 
 import Combine
 
-public final class FetchCategoriesUseCase: UseCase {
-    public typealias ResultValue = (Result<[DMCategory], DMError>)
+public final class FetchCategoriesUseCase: AsyncUseCase {
+    public typealias Input = Void
+    public typealias Output = [DMCategory]
 
     private let categoryRepository: CategoryRepository
-    private let completion: (ResultValue) -> Void
 
     public init(
-        categoryRepository: CategoryRepository,
-        completion: @escaping (ResultValue) -> Void
+        categoryRepository: CategoryRepository
     ) {
         self.categoryRepository = categoryRepository
-        self.completion = completion
     }
 
-    public func execute() -> Cancellable? {
-        categoryRepository.fetchCategories { [weak self] result in
-            guard let self else { return }
-            switch result {
-            case .success(let categories):
-                guard !categories.isEmpty else {
-                    self.generateDefaultCategories { [weak self] generatedCategories in
-                        self?.categoryRepository.addCategories(generatedCategories) { [weak self] result in
-                            print("[Category] Generated default categories")
-                            self?.completion(result)
-                        }
-                    }
-                    return
-                }
-                self.completion(.success(categories))
-            case .failure(let error):
-                self.completion(.failure(error))
-            }
+    public func execute(input: Void) async throws -> [DMCategory] {
+        let categories = try await categoryRepository.fetchCategories()
+        guard !categories.isEmpty else {
+            let generatedCategories = await generateDefaultCategories()
+            let addedCategories = try await categoryRepository.addCategories(generatedCategories)
+            return addedCategories
         }
-        return nil
+        return categories
     }
 
-    private func generateDefaultCategories(completion: @escaping ([DMCategory]) -> Void) {
-        Task {
-            let categories = await categoryRepository.fetchDefaultCategories()
-            completion(categories)
-        }
+    private func generateDefaultCategories() async -> [DMCategory] {
+        await categoryRepository.fetchDefaultCategories()
     }
 }

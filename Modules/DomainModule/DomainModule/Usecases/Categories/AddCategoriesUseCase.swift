@@ -7,8 +7,8 @@
 
 import Combine
 
-public final class AddCategoriesUseCase: UseCase {
-    public struct RequestValue {
+public final class AddCategoriesUseCase: AsyncUseCase {
+    public struct Input {
         let categories: [DMCategory]
 
         public init(categories: [DMCategory]) {
@@ -16,27 +16,15 @@ public final class AddCategoriesUseCase: UseCase {
         }
     }
 
-    public typealias ResultValue = (Result<[DMCategory], DMError>)
+    public typealias Output = [DMCategory]
 
-    private let requestValue: RequestValue
     private let categoryRepository: CategoryRepository
-    private let completion: (ResultValue) -> Void
 
-    public init(
-        requestValue: RequestValue,
-        categoryRepository: CategoryRepository,
-        completion: @escaping (ResultValue) -> Void
-    ) {
-        self.requestValue = requestValue
+    public init(categoryRepository: CategoryRepository) {
         self.categoryRepository = categoryRepository
-        self.completion = completion
     }
 
-    public func execute() -> Cancellable? {
-        categoryRepository.addCategories(
-            requestValue.categories,
-            completion: completion
-        )
-        return nil
+    public func execute(input: Input) async throws -> [DMCategory] {
+        try await categoryRepository.addCategories(input.categories)
     }
 }

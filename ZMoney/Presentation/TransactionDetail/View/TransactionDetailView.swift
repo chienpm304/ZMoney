@@ -48,10 +48,10 @@ struct TransactionDetailView: View {
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarItems(leading: cancelButton)
         .navigationBarItems(trailing: deleteButton)
-        .onAppear {
-            viewModel.onViewAppear()
-        }
         .resultAlert(alertData: $viewModel.alertData)
+        .task {
+            await viewModel.refreshData()
+        }
     }
 
     private var cancelButton: some View {

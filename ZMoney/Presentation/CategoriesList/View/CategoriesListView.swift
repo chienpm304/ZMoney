@@ -77,10 +77,10 @@ struct CategoriesListView<ViewModel: CategoriesListViewModel>: View {
         .navigationTitle("Categories")
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarItems(trailing: EditButton())
-        .onAppear {
-            viewModel.onViewAppear()
-        }
         .resultAlert(alertData: $viewModel.alertData)
+        .task {
+            await viewModel.refreshData()
+        }
     }
 }
 

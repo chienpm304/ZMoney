@@ -200,12 +200,12 @@ extension TransactionCoreDataStorage: TransactionStorage {
         context: NSManagedObjectContext,
         completion: @escaping (Result<[DMTransaction], DMError>) -> Void
     ) {
-        let categoryRepository = DefaultCategoryRepository(
-            storage: CategoryCoreDataStorage(coreData: self.coreData)
-        )
-        categoryRepository.fetchCategories { result in
-            switch result {
-            case .success(let categories):
+        Task {
+            let categoryRepository = DefaultCategoryRepository(
+                storage: CategoryCoreDataStorage(coreData: self.coreData)
+            )
+            do {
+                let categories = try await categoryRepository.fetchCategories()
                 if categories.isEmpty {
                     completion(.success([]))
                     return
@@ -224,10 +224,9 @@ extension TransactionCoreDataStorage: TransactionStorage {
                     )
                 }
                 print("[Transaction] Generated mock transactions")
-                self.addTransactions(transactions, completion: completion)
-
-            case .failure(let failure):
-                completion(.failure(failure))
+                addTransactions(transactions, completion: completion)
+            } catch {
+                completion(.failure(DMError.unknown(error)))
             }
         }
     }
