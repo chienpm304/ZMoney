@@ -22,12 +22,19 @@ struct TransactionsListItemView: View {
     var body: some View {
         HStack {
             Image(systemName: transaction.categoryIcon)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
                 .foregroundColor(Color(hex: transaction.categoryColor))
-                .frame(width: 32, height: 32)
+                .frame(width: 28, height: 28)
+                .padding(4)
 
-            if let memo = transaction.memo {
-                Text(memo)
-                    .foregroundColor(.secondary)
+            VStack(alignment: .leading) {
+                Text(LocalizedStringKey(transaction.categoryName))
+                if let memo = transaction.memo, !memo.isEmpty {
+                    Text(memo)
+                        .font(.footnote)
+                        .foregroundColor(.secondary)
+                }
             }
 
             Spacer()

@@ -66,6 +66,7 @@ struct ReportTransactionsView: View {
                         .headerBox(chartData: data)
                         .frame(height: 164, alignment: .center)
                         .id(data.id)
+                        .padding(.top, 20)
                         .padding(.bottom, 40)
                 }
                 .listRowInsets(EdgeInsets(top: 12, leading: 20, bottom: 12, trailing: 20))
@@ -122,12 +123,14 @@ struct ReportTransactionsView: View {
             let name = NSLocalizedString($0.category.name, comment: "")
             let displayName = name.count > 14 ? "\(name.prefix(14))..." : name
             let description = displayName + " - " + String(format: "%.1f%%", $0.percent)
-            let overlapType = OverlayType.label(
-                text: displayName,
-                colour: .primary,
-                font: .caption,
+
+            let overlapType = OverlayType.icon(
+                systemName: $0.category.icon,
+                colour: $0.category.color,
+                size: 24,
                 rFactor: 1.5
             )
+
             return PieChartDataPoint(
                 value: Double($0.amount),
                 description: description,
