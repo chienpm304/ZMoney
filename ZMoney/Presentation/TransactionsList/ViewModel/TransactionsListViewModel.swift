@@ -24,7 +24,6 @@ final class TransactionsListViewModel: ObservableObject, AlertProvidable {
 
     // MARK: Dependencies
     private let dependencies: Dependencies
-    private var fetchUseCase: UseCase?
     let dateRangeType: DateRangeType
 
     // MARK: Output
@@ -119,24 +118,17 @@ extension TransactionsListViewModel {
     }
 
     @MainActor func refreshData() async {
-        let request = FetchTransactionsByTimeUseCase.RequestValue(
-            startTime: dateRange.startDate.timeValue,
-            endTime: dateRange.endDate.timeValue
-        )
-        let completion: (FetchTransactionsByTimeUseCase.ResultValue) -> Void = { [weak self] result in
-            guard let self else { return }
-            DispatchQueue.main.async {
-                switch result {
-                case .success(let transactions):
-                    self.setupDataModel(with: transactions)
-                case .failure(let error):
-                    self.showErrorAlert(with: error)
-                }
-            }
+        do {
+            let input = FetchTransactionsByTimeUseCase.Input(
+                startTime: dateRange.startDate.timeValue,
+                endTime: dateRange.endDate.timeValue
+            )
+            let fetchUseCase = dependencies.fetchTransactionByTimeUseCaseFactory()
+            let transactions = try await fetchUseCase.execute(input: input)
+            self.setupDataModel(with: transactions)
+        } catch {
+            showErrorAlert(with: error as? DMError ?? .unknown(error))
         }
-        let fetchUseCase = dependencies.fetchTransactionByTimeUseCaseFactory(request, completion)
-        fetchUseCase.execute()
-        self.fetchUseCase = fetchUseCase
     }
 }
 
@@ -158,12 +150,8 @@ extension TransactionsListViewModel {
             print("[Preview] Search transactions ...")
         }
         let dependencies = Dependencies(
-            fetchTransactionByTimeUseCaseFactory: { fetchRequest, fetchCompletion in
-                FetchTransactionsByTimeUseCase(
-                    requestValue: fetchRequest,
-                    transactionRepository: repository,
-                    completion: fetchCompletion
-                )
+            fetchTransactionByTimeUseCaseFactory: {
+                FetchTransactionsByTimeUseCase(transactionRepository: repository)
             },
             actions: actions
         )

@@ -70,15 +70,8 @@ extension TransactionsListSceneDIContainer: TransactionsListFlowCoordinatorDepen
 
     // MARK: UseCase
 
-    private func makeFetchTransactionsByTimeUseCase(
-        requestValue: FetchTransactionsByTimeUseCase.RequestValue,
-        completion: @escaping (FetchTransactionsByTimeUseCase.ResultValue) -> Void
-    ) -> FetchTransactionsByTimeUseCase {
-        FetchTransactionsByTimeUseCase(
-            requestValue: requestValue,
-            transactionRepository: makeTransactionRepository(),
-            completion: completion
-        )
+    private func makeFetchTransactionsByTimeUseCase() -> FetchTransactionsByTimeUseCase {
+        FetchTransactionsByTimeUseCase(transactionRepository: makeTransactionRepository())
     }
 
     // MARK: Repository

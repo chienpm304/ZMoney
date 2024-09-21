@@ -16,19 +16,12 @@ public final class DefaultTransactionRepository {
 }
 
 extension DefaultTransactionRepository: TransactionRepository {
-    public func fetchTransaction(
-        by id: ID,
-        completion: @escaping (Result<DMTransaction, DMError>) -> Void
-    ) {
-        storage.fetchTransaction(by: id, completion: completion)
+    public func fetchTransaction(by id: ID) async throws -> DMTransaction {
+        try await storage.fetchTransaction(by: id)
     }
 
-    public func fetchTransactions(
-        startTime: TimeValue,
-        endTime: TimeValue,
-        completion: @escaping (Result<[DMTransaction], DMError>) -> Void
-    ) {
-        storage.fetchTransactions(startTime: startTime, endTime: endTime, completion: completion)
+    public func fetchTransactions(startTime: TimeValue, endTime: TimeValue) async throws -> [DMTransaction] {
+        try await storage.fetchTransactions(startTime: startTime, endTime: endTime)
     }
 
     public func fetchTransactions(

@@ -19,7 +19,7 @@ extension DefaultCategoryRepository: CategoryRepository {
     public func fetchCategories() async throws -> [DMCategory] {
         try await storage.fetchCategories()
     }
-    
+
     public func addCategories(_ categories: [DMCategory]) async throws -> [DMCategory] {
         try await storage.addCategories(categories)
     }

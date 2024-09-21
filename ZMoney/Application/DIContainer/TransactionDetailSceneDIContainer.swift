@@ -102,15 +102,8 @@ final class TransactionDetailSceneDIContainer: TransactionDetailFlowCoordinatorD
         return FetchCategoriesUseCase(categoryRepository: categoryRepository)
     }
 
-    private func fetchTransactionByIDUseCaseFactory(
-        requestValue: FetchTransactionByIDUseCase.RequestValue,
-        completion: @escaping (FetchTransactionByIDUseCase.ResultValue) -> Void
-    ) -> FetchTransactionByIDUseCase {
-        FetchTransactionByIDUseCase(
-            requestValue: requestValue,
-            transactionRepository: makeTransactionRepository(),
-            completion: completion
-        )
+    private func fetchTransactionByIDUseCaseFactory() -> FetchTransactionByIDUseCase {
+        FetchTransactionByIDUseCase(transactionRepository: makeTransactionRepository())
     }
 
     private func makeAddTransactionsUseCase() -> AddTransactionsUseCase {

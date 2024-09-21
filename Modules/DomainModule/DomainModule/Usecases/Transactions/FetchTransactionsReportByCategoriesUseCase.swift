@@ -27,28 +27,20 @@ public final class FetchTransactionsReportByCategoriesUseCase: AsyncUseCase {
     }
 
     public func execute(input: Input) async throws -> Output {
-        try await withCheckedThrowingContinuation { continuation in
-            transactionRepository.fetchTransactions(
-                startTime: input.startTime,
-                endTime: input.endTime
-            ) { result in
-                switch result {
-                case .success(let transactions):
-                    let summary = Dictionary(grouping: transactions) { $0.category }
-                        .mapValues {
-                            $0.reduce(into: 0) { partialResult, tran in
-                                partialResult += tran.amount
-                            }
-                        }
-                        .map { (key: DMCategory, value: Int64) in
-                            (key, value)
-                        }
-                    continuation.resume(returning: summary)
+        let transactions = try await transactionRepository.fetchTransactions(
+            startTime: input.startTime,
+            endTime: input.endTime
+        )
 
-                case .failure(let error):
-                    continuation.resume(throwing: error)
+        let summary = Dictionary(grouping: transactions) { $0.category }
+            .mapValues {
+                $0.reduce(into: 0) { partialResult, tran in
+                    partialResult += tran.amount
                 }
             }
-        }
+            .map { (key: DMCategory, value: Int64) in
+                (key, value)
+            }
+        return summary
     }
 }

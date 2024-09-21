@@ -8,16 +8,12 @@
 import DomainModule
 
 public protocol TransactionStorage {
-    func fetchTransaction(
-        by id: ID,
-        completion: @escaping (Result<DMTransaction, DMError>) -> Void
-    )
+    func fetchTransaction(by id: ID) async throws -> DMTransaction
 
     func fetchTransactions(
         startTime: TimeValue,
-        endTime: TimeValue,
-        completion: @escaping (Result<[DMTransaction], DMError>) -> Void
-    )
+        endTime: TimeValue
+    ) async throws -> [DMTransaction]
 
     func fetchTransactions(
         category: DMCategory,

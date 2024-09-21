@@ -7,8 +7,8 @@
 
 import Combine
 
-public final class FetchTransactionsByTimeUseCase: UseCase {
-    public struct RequestValue {
+public final class FetchTransactionsByTimeUseCase: AsyncUseCase {
+    public struct Input {
         let startTime: TimeValue
         let endTime: TimeValue
 
@@ -18,28 +18,20 @@ public final class FetchTransactionsByTimeUseCase: UseCase {
         }
     }
 
-    public typealias ResultValue = (Result<[DMTransaction], DMError>)
+    public typealias Output = [DMTransaction]
 
-    private let requestValue: RequestValue
     private let transactionRepository: TransactionRepository
-    private let completion: (ResultValue) -> Void
 
     public init(
-        requestValue: RequestValue,
-        transactionRepository: TransactionRepository,
-        completion: @escaping (ResultValue) -> Void
+        transactionRepository: TransactionRepository
     ) {
-        self.requestValue = requestValue
         self.transactionRepository = transactionRepository
-        self.completion = completion
     }
 
-    public func execute() -> Cancellable? {
-        transactionRepository.fetchTransactions(
-            startTime: requestValue.startTime,
-            endTime: requestValue.endTime,
-            completion: completion
+    public func execute(input: Input) async throws -> [DMTransaction] {
+        try await transactionRepository.fetchTransactions(
+            startTime: input.startTime,
+            endTime: input.endTime
         )
-        return nil
     }
 }

@@ -18,31 +18,24 @@ public final class TransactionCoreDataStorage {
 }
 
 extension TransactionCoreDataStorage: TransactionStorage {
-    public func fetchTransaction(
-        by id: ID,
-        completion: @escaping (Result<DMTransaction, DMError>) -> Void
-    ) {
-        coreData.performBackgroundTask { context in
+    public func fetchTransaction(by id: ID) async throws -> DMTransaction {
+        try await coreData.performBackgroundTask { context in
             let fetchRequest: NSFetchRequest<CDTransaction> = CDTransaction.fetchRequest()
             fetchRequest.predicate = NSPredicate(format: "id == %@", id as CVarArg)
             do {
                 if let entity = try context.fetch(fetchRequest).first {
-                    completion(.success(entity.domain))
+                    return entity.domain
                 } else {
-                    completion(.failure(.notFound))
+                    throw DMError.notFound
                 }
             } catch {
-                completion(.failure(.fetchError(error)))
+                throw DMError.fetchError(error)
             }
         }
     }
 
-    public func fetchTransactions(
-        startTime: TimeValue,
-        endTime: TimeValue,
-        completion: @escaping (Result<[DMTransaction], DMError>) -> Void
-    ) {
-        coreData.performBackgroundTask { context in
+    public func fetchTransactions(startTime: TimeValue, endTime: TimeValue) async throws -> [DMTransaction] {
+        let transactions = try await coreData.performBackgroundTask { context in
             do {
                 let fetchRequest = CDTransaction.fetchRequest()
                 fetchRequest.predicate = NSPredicate(
@@ -55,24 +48,23 @@ extension TransactionCoreDataStorage: TransactionStorage {
                 ]
 
                 let entities = try context.fetch(fetchRequest)
-#if DEBUG
-                // TODO: remove test
-                if entities.isEmpty {
-                    self.generateMockTransactions(
-                        startTime: startTime,
-                        endTime: endTime,
-                        context: context,
-                        completion: completion
-                    )
-                    return
-                }
-                // end test
-#endif
-                completion(.success(entities.map { $0.domain }))
+                return entities.map { $0.domain }
             } catch {
-                completion(.failure(.fetchError(error)))
+                throw DMError.fetchError(error)
             }
         }
+
+#if DEBUG
+        // TODO: remove test
+        if transactions.isEmpty {
+            return try await generateMockTransactions(startTime: startTime, endTime: endTime)
+        } else {
+            return transactions
+        }
+        // end test
+#else
+        return transactions
+#endif
     }
 
     public func fetchTransactions(
@@ -101,7 +93,7 @@ extension TransactionCoreDataStorage: TransactionStorage {
         }
     }
 
-    public func addTransactions(_ transactions: [DMTransaction]) async throws -> [DMTransaction]  {
+    public func addTransactions(_ transactions: [DMTransaction]) async throws -> [DMTransaction] {
         try await coreData.performBackgroundTask { context in
             do {
                 let entities = transactions.map { CDTransaction(transaction: $0, insertInto: context) }
@@ -186,39 +178,34 @@ extension TransactionCoreDataStorage: TransactionStorage {
 #if DEBUG
     private func generateMockTransactions(
         startTime: TimeValue,
-        endTime: TimeValue,
-        context: NSManagedObjectContext,
-        completion: @escaping (Result<[DMTransaction], DMError>) -> Void
-    ) {
-        Task {
+        endTime: TimeValue
+    ) async throws -> [DMTransaction] {
+        do {
             let categoryRepository = DefaultCategoryRepository(
                 storage: CategoryCoreDataStorage(coreData: self.coreData)
             )
-            do {
-                let categories = try await categoryRepository.fetchCategories()
-                if categories.isEmpty {
-                    completion(.success([]))
-                    return
-                }
-                let transactions: [DMTransaction] = (0...50).map {
-                    let date = DateInRegion.randomDate(
-                        between: startTime.dateValue.inDefaultRegion(),
-                        and: endTime.dateValue.inDefaultRegion()
-                    ).date
-
-                    return .init(
-                        inputTime: date.timeValue,
-                        amount: MoneyValue.random(in: 1...100) * 10_000_00,
-                        memo: "Test note \($0)",
-                        category: categories[Int.random(in: 0..<categories.count)]
-                    )
-                }
-                let addedTransactions = try await addTransactions(transactions)
-                print("[Transaction] Generated mock transactions")
-                completion(.success(addedTransactions))
-            } catch {
-                completion(.failure(DMError.unknown(error)))
+            let categories = try await categoryRepository.fetchCategories()
+            if categories.isEmpty {
+                return []
             }
+            let transactions: [DMTransaction] = (0...50).map {
+                let date = DateInRegion.randomDate(
+                    between: startTime.dateValue.inDefaultRegion(),
+                    and: endTime.dateValue.inDefaultRegion()
+                ).date
+
+                return .init(
+                    inputTime: date.timeValue,
+                    amount: MoneyValue.random(in: 1...100) * 10_000_00,
+                    memo: "Test note \($0)",
+                    category: categories[Int.random(in: 0..<categories.count)]
+                )
+            }
+            let addedTransactions = try await addTransactions(transactions)
+            print("[Transaction] Generated mock transactions")
+            return addedTransactions
+        } catch {
+            throw DMError.unknown(error)
         }
     }
 #endif

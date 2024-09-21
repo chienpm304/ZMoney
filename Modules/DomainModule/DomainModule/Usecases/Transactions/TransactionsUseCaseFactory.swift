@@ -7,15 +7,9 @@
 
 import Foundation
 
-public typealias FetchTransactionByIDUseCaseFactory = (
-    FetchTransactionByIDUseCase.RequestValue,
-    @escaping (FetchTransactionByIDUseCase.ResultValue) -> Void
-) -> UseCase
+public typealias FetchTransactionByIDUseCaseFactory = () -> FetchTransactionByIDUseCase
 
-public typealias FetchTransactionsByTimeUseCaseFactory = (
-    FetchTransactionsByTimeUseCase.RequestValue,
-    @escaping (FetchTransactionsByTimeUseCase.ResultValue) -> Void
-) -> UseCase
+public typealias FetchTransactionsByTimeUseCaseFactory = () -> FetchTransactionsByTimeUseCase
 
 public typealias AddTransactionsUseCaseFactory = () -> AddTransactionsUseCase
 
