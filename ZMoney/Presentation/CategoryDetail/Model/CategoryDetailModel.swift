@@ -21,7 +21,7 @@ struct CategoryDetailModel: Identifiable, Hashable {
 extension CategoryDetailModel {
     init(category: DMCategory, isPlaceholder: Bool) {
         self.id = category.id
-        self.name = category.name
+        self.name = NSLocalizedString(category.name, comment: "") 
         self.icon = category.icon
         self.color = Color(hex: category.color)
         self.sortIndex = category.sortIndex

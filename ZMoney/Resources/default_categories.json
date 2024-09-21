@@ -92,7 +92,7 @@
             "type": 0
         },
         {
-            "name": "Miscellaneous Expense",
+            "name": "Other Expense",
             "icon": "questionmark.circle",
             "color": "95A5A6",
             "sortIndex": 14,

@@ -572,17 +572,6 @@
         }
       }
     },
-    "Miscellaneous Expense" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "vi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Chi tiêu khác"
-          }
-        }
-      }
-    },
     "Month" : {
       "localizations" : {
         "vi" : {
@@ -632,6 +621,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Ghi chú"
+          }
+        }
+      }
+    },
+    "Other Expense" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chi tiêu khác"
           }
         }
       }
