@@ -30,10 +30,7 @@ public protocol TransactionStorage {
         completion: @escaping (Result<[DMTransaction], DMError>) -> Void
     )
 
-    func updateTransactions(
-        _ transactions: [DMTransaction],
-        completion: @escaping (Result<[DMTransaction], DMError>) -> Void
-    )
+    func updateTransactions(_ transactions: [DMTransaction]) async throws -> [DMTransaction]
 
     func deleteTransactionsByIDs(_ transactionIDs: [ID]) async throws -> [DMTransaction]
 

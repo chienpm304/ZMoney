@@ -164,7 +164,9 @@ struct TransactionDetailView: View {
 
     private var saveButtonSection: some View {
         Button {
-            viewModel.save()
+            Task { @MainActor in
+                await viewModel.save()
+            }
         } label: {
             Text("Save")
                 .foregroundColor(.white)

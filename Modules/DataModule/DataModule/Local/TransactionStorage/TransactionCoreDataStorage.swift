@@ -120,11 +120,8 @@ extension TransactionCoreDataStorage: TransactionStorage {
         }
     }
 
-    public func updateTransactions(
-        _ transactions: [DMTransaction],
-        completion: @escaping (Result<[DMTransaction], DMError>) -> Void
-    ) {
-        coreData.performBackgroundTask { context in
+    public func updateTransactions(_ transactions: [DMTransaction]) async throws -> [DMTransaction] {
+        try await coreData.performBackgroundTask { context in
             do {
                 let transactionsIDs = transactions.map { $0.id }
                 let transactionsDict = Dictionary(uniqueKeysWithValues: transactions.map { ($0.id, $0) })
@@ -142,9 +139,9 @@ extension TransactionCoreDataStorage: TransactionStorage {
                     entity.update(with: transaction, context: context)
                 }
                 try context.save()
-                completion(.success(entities.map { $0.domain }))
+                return entities.map { $0.domain }
             } catch {
-                completion(.failure(.updateError(error)))
+                throw DMError.updateError(error)
             }
         }
     }

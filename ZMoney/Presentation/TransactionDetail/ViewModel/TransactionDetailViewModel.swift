@@ -81,11 +81,11 @@ class TransactionDetailViewModel: ObservableObject, AlertProvidable {
         dependencies.actions.didCancelTransactionDetail()
     }
 
-    func save() {
+    @MainActor func save() async {
         if isNewTransaction {
             addTransaction()
         } else {
-            updateTransaction()
+            await updateTransaction()
         }
     }
 
@@ -172,30 +172,22 @@ class TransactionDetailViewModel: ObservableObject, AlertProvidable {
         addUseCase.execute()
     }
 
-    private func updateTransaction() {
-        let requestValue = UpdateTransactionsUseCase.RequestValue(
-            transactions: [transaction.domain]
-        )
-        let completion: (UpdateTransactionsUseCase.ResultValue) -> Void = { [weak self] result in
-            guard let self else { return }
-            DispatchQueue.main.async {
-                switch result {
-                case .success(let transactions):
-                    guard let transaction = transactions.first else {
-                        self.showErrorAlert(with: DMError.notFound)
-                        return
-                    }
-                    print("Updated transaction success: \(transaction)")
-                    self.dependencies.actions.didUpdateTransactionDetail(transaction)
-
-                case .failure(let error):
-                    print("Updated transaction failed: \(error)")
-                }
-                self.showAlert(with: result, successMessage: "Transaction updated")
+    @MainActor private func updateTransaction() async {
+        do {
+            let updateUseCase = dependencies.updateTransactionsUseCaseFactory()
+            let input = UpdateTransactionsUseCase.Input(transactions: [transaction.domain])
+            let transactions = try await updateUseCase.execute(input: input)
+            guard let transaction = transactions.first else {
+                self.showErrorAlert(with: DMError.notFound)
+                return
             }
+            print("Updated transaction success: \(transaction)")
+            self.showSuccessAlert(with: "Transaction updated")
+            self.dependencies.actions.didUpdateTransactionDetail(transaction)
+        } catch {
+            print("Updated transaction failed: \(error)")
+            showErrorAlert(with: error as? DMError ?? .unknown(error))
         }
-        let updateUseCase = dependencies.updateTransactionsUseCaseFactory(requestValue, completion)
-        updateUseCase.execute()
     }
 
     @MainActor private func deleteTransaction() async {

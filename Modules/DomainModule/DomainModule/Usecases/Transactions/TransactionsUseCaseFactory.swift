@@ -22,10 +22,7 @@ public typealias AddTransactionsUseCaseFactory = (
     @escaping (AddTransactionsUseCase.ResultValue) -> Void
 ) -> UseCase
 
-public typealias UpdateTransactionsUseCaseFactory = (
-    UpdateTransactionsUseCase.RequestValue,
-    @escaping (UpdateTransactionsUseCase.ResultValue) -> Void
-) -> UseCase
+public typealias UpdateTransactionsUseCaseFactory = () -> UpdateTransactionsUseCase
 
 public typealias DeleteTransactionsUseCaseFactory = () -> DeleteTransactionsByIDsUseCase
 

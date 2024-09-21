@@ -46,11 +46,8 @@ extension DefaultTransactionRepository: TransactionRepository {
         storage.addTransactions(transactions, completion: completion)
     }
 
-    public func updateTransactions(
-        _ transactions: [DMTransaction],
-        completion: @escaping (Result<[DMTransaction], DMError>) -> Void
-    ) {
-        storage.updateTransactions(transactions, completion: completion)
+    public func updateTransactions(_ transactions: [DMTransaction]) async throws -> [DMTransaction]  {
+        try await storage.updateTransactions(transactions)
     }
 
     public func deleteTransactionsByIDs(_ transactionIDs: [ID]) async throws -> [DMTransaction] {
