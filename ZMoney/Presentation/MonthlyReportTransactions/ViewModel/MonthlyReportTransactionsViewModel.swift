@@ -42,7 +42,7 @@ final class MonthlyReportTransactionsViewModel: ObservableObject, AlertProvidabl
     }
 
     var navigationTitle: String {
-        let categoryName = NSLocalizedString(category.name, comment: "")
+        let categoryName = category.name.localized
         let yearString = dateRange.startDate.toFormat("yyyy")
         return "\(categoryName) (\(yearString))"
     }

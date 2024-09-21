@@ -39,7 +39,7 @@ private struct _CurrencyTextField: UIViewRepresentable {
         toolbar.sizeToFit()
 
         let doneButton = UIBarButtonItem(
-            title: NSLocalizedString("Done", comment: ""),
+            title: "Done".localized,
             style: .done,
             target: textField,
             action: #selector(textField.resignFirstResponder)

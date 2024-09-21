@@ -18,7 +18,7 @@ struct CategoryDetailView: View {
                     HStack {
                         Text("Name")
                             .fontWeight(.medium)
-                        TextField("Category name", text: $viewModel.model.name)
+                        TextField("Category name", text: $viewModel.model.localizedName)
                             .withFieldBackground()
                             .focused($keyboardFocused)
                     }

@@ -45,6 +45,7 @@ struct TransactionsListWithCalendarView: View {
                 TransactionsListView(dataModel: viewModel.dataModel) {
                     viewModel.didTapTransactionItem($0)
                 }
+                .background(Color.systemBackground)
                 .onChange(of: viewModel.scrollToDate) { newDate in
                     if let date = newDate {
                         withAnimation {

@@ -83,7 +83,7 @@ struct CategoryItemView: View {
         VStack(spacing: 4) {
             IconItemView(icon: item.icon, color: item.color)
                 .frame(width: 24, height: 24)
-            Text(LocalizedStringKey(item.name))
+            Text(LocalizedStringKey(item.localizedName))
                 .font(.system(size: 12))
         }
     }

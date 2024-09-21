@@ -86,7 +86,7 @@ final class TabViewFlowCoordinator: NSObject {
         }
 
         navController.tabBarItem = UITabBarItem(
-            title: NSLocalizedString(tabType.title, comment: "Tab name"),
+            title: tabType.title.localized,
             image: UIImage(systemName: tabType.tabIcon),
             tag: tabType.index
         )

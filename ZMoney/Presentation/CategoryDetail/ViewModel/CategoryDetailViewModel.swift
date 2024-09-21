@@ -46,12 +46,12 @@ final class CategoryDetailViewModel: ObservableObject, AlertProvidable {
     }
 
     private var isValidData: Bool {
-        !model.name.isEmpty &&
+        !model.localizedName.isEmpty &&
         !model.icon.isEmpty
     }
 
     private var hasDataChanged: Bool {
-        model.name != originalModel.name ||
+        model.localizedName != originalModel.localizedName ||
         model.icon != originalModel.icon ||
         model.color != originalModel.color
     }
