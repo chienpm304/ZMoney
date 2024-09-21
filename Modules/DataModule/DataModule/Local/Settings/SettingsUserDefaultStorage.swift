@@ -22,13 +22,11 @@ public final class SettingsUserDefaultStorage: SettingsStorage {
         )?.domain ?? .defaultValue
     }
 
-    public func updateSettings(
-        _ settings: DMSettings,
-        forKey key: String,
-        completion: @escaping (Result<DMSettings, DMError>) -> Void
-    ) {
-        let settingsCodable = SettingsCodable(from: settings)
-        let result = userDefaultCoordinator.set(settingsCodable, forKey: key)
-        completion(result.map({ $0.domain }))
+    public func updateSettings(_ settings: DMSettings, forKey key: String) async throws -> DMSettings {
+        try await withCheckedThrowingContinuation { continuation in
+            let settingsCodable = SettingsCodable(from: settings)
+            let result = userDefaultCoordinator.set(settingsCodable, forKey: key)
+            continuation.resume(with: result.map({ $0.domain }))
+        }
     }
 }

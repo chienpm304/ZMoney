@@ -27,10 +27,6 @@ public class DefaultSettingsRepository: SettingsRepository {
     }
 
     public func updateSettings(_ settings: DMSettings) async throws -> DMSettings {
-        try await withCheckedThrowingContinuation { continuation in
-            settingsStorage.updateSettings(settings, forKey: Keys.settings.rawValue) { result in
-                continuation.resume(with: result)
-            }
-        }
+        try await settingsStorage.updateSettings(settings, forKey: Keys.settings.rawValue)
     }
 }

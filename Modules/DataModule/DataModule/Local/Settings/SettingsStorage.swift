@@ -11,9 +11,5 @@ import DomainModule
 public protocol SettingsStorage {
     func fetchSettings(forKey key: String) -> DMSettings
 
-    func updateSettings(
-        _ settings: DMSettings,
-        forKey key: String,
-        completion: @escaping (Result<DMSettings, DMError>) -> Void
-    )
+    func updateSettings(_ settings: DMSettings, forKey key: String) async throws -> DMSettings
 }
