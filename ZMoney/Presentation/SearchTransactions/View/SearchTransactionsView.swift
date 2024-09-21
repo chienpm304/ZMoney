@@ -25,11 +25,11 @@ struct SearchTransactionsView: View {
                         }
                 }
             }
-            .padding(6)
-            .overlay(
-                RoundedRectangle(cornerRadius: 8)
-                    .stroke(lineWidth: 0.5)
-                    .foregroundColor(Color.secondary)
+            .padding(.vertical, 6)
+            .padding(.horizontal, 8)
+            .background(
+                RoundedRectangle(cornerRadius: 6)
+                    .fill(Color.secondarySystemBackground)
             )
             .padding(10)
             .onChange(of: viewModel.searchKeyword) { _ in
@@ -37,8 +37,6 @@ struct SearchTransactionsView: View {
                     await viewModel.searchTransactions()
                 }
             }
-
-            Divider()
 
             if viewModel.isLoading {
                 ProgressView("Loading...")
