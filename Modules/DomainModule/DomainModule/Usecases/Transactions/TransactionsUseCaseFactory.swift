@@ -17,10 +17,7 @@ public typealias FetchTransactionsByTimeUseCaseFactory = (
     @escaping (FetchTransactionsByTimeUseCase.ResultValue) -> Void
 ) -> UseCase
 
-public typealias AddTransactionsUseCaseFactory = (
-    AddTransactionsUseCase.RequestValue,
-    @escaping (AddTransactionsUseCase.ResultValue) -> Void
-) -> UseCase
+public typealias AddTransactionsUseCaseFactory = () -> AddTransactionsUseCase
 
 public typealias UpdateTransactionsUseCaseFactory = () -> UpdateTransactionsUseCase
 

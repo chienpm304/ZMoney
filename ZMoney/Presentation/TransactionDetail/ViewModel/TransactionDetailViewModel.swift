@@ -83,7 +83,7 @@ class TransactionDetailViewModel: ObservableObject, AlertProvidable {
 
     @MainActor func save() async {
         if isNewTransaction {
-            addTransaction()
+            await addTransaction()
         } else {
             await updateTransaction()
         }
@@ -146,30 +146,23 @@ class TransactionDetailViewModel: ObservableObject, AlertProvidable {
         }
     }
 
-    private func addTransaction() {
-        let requestValue = AddTransactionsUseCase.RequestValue(
-            transactions: [transaction.domain]
-        )
-        let completion: (AddTransactionsUseCase.ResultValue) -> Void = { [weak self] result in
-            guard let self else { return }
-            DispatchQueue.main.async {
-                switch result {
-                case .success(let transactions):
-                    guard let transaction = transactions.first else {
-                        assertionFailure("Unknown error")
-                        return
-                    }
-                    print("Added transaction success: \(transaction)")
-                    self.prepareForNextTransaction()
-                    self.dependencies.actions.didUpdateTransactionDetail(transaction)
-                case .failure(let error):
-                    print("Added transaction failed: \(error)")
-                }
-                self.showAlert(with: result, successMessage: "Transaction created")
+    @MainActor private func addTransaction() async {
+        do {
+            let addUseCase = dependencies.addTransactionsUseCaseFactory()
+            let input = AddTransactionsUseCase.Input(transactions: [transaction.domain])
+            let transactions = try await addUseCase.execute(input: input)
+            guard let transaction = transactions.first else {
+                assertionFailure("Unknown error")
+                return
             }
+            prepareForNextTransaction()
+            dependencies.actions.didUpdateTransactionDetail(transaction)
+            print("Added transaction success: \(transaction)")
+            showSuccessAlert(with: "Transaction created")
+        } catch {
+            print("Added transaction failed: \(error)")
+            showErrorAlert(with: error as? DMError ?? .unknown(error))
         }
-        let addUseCase = dependencies.addTransactionsUseCaseFactory(requestValue, completion)
-        addUseCase.execute()
     }
 
     @MainActor private func updateTransaction() async {

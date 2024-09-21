@@ -25,10 +25,7 @@ public protocol TransactionRepository {
         endTime: TimeValue
     ) async throws -> [DMTransaction]
 
-    func addTransactions(
-        _ transactions: [DMTransaction],
-        completion: @escaping (Result<[DMTransaction], DMError>) -> Void
-    )
+    func addTransactions(_ transactions: [DMTransaction]) async throws -> [DMTransaction]
 
     func updateTransactions(_ transactions: [DMTransaction]) async throws -> [DMTransaction]
 

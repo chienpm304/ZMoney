@@ -101,20 +101,17 @@ extension TransactionCoreDataStorage: TransactionStorage {
         }
     }
 
-    public func addTransactions(
-        _ transactions: [DMTransaction],
-        completion: @escaping (Result<[DMTransaction], DMError>) -> Void
-    ) {
-        coreData.performBackgroundTask { context in
+    public func addTransactions(_ transactions: [DMTransaction]) async throws -> [DMTransaction]  {
+        try await coreData.performBackgroundTask { context in
             do {
                 let entities = transactions.map { CDTransaction(transaction: $0, insertInto: context) }
                 try context.save()
-                completion(.success(entities.map { $0.domain }))
+                return entities.map { $0.domain }
             } catch {
                 if (error as NSError).code == NSManagedObjectConstraintMergeError {
-                    completion(.failure(.duplicated))
+                    throw DMError.duplicated
                 } else {
-                    completion(.failure(.addError(error)))
+                    throw DMError.addError(error)
                 }
             }
         }
@@ -216,8 +213,9 @@ extension TransactionCoreDataStorage: TransactionStorage {
                         category: categories[Int.random(in: 0..<categories.count)]
                     )
                 }
+                let addedTransactions = try await addTransactions(transactions)
                 print("[Transaction] Generated mock transactions")
-                addTransactions(transactions, completion: completion)
+                completion(.success(addedTransactions))
             } catch {
                 completion(.failure(DMError.unknown(error)))
             }

@@ -113,15 +113,8 @@ final class TransactionDetailSceneDIContainer: TransactionDetailFlowCoordinatorD
         )
     }
 
-    private func makeAddTransactionsUseCase(
-        requestValue: AddTransactionsUseCase.RequestValue,
-        completion: @escaping (AddTransactionsUseCase.ResultValue) -> Void
-    ) -> AddTransactionsUseCase {
-        AddTransactionsUseCase(
-            requestValue: requestValue,
-            transactionRepository: makeTransactionRepository(),
-            completion: completion
-        )
+    private func makeAddTransactionsUseCase() -> AddTransactionsUseCase {
+        AddTransactionsUseCase(transactionRepository: makeTransactionRepository())
     }
 
     private func makeUpdateTransactionsUseCase() -> UpdateTransactionsUseCase {
