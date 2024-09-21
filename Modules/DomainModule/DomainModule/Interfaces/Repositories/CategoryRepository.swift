@@ -20,10 +20,7 @@ public protocol CategoryRepository {
         completion: @escaping (Result<[DMCategory], DMError>) -> Void
     )
 
-    func deleteCategories(
-        _ categoryIDs: [ID],
-        completion: @escaping (Result<[DMCategory], DMError>) -> Void
-    )
+    func deleteCategories(_ categoryIDs: [ID]) async throws -> [DMCategory]
 
     func fetchDefaultCategories() async -> [DMCategory]
 }

@@ -116,7 +116,7 @@ extension CategoriesListViewModel {
         updateUseCase.execute()
     }
 
-    func deleteItem(at index: IndexSet) {
+    @MainActor func deleteItem(at index: IndexSet) async {
         let toUpdateCategories: [DMCategory]
         if selectedTab == .expense {
             toUpdateCategories = expenseCategories
@@ -126,32 +126,19 @@ extension CategoriesListViewModel {
 
         let toDeleteIDs = index.map { toUpdateCategories[$0].id }
 
-        let requestValue = DeleteCategoriesUseCase.RequestValue(categoryIDs: toDeleteIDs)
-        let completion: (DeleteCategoriesUseCase.ResultValue) -> Void = { result in
-            DispatchQueue.main.async {
-                switch result {
-                case .success(let deletedCategories):
-                    let deletedIDs = deletedCategories.map { $0.id }
-                    if self.selectedTab == .expense {
-                        self.expenseCategories.removeAll { deletedIDs.contains($0.id) }
-                    } else {
-                        self.incomeCategories.removeAll { deletedIDs.contains($0.id) }
-                    }
-                case .failure(let error):
-                    switch error {
-                    case .notFound:
-                        print("delete category error: NOT FOUND")
-                    case .violateRelationshipConstraint:
-                        print("delete category denied: \(error.localizedDescription)")
-                    default:
-                        print("delete category error: \(error)")
-                    }
-                    self.showErrorAlert(with: error)
-                }
+        do {
+            let input = DeleteCategoriesUseCase.Input(categoryIDs: toDeleteIDs)
+            let deleteUseCase = dependencies.deleteUseCaseFactory()
+            let deletedCategories = try await deleteUseCase.execute(input: input)
+            let deletedIDs = deletedCategories.map { $0.id }
+            if selectedTab == .expense {
+                expenseCategories.removeAll { deletedIDs.contains($0.id) }
+            } else {
+                incomeCategories.removeAll { deletedIDs.contains($0.id) }
             }
+        } catch {
+            showErrorAlert(with: error as? DMError ?? .unknown(error))
         }
-        let deteleUseCase = dependencies.deleteUseCaseFactory(requestValue, completion)
-        deteleUseCase.execute()
     }
 }
 
@@ -181,12 +168,8 @@ extension CategoriesListViewModel {
                     completion: updateCompletion
                 )
             },
-            deleteUseCaseFactory: { deleteRequest, deleteCompletion in
-                DeleteCategoriesUseCase(
-                    requestValue: deleteRequest,
-                    categoryRepository: categoriesRepository,
-                    completion: deleteCompletion
-                )
+            deleteUseCaseFactory: {
+                DeleteCategoriesUseCase(categoryRepository: categoriesRepository)
             },
             actions: actions
         )

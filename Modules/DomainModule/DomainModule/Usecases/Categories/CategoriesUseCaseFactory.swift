@@ -21,7 +21,4 @@ public typealias UpdateCategoriesUseCaseFactory = (
     @escaping (UpdateCategoriesUseCase.ResultValue) -> Void
 ) -> UseCase
 
-public typealias DeleteCategoriesUseCaseFactory = (
-    DeleteCategoriesUseCase.RequestValue,
-    @escaping (DeleteCategoriesUseCase.ResultValue) -> Void
-) -> UseCase
+public typealias DeleteCategoriesUseCaseFactory = () -> DeleteCategoriesUseCase

@@ -97,29 +97,25 @@ extension CategoryCoreDataStorage: CategoryStorage {
         }
     }
 
-    public func deleteCategories(
-        _ categoryIDs: [ID],
-        completion: @escaping (Result<[DMCategory], DMError>) -> Void
-    ) {
-        coreData.performBackgroundTask { context in
+    public func deleteCategories(_ categoryIDs: [ID]) async throws -> [DMCategory] {
+        try await coreData.performBackgroundTask { context in
             do {
                 let fetchRequest: NSFetchRequest<CDCategory> = CDCategory.fetchRequest()
                 fetchRequest.predicate = NSPredicate(format: "id IN %@", categoryIDs)
 
                 let entities = try context.fetch(fetchRequest)
                 guard !entities.isEmpty else {
-                    completion(.failure(.notFound))
-                    return
+                    throw DMError.notFound
                 }
                 let deletedCategories = entities.map { $0.domain }
                 entities.forEach { context.delete($0) }
                 try context.save()
-                completion(.success(deletedCategories))
+                return deletedCategories
             } catch {
                 if (error as NSError).code == NSValidationRelationshipDeniedDeleteError {
-                    completion(.failure(.violateRelationshipConstraint))
+                    throw DMError.violateRelationshipConstraint
                 } else {
-                    completion(.failure(.deleteError(error)))
+                    throw DMError.deleteError(error)
                 }
             }
         }

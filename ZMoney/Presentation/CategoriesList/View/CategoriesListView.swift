@@ -64,7 +64,9 @@ struct CategoriesListView<ViewModel: CategoriesListViewModel>: View {
                         viewModel.moveItems(from: sourceIndexSet, to: newOffset)
                     }
                     .onDelete { indexSet in
-                        viewModel.deleteItem(at: indexSet)
+                        Task {
+                            await viewModel.deleteItem(at: indexSet)
+                        }
                     }
                 }
             }

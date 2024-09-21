@@ -34,11 +34,8 @@ extension DefaultCategoryRepository: CategoryRepository {
         storage.updateCategories(categories, completion: completion)
     }
 
-    public func deleteCategories(
-        _ categoryIDs: [ID],
-        completion: @escaping (Result<[DMCategory], DMError>) -> Void
-    ) {
-        storage.deleteCategories(categoryIDs, completion: completion)
+    public func deleteCategories(_ categoryIDs: [ID]) async throws -> [DMCategory] {
+        try await storage.deleteCategories(categoryIDs)
     }
 
     public func fetchDefaultCategories() async -> [DMCategory] {

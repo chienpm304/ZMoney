@@ -59,15 +59,8 @@ final class CategoriesSceneDIContainer: CategoriesFlowCoordinatorDependencies {
         )
     }
 
-    func makeDeleteCategoriesUseCase(
-        requestValue: DeleteCategoriesUseCase.RequestValue,
-        completion: @escaping (DeleteCategoriesUseCase.ResultValue) -> Void
-    ) -> UseCase {
-        DeleteCategoriesUseCase(
-            requestValue: requestValue,
-            categoryRepository: makeCategoriesRepository(),
-            completion: completion
-        )
+    func makeDeleteCategoriesUseCase() -> DeleteCategoriesUseCase {
+        DeleteCategoriesUseCase(categoryRepository: makeCategoriesRepository())
     }
 
     // MARK: Repositories
