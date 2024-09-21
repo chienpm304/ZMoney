@@ -27,11 +27,8 @@ extension DefaultCategoryRepository: CategoryRepository {
         storage.addCategories(categories, completion: completion)
     }
 
-    public func updateCategories(
-        _ categories: [DMCategory],
-        completion: @escaping (Result<[DMCategory], DMError>) -> Void
-    ) {
-        storage.updateCategories(categories, completion: completion)
+    public func updateCategories(_ categories: [DMCategory]) async throws -> [DMCategory] {
+        try await storage.updateCategories(categories)
     }
 
     public func deleteCategories(_ categoryIDs: [ID]) async throws -> [DMCategory] {

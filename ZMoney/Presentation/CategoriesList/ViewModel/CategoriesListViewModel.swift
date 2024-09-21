@@ -39,7 +39,7 @@ final class CategoriesListViewModel: ObservableObject, AlertProvidable {
     private var fetchUseCase: UseCase?
 
     // MARK: Output
-    @Published var selectedTab: CategoryTab
+    @Published var selectedTab: CategoryTab = .expense
     @Published var expenseItems: [CategoriesListItemModel] = []
     @Published var incomeItems: [CategoriesListItemModel] = []
     @Published var alertData: AlertData?
@@ -91,7 +91,7 @@ extension CategoriesListViewModel {
         dependencies.actions?.addCategoryDetail(selectedTab.domainType, Index(index))
     }
 
-    func moveItems(from source: IndexSet, to newOffset: Int) {
+    @MainActor func moveItems(from source: IndexSet, to newOffset: Int) async {
         let updatedCategories: [DMCategory]
         if selectedTab == .expense {
             expenseCategories.move(fromOffsets: source, toOffset: newOffset)
@@ -101,19 +101,16 @@ extension CategoriesListViewModel {
             updatedCategories = incomeCategories
         }
 
-        let requestValue = UpdateCategoriesUseCase.RequestValue(
-            categories: updatedCategories,
-            needUpdateSortOrder: true
-        )
-        let completion: (UpdateCategoriesUseCase.ResultValue) -> Void = { result in
-            DispatchQueue.main.async {
-                if case let .failure(error) = result {
-                    self.showErrorAlert(with: error)
-                }
-            }
+        do {
+            let input = UpdateCategoriesUseCase.Input(
+                categories: updatedCategories,
+                needUpdateSortOrder: true
+            )
+            let updateUseCase = dependencies.updateUseCaseFactory()
+            let _ = try await updateUseCase.execute(input: input)
+        } catch {
+            self.showErrorAlert(with: error as? DMError ?? .unknown(error))
         }
-        let updateUseCase = dependencies.updateUseCaseFactory(requestValue, completion)
-        updateUseCase.execute()
     }
 
     @MainActor func deleteItem(at index: IndexSet) async {
@@ -161,12 +158,8 @@ extension CategoriesListViewModel {
             fetchUseCaseFactory: { fetchCompletion in
                 FetchCategoriesUseCase(categoryRepository: categoriesRepository, completion: fetchCompletion)
             },
-            updateUseCaseFactory: { updateRequest, updateCompletion in
-                UpdateCategoriesUseCase(
-                    requestValue: updateRequest,
-                    categoryRepository: categoriesRepository,
-                    completion: updateCompletion
-                )
+            updateUseCaseFactory: {
+                UpdateCategoriesUseCase(categoryRepository: categoriesRepository)
             },
             deleteUseCaseFactory: {
                 DeleteCategoriesUseCase(categoryRepository: categoriesRepository)

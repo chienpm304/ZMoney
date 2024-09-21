@@ -7,8 +7,8 @@
 
 import Combine
 
-public final class UpdateCategoriesUseCase: UseCase {
-    public struct RequestValue {
+public final class UpdateCategoriesUseCase: AsyncUseCase {
+    public struct Input {
         let categories: [DMCategory]
         let needUpdateSortOrder: Bool
 
@@ -18,26 +18,18 @@ public final class UpdateCategoriesUseCase: UseCase {
         }
     }
 
-    public typealias ResultValue = (Result<[DMCategory], DMError>)
+    public typealias Output = [DMCategory]
 
-    private let requestValue: RequestValue
     private let categoryRepository: CategoryRepository
-    private let completion: (ResultValue) -> Void
 
-    public init(
-        requestValue: RequestValue,
-        categoryRepository: CategoryRepository,
-        completion: @escaping (ResultValue) -> Void
-    ) {
-        self.requestValue = requestValue
+    public init(categoryRepository: CategoryRepository) {
         self.categoryRepository = categoryRepository
-        self.completion = completion
     }
 
-    public func execute() -> Cancellable? {
+    public func execute(input: Input) async throws -> [DMCategory] {
         let toUpdateCategories: [DMCategory]
-        if requestValue.needUpdateSortOrder {
-            toUpdateCategories = requestValue.categories.enumerated().map { index, category in
+        if input.needUpdateSortOrder {
+            toUpdateCategories = input.categories.enumerated().map { index, category in
                 DMCategory(
                     id: category.id,
                     name: category.name,
@@ -48,12 +40,8 @@ public final class UpdateCategoriesUseCase: UseCase {
                 )
             }
         } else {
-            toUpdateCategories = requestValue.categories
+            toUpdateCategories = input.categories
         }
-        categoryRepository.updateCategories(
-            toUpdateCategories,
-            completion: completion
-        )
-        return nil
+        return try await categoryRepository.updateCategories(toUpdateCategories)
     }
 }

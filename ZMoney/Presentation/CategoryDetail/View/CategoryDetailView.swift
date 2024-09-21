@@ -40,7 +40,9 @@ struct CategoryDetailView: View {
                 }
 
                 Button {
-                    viewModel.save()
+                    Task {
+                        await viewModel.save()
+                    }
                 } label: {
                     Text("Save")
                         .foregroundColor(.white)

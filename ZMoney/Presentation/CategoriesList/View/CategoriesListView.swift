@@ -60,8 +60,10 @@ struct CategoriesListView<ViewModel: CategoriesListViewModel>: View {
                         }
                     }
                     .onMove { sourceIndexSet, newOffset in
-                        print("move indice: \(sourceIndexSet), newOffset: \(newOffset)")
-                        viewModel.moveItems(from: sourceIndexSet, to: newOffset)
+                        Task {
+                            print("move indice: \(sourceIndexSet), newOffset: \(newOffset)")
+                            await viewModel.moveItems(from: sourceIndexSet, to: newOffset)
+                        }
                     }
                     .onDelete { indexSet in
                         Task {

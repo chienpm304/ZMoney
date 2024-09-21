@@ -17,10 +17,7 @@ public protocol CategoryStorage {
         completion: @escaping (Result<[DMCategory], DMError>) -> Void
     )
 
-    func updateCategories(
-        _ categories: [DMCategory],
-        completion: @escaping (Result<[DMCategory], DMError>) -> Void
-    )
+    func updateCategories(_ categories: [DMCategory]) async throws -> [DMCategory]
 
     func deleteCategories(_ categoryIDs: [ID]) async throws -> [DMCategory]
 }

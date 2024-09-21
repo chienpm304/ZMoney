@@ -13,12 +13,9 @@ public typealias FetchCategoriesUseCaseFactory = (
 
 public typealias AddCategoriesUseCaseFactory = (
     AddCategoriesUseCase.RequestValue,
-    @escaping (UpdateCategoriesUseCase.ResultValue) -> Void
+    @escaping (AddCategoriesUseCase.ResultValue) -> Void
 ) -> UseCase
 
-public typealias UpdateCategoriesUseCaseFactory = (
-    UpdateCategoriesUseCase.RequestValue,
-    @escaping (UpdateCategoriesUseCase.ResultValue) -> Void
-) -> UseCase
+public typealias UpdateCategoriesUseCaseFactory = () -> UpdateCategoriesUseCase
 
 public typealias DeleteCategoriesUseCaseFactory = () -> DeleteCategoriesUseCase

@@ -12,13 +12,14 @@ struct CategoryDetailViewModelActions {
     let notifyDidSavedCategory: (DMCategory) -> Void
 }
 
-final class CategoryDetailViewModel: ObservableObject {
+final class CategoryDetailViewModel: ObservableObject, AlertProvidable {
     struct Dependencies {
         let addUseCaseFactory: AddCategoriesUseCaseFactory
         let updateUseCaseFactory: UpdateCategoriesUseCaseFactory
         let actions: CategoryDetailViewModelActions
     }
 
+    @Published var alertData: AlertData?
     @Published var model: CategoryDetailModel
     private let originalModel: CategoryDetailModel
     let isNewCategory: Bool
@@ -55,11 +56,11 @@ final class CategoryDetailViewModel: ObservableObject {
         model.color != originalModel.color
     }
 
-    func save() {
+    @MainActor func save() async {
         if isNewCategory {
             addCategory()
         } else {
-            updateCategory()
+            await updateCategory()
         }
     }
 
@@ -85,30 +86,24 @@ final class CategoryDetailViewModel: ObservableObject {
         addUseCase.execute()
     }
 
-    private func updateCategory() {
-        let requestValue = UpdateCategoriesUseCase.RequestValue(
-            categories: [model.domain],
-            needUpdateSortOrder: false
-        )
-        let completion: (UpdateCategoriesUseCase.ResultValue) -> Void = { [weak self] result in
-            guard let self else { return }
-            DispatchQueue.main.async {
-                switch result {
-                case .success(let categories):
-                    guard let category = categories.first else {
-                        assertionFailure("Unknown error")
-                        return
-                    }
-                    print("Updated category success: \(category)")
-                    self.dependencies.actions.notifyDidSavedCategory(category)
-
-                case .failure(let error):
-                    print("Updated category failed: \(error)")
-                }
+    @MainActor private func updateCategory() async {
+        do {
+            let input = UpdateCategoriesUseCase.Input(
+                categories: [model.domain],
+                needUpdateSortOrder: false
+            )
+            let updateUseCase = dependencies.updateUseCaseFactory()
+            let categories = try await updateUseCase.execute(input: input)
+            guard let category = categories.first else {
+                assertionFailure("Unknown error")
+                return
             }
+            print("Updated category success: \(category)")
+            dependencies.actions.notifyDidSavedCategory(category)
+        } catch {
+            print("Updated category failed: \(error)")
+            showErrorAlert(with: error as? DMError ?? .unknown(error))
         }
-        let updateUseCase = dependencies.updateUseCaseFactory(requestValue, completion)
-        updateUseCase.execute()
     }
 }
 
@@ -139,12 +134,8 @@ extension CategoryDetailViewModel {
                     categoryRepository: categoriesRepository,
                     completion: addCompletion
                 )
-            }, updateUseCaseFactory: { updateRequest, updateCompletion in
-                UpdateCategoriesUseCase(
-                    requestValue: updateRequest,
-                    categoryRepository: categoriesRepository,
-                    completion: updateCompletion
-                )
+            }, updateUseCaseFactory: {
+                UpdateCategoriesUseCase(categoryRepository: categoriesRepository)
             }, actions: actions
         )
         return CategoryDetailViewModel(

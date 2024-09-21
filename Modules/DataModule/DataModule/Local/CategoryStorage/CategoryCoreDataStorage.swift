@@ -67,11 +67,8 @@ extension CategoryCoreDataStorage: CategoryStorage {
         }
     }
 
-    public func updateCategories(
-        _ categories: [DMCategory],
-        completion: @escaping (Result<[DMCategory], DMError>) -> Void
-    ) {
-        coreData.performBackgroundTask { context in
+    public func updateCategories(_ categories: [DMCategory]) async throws -> [DMCategory] {
+        try await coreData.performBackgroundTask { context in
             do {
                 let categoriesIDs = categories.map { $0.id }
                 let categoriesDict = Dictionary(uniqueKeysWithValues: categories.map { ($0.id, $0) })
@@ -90,9 +87,9 @@ extension CategoryCoreDataStorage: CategoryStorage {
                     }
                 }
                 try context.save()
-                completion(.success(entities.map { $0.domain }))
+                return entities.map { $0.domain }
             } catch {
-                completion(.failure(.updateError(error)))
+                throw DMError.updateError(error)
             }
         }
     }
