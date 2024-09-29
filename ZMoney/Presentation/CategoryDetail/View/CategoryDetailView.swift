@@ -18,12 +18,12 @@ struct CategoryDetailView: View {
                     HStack {
                         Text("Name")
                             .fontWeight(.medium)
-                        TextField("Category name", text: $viewModel.model.localizedName)
+                        TextField("Category name", text: $viewModel.localizedName)
                             .withFieldBackground()
                             .focused($keyboardFocused)
                     }
 
-                    ColorPicker(selection: $viewModel.model.color, supportsOpacity: false) {
+                    ColorPicker(selection: $viewModel.color, supportsOpacity: false) {
                         Text("Icon")
                             .fontWeight(.medium)
                     }
@@ -34,8 +34,8 @@ struct CategoryDetailView: View {
                         spacing: 8,
                         icons: viewModel.iconList,
                         iconSize: .init(width: 40, height: 30),
-                        selectedIcon: $viewModel.model.icon,
-                        selectedColor: $viewModel.model.color
+                        selectedIcon: $viewModel.icon,
+                        selectedColor: $viewModel.color
                     )
                 }
 

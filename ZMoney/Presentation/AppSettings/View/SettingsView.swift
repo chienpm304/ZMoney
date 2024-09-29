@@ -14,14 +14,14 @@ struct SettingsView: View {
     var body: some View {
         Form {
             Section("General settings") {
-                Picker("Language", selection: $viewModel.settings.language) {
+                Picker("Language", selection: $viewModel.language) {
                     ForEach(DMLanguage.allCases) { language in
                         Text(language.displayName)
                             .tag(language)
                     }
                 }
 
-                Picker("Currency", selection: $viewModel.settings.currency) {
+                Picker("Currency", selection: $viewModel.currency) {
                     ForEach(DMCurrency.allCases) { currency in
                         Text(currency.displayName)
                             .tag(currency)

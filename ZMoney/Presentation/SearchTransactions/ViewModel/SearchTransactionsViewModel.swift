@@ -16,7 +16,7 @@ struct SearchTransactionsViewModelActions {
 final class SearchTransactionsViewModel: ObservableObject, AlertProvidable {
     private var transactions: [DMTransaction] = []
 
-    @MainActor @Published var searchModel: TransactionsListModel = .init(transactions: [])
+    @MainActor @Published private(set) var searchModel: TransactionsListModel = .init(transactions: [])
     @Published var searchKeyword: String = ""
     @Published private(set) var isLoading: Bool = false
     @Published var alertData: AlertData?

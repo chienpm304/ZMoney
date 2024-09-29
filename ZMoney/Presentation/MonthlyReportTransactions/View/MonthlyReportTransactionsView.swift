@@ -46,7 +46,7 @@ struct MonthlyReportTransactionsView: View {
                         Text("Total")
                             .fontWeight(.medium)
                         Spacer()
-                        MoneyText(value: viewModel.model.totalAmount, style: .income)
+                        MoneyText(value: viewModel.totalAmount, style: .income)
                             .font(.body.weight(.medium))
                     }
 
@@ -54,13 +54,13 @@ struct MonthlyReportTransactionsView: View {
                         Text("Average")
                             .fontWeight(.medium)
                         Spacer()
-                        MoneyText(value: viewModel.model.averageAmount, style: .income)
+                        MoneyText(value: viewModel.averageAmount, style: .income)
                             .font(.body.weight(.medium))
                     }
                 }
 
                 Section {
-                    ForEach(viewModel.model.itemModels) { item in
+                    ForEach(viewModel.itemModels) { item in
                         Button {
                             Task {
                                 viewModel.didTapItem(item)
@@ -90,7 +90,7 @@ struct MonthlyReportTransactionsView: View {
     }
 
     var chartData: BarChartData {
-        let dataPoints: [BarChartDataPoint] = viewModel.model.itemModels.map {
+        let dataPoints: [BarChartDataPoint] = viewModel.itemModels.map {
             let colorStyle = ColourStyle(colour: .orange)
             return BarChartDataPoint(
                 value: Double($0.amount),

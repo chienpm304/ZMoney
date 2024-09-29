@@ -14,6 +14,7 @@ struct ReportTransactionsViewModelActions {
     let didTapSearch: () -> Void
 }
 
+@dynamicMemberLookup
 final class ReportTransactionsViewModel: ObservableObject, AlertProvidable {
     struct Dependencies {
         let fetchTransactionsByTimeUseCaseFactory: () -> FetchTransactionsReportByCategoriesUseCase
@@ -29,7 +30,7 @@ final class ReportTransactionsViewModel: ObservableObject, AlertProvidable {
             }
         }
     }
-    @MainActor @Published var reportModel = ReportTransactionsModel(transactions: [], selectedType: .expense)
+    @MainActor @Published private var reportModel = ReportTransactionsModel(transactions: [], selectedType: .expense)
     @Published private(set) var dateRange: DateRange
     @Published var alertData: AlertData?
 
@@ -40,6 +41,17 @@ final class ReportTransactionsViewModel: ObservableObject, AlertProvidable {
         self.dependencies = dependencies
         self.dateRangeType = dateRangeType
         self.dateRange = dateRangeType.dateRange(of: .now)
+    }
+
+    // MARK: @dynamicMemberLookup
+
+    @MainActor subscript<T>(dynamicMember keyPath: KeyPath<ReportTransactionsModel, T>) -> T {
+        reportModel[keyPath: keyPath]
+    }
+
+    @MainActor subscript<T>(dynamicMember keyPath: WritableKeyPath<ReportTransactionsModel, T>) -> T {
+        get { reportModel[keyPath: keyPath] }
+        set { reportModel[keyPath: keyPath] = newValue }
     }
 
     @MainActor func refreshData() async {

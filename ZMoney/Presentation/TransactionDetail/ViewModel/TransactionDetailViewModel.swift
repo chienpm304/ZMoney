@@ -13,7 +13,8 @@ struct TransactionDetailViewModelActions {
     let didCancelTransactionDetail: () -> Void
 }
 
-class TransactionDetailViewModel: ObservableObject, AlertProvidable {
+@dynamicMemberLookup
+final class TransactionDetailViewModel: ObservableObject, AlertProvidable {
     struct Dependencies {
         let actions: TransactionDetailViewModelActions
         let fetchCategoriesUseCaseFactory: FetchCategoriesUseCaseFactory
@@ -22,7 +23,7 @@ class TransactionDetailViewModel: ObservableObject, AlertProvidable {
         let deleteTransactionsUseCaseFactory: DeleteTransactionsUseCaseFactory
     }
 
-    @Published var transaction: TransactionDetailModel
+    @Published private var transaction: TransactionDetailModel
     @Published var isNewTransaction: Bool
     @Published var alertData: AlertData?
     private var originalTransaction: TransactionDetailModel?
@@ -47,6 +48,13 @@ class TransactionDetailViewModel: ObservableObject, AlertProvidable {
             self.isNewTransaction = true
             self.originalTransaction = nil
         }
+    }
+
+    // MARK: @dynamicMemberLookup
+
+    subscript<T>(dynamicMember keyPath: WritableKeyPath<TransactionDetailModel, T>) -> T {
+        get { transaction[keyPath: keyPath] }
+        set { transaction[keyPath: keyPath] = newValue }
     }
 
     private func prepareForNextTransaction() {

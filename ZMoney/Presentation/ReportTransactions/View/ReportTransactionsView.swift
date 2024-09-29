@@ -41,7 +41,7 @@ struct ReportTransactionsView: View {
             }
             .padding(.horizontal, 12)
 
-            Picker("", selection: $viewModel.reportModel.selectedType) {
+            Picker("", selection: $viewModel.selectedType) {
                 ForEach(CategoryTab.allCases) {
                     Text($0.localizedStringKey)
                 }
@@ -51,9 +51,9 @@ struct ReportTransactionsView: View {
             .padding(.vertical, 8)
 
             TransactionsSummaryView(
-                totalIncome: viewModel.reportModel.totalIncome,
-                totalExpense: viewModel.reportModel.totalExpense,
-                total: viewModel.reportModel.total
+                totalIncome: viewModel.totalIncome,
+                totalExpense: viewModel.totalExpense,
+                total: viewModel.total
             )
             .padding(.horizontal)
 
@@ -76,7 +76,7 @@ struct ReportTransactionsView: View {
                 .listRowSeparator(.hidden)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
 
-                ForEach(viewModel.reportModel.itemsModel, id: \.id) { item in
+                ForEach(viewModel.itemsModel, id: \.id) { item in
                     Button {
                         viewModel.didTapItem(item)
                     } label: {
@@ -122,7 +122,7 @@ struct ReportTransactionsView: View {
     }
 
     private var chartData: DoughnutChartData {
-        let dataPoints: [PieChartDataPoint] = viewModel.reportModel.itemsModel.map {
+        let dataPoints: [PieChartDataPoint] = viewModel.itemsModel.map {
             let name = $0.category.localizedName
             let displayName = name.count > 14 ? "\(name.prefix(14))..." : name
             let description = displayName + " - " + String(format: "%.1f%%", $0.percent)

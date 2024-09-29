@@ -16,6 +16,7 @@ struct SettingsViewModelActions {
     let didTapCategoies: () -> Void
 }
 
+@dynamicMemberLookup
 final class SettingsViewModel: ObservableObject, AlertProvidable {
     struct Dependencies {
         let fetchSettingUseCaseFactory: FetchSettingsUseCaseFactory
@@ -25,7 +26,7 @@ final class SettingsViewModel: ObservableObject, AlertProvidable {
 
     private let previousSettings: DMSettings = .defaultValue
     private var domainModel: DMSettings = .defaultValue
-    @MainActor @Published var settings = SettingsModel(domain: .defaultValue)
+    @MainActor @Published private(set) var settings = SettingsModel(domain: .defaultValue)
 
     @Published var alertData: AlertData?
 
@@ -36,6 +37,13 @@ final class SettingsViewModel: ObservableObject, AlertProvidable {
         Task {
             await fetchSettings()
         }
+    }
+
+    // MARK: @dynamicMemberLookup
+
+    @MainActor subscript<T>(dynamicMember keyPath: WritableKeyPath<SettingsModel, T>) -> T {
+        get { settings[keyPath: keyPath] }
+        set { settings[keyPath: keyPath] = newValue }
     }
 
     @MainActor var currency: DMCurrency { settings.currency }

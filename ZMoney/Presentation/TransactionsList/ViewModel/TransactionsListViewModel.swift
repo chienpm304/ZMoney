@@ -16,6 +16,7 @@ struct TransactionsListViewModelActions {
     let searchTransactions: () -> Void
 }
 
+@dynamicMemberLookup
 final class TransactionsListViewModel: ObservableObject, AlertProvidable {
     struct Dependencies {
         let fetchTransactionByTimeUseCaseFactory: FetchTransactionsByTimeUseCaseFactory
@@ -44,6 +45,13 @@ final class TransactionsListViewModel: ObservableObject, AlertProvidable {
         self.selectedDate = .now
     }
 
+    // MARK: @dynamicMemberLookup
+
+    subscript<T>(dynamicMember keyPath: WritableKeyPath<TransactionsListModel, T>) -> T {
+        get { dataModel[keyPath: keyPath] }
+        set { dataModel[keyPath: keyPath] = newValue }
+    }
+
     private func setupDataModel(with transactions: [DMTransaction]) {
         dataModel = TransactionsListModel(transactions: transactions)
         scrollToDate = dataModel.topScrollDate
@@ -51,19 +59,9 @@ final class TransactionsListViewModel: ObservableObject, AlertProvidable {
 
     // MARK: Public
 
-    var topScrollDate: Date? { dataModel.topScrollDate }
-
     func totalExpense(in date: Date) -> MoneyValue { dataModel.totalExpense(in: date) }
 
     func totalIncome(in date: Date) -> MoneyValue { dataModel.totalIncome(in: date) }
-
-    var totalExpense: MoneyValue { dataModel.totalExpense }
-
-    var totalIncome: MoneyValue { dataModel.totalIncome }
-
-    var total: MoneyValue { dataModel.total }
-
-    var sortedDates: [Date] { dataModel.sortedDates }
 
     func items(inSameDateAs date: Date) -> [TransactionsListItemModel]? {
         dataModel.items(inSameDateAs: date)?.1

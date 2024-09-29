@@ -12,7 +12,8 @@ struct CategoryDetailViewModelActions {
     let notifyDidSavedCategory: (DMCategory) -> Void
 }
 
-final class CategoryDetailViewModel: ObservableObject, AlertProvidable {
+@dynamicMemberLookup
+class CategoryDetailViewModel: ObservableObject, AlertProvidable {
     struct Dependencies {
         let addUseCaseFactory: AddCategoriesUseCaseFactory
         let updateUseCaseFactory: UpdateCategoriesUseCaseFactory
@@ -20,7 +21,7 @@ final class CategoryDetailViewModel: ObservableObject, AlertProvidable {
     }
 
     @Published var alertData: AlertData?
-    @Published var model: CategoryDetailModel
+    @Published private var model: CategoryDetailModel
     private let originalModel: CategoryDetailModel
     let isNewCategory: Bool
     private let dependencies: Dependencies
@@ -39,6 +40,13 @@ final class CategoryDetailViewModel: ObservableObject, AlertProvidable {
         self.model = detailModel
         self.dependencies = dependencies
         self.isNewCategory = isNewCategory
+    }
+
+    // MARK: @dynamicMemberLookup
+
+    subscript<T>(dynamicMember keyPath: WritableKeyPath<CategoryDetailModel, T>) -> T {
+        get { model[keyPath: keyPath] }
+        set { model[keyPath: keyPath] = newValue }
     }
 
     var isSaveEnabled: Bool {

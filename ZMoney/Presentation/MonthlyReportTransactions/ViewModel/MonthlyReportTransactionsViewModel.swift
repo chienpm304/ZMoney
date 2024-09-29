@@ -12,6 +12,7 @@ struct MonthlyReportTransactionsViewModelActions {
     let didTapMonthlyReportItem: (DMCategory, TimeValue /* start of month*/) -> Void
 }
 
+@dynamicMemberLookup
 final class MonthlyReportTransactionsViewModel: ObservableObject, AlertProvidable {
     struct Dependencies {
         let getMonthlyTransactionsReportUseCaseFactory: () -> GetMonthlyTransactionsReportByCategoryUseCase
@@ -19,7 +20,7 @@ final class MonthlyReportTransactionsViewModel: ObservableObject, AlertProvidabl
     }
 
     @Published var alertData: AlertData?
-    @MainActor @Published var model = MonthlyReportTransactionsModel(
+    @MainActor @Published private var model = MonthlyReportTransactionsModel(
         timeRange: DateRange(
             startDate: Date.now.dateAtStartOf(.year),
             endDate: Date.now.dateAtEndOf(.year)
@@ -39,6 +40,17 @@ final class MonthlyReportTransactionsViewModel: ObservableObject, AlertProvidabl
         self.category = category
         self.dateRange = dateRange
         self.dependencies = dependencies
+    }
+
+    // MARK: @dynamicMemberLookup
+
+    @MainActor subscript<T>(dynamicMember keyPath: WritableKeyPath<MonthlyReportTransactionsModel, T>) -> T {
+        get { model[keyPath: keyPath] }
+        set { model[keyPath: keyPath] = newValue }
+    }
+
+    @MainActor subscript<T>(dynamicMember keyPath: KeyPath<MonthlyReportTransactionsModel, T>) -> T {
+        model[keyPath: keyPath]
     }
 
     var navigationTitle: String {

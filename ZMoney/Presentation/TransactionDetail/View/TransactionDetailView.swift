@@ -111,7 +111,7 @@ struct TransactionDetailView: View {
 
     private var datePicker: some View {
         DatePicker(
-            selection: $viewModel.transaction.inputTime,
+            selection: $viewModel.inputTime,
             displayedComponents: .date
         ) {
             Text("Date")
@@ -121,7 +121,7 @@ struct TransactionDetailView: View {
     }
 
     private var transactionTypePicker: some View {
-        Picker("Tab", selection: $viewModel.transaction.transactionType) {
+        Picker("Tab", selection: $viewModel.transactionType) {
             ForEach(CategoryTab.allCases) {
                 Text($0.localizedStringKey)
             }
@@ -131,11 +131,11 @@ struct TransactionDetailView: View {
 
     private var amountTextField: some View {
         HStack {
-            Text(viewModel.transaction.transactionType == .expense ? "Expense" : "Income")
+            Text(viewModel.transactionType == .expense ? "Expense" : "Income")
                 .fontWeight(.medium)
                 .frame(width: leftColumsWidth, alignment: .leading)
 
-            CurrencyTextField(amount: $viewModel.transaction.amount)
+            CurrencyTextField(amount: $viewModel.amount)
 
             Text(appSettings.currencySymbol)
         }
@@ -146,7 +146,7 @@ struct TransactionDetailView: View {
             Text("Note")
                 .fontWeight(.medium)
                 .frame(width: leftColumsWidth, alignment: .leading)
-            TextField("Enter value", text: $viewModel.transaction.memo)
+            TextField("Enter value", text: $viewModel.memo)
                 .withFieldBackground()
                 .focused($focusedField)
         }
@@ -156,7 +156,7 @@ struct TransactionDetailView: View {
         CategoryPickerView(
             spacing: 8,
             items: viewModel.filteredCategories,
-            selectedItem: $viewModel.transaction.category
+            selectedItem: $viewModel.category
         ) {
             viewModel.didTapEditCategory()
         }
