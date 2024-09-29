@@ -17,10 +17,6 @@ struct ReportTransactionsView: View {
     var body: some View {
         VStack {
             HStack {
-                Image(systemName: "chevron.down")
-                    .font(.caption)
-                    .foregroundColor(.accentColor)
-
                 Picker("", selection: $viewModel.dateRangeType) {
                     ForEach(DateRangeType.allCases) {
                         Text($0.localizedStringKey)
